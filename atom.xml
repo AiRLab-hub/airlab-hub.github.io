@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title> - Articles</title>
+    <description>Artificial intelligence and Robotics Laboratory</description>
+    <link>
+    </link>
+    
+      
+      <item>
+        <title>Wide Residual Networks</title>
+        
+          <description>&lt;p&gt;Wide Residual Networks&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 27 Jul 2017 19:00:00 +0900</pubDate>
+        <link>
+        /2017/07/WRN</link>
+        <guid isPermaLink="true">/2017/07/WRN</guid>
+      </item>
+      
+    
+  </channel>
+</rss>
