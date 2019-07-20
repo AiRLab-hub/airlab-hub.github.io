@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>/2017/07/WRN</loc>
+<loc>https://blog.airlab.re.kr/2017/07/WRN</loc>
 <lastmod>2017-07-27T19:00:00+09:00</lastmod>
 </url>
 <url>
-<loc>/</loc>
+<loc>https://blog.airlab.re.kr/</loc>
 </url>
 <url>
-<loc>/about/</loc>
+<loc>https://blog.airlab.re.kr/about/</loc>
 </url>
 <url>
-<loc>/tag/paper-review/</loc>
+<loc>https://blog.airlab.re.kr/tag/paper-review/</loc>
 </url>
 <url>
-<loc>/author/jaemin/</loc>
+<loc>https://blog.airlab.re.kr/author/jaemin/</loc>
 </url>
 </urlset>

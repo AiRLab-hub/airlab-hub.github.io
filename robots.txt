@@ -1,1 +1,1 @@
-Sitemap: /sitemap.xml
+Sitemap: https://blog.airlab.re.kr/sitemap.xml
