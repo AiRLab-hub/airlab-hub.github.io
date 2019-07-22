@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>MobileNetV2</title>
+        
+          <description>&lt;p&gt;MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sat, 22 Jul 2017 19:00:00 +0900</pubDate>
+        <link>
+        https://blog.airlab.re.kr/2017/07/mobilenetv2</link>
+        <guid isPermaLink="true">https://blog.airlab.re.kr/2017/07/mobilenetv2</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Wide Residual Networks</title>
         
           <description>&lt;p&gt;Wide Residual Networks&lt;/p&gt;
