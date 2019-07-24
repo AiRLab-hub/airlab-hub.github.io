@@ -1,4 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-07-22T10:27:30+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">MobileNetV2</title><link href="https://blog.airlab.re.kr/2017/07/mobilenetv2" rel="alternate" type="text/html" title="MobileNetV2" /><published>2017-07-22T19:00:00+09:00</published><updated>2017-07-22T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2017/07/mobilenetv2</id><content type="html" xml:base="https://blog.airlab.re.kr/2017/07/mobilenetv2">&lt;p&gt;MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-07-24T15:11:08+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">DenseNet</title><link href="https://blog.airlab.re.kr/2017/07/densenet" rel="alternate" type="text/html" title="DenseNet" /><published>2017-07-24T22:00:00+09:00</published><updated>2017-07-24T22:00:00+09:00</updated><id>https://blog.airlab.re.kr/2017/07/densenet</id><content type="html" xml:base="https://blog.airlab.re.kr/2017/07/densenet">&lt;p&gt;DenseNet: Densely Connected Convolutional Networks&lt;/p&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. :)&lt;/p&gt;
+
+&lt;p&gt;제가 이번에 읽은 논문은 &lt;strong&gt;Densely Connected Convolutional Networks&lt;/strong&gt;(DenseNet) (&lt;a href=&quot;https://arxiv.org/abs/1608.06993&quot;&gt;arXiv:1608.06993&lt;/a&gt;)이며 2016년 처음 발표가 된 연구입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-densenet/resnet-figure1.png&quot; alt=&quot;resnet-figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;ResNet에서의 shortcut Connection과 같은 Shorter Connection의 연구를 통해 과거보다 더 깊고, 더 정확하며, 더 효율적인 네트워크가 만들어져왔습니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문에서는 ResNet과 비슷하지만 다른 네트워크(DenseNet)를 제안하고있습니다.&lt;/p&gt;
+
+&lt;p&gt;DenseNet은 아래와 같이 각각의 레이어의 모든 레어어가 모두 feed-forward로 연결되어있는 구조로 되어있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-densenet/figure1.png&quot; width=&quot;50%&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;각 DenseBlock의 Convolution Layer는 이전의 모든 Convolution Layer의 Output들과 Concatenate되어 Convolution되게 됩니다. 여기서 ResNet과의 차이점이 들어나게 되는데 ResNet은 과거의 Feature Map이 서로 더해지는 반면에 DenseNet에서는 각 Feature Map들이 Concat 되는 것입니다. 이를 통해 DenseNet은 과거의 Feature Map과 현재의 Feature Map이 서로 섞이지 않고 학습이 될 수 있도록 합니다.&lt;/p&gt;
+
+&lt;p&gt;이러한 구조는 아래와 같은 장점을 발생시킵니다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Vanishing-gradient 문제 완화&lt;/li&gt;
+  &lt;li&gt;더 강력한 피쳐 프로파게이션이 가능&lt;/li&gt;
+  &lt;li&gt;피쳐 재사용을 촉진&lt;/li&gt;
+  &lt;li&gt;파라미터의 수를 감소&lt;/li&gt;
+  &lt;li&gt;Regularlizing 효과와 Overfitting 감소&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;그리고 이 논문은 여러 벤치마크 DB인 CIFAR10, CIFAR100, SVHN, ImageNet에서 검증되었고, 논문발표 당시 state-of-the-art를 달성했습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;architecture&quot;&gt;Architecture&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-densenet/table1.png&quot; width=&quot;80%&quot; alt=&quot;table1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;DenseNet은 표와 같은 구조로 설계가 되어있습니다. 여기에서 차별점이 되는 Dense Block과, Transition Block을 한번 알아봅시다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Dense Block&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Dense Block은 DenseNet의 가장 중요한 컨셉이 포함된 블록입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-densenet/figure1.png&quot; width=&quot;50%&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 사진과 같이 각 레이어는 이전의 레이어의 Output을 계속 Concat하여 Feed-forward 합니다. 그러다 보면 어느 지점에서는 채널이 아주 커지는 경우가 생길 수 있는데, 이 때문에 이 논문에서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Growth rate&lt;/code&gt;이라는 개념을 도입합니다. 각 블록의 Convolution들은 Growth rate만큼의 채널만 Output하여 너무 큰 Output이 발생하지 않도록 해줍니다. 따라서, 위 그림은 Growth rate가 4인 경우의 그림입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Transition Block&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;DenseNet은 Feature를 Down-sampling하기 위해 Transition Block을 사용합니다. Transition Block은  1x1 Convolution과 average pooling으로 구성이 돠어있으며, DenseNet의 하이퍼파라미터인 &lt;code class=&quot;highlighter-rouge&quot;&gt;theta&lt;/code&gt;값을 통해 다운샘플링하게 됩니다. 기본으로는 theta에 0.5를 주어 average pooling시 stride를 2 (1/theta)로 주어 다운샘플링하게 됩니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;experimental-result&quot;&gt;Experimental Result&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-densenet/table2.png&quot; width=&quot;80%&quot; alt=&quot;table2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;본 논문에서는 여러 환경에서의 실험을 진행하였는데, DesneNet이 가장 뛰여난 성능을 보이는 것으로 나타났습니다.(수치는 test error(%))&lt;/p&gt;
+
+&lt;h3 id=&quot;implementation-of-densenet-for-cifar10&quot;&gt;Implementation of DenseNet for CIFAR10&lt;/h3&gt;
+
+&lt;p&gt;실제 논문을 &lt;code class=&quot;highlighter-rouge&quot;&gt;pytorch&lt;/code&gt;를 통해 모델을 구현해보았고, 코드는 &lt;a href=&quot;https://github.com/J911/DenseNet-pytorch&quot;&gt;https://github.com/J911/DenseNet-pytorch&lt;/a&gt;에 배포해 두었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-densenet/result.png&quot; width=&quot;80%&quot; alt=&quot;table2&quot; /&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;color&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;growth_rate&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;theta&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;dropout&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;scheduler&lt;/th&gt;
+      &lt;th style=&quot;text-align: right&quot;&gt;test error(%)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Orange&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;32&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0.5&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0.5&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;lr_decay [60, 120, 160]&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;5.45&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Blue&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;32&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0.5&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0.0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;lr_decay [60, 120, 160]&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;7.08&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Pink&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;32&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0.5&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0.0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;CosineAnnealingLR&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;4.86&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Huang, Gao, et al. “Densely connected convolutional networks.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2017.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">DenseNet: Densely Connected Convolutional Networks</summary></entry><entry><title type="html">MobileNetV2</title><link href="https://blog.airlab.re.kr/2017/07/mobilenetv2" rel="alternate" type="text/html" title="MobileNetV2" /><published>2017-07-22T19:00:00+09:00</published><updated>2017-07-22T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2017/07/mobilenetv2</id><content type="html" xml:base="https://blog.airlab.re.kr/2017/07/mobilenetv2">&lt;p&gt;MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 MobileNetV2 : Inverted Residuals and Linear Bottlenecks 입니다. 간단하게 한 줄로 이 논문을 소개하자면 모바일이나, 임베디드에서도 실시간을 작동할 수 있게 모델이 경량화 되면서도, 정확도 또한 많이 떨어지지 않게하여, 속도와 정확도 사이의 트레이드 오프 문제를 어느정도 해결한 네트워크 입니다.&lt;/p&gt;
 

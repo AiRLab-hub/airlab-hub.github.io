@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>DenseNet</title>
+        
+          <description>&lt;p&gt;DenseNet: Densely Connected Convolutional Networks&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 24 Jul 2017 22:00:00 +0900</pubDate>
+        <link>
+        https://blog.airlab.re.kr/2017/07/densenet</link>
+        <guid isPermaLink="true">https://blog.airlab.re.kr/2017/07/densenet</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>MobileNetV2</title>
         
           <description>&lt;p&gt;MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰&lt;/p&gt;
