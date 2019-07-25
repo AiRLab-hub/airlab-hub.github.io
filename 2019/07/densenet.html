@@ -11,7 +11,7 @@
 
 
 
-    <title>Wide Residual Networks</title>
+    <title>DenseNet</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -36,26 +36,26 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="Artificial intelligence and Robotics Laboratory" />
     <link rel="shortcut icon" href="https://blog.airlab.re.kr/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="https://blog.airlab.re.kr/2017/07/WRN" />
+    <link rel="canonical" href="https://blog.airlab.re.kr/2019/07/densenet" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="AiRLab. Research Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Wide Residual Networks" />
-    <meta property="og:description" content="Wide Residual Networks 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. 앞으로 연구실 세미나 준비를 통해 알게 된 내용을 연구실 블로그에 기록하게 되었습니다 :) 제가 이번에 읽은 논문은 Wide Residual Networks(Wide ResNet) (arXiv:1605.07146)이며 2016년 발표가 된 연구입니다. 같은 과거의 연구들은 점진적으로 CNN(Convolution Neural Networks)이 이미지 인식을 위해 더 깊어질 수 있도록" />
-    <meta property="og:url" content="https://blog.airlab.re.kr/2017/07/WRN" />
-    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-07-17-WRN/cover.png" />
+    <meta property="og:title" content="DenseNet" />
+    <meta property="og:description" content="DenseNet: Densely Connected Convolutional Networks 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. :) 제가 이번에 읽은 논문은 Densely Connected Convolutional Networks(DenseNet) (arXiv:1608.06993)이며 2016년 처음 발표가 된 연구입니다. ResNet에서의 shortcut Connection과 같은 Shorter Connection의 연구를 통해 과거보다 더 깊고, 더 정확하며, 더 효율적인 네트워크가 만들어져왔습니다. 이 논문에서는 ResNet과 비슷하지만 다른 네트워크(DenseNet)를" />
+    <meta property="og:url" content="https://blog.airlab.re.kr/2019/07/densenet" />
+    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-07-24-densenet/cover.png" />
     <meta property="article:publisher" content="https://www.facebook.com/false" />
     <meta property="article:author" content="https://www.facebook.com/false" />
-    <meta property="article:published_time" content="2017-07-17T19:00:00+09:00" />
-    <meta property="article:modified_time" content="2017-07-17T19:00:00+09:00" />
+    <meta property="article:published_time" content="2019-07-24T22:00:00+09:00" />
+    <meta property="article:modified_time" content="2019-07-24T22:00:00+09:00" />
     <meta property="article:tag" content="Paper-review" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Wide Residual Networks" />
-    <meta name="twitter:description" content="Wide Residual Networks 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. 앞으로 연구실 세미나 준비를 통해 알게 된 내용을 연구실 블로그에 기록하게 되었습니다 :) 제가 이번에 읽은 논문은 Wide Residual Networks(Wide ResNet) (arXiv:1605.07146)이며 2016년 발표가 된 연구입니다. 같은 과거의 연구들은 점진적으로 CNN(Convolution Neural Networks)이 이미지 인식을 위해 더 깊어질 수 있도록" />
+    <meta name="twitter:title" content="DenseNet" />
+    <meta name="twitter:description" content="DenseNet: Densely Connected Convolutional Networks 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. :) 제가 이번에 읽은 논문은 Densely Connected Convolutional Networks(DenseNet) (arXiv:1608.06993)이며 2016년 처음 발표가 된 연구입니다. ResNet에서의 shortcut Connection과 같은 Shorter Connection의 연구를 통해 과거보다 더 깊고, 더 정확하며, 더 효율적인 네트워크가 만들어져왔습니다. 이 논문에서는 ResNet과 비슷하지만 다른 네트워크(DenseNet)를" />
     <meta name="twitter:url" content="https://blog.airlab.re.kr/" />
-    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-07-17-WRN/cover.png" />
+    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-07-24-densenet/cover.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="AiRLab. Research Blog" />
     <meta name="twitter:label2" content="Filed under" />
@@ -74,18 +74,18 @@
         "name": "AiRLab. Research Blog",
         "logo": "https://blog.airlab.re.kr/assets/images/airlab-logo.png"
     },
-    "url": "https://blog.airlab.re.kr/2017/07/WRN",
+    "url": "https://blog.airlab.re.kr/2019/07/densenet",
     "image": {
         "@type": "ImageObject",
-        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-07-17-WRN/cover.png",
+        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-07-24-densenet/cover.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://blog.airlab.re.kr/2017/07/WRN"
+        "@id": "https://blog.airlab.re.kr/2019/07/densenet"
     },
-    "description": "Wide Residual Networks 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. 앞으로 연구실 세미나 준비를 통해 알게 된 내용을 연구실 블로그에 기록하게 되었습니다 :) 제가 이번에 읽은 논문은 Wide Residual Networks(Wide ResNet) (arXiv:1605.07146)이며 2016년 발표가 된 연구입니다. 같은 과거의 연구들은 점진적으로 CNN(Convolution Neural Networks)이 이미지 인식을 위해 더 깊어질 수 있도록"
+    "description": "DenseNet: Densely Connected Convolutional Networks 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. :) 제가 이번에 읽은 논문은 Densely Connected Convolutional Networks(DenseNet) (arXiv:1608.06993)이며 2016년 처음 발표가 된 연구입니다. ResNet에서의 shortcut Connection과 같은 Shorter Connection의 연구를 통해 과거보다 더 깊고, 더 정확하며, 더 효율적인 네트워크가 만들어져왔습니다. 이 논문에서는 ResNet과 비슷하지만 다른 네트워크(DenseNet)를"
 }
     </script>
 
@@ -98,7 +98,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Wide Residual Networks" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="DenseNet" href="/feed.xml" />
 
 
 </head>
@@ -153,7 +153,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="17 July 2017">17 July 2017</time>
+                    <time class="post-full-meta-date" datetime="24 July 2019">24 July 2019</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -163,75 +163,118 @@ into the {body} of the default.hbs template -->
                         
                     
                 </section>
-                <h1 class="post-full-title">Wide Residual Networks</h1>
+                <h1 class="post-full-title">DenseNet</h1>
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-07-17-WRN/cover.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-07-24-densenet/cover.png)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <p>Wide Residual Networks</p>
+                    <p>DenseNet: Densely Connected Convolutional Networks</p>
 
-<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. 앞으로 연구실 세미나 준비를 통해 알게 된 내용을 연구실 블로그에 기록하게 되었습니다 :)</p>
+<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. :)</p>
 
-<p>제가 이번에 읽은 논문은 <strong>Wide Residual Networks</strong>(Wide ResNet) (<a href="https://arxiv.org/abs/1605.07146">arXiv:1605.07146</a>)이며 2016년 발표가 된 연구입니다.</p>
+<p>제가 이번에 읽은 논문은 <strong>Densely Connected Convolutional Networks</strong>(DenseNet) (<a href="https://arxiv.org/abs/1608.06993">arXiv:1608.06993</a>)이며 2016년 처음 발표가 된 연구입니다.</p>
 
-<p>같은 과거의 연구들은 점진적으로 CNN(Convolution Neural Networks)이 이미지 인식을 위해 더 깊어질 수 있도록 연구되어왔습니다.</p>
+<p><img src="/assets/images/posts/2019-07-24-densenet/resnet-figure1.png" alt="resnet-figure1" /></p>
 
-<p>이를 위해 Optimizer, Initializer, Skip-connection과 같은 많은 방법들이 연구되어왔고, 그중, ResNet(Residual Networks)는 shortcut connection을 통해 네트워크가 깊어지면 깊어질수록 생기는 <code class="highlighter-rouge">vanishing gradient</code>를 해결하면서도 더 깊게 네트워크를 쌓을 수 있도록 설계되었습니다.</p>
+<p>ResNet에서의 shortcut Connection과 같은 Shorter Connection의 연구를 통해 과거보다 더 깊고, 더 정확하며, 더 효율적인 네트워크가 만들어져왔습니다.</p>
 
-<h3 id="width-vs-depth-in-residual-networks">Width vs Depth in residual Networks</h3>
+<p>이 논문에서는 ResNet과 비슷하지만 다른 네트워크(DenseNet)를 제안하고있습니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-17-WRN/figure1.png" alt="Figure1" /></p>
+<p>DenseNet은 아래와 같이 각각의 레이어의 모든 레어어가 모두 feed-forward로 연결되어있는 구조로 되어있습니다.</p>
 
-<p>ResNet은 shorcut connection을 통해 많은 layer을 학습 할 수 있도록 하였습니다. 하지만 망이 깊어지면 깊어질 수록 의미있는 정보(context)를 갖는 필터의 수의 비가 적어지는 문제가 발생하게 되었습니다.</p>
+<p><img src="/assets/images/posts/2019-07-24-densenet/figure1.png" width="50%" alt="figure1" /></p>
 
-<p>때문에 저자는 Block의 수를 증가시키지 않고, Residual Block의 Channel을 증가시키는 방향으로 연구를 시도하였습니다.</p>
+<p>각 DenseBlock의 Convolution Layer는 이전의 모든 Convolution Layer의 Output들과 Concatenate되어 Convolution되게 됩니다. 여기서 ResNet과의 차이점이 들어나게 되는데 ResNet은 과거의 Feature Map이 서로 더해지는 반면에 DenseNet에서는 각 Feature Map들이 Concat 되는 것입니다. 이를 통해 DenseNet은 과거의 Feature Map과 현재의 Feature Map이 서로 섞이지 않고 학습이 될 수 있도록 합니다.</p>
 
-<p>이 논문에서는 Residual Block을 (a), (c)의 구조와 같이 3x3 컨볼루션이 두 개로 이루어진 경우를 B(3,3)으로 표기하였습니다. 이와 마찬가지로 (b)의 경우는 B(1,3,1) (d)는 B(3,1,3)으로 표기가 가능합니다.</p>
+<p>이러한 구조는 아래와 같은 장점을 발생시킵니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-17-WRN/table1.png" alt="Table1" /></p>
+<ol>
+  <li>Vanishing-gradient 문제 완화</li>
+  <li>더 강력한 피쳐 프로파게이션이 가능</li>
+  <li>피쳐 재사용을 촉진</li>
+  <li>파라미터의 수를 감소</li>
+  <li>Regularlizing 효과와 Overfitting 감소</li>
+</ol>
 
-<p>B(3,3)의 경우 구조가 위와 같이 정의됩니다. K 는 widen factor, N은 블록의 수(각 Residual Block의 수)입니다. 이해를 돕기 위해 K가 2인 경우 아래와 같이 구현이 될 수 있습니다.</p>
+<p>그리고 이 논문은 여러 벤치마크 DB인 CIFAR10, CIFAR100, SVHN, ImageNet에서 검증되었고, 논문발표 당시 state-of-the-art를 달성했습니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">WideResNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="c"># ...</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c"># pseudo code...</span>
-    <span class="c"># ...</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layers</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layers</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="mi">16</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">32</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layers</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="mi">32</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">64</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="c"># ...</span>
-</code></pre></div></div>
+<h3 id="architecture">Architecture</h3>
 
-<h3 id="dropout">Dropout</h3>
-<p>Dropout은 Coadaptive하고 overfitting을 막기 위해 많은 네트워크에 적용되어 왔습니다. 추가적으로 Internal Covariate Shift 이슈를 막기위한 Batch Norm 과 같은 방법들도 연구가되었는데, 이 방법들은 Regularizer의 효과도 볼 수 있습니다.
-이 논문에서는 Residual Block의 컨볼루션 사이에 Dropout(Dorp rate 0.3)을 사용합니다.</p>
+<p><img src="/assets/images/posts/2019-07-24-densenet/table1.png" width="80%" alt="table1" /></p>
 
-<h3 id="experimental-result">Experimental result</h3>
-<p><img src="/assets/images/posts/2019-07-17-WRN/table5.png" alt="Table5" />
-본 논문에서는 CIFAR10과 CIFAR100을 여러 모델을 통해 실험하였고, 위의 결과와 같이 WRN(depth 28, k 10)이 test error 4로 가장 높은 성능을 보였습니다.</p>
+<p>DenseNet은 표와 같은 구조로 설계가 되어있습니다. 여기에서 차별점이 되는 Dense Block과, Transition Block을 한번 알아봅시다.</p>
 
-<p><img src="/assets/images/posts/2019-07-17-WRN/figure2.png" alt="Figure2" /></p>
-<blockquote>
-  <p>실선은 test error, 점선은 train error</p>
-</blockquote>
+<p><strong>Dense Block</strong></p>
 
-<p><img src="/assets/images/posts/2019-07-17-WRN/table6.png" alt="Table6" />
-추가적으로 이 논문에서는 Dropout을 사용한 것과 사용하지 않은 것을 비교하였는데, 이 결과 역시 드롭아웃을 사용한 것이 더 좋은 결과를 보입니다.</p>
+<p>Dense Block은 DenseNet의 가장 중요한 컨셉이 포함된 블록입니다.</p>
 
-<h3 id="implementation-of-wrn">Implementation of WRN</h3>
+<p><img src="/assets/images/posts/2019-07-24-densenet/figure1.png" width="50%" alt="figure1" /></p>
 
-<p>실제 논문을 <code class="highlighter-rouge">pytorch</code>를 통해 모델을 구현해보았고, 코드는 <a href="https://github.com/J911/WRN-pytorch">https://github.com/J911/WRN-pytorch</a>에 배포해 두었습니다.</p>
+<p>위의 사진과 같이 각 레이어는 이전의 레이어의 Output을 계속 Concat하여 Feed-forward 합니다. 그러다 보면 어느 지점에서는 채널이 아주 커지는 경우가 생길 수 있는데, 이 때문에 이 논문에서는 <code class="highlighter-rouge">Growth rate</code>이라는 개념을 도입합니다. 각 블록의 Convolution들은 Growth rate만큼의 채널만 Output하여 너무 큰 Output이 발생하지 않도록 해줍니다. 따라서, 위 그림은 Growth rate가 4인 경우의 그림입니다.</p>
+
+<p><strong>Transition Block</strong></p>
+
+<p>DenseNet은 Feature를 Down-sampling하기 위해 Transition Block을 사용합니다. Transition Block은  1x1 Convolution과 average pooling으로 구성이 돠어있으며, DenseNet의 하이퍼파라미터인 <code class="highlighter-rouge">theta</code>값을 통해 다운샘플링하게 됩니다. 기본으로는 theta에 0.5를 주어 average pooling시 stride를 2 (1/theta)로 주어 다운샘플링하게 됩니다.</p>
+
+<h3 id="experimental-result">Experimental Result</h3>
+
+<p><img src="/assets/images/posts/2019-07-24-densenet/table2.png" width="80%" alt="table2" /></p>
+
+<p>본 논문에서는 여러 환경에서의 실험을 진행하였는데, DesneNet이 가장 뛰여난 성능을 보이는 것으로 나타났습니다.(수치는 test error(%))</p>
+
+<h3 id="implementation-of-densenet-for-cifar10">Implementation of DenseNet for CIFAR10</h3>
+
+<p>실제 논문을 <code class="highlighter-rouge">pytorch</code>를 통해 모델을 구현해보았고, 코드는 <a href="https://github.com/J911/DenseNet-pytorch">https://github.com/J911/DenseNet-pytorch</a>에 배포해 두었습니다.</p>
+
+<p><img src="/assets/images/posts/2019-07-24-densenet/result.png" width="80%" alt="table2" /></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">color</th>
+      <th style="text-align: center">growth_rate</th>
+      <th style="text-align: center">theta</th>
+      <th style="text-align: center">dropout</th>
+      <th style="text-align: center">scheduler</th>
+      <th style="text-align: right">test error(%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Orange</td>
+      <td style="text-align: center">32</td>
+      <td style="text-align: center">0.5</td>
+      <td style="text-align: center">0.5</td>
+      <td style="text-align: center">lr_decay [60, 120, 160]</td>
+      <td style="text-align: right">5.45</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Blue</td>
+      <td style="text-align: center">32</td>
+      <td style="text-align: center">0.5</td>
+      <td style="text-align: center">0.0</td>
+      <td style="text-align: center">lr_decay [60, 120, 160]</td>
+      <td style="text-align: right">7.08</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Pink</td>
+      <td style="text-align: center">32</td>
+      <td style="text-align: center">0.5</td>
+      <td style="text-align: center">0.0</td>
+      <td style="text-align: center">CosineAnnealingLR</td>
+      <td style="text-align: right">4.86</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="references">References</h2>
 <ul>
-  <li>Zagoruyko, Sergey, and Nikos Komodakis. “Wide residual networks.” arXiv preprint arXiv:1605.07146 (2016).</li>
-  <li>He, Kaiming, et al. “Deep residual learning for image recognition.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.</li>
+  <li>Huang, Gao, et al. “Densely connected convolutional networks.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2017.</li>
 </ul>
 
                 </div>
@@ -259,6 +302,10 @@ into the {body} of the default.hbs template -->
                         <div class="post-full-footer-right">
                             <a class="author-card-button" href="/author/jaemin">Read More</a>
                         </div>
+                    
+                
+                    
+                
                     
                 
                     
@@ -306,7 +353,7 @@ into the {body} of the default.hbs template -->
                     <article class="read-next-card"
                         
                             
-                                style="background-image: url(url(/assets/images/posts/2019-07-17-WRN/cover.png)"
+                                style="background-image: url(url(/assets/images/posts/2019-07-24-densenet/cover.png)"
                         
                     >
                         <header class="read-next-card-header">
@@ -323,9 +370,13 @@ into the {body} of the default.hbs template -->
                                 
                                   
                                     
+                                  
+                                
+                                  
+                                    
                                         
                                         
-                                            <li><a href="/2017/07/densenet">DenseNet</a></li>
+                                            <li><a href="/2019/07/mobilenetv2">MobileNetV2</a></li>
                                         
                                     
                                   
@@ -334,12 +385,8 @@ into the {body} of the default.hbs template -->
                                     
                                         
                                         
-                                            <li><a href="/2017/07/mobilenetv2">MobileNetV2</a></li>
+                                            <li><a href="/2019/07/WRN">Wide Residual Networks</a></li>
                                         
-                                    
-                                  
-                                
-                                  
                                     
                                   
                                 
@@ -358,16 +405,19 @@ into the {body} of the default.hbs template -->
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
                 
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/2017/07/mobilenetv2">
+            <a class="post-card-image-link" href="/2019/07/mobilenetv2">
                 <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-07-22-mobilenetv2/cover.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/2017/07/mobilenetv2">
+            <a class="post-card-content-link" href="/2019/07/mobilenetv2">
                 <header class="post-card-header">
                     
                         
@@ -400,6 +450,10 @@ into the {body} of the default.hbs template -->
                 
                     
                 
+                    
+                
+                    
+                
                 <span class="reading-time">
                     
                     
@@ -410,9 +464,6 @@ into the {body} of the default.hbs template -->
         </div>
     </article>
 
-            
-
-            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
             
 
         </div>
@@ -430,18 +481,18 @@ into the {body} of the default.hbs template -->
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Wide Residual Networks</div>
+    <div class="floating-header-title">DenseNet</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Wide+Residual+Networks&amp;url=https://blog.airlab.re.kr/2017/07/WRN"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=DenseNet&amp;url=https://blog.airlab.re.kr/2019/07/densenet"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2017/07/WRN"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/07/densenet"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
