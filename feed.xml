@@ -1,4 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-07-27T15:14:49+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">Bag of Tricks</title><link href="https://blog.airlab.re.kr/2019/07/bag-of-trick" rel="alternate" type="text/html" title="Bag of Tricks" /><published>2019-07-27T05:00:00+09:00</published><updated>2019-07-27T05:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/07/bag-of-trick</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/07/bag-of-trick">&lt;p&gt;Bag of Tricks for Image Classification with Convolutional Neural Networks 리뷰&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-07-29T10:47:00+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">Relational Knowledge Distillation</title><link href="https://blog.airlab.re.kr/2019/07/rkd" rel="alternate" type="text/html" title="Relational Knowledge Distillation" /><published>2019-07-28T22:00:00+09:00</published><updated>2019-07-28T22:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/07/rkd</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/07/rkd">&lt;p&gt;Relational Knowledge Distillation&lt;/p&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!&lt;/p&gt;
+
+&lt;p&gt;오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (&lt;a href=&quot;https://arxiv.org/abs/1904.05068&quot;&gt;arXiv:1904.05068&lt;/a&gt;)이며, CVPR2019에 Accepted 된 논문입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;knowledge-distillation&quot;&gt;Knowledge distillation&lt;/h3&gt;
+
+&lt;p&gt;Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 &lt;code class=&quot;highlighter-rouge&quot;&gt;Distilling the Knowledge in a Neural Network&lt;/code&gt;가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이러한 논문의 시작은 computing resources의 양을 줄이이 위해 시작이 되었는데요,&lt;/p&gt;
+
+&lt;p&gt;만약 모델의 ACC를 높이기 위해서는 모델을 크게 설계를 하면 되지만 모델이 커질 수록 파라미터의 양은 증가하고 더 많은 computing resource를 차지할 것입니다. 이러한 문제는 computing resource를 감당할 수 있는 인프라를 가 없는 사람들에게는 큰 이슈로 남게되고, 특히 서비스로 배포가 되어야하는 모델들은 경량화 되어야 한다는 조건이 많이 붙습니다.&lt;/p&gt;
+
+&lt;p&gt;이러한 이슈로 큰 모델이 학습한 정보를 &lt;code class=&quot;highlighter-rouge&quot;&gt;증류(distillation)&lt;/code&gt;하여, 작은 모델에 주입할 수 있는 Knowledge distillation가 시작되었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure2.png&quot; width=&quot;80%&quot; alt=&quot;figure2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위와 같은 Softmax를 사용하는 네트워크가 있다고 해봅시다. 그러면 one hot으로 작성된 정답 라벨(hard label)과 predict을 비교하여 backward를 하게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;Teacher Model은 위와 같은 프로세스로 학습을 진행하고 큰 모델이기 때문에 좋을 ACC를 만들어 낼 것입니다. 그리고 Student Model은 Teacher Model의 softmax를 거치고 나온 0과 1사이의 확률 값을 soft label로 하여 학습하는 방법이 KD(Knowledge Distillation)입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;relational-knowledge-distillation&quot;&gt;Relational Knowledge Distillation&lt;/h3&gt;
+
+&lt;p&gt;RKD(Relational Knowledge Distillation)는 Knowledge Distillation에서 Knowledge를 어떻게 정의할 것 인가에서 시작이 되었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure1.png&quot; width=&quot;80%&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt;를 각 Input에서 나오는 Teacher의 output, &lt;code class=&quot;highlighter-rouge&quot;&gt;s&lt;/code&gt;를 Student 의 output이라고 했을 때 기존의 KD는 각각의 t가 s에 point-to-point로 연결되는 위 그림과 매칭됩니다. 때문에 이 논문에서는 기존의 KD를 IKD(Individual Knowledge Distillation)라고 표현합니다.&lt;/p&gt;
+
+&lt;p&gt;IKD는 Individual한 output을 Knowledge로 하여 Distillation 한다고 하면, RKD는 output들의 관계(Relation)를 Knowledge로 하여 Distillation합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure3.png&quot; width=&quot;80%&quot; alt=&quot;figure3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 연구에서 이야기 하는 관계는 각 output이 embedding space에 표현될 때의 node간의 distance와 angle입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure4.png&quot; width=&quot;60%&quot; alt=&quot;figure4&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure5.png&quot; width=&quot;60%&quot; alt=&quot;figure5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;distance는 위의 식으로 표현 될 수 있고 뮤는 node간 거리의 평균이라고 이해하면 될 것 같습니다. 따라서 아래와 같은 식을 otim하는 것으로 학습 할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure6.png&quot; width=&quot;60%&quot; alt=&quot;figure6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;angle도 아래와 같이 표현이 가능합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure7.png&quot; width=&quot;60%&quot; alt=&quot;figure7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure8.png&quot; width=&quot;60%&quot; alt=&quot;figure8&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;experiment&quot;&gt;Experiment&lt;/h3&gt;
+
+&lt;p&gt;이 논문에서는 여러 Task(Metric learning, Image classification, Few-shot learning) 에서 위에서 소개한 distance-wise, angle-wise 를 통해 학습한 결과를 다른 네트워크와 비교하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Metric learning&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure9.png&quot; width=&quot;100%&quot; alt=&quot;figure9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Image classification&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure10.png&quot; width=&quot;60%&quot; alt=&quot;figure10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Few-shot learning&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure10.png&quot; width=&quot;60%&quot; alt=&quot;figure10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그 결과 모든 실험에서 가장 좋은 성능을 보였으며, 네트워크가 깊어짐에 따라서 큰 폭으로 성능 향상이 발생하는 것을 보였습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Park, Wonpyo, et al. “Relational Knowledge Distillation.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2019.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hinton, Geoffrey, Oriol Vinyals, and Jeff Dean. “Distilling the knowledge in a neural network.” arXiv preprint arXiv:1503.02531 (2015).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">Relational Knowledge Distillation</summary></entry><entry><title type="html">Bag of Tricks</title><link href="https://blog.airlab.re.kr/2019/07/bag-of-trick" rel="alternate" type="text/html" title="Bag of Tricks" /><published>2019-07-27T05:00:00+09:00</published><updated>2019-07-27T05:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/07/bag-of-trick</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/07/bag-of-trick">&lt;p&gt;Bag of Tricks for Image Classification with Convolutional Neural Networks 리뷰&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Bag of Tricks for Image Classification with Convolutional Neural Networks”&lt;/strong&gt; 입니다.&lt;/p&gt;
 
