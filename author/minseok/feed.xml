@@ -2,10 +2,10 @@
 
 <feed xmlns="http://www.w3.org/2005/Atom" >
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
-  <link href="https://blog.airlab.re.kr/author/minseok/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" />
-  <updated>2019-08-04T12:42:42+09:00</updated>
-  <id>https://blog.airlab.re.kr/author/minseok/feed.xml</id>
+  <link href="http://localhost:4000/author/minseok/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
+  <updated>2019-08-31T11:57:34+09:00</updated>
+  <id>http://localhost:4000/author/minseok/feed.xml</id>
 
   
   
@@ -40,12 +40,134 @@
 
   
     <entry>
+      <title type="html">Group Normalization</title>
+      <link href="http://localhost:4000/2019/08/Group-Normalization" rel="alternate" type="text/html" title="Group Normalization" />
+      <published>2019-08-21T05:00:00+09:00</published>
+      <updated>2019-08-21T05:00:00+09:00</updated>
+      <id>http://localhost:4000/2019/08/Group-Normalization</id>
+      <content type="html" xml:base="http://localhost:4000/2019/08/Group-Normalization">&lt;p&gt;Group Normalization 리뷰&lt;/p&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Group Normalization”&lt;/strong&gt; 입니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문은 Yuxin Wu와 Kaiming He 씨가, batch의 크기가 어쩔수 없이 작아야 하는 상황(detection, segmentation and video)에서 batch norm의 한계점을 느끼고 이를 개선하는 방법을 제안 합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Batch Normalization은 딥러닝에서 모델을 설계할 때 필수요소처럼 여겨지고 있습니다. 하지만 detection, segmentation, video와 같이 메모리 소비 때문에 어쩔 수 없이 batch의 크기가 제약될 때 Batch Normalization의 오류는 빠르게 증가합니다. 이 논문에서는 Batch Normalization을 대체할 Group Normalization을 제안하고, 다양한 task에서 이를 실험하고 결과를 보여줍니다. 당연히 결과는  Group Normalization 이 좋습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure1.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;related-work&quot;&gt;Related Work&lt;/h3&gt;
+
+&lt;p&gt;Batch Normalization의 치명적인 단점을 해결하기 위한 노력은 과거에도 많이 있었습니다. Batch Normalization은 말 그대로 Batch 단위로 Normalization 하는것 인데 batch 크기에 영향을 많이 받습니다. 그렇기 때문에 논문에서 소개하는 Related Work은 대부분이 채널 단위로 Normalization을 합니다. 아래의 두 식은 일반적으로 사용하는 평균과 표준편차를 구하느 식 입니다. μ 는 평균이고 σ는 표준편차 입니다. i는 feature 입니다. 예를들어  2D 이미지에서 i는 (iN,iC,iH,iW) 이고 4개의 백터(N, C, H, W)를 가지고 있습니다. ε은 아주 작은값 입니다. X  와 평균 X’이 같으면 0이 되기 때문에 이를 방지하기 위한 값 입니다. S 는 평균과 표준편차가 계산된 픽셀의 집합입니다.&lt;/p&gt;
+
+&lt;p&gt;앞으로 소개드릴 LN,IN,GN은 BN과 마찬가지로 , 학습 가능한 파라메터 γ,β 가 존재하고, 감마는 스케일 베타는 쉬프트 입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul.png&quot; alt=&quot;formul1&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul1.png&quot; alt=&quot;formul2&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;layer-norm&quot;&gt;Layer Norm&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure2.png&quot; alt=&quot;Figure2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Layer Normalization은 Feature 차원 Normalization 입니다. batch 단위로 Normalization 하는 것이 아니라 데이터의 한 이터레이션 마다 평균과 표준편차를 구해주는 것 입니다. 아래의 그림과 식을보면 더 이해가 잘 되실 것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul2.png&quot; alt=&quot;formul3&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure3.png&quot; alt=&quot;Figure3&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;instance-norm&quot;&gt;Instance Norm&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure4.png&quot; alt=&quot;Figure4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Instance Normalization은 Layer Norm에서 각 채널마다 Normalization 해주는 방법 입니다. style transfer을 위해 고안된 방법이기 때문에 style transfer에서 BN을 대체하여 많이 사용하고, real-time generation에 효과적 이라고 알려져 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul4.png&quot; alt=&quot;formul4&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;group-normalization&quot;&gt;Group Normalization&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure5.png&quot; alt=&quot;Figure5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Group Normalization은 Layer Norm과 Instance Norm의 중간쯤 이라고 생각하시면 이해하기 편하실꺼 같습니다. 채널을 그룹지어서 그룹단위로 Normalization 하는 방법입니다. 만약 그룹이 채널 전체면 Layer Norm이 되는것이고, 그룹이 채널 하나면 Instance Norm 이 되는것 입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul5.png&quot; alt=&quot;formul5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;코드로 구현하기 매우 간단합니다.  아래는 pytorch로 구현한 코드 입니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch.nn&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GroupBatchnorm2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eps&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1e-10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GroupBatchnorm2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group_num&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 전체 채널을 나눌 그룹 숫자입니다.&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 학습가능한 파라메터 gamma&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;beta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 학습가능한 파레메터 beta&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eps&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eps&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 0방지&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;forward&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;W&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 그룹으로 묶고&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keepdim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 평균&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keepdim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 표준편차&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;W&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 원래대로 돌리기.&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;beta&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Group의 개수 또한 유동적으로 변경되는 값입니다. 이 논문에서는 그룹을 32개 만드는게 가장 좋았다고 합니다. 아래 그림에 보이시는것 처럼 그룹이 1 개이면 LN과 같고 그룹당 채널이 1 이면 IN과 같습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure6.png&quot; alt=&quot;Figure6&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;experiments&quot;&gt;Experiments&lt;/h4&gt;
+
+&lt;p&gt;아래 그림은 batch 크기가 32 images/GPU에서 BN, LN, IN, GN 의 train error 와 val error의 비교 입니다. 잘 알려져 있는것 처럼 BN이 가장 좋은 성능을 보입니다. 하지만 GN도 BN과 비교해서 그래서 크게 차이가 나는게 아닙니다. 또한 왼쪽 train error 그림을 보시면 GN이 조금더 train error가 작습니다. 이걸로 보아 GN이 최적화 하는 능력이 더 좋다고 볼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure7.png&quot; alt=&quot;Figure7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;아래 그림은 batch 크기가 변함의 따라 BN과 GN의 성능 차이를 나타낸 그래프 입니다. BN은 batch 크기가 작아지면 작아질 수록 정확도가 매우 떨어졌으나, GN은 batch 크기가 변함의 따라 정확도의 차이가 거의 없습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure8.png&quot; alt=&quot;Figure8&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
+
+&lt;p&gt;GN은 옛날부터 관심있던 논문인데 이제서야 제대로 읽었습니다.! 이 논문역시 다양한 Normalization 방법을 잘 정리해주고, 의식에 흐름대로 궁금증을 다 실험하고 풀어줘서 너무 좋았습니다.!! Experiments는 제가 중요하다고 생각하는 부분만 설명하고 , 나머지는 생략했기 때문에 더 자세한 내용을 알고 싶으신 분들은 본 논문을 참고하시기 바랍니다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Minseok Seo</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="paper-review" />
+      
+
+      
+        <summary type="html">Group Normalization 리뷰</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
       <title type="html">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</title>
-      <link href="https://blog.airlab.re.kr/2019/08/kinetics-dataset" rel="alternate" type="text/html" title="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset" />
+      <link href="http://localhost:4000/2019/08/kinetics-dataset" rel="alternate" type="text/html" title="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset" />
       <published>2019-08-03T17:00:00+09:00</published>
       <updated>2019-08-03T17:00:00+09:00</updated>
-      <id>https://blog.airlab.re.kr/2019/08/kinetics-dataset</id>
-      <content type="html" xml:base="https://blog.airlab.re.kr/2019/08/kinetics-dataset">&lt;p&gt;Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰&lt;/p&gt;
+      <id>http://localhost:4000/2019/08/kinetics-dataset</id>
+      <content type="html" xml:base="http://localhost:4000/2019/08/kinetics-dataset">&lt;p&gt;Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset”&lt;/strong&gt; 입니다.&lt;/p&gt;
 
@@ -160,11 +282,11 @@ RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만
   
     <entry>
       <title type="html">Bag of Tricks</title>
-      <link href="https://blog.airlab.re.kr/2019/07/bag-of-trick" rel="alternate" type="text/html" title="Bag of Tricks" />
+      <link href="http://localhost:4000/2019/07/bag-of-trick" rel="alternate" type="text/html" title="Bag of Tricks" />
       <published>2019-07-27T05:00:00+09:00</published>
       <updated>2019-07-27T05:00:00+09:00</updated>
-      <id>https://blog.airlab.re.kr/2019/07/bag-of-trick</id>
-      <content type="html" xml:base="https://blog.airlab.re.kr/2019/07/bag-of-trick">&lt;p&gt;Bag of Tricks for Image Classification with Convolutional Neural Networks 리뷰&lt;/p&gt;
+      <id>http://localhost:4000/2019/07/bag-of-trick</id>
+      <content type="html" xml:base="http://localhost:4000/2019/07/bag-of-trick">&lt;p&gt;Bag of Tricks for Image Classification with Convolutional Neural Networks 리뷰&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Bag of Tricks for Image Classification with Convolutional Neural Networks”&lt;/strong&gt; 입니다.&lt;/p&gt;
 
@@ -307,11 +429,11 @@ pytorch에서는 SGD의 파라메터중 nesterov를 True로 해주시면 됩니�
   
     <entry>
       <title type="html">MobileNetV2</title>
-      <link href="https://blog.airlab.re.kr/2019/07/mobilenetv2" rel="alternate" type="text/html" title="MobileNetV2" />
+      <link href="http://localhost:4000/2019/07/mobilenetv2" rel="alternate" type="text/html" title="MobileNetV2" />
       <published>2019-07-22T19:00:00+09:00</published>
       <updated>2019-07-22T19:00:00+09:00</updated>
-      <id>https://blog.airlab.re.kr/2019/07/mobilenetv2</id>
-      <content type="html" xml:base="https://blog.airlab.re.kr/2019/07/mobilenetv2">&lt;p&gt;MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰&lt;/p&gt;
+      <id>http://localhost:4000/2019/07/mobilenetv2</id>
+      <content type="html" xml:base="http://localhost:4000/2019/07/mobilenetv2">&lt;p&gt;MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 MobileNetV2 : Inverted Residuals and Linear Bottlenecks 입니다. 간단하게 한 줄로 이 논문을 소개하자면 모바일이나, 임베디드에서도 실시간을 작동할 수 있게 모델이 경량화 되면서도, 정확도 또한 많이 떨어지지 않게하여, 속도와 정확도 사이의 트레이드 오프 문제를 어느정도 해결한 네트워크 입니다.&lt;/p&gt;
 

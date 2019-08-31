@@ -11,7 +11,7 @@
 
 
 
-    <title>Relational Knowledge Distillation</title>
+    <title>Group Normalization</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -36,26 +36,26 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="Artificial intelligence and Robotics Laboratory" />
     <link rel="shortcut icon" href="http://localhost:4000/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="http://localhost:4000/2019/07/rkd" />
+    <link rel="canonical" href="http://localhost:4000/2019/08/Group-Normalization" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="AiRLab. Research Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Relational Knowledge Distillation" />
-    <meta property="og:description" content="Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은" />
-    <meta property="og:url" content="http://localhost:4000/2019/07/rkd" />
-    <meta property="og:image" content="http://localhost:4000/assets/images/posts/2019-07-24-rkd/cover.png" />
+    <meta property="og:title" content="Group Normalization" />
+    <meta property="og:description" content="Group Normalization 리뷰 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 “Group Normalization” 입니다. 이 논문은 Yuxin Wu와 Kaiming He 씨가, batch의 크기가 어쩔수 없이 작아야 하는 상황(detection, segmentation and video)에서 batch norm의 한계점을 느끼고 이를 개선하는 방법을 제안 합니다. Introduction Batch Normalization은" />
+    <meta property="og:url" content="http://localhost:4000/2019/08/Group-Normalization" />
+    <meta property="og:image" content="http://localhost:4000/assets/images/posts/2019-08-21-Group-Normalization/cover.png" />
     <meta property="article:publisher" content="https://www.facebook.com/false" />
     <meta property="article:author" content="https://www.facebook.com/false" />
-    <meta property="article:published_time" content="2019-07-28T22:00:00+09:00" />
-    <meta property="article:modified_time" content="2019-07-28T22:00:00+09:00" />
+    <meta property="article:published_time" content="2019-08-21T05:00:00+09:00" />
+    <meta property="article:modified_time" content="2019-08-21T05:00:00+09:00" />
     <meta property="article:tag" content="Paper-review" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Relational Knowledge Distillation" />
-    <meta name="twitter:description" content="Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은" />
+    <meta name="twitter:title" content="Group Normalization" />
+    <meta name="twitter:description" content="Group Normalization 리뷰 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 “Group Normalization” 입니다. 이 논문은 Yuxin Wu와 Kaiming He 씨가, batch의 크기가 어쩔수 없이 작아야 하는 상황(detection, segmentation and video)에서 batch norm의 한계점을 느끼고 이를 개선하는 방법을 제안 합니다. Introduction Batch Normalization은" />
     <meta name="twitter:url" content="http://localhost:4000/" />
-    <meta name="twitter:image" content="http://localhost:4000/assets/images/posts/2019-07-24-rkd/cover.png" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/posts/2019-08-21-Group-Normalization/cover.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="AiRLab. Research Blog" />
     <meta name="twitter:label2" content="Filed under" />
@@ -74,18 +74,18 @@
         "name": "AiRLab. Research Blog",
         "logo": "http://localhost:4000/assets/images/airlab-logo.png"
     },
-    "url": "http://localhost:4000/2019/07/rkd",
+    "url": "http://localhost:4000/2019/08/Group-Normalization",
     "image": {
         "@type": "ImageObject",
-        "url": "http://localhost:4000/assets/images/posts/2019-07-24-rkd/cover.png",
+        "url": "http://localhost:4000/assets/images/posts/2019-08-21-Group-Normalization/cover.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "http://localhost:4000/2019/07/rkd"
+        "@id": "http://localhost:4000/2019/08/Group-Normalization"
     },
-    "description": "Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은"
+    "description": "Group Normalization 리뷰 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 “Group Normalization” 입니다. 이 논문은 Yuxin Wu와 Kaiming He 씨가, batch의 크기가 어쩔수 없이 작아야 하는 상황(detection, segmentation and video)에서 batch norm의 한계점을 느끼고 이를 개선하는 방법을 제안 합니다. Introduction Batch Normalization은"
 }
     </script>
 
@@ -98,7 +98,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Relational Knowledge Distillation" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Group Normalization" href="/feed.xml" />
 
 
 </head>
@@ -153,7 +153,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="28 July 2019">28 July 2019</time>
+                    <time class="post-full-meta-date" datetime="21 August 2019">21 August 2019</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -163,92 +163,105 @@ into the {body} of the default.hbs template -->
                         
                     
                 </section>
-                <h1 class="post-full-title">Relational Knowledge Distillation</h1>
+                <h1 class="post-full-title">Group Normalization</h1>
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-07-24-rkd/cover.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-08-21-Group-Normalization/cover.png)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <p>Relational Knowledge Distillation</p>
+                    <p>Group Normalization 리뷰</p>
 
-<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!</p>
+<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 <strong>“Group Normalization”</strong> 입니다.</p>
 
-<p>오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (<a href="https://arxiv.org/abs/1904.05068">arXiv:1904.05068</a>)이며, CVPR2019에 Accepted 된 논문입니다.</p>
+<p>이 논문은 Yuxin Wu와 Kaiming He 씨가, batch의 크기가 어쩔수 없이 작아야 하는 상황(detection, segmentation and video)에서 batch norm의 한계점을 느끼고 이를 개선하는 방법을 제안 합니다.</p>
 
-<h3 id="knowledge-distillation">Knowledge distillation</h3>
+<h3 id="introduction">Introduction</h3>
 
-<p>Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 <code class="highlighter-rouge">Distilling the Knowledge in a Neural Network</code>가 있습니다.</p>
+<p>Batch Normalization은 딥러닝에서 모델을 설계할 때 필수요소처럼 여겨지고 있습니다. 하지만 detection, segmentation, video와 같이 메모리 소비 때문에 어쩔 수 없이 batch의 크기가 제약될 때 Batch Normalization의 오류는 빠르게 증가합니다. 이 논문에서는 Batch Normalization을 대체할 Group Normalization을 제안하고, 다양한 task에서 이를 실험하고 결과를 보여줍니다. 당연히 결과는  Group Normalization 이 좋습니다.</p>
 
-<p>이러한 논문의 시작은 computing resources의 양을 줄이이 위해 시작이 되었는데요,</p>
+<p><img src="/assets/images/posts/2019-08-21-Group-Normalization/Figure1.png" alt="Figure1" /></p>
 
-<p>만약 모델의 ACC를 높이기 위해서는 모델을 크게 설계를 하면 되지만 모델이 커질 수록 파라미터의 양은 증가하고 더 많은 computing resource를 차지할 것입니다. 이러한 문제는 computing resource를 감당할 수 있는 인프라를 가 없는 사람들에게는 큰 이슈로 남게되고, 특히 서비스로 배포가 되어야하는 모델들은 경량화 되어야 한다는 조건이 많이 붙습니다.</p>
+<h3 id="related-work">Related Work</h3>
 
-<p>이러한 이슈로 큰 모델이 학습한 정보를 <code class="highlighter-rouge">증류(distillation)</code>하여, 작은 모델에 주입할 수 있는 Knowledge distillation가 시작되었습니다.</p>
+<p>Batch Normalization의 치명적인 단점을 해결하기 위한 노력은 과거에도 많이 있었습니다. Batch Normalization은 말 그대로 Batch 단위로 Normalization 하는것 인데 batch 크기에 영향을 많이 받습니다. 그렇기 때문에 논문에서 소개하는 Related Work은 대부분이 채널 단위로 Normalization을 합니다. 아래의 두 식은 일반적으로 사용하는 평균과 표준편차를 구하느 식 입니다. μ 는 평균이고 σ는 표준편차 입니다. i는 feature 입니다. 예를들어  2D 이미지에서 i는 (iN,iC,iH,iW) 이고 4개의 백터(N, C, H, W)를 가지고 있습니다. ε은 아주 작은값 입니다. X  와 평균 X’이 같으면 0이 되기 때문에 이를 방지하기 위한 값 입니다. S 는 평균과 표준편차가 계산된 픽셀의 집합입니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure2.png" width="80%" alt="figure2" /></p>
+<p>앞으로 소개드릴 LN,IN,GN은 BN과 마찬가지로 , 학습 가능한 파라메터 γ,β 가 존재하고, 감마는 스케일 베타는 쉬프트 입니다.</p>
 
-<p>위와 같은 Softmax를 사용하는 네트워크가 있다고 해봅시다. 그러면 one hot으로 작성된 정답 라벨(hard label)과 predict을 비교하여 backward를 하게 됩니다.</p>
+<p><img src="/assets/images/posts/2019-08-21-Group-Normalization/formul.png" alt="formul1" />
+<img src="/assets/images/posts/2019-08-21-Group-Normalization/formul1.png" alt="formul2" /></p>
 
-<p>Teacher Model은 위와 같은 프로세스로 학습을 진행하고 큰 모델이기 때문에 좋을 ACC를 만들어 낼 것입니다. 그리고 Student Model은 Teacher Model의 softmax를 거치고 나온 0과 1사이의 확률 값을 soft label로 하여 학습하는 방법이 KD(Knowledge Distillation)입니다.</p>
+<h4 id="layer-norm">Layer Norm</h4>
 
-<h3 id="relational-knowledge-distillation">Relational Knowledge Distillation</h3>
+<p><img src="/assets/images/posts/2019-08-21-Group-Normalization/Figure2.png" alt="Figure2" /></p>
 
-<p>RKD(Relational Knowledge Distillation)는 Knowledge Distillation에서 Knowledge를 어떻게 정의할 것 인가에서 시작이 되었습니다.</p>
+<p>Layer Normalization은 Feature 차원 Normalization 입니다. batch 단위로 Normalization 하는 것이 아니라 데이터의 한 이터레이션 마다 평균과 표준편차를 구해주는 것 입니다. 아래의 그림과 식을보면 더 이해가 잘 되실 것 같습니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure1.png" width="80%" alt="figure1" /></p>
+<p><img src="/assets/images/posts/2019-08-21-Group-Normalization/formul2.png" alt="formul3" />
+<img src="/assets/images/posts/2019-08-21-Group-Normalization/Figure3.png" alt="Figure3" /></p>
 
-<p><code class="highlighter-rouge">t</code>를 각 Input에서 나오는 Teacher의 output, <code class="highlighter-rouge">s</code>를 Student 의 output이라고 했을 때 기존의 KD는 각각의 t가 s에 point-to-point로 연결되는 위 그림과 매칭됩니다. 때문에 이 논문에서는 기존의 KD를 IKD(Individual Knowledge Distillation)라고 표현합니다.</p>
+<h4 id="instance-norm">Instance Norm</h4>
 
-<p>IKD는 Individual한 output을 Knowledge로 하여 Distillation 한다고 하면, RKD는 output들의 관계(Relation)를 Knowledge로 하여 Distillation합니다.</p>
+<p><img src="/assets/images/posts/2019-08-21-Group-Normalization/Figure4.png" alt="Figure4" /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure3.png" width="80%" alt="figure3" /></p>
+<p>Instance Normalization은 Layer Norm에서 각 채널마다 Normalization 해주는 방법 입니다. style transfer을 위해 고안된 방법이기 때문에 style transfer에서 BN을 대체하여 많이 사용하고, real-time generation에 효과적 이라고 알려져 있습니다.</p>
 
-<p>이 연구에서 이야기 하는 관계는 각 output이 embedding space에 표현될 때의 node간의 distance와 angle입니다.</p>
+<p><img src="/assets/images/posts/2019-08-21-Group-Normalization/formul4.png" alt="formul4" /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure4.png" width="60%" alt="figure4" />
-<img src="/assets/images/posts/2019-07-24-rkd/figure5.png" width="60%" alt="figure5" /></p>
+<h3 id="group-normalization">Group Normalization</h3>
 
-<p>distance는 위의 식으로 표현 될 수 있고 뮤는 node간 거리의 평균이라고 이해하면 될 것 같습니다. 따라서 아래와 같은 식을 otim하는 것으로 학습 할 수 있습니다.</p>
+<p><img src="/assets/images/posts/2019-08-21-Group-Normalization/Figure5.png" alt="Figure5" /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure6.png" width="60%" alt="figure6" /></p>
+<p>Group Normalization은 Layer Norm과 Instance Norm의 중간쯤 이라고 생각하시면 이해하기 편하실꺼 같습니다. 채널을 그룹지어서 그룹단위로 Normalization 하는 방법입니다. 만약 그룹이 채널 전체면 Layer Norm이 되는것이고, 그룹이 채널 하나면 Instance Norm 이 되는것 입니다.</p>
 
-<p>angle도 아래와 같이 표현이 가능합니다.</p>
+<p><img src="/assets/images/posts/2019-08-21-Group-Normalization/formul5.png" alt="formul5" /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure7.png" width="60%" alt="figure7" /></p>
+<p>코드로 구현하기 매우 간단합니다.  아래는 pytorch로 구현한 코드 입니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure8.png" width="60%" alt="figure8" /></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="n">nn</span>
 
-<h3 id="experiment">Experiment</h3>
+<span class="k">class</span> <span class="nc">GroupBatchnorm2d</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c_num</span><span class="p">,</span> <span class="n">group_num</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-10</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GroupBatchnorm2d</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group_num</span> <span class="o">=</span> <span class="n">group_num</span> <span class="c"># 전체 채널을 나눌 그룹 숫자입니다.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">c_num</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="c"># 학습가능한 파라메터 gamma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">c_num</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="c"># 학습가능한 파레메터 beta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">=</span> <span class="n">eps</span> <span class="c"># 0방지</span>
 
-<p>이 논문에서는 여러 Task(Metric learning, Image classification, Few-shot learning) 에서 위에서 소개한 distance-wise, angle-wise 를 통해 학습한 결과를 다른 네트워크와 비교하고 있습니다.</p>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">N</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
 
-<p><strong>Metric learning</strong></p>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_num</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c"># 그룹으로 묶고</span>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure9.png" width="100%" alt="figure9" /></p>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">keepdim</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span> <span class="c"># 평균</span>
+        <span class="n">std</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">dim</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">keepdim</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span> <span class="c"># 표준편차</span>
 
-<p><strong>Image classification</strong></p>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">std</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span> <span class="c"># 원래대로 돌리기.</span>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure10.png" width="60%" alt="figure10" /></p>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span>
+</code></pre></div></div>
+<p>Group의 개수 또한 유동적으로 변경되는 값입니다. 이 논문에서는 그룹을 32개 만드는게 가장 좋았다고 합니다. 아래 그림에 보이시는것 처럼 그룹이 1 개이면 LN과 같고 그룹당 채널이 1 이면 IN과 같습니다.</p>
 
-<p><strong>Few-shot learning</strong></p>
+<p><img src="/assets/images/posts/2019-08-21-Group-Normalization/Figure6.png" alt="Figure6" /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure10.png" width="60%" alt="figure10" /></p>
+<h4 id="experiments">Experiments</h4>
 
-<p>그 결과 모든 실험에서 가장 좋은 성능을 보였으며, 네트워크가 깊어짐에 따라서 큰 폭으로 성능 향상이 발생하는 것을 보였습니다.</p>
+<p>아래 그림은 batch 크기가 32 images/GPU에서 BN, LN, IN, GN 의 train error 와 val error의 비교 입니다. 잘 알려져 있는것 처럼 BN이 가장 좋은 성능을 보입니다. 하지만 GN도 BN과 비교해서 그래서 크게 차이가 나는게 아닙니다. 또한 왼쪽 train error 그림을 보시면 GN이 조금더 train error가 작습니다. 이걸로 보아 GN이 최적화 하는 능력이 더 좋다고 볼 수 있습니다.</p>
 
-<h2 id="references">References</h2>
-<ul>
-  <li>
-    <p>Park, Wonpyo, et al. “Relational Knowledge Distillation.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2019.</p>
-  </li>
-  <li>
-    <p>Hinton, Geoffrey, Oriol Vinyals, and Jeff Dean. “Distilling the knowledge in a neural network.” arXiv preprint arXiv:1503.02531 (2015).</p>
-  </li>
-</ul>
+<p><img src="/assets/images/posts/2019-08-21-Group-Normalization/Figure7.png" alt="Figure7" /></p>
+
+<p>아래 그림은 batch 크기가 변함의 따라 BN과 GN의 성능 차이를 나타낸 그래프 입니다. BN은 batch 크기가 작아지면 작아질 수록 정확도가 매우 떨어졌으나, GN은 batch 크기가 변함의 따라 정확도의 차이가 거의 없습니다.</p>
+
+<p><img src="/assets/images/posts/2019-08-21-Group-Normalization/Figure8.png" alt="Figure8" /></p>
+
+<h3 id="후기">후기</h3>
+
+<p>GN은 옛날부터 관심있던 논문인데 이제서야 제대로 읽었습니다.! 이 논문역시 다양한 Normalization 방법을 잘 정리해주고, 의식에 흐름대로 궁금증을 다 실험하고 풀어줘서 너무 좋았습니다.!! Experiments는 제가 중요하다고 생각하는 부분만 설명하고 , 나머지는 생략했기 때문에 더 자세한 내용을 알고 싶으신 분들은 본 논문을 참고하시기 바랍니다.</p>
 
                 </div>
             </section>
@@ -261,22 +274,22 @@ into the {body} of the default.hbs template -->
                 <!-- #author-->
                 
                     
+                
+                    
                         <section class="author-card">
                             
-                                <img class="author-profile-image" src="/assets/images/authors/jaemin.jpeg" alt="jaemin" />
+                                <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="minseok" />
                             
                             <section class="author-card-content">
-                                <h4 class="author-card-name"><a href="/author/jaemin">Jaemin Lee</a></h4>
+                                <h4 class="author-card-name"><a href="/author/minseok">Minseok Seo</a></h4>
                                 
-                                    <p>🔥</p>
+                                    <p>🥟</p>
                                 
                             </section>
                         </section>
                         <div class="post-full-footer-right">
-                            <a class="author-card-button" href="/author/jaemin">Read More</a>
+                            <a class="author-card-button" href="/author/minseok">Read More</a>
                         </div>
-                    
-                
                     
                 
                     
@@ -326,7 +339,7 @@ into the {body} of the default.hbs template -->
                     <article class="read-next-card"
                         
                             
-                                style="background-image: url(url(/assets/images/posts/2019-07-24-rkd/cover.png)"
+                                style="background-image: url(url(/assets/images/posts/2019-08-21-Group-Normalization/cover.png)"
                         
                     >
                         <header class="read-next-card-header">
@@ -352,11 +365,6 @@ into the {body} of the default.hbs template -->
                                 
                                   
                                     
-                                        
-                                        
-                                            <li><a href="/2019/08/Group-Normalization">Group Normalization</a></li>
-                                        
-                                    
                                   
                                 
                                   
@@ -372,10 +380,15 @@ into the {body} of the default.hbs template -->
                                     
                                         
                                         
+                                            <li><a href="/2019/08/kinetics-dataset">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</a></li>
+                                        
                                     
                                   
                                 
                                   
+                                    
+                                        
+                                        
                                     
                                   
                                 
@@ -426,12 +439,12 @@ into the {body} of the default.hbs template -->
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/2019/08/kinetics-dataset">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-08-04-kinetics-dataset/cover.PNG)"></div>
+            <a class="post-card-image-link" href="/2019/08/upernet">
+                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-08-21-upernet/01.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/08/kinetics-dataset">
+            <a class="post-card-content-link" href="/2019/08/upernet">
                 <header class="post-card-header">
                     
                         
@@ -441,7 +454,7 @@ into the {body} of the default.hbs template -->
                         
                     
 
-                    <h2 class="post-card-title">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</h2>
+                    <h2 class="post-card-title">Unified Perceptual Parsing for Scene Understanding</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -454,14 +467,14 @@ into the {body} of the default.hbs template -->
                     
                 
                     
+                
+                    
                         
-                        <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="Minseok Seo" />
+                        <img class="author-profile-image" src="/assets/images/authors/soyeol.jpeg" alt="Soyeol Lee" />
                         
                         <span class="post-card-author">
-                            <a href="/author/minseok/">Minseok Seo</a>
+                            <a href="/author/soyeol/">Soyeol Lee</a>
                         </span>
-                    
-                
                     
                 
                     
@@ -486,12 +499,12 @@ into the {body} of the default.hbs template -->
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/2019/07/bag-of-trick">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-07-27-bag-of-tricks/cover.png)"></div>
+            <a class="post-card-image-link" href="/2019/08/resnext">
+                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-08-20-resnext/01.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/07/bag-of-trick">
+            <a class="post-card-content-link" href="/2019/08/resnext">
                 <header class="post-card-header">
                     
                         
@@ -501,7 +514,7 @@ into the {body} of the default.hbs template -->
                         
                     
 
-                    <h2 class="post-card-title">Bag of Tricks</h2>
+                    <h2 class="post-card-title">ResNeXt:Aggregated Residual Transformations for Deep Neural Networks</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -514,14 +527,14 @@ into the {body} of the default.hbs template -->
                     
                 
                     
+                
+                    
                         
-                        <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="Minseok Seo" />
+                        <img class="author-profile-image" src="/assets/images/authors/soyeol.jpeg" alt="Soyeol Lee" />
                         
                         <span class="post-card-author">
-                            <a href="/author/minseok/">Minseok Seo</a>
+                            <a href="/author/soyeol/">Soyeol Lee</a>
                         </span>
-                    
-                
                     
                 
                     
@@ -555,18 +568,18 @@ into the {body} of the default.hbs template -->
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Relational Knowledge Distillation</div>
+    <div class="floating-header-title">Group Normalization</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Relational+Knowledge+Distillation&amp;url=https://blog.airlab.re.kr/2019/07/rkd"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Group+Normalization&amp;url=https://blog.airlab.re.kr/2019/08/Group-Normalization"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/07/rkd"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/08/Group-Normalization"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 

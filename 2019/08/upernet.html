@@ -11,7 +11,7 @@
 
 
 
-    <title>Relational Knowledge Distillation</title>
+    <title>Unified Perceptual Parsing for Scene Understanding</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -36,26 +36,26 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="Artificial intelligence and Robotics Laboratory" />
     <link rel="shortcut icon" href="http://localhost:4000/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="http://localhost:4000/2019/07/rkd" />
+    <link rel="canonical" href="http://localhost:4000/2019/08/upernet" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="AiRLab. Research Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Relational Knowledge Distillation" />
-    <meta property="og:description" content="Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은" />
-    <meta property="og:url" content="http://localhost:4000/2019/07/rkd" />
-    <meta property="og:image" content="http://localhost:4000/assets/images/posts/2019-07-24-rkd/cover.png" />
+    <meta property="og:title" content="Unified Perceptual Parsing for Scene Understanding" />
+    <meta property="og:description" content="Unified Perceptual Parsing for Scene Understanding Understanding 안녕하세요! AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이소열입니다! 이번에 소개할 논문은 Unified Perceptual Parsing for Scene Understanding입니다. 이 논문의 실제 구현은 https://github.com/CSAILVision/unifiedparsing 에 있습니다! 1. Introduction 인간의 눈은 한번 장면을 본 것 뿐으로, 매우 다양한 정보를 추출해낼 수 있습니다. 어떤 장면을 보고있는것인지, 이 물체가" />
+    <meta property="og:url" content="http://localhost:4000/2019/08/upernet" />
+    <meta property="og:image" content="http://localhost:4000/assets/images/posts/2019-08-21-upernet/01.png" />
     <meta property="article:publisher" content="https://www.facebook.com/false" />
     <meta property="article:author" content="https://www.facebook.com/false" />
-    <meta property="article:published_time" content="2019-07-28T22:00:00+09:00" />
-    <meta property="article:modified_time" content="2019-07-28T22:00:00+09:00" />
+    <meta property="article:published_time" content="2019-08-21T19:03:00+09:00" />
+    <meta property="article:modified_time" content="2019-08-21T19:03:00+09:00" />
     <meta property="article:tag" content="Paper-review" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Relational Knowledge Distillation" />
-    <meta name="twitter:description" content="Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은" />
+    <meta name="twitter:title" content="Unified Perceptual Parsing for Scene Understanding" />
+    <meta name="twitter:description" content="Unified Perceptual Parsing for Scene Understanding Understanding 안녕하세요! AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이소열입니다! 이번에 소개할 논문은 Unified Perceptual Parsing for Scene Understanding입니다. 이 논문의 실제 구현은 https://github.com/CSAILVision/unifiedparsing 에 있습니다! 1. Introduction 인간의 눈은 한번 장면을 본 것 뿐으로, 매우 다양한 정보를 추출해낼 수 있습니다. 어떤 장면을 보고있는것인지, 이 물체가" />
     <meta name="twitter:url" content="http://localhost:4000/" />
-    <meta name="twitter:image" content="http://localhost:4000/assets/images/posts/2019-07-24-rkd/cover.png" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/posts/2019-08-21-upernet/01.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="AiRLab. Research Blog" />
     <meta name="twitter:label2" content="Filed under" />
@@ -74,18 +74,18 @@
         "name": "AiRLab. Research Blog",
         "logo": "http://localhost:4000/assets/images/airlab-logo.png"
     },
-    "url": "http://localhost:4000/2019/07/rkd",
+    "url": "http://localhost:4000/2019/08/upernet",
     "image": {
         "@type": "ImageObject",
-        "url": "http://localhost:4000/assets/images/posts/2019-07-24-rkd/cover.png",
+        "url": "http://localhost:4000/assets/images/posts/2019-08-21-upernet/01.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "http://localhost:4000/2019/07/rkd"
+        "@id": "http://localhost:4000/2019/08/upernet"
     },
-    "description": "Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은"
+    "description": "Unified Perceptual Parsing for Scene Understanding Understanding 안녕하세요! AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이소열입니다! 이번에 소개할 논문은 Unified Perceptual Parsing for Scene Understanding입니다. 이 논문의 실제 구현은 https://github.com/CSAILVision/unifiedparsing 에 있습니다! 1. Introduction 인간의 눈은 한번 장면을 본 것 뿐으로, 매우 다양한 정보를 추출해낼 수 있습니다. 어떤 장면을 보고있는것인지, 이 물체가"
 }
     </script>
 
@@ -98,7 +98,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Relational Knowledge Distillation" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Unified Perceptual Parsing for Scene Understanding" href="/feed.xml" />
 
 
 </head>
@@ -153,7 +153,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="28 July 2019">28 July 2019</time>
+                    <time class="post-full-meta-date" datetime="21 August 2019">21 August 2019</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -163,91 +163,126 @@ into the {body} of the default.hbs template -->
                         
                     
                 </section>
-                <h1 class="post-full-title">Relational Knowledge Distillation</h1>
+                <h1 class="post-full-title">Unified Perceptual Parsing for Scene Understanding</h1>
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-07-24-rkd/cover.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-08-21-upernet/01.png)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <p>Relational Knowledge Distillation</p>
+                    <h1 id="unified-perceptual-parsing-for-scene-understanding">Unified Perceptual Parsing for Scene Understanding</h1>
+<p>Understanding</p>
 
-<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!</p>
+<p>안녕하세요! <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 이소열입니다!</p>
 
-<p>오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (<a href="https://arxiv.org/abs/1904.05068">arXiv:1904.05068</a>)이며, CVPR2019에 Accepted 된 논문입니다.</p>
+<p>이번에 소개할 논문은 <strong>Unified Perceptual Parsing for Scene Understanding</strong>입니다.</p>
 
-<h3 id="knowledge-distillation">Knowledge distillation</h3>
+<p><strong>이 논문의 실제 구현은 https://github.com/CSAILVision/unifiedparsing 에 있습니다!</strong></p>
 
-<p>Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 <code class="highlighter-rouge">Distilling the Knowledge in a Neural Network</code>가 있습니다.</p>
+<h2 id="1-introduction">1. Introduction</h2>
 
-<p>이러한 논문의 시작은 computing resources의 양을 줄이이 위해 시작이 되었는데요,</p>
+<p>인간의 눈은 한번 장면을 본 것 뿐으로, 매우 다양한 정보를 추출해낼 수 있습니다. 어떤 장면을 보고있는것인지, 이 물체가 무엇인지, 이 물체가 무엇으로 이루어져 있는지(part), 어떤 재질, 재료로 이루어져 있는지 등 다양한 정보가 담겨있습니다. 
+딥러닝과 이미지처리의 발전으로 인간 수준의 recognition이 가능하게 되었지만, 다양한 visual recognition task들은 독립적으로 진행되었습니다. 독립적으로 진행됨에 따라, 이 다양한 작업들을 동시에 진행/학습할 수 있을까? 라는 의문이 생기게 되었고, 이는 논문의 motive가 되었습니다.</p>
 
-<p>만약 모델의 ACC를 높이기 위해서는 모델을 크게 설계를 하면 되지만 모델이 커질 수록 파라미터의 양은 증가하고 더 많은 computing resource를 차지할 것입니다. 이러한 문제는 computing resource를 감당할 수 있는 인프라를 가 없는 사람들에게는 큰 이슈로 남게되고, 특히 서비스로 배포가 되어야하는 모델들은 경량화 되어야 한다는 조건이 많이 붙습니다.</p>
+<p><img src="/assets/images/posts/2019-08-21-upernet/01.png" alt="figure1" /></p>
 
-<p>이러한 이슈로 큰 모델이 학습한 정보를 <code class="highlighter-rouge">증류(distillation)</code>하여, 작은 모델에 주입할 수 있는 Knowledge distillation가 시작되었습니다.</p>
+<p>&lt; UperNet의 다양한 task &gt;</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure2.png" width="80%" alt="figure2" /></p>
+<p>UperNet에는 여러가지 challenge가 있습니다.</p>
+<ol>
+  <li>어떠한 데이터셋에도, 모든 task(level)의 annotation이 있는 데이터셋이 없다. 예를들어, ADE20K는 scene parsing, DTD에는 texture recognition 등 데이터셋에 하나의 task의 annotation만 존재한다.</li>
+  <li>여러 데이터셋에서 나온 annotation들은 heterogeneous이다(서로 종류가 다름). 예를들어, ADE20k는 pixel-wise annotation들을 가지고 있는 반면, DTD는 image-level annotation들을 가지고 있다.</li>
+</ol>
 
-<p>위와 같은 Softmax를 사용하는 네트워크가 있다고 해봅시다. 그러면 one hot으로 작성된 정답 라벨(hard label)과 predict을 비교하여 backward를 하게 됩니다.</p>
+<p>이러한 challenges를 다루기 위해, 이 논문에서는 다른 데이터셋을 다루고, 여러 level의 task를 학습하는 새로운 framework를 제안합니다.</p>
 
-<p>Teacher Model은 위와 같은 프로세스로 학습을 진행하고 큰 모델이기 때문에 좋을 ACC를 만들어 낼 것입니다. 그리고 Student Model은 Teacher Model의 softmax를 거치고 나온 0과 1사이의 확률 값을 soft label로 하여 학습하는 방법이 KD(Knowledge Distillation)입니다.</p>
+<p>이 framework는 단일 네트워크에서 feature의 계층적 특성을 이용합니다. 이게 어떤 장면인가를 판별할 때는, high-level feature를 사용하고, object segmentation, part segmentation등은 모든 level의 feature를 사용합니다.</p>
 
-<h3 id="relational-knowledge-distillation">Relational Knowledge Distillation</h3>
+<p>이 논문에서 주장하는 contributions은 다음과 같습니다.</p>
+<ol>
+  <li>한번에 multiple visual concepts를 분석하는 framework 제안</li>
+  <li>여러 종류의 dataset에서 학습되는 계층적 구조의 Network 제안</li>
+  <li>이 모델이 하나의 이미지에서 다양한 정보를 찾아낼 수 있음을 발견</li>
+</ol>
 
-<p>RKD(Relational Knowledge Distillation)는 Knowledge Distillation에서 Knowledge를 어떻게 정의할 것 인가에서 시작이 되었습니다.</p>
+<h2 id="2-defining-unified-perceptual-parsing">2. Defining Unified Perceptual Parsing</h2>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure1.png" width="80%" alt="figure1" /></p>
+<h3 id="21-datasets">2.1 Datasets</h3>
 
-<p><code class="highlighter-rouge">t</code>를 각 Input에서 나오는 Teacher의 output, <code class="highlighter-rouge">s</code>를 Student 의 output이라고 했을 때 기존의 KD는 각각의 t가 s에 point-to-point로 연결되는 위 그림과 매칭됩니다. 때문에 이 논문에서는 기존의 KD를 IKD(Individual Knowledge Distillation)라고 표현합니다.</p>
+<p>다양하고 넓은 visual concept의 segmentation을 수행하기 위해, 이 논문에서는 <strong>Broadly and Densely Labeled Dataset (Broden)</strong> 을 사용합니다. Broden dataset이라고 표현이 계속되는데, 여러가지 데이터셋을 합치고, 이 네트워크에서 학습을 할 수 있게 간단한 조정을 한 데이터셋 입니다. 이 논문에서 Broden dataset을 위해 ADE20K, Pascal-context, Pascal-Part, OpenSurfaces, DTD데이터셋을 합쳤습니다. 결과적으로, Broden dataset에는 scenes, objects, objects parts, material and textures의 정보가 담겨있습니다.</p>
 
-<p>IKD는 Individual한 output을 Knowledge로 하여 Distillation 한다고 하면, RKD는 output들의 관계(Relation)를 Knowledge로 하여 Distillation합니다.</p>
+<p>하지만, 이 데이터셋에는 다른 클래스의 sample들로부터 unbalance함을 발견했습니다. 따라서, Broden dataset을 구성할 때, 다음과 같은 정책들을 기본으로 하였습니다.</p>
+<ol>
+  <li>다른 데이터셋에서부터 다온 서로다른 비슷한 concepts들을 합침. 예를 들어 ADE20K, Pascal-Context 및 Pascal-Part의 object 및 part 주석이 병합 및 통합됨.</li>
+  <li>최소 50개 이상의 데이터가 있는 class만 포함시키며, 최소 20개 이상의 part image만 포함시킴.</li>
+  <li>OpenSurface 데이터셋에서 under-sample된 label을 수동으로 합침. 예를 들어, stone과 concrete는 stone으로 합치고, 투명 plastic과 불투명 plastic은 plastic으로 합침. 또한, 50게 이하의 이미지를 갖는 label도 제거함.</li>
+  <li>400 scene label이 넘는 AKE20K를 365개의 label을 가진 Places 데이터셋에 맞춤.</li>
+</ol>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure3.png" width="80%" alt="figure3" /></p>
+<p><img src="/assets/images/posts/2019-08-21-upernet/02.png" alt="table1" />
+&lt; Broden 데이터셋의 구성 &gt;</p>
 
-<p>이 연구에서 이야기 하는 관계는 각 output이 embedding space에 표현될 때의 node간의 distance와 angle입니다.</p>
+<p>위의 표가 Broden dataset의 구성입니다. 여러가지 task를 위한 데이터셋을 사용하였고, 또한 성능 측정 기준을 task마다 달리 하였으며, class의 수를 맞춰주었습니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure4.png" width="60%" alt="figure4" />
-<img src="/assets/images/posts/2019-07-24-rkd/figure5.png" width="60%" alt="figure5" /></p>
+<h3 id="22-metrics">2.2 Metrics</h3>
 
-<p>distance는 위의 식으로 표현 될 수 있고 뮤는 node간 거리의 평균이라고 이해하면 될 것 같습니다. 따라서 아래와 같은 식을 otim하는 것으로 학습 할 수 있습니다.</p>
+<p>모델의 성능을 측정하기 위해, 각 데이터셋의 annotations마다 다른 metrics을 사용하였습니다. semantic segmentation을 측정하기 위해 Pixel Accuracyt(P.A.)와 mean IoU(mIoU)를 사용하였습니다. image에 unlabeld area가 존재하는데, 그 부분은 계산을 할 때 제외하였습니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure6.png" width="60%" alt="figure6" /></p>
+<h2 id="3-designing-networks-for-unified-perceptual-parsing">3. Designing Networks for Unified Perceptual Parsing</h2>
 
-<p>angle도 아래와 같이 표현이 가능합니다.</p>
+<p><img src="/assets/images/posts/2019-08-21-upernet/03.png" alt="figure2" /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure7.png" width="60%" alt="figure7" /></p>
+<p>&lt; UperNet의 구조 &gt;</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure8.png" width="60%" alt="figure8" /></p>
+<p>UperNet은 위와 같은 구조로 구성되어있습니다. 기본적으로 Feature Pyramid Network(FPN)의 형태로 구성되어있습니다. FPN이란, 피라미드 구조로, 다중 레벨 feature를 추출합니다. 또한, 피라미드의 head부분에 PPM Head를 덧붙였습니다. feature map의 encoder부분은 ResNet으로 구성되어있습니다.</p>
 
-<h3 id="experiment">Experiment</h3>
+<p>각 stage를 C2, C3, C4, C5라 하고, FPN에서의 feature map output을 P2, P3, P4, P5라고 해봅시다. scene의 정보를 분석하는 작업에서는 high level feature만을 사용합니다. 장면을 분석할 때는, 전체 이미지를 보고 어떤것인지 판단해야 하기 때문입니다. object의 정보를 판단할 때는, 모든 level의 feature를 사용합니다. part segmentation은 하나의 object 내에서 이루어지므로, object와 같은 Fused Feature Map을 사용합니다. marerial에 대한 정보를 판단할 때는, low level feature만을 사용합니다. 마지막으로, texture를 판단할 때는, low level feature만을 사용합니다. 하나의 object 내에서도 여러개의 texture정보가 담겨있을 수 있기 때문입니다.</p>
 
-<p>이 논문에서는 여러 Task(Metric learning, Image classification, Few-shot learning) 에서 위에서 소개한 distance-wise, angle-wise 를 통해 학습한 결과를 다른 네트워크와 비교하고 있습니다.</p>
+<p>또한, texture를 학습할 때는, 전체 네트워크를 학습시킨 이후 texture만을 따로 조금 더(논문에서는 few epoch라고 표현) 학습시킵니다. 그리고 texture는 encoder에 아무런 영향(grad에 관한)을 주지 않습니다.</p>
 
-<p><strong>Metric learning</strong></p>
+<h3 id="31-implementation-details">3.1 Implementation details</h3>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure9.png" width="100%" alt="figure9" /></p>
+<p>우선, 모든 classifier 앞에 convolutional head가 존재합니다. decoder부분에서, 모든 layer의 크기를 맞춰주기 위해, bilinear interpolation방법으로 P2의 scale로 맞춰주고 concat을 진행합니다. 모든 나머지 non-classifier인 convolutional layer(FPN을 포함)에서는 512channel의 output을 가지며 이후 batch normalization을 진행합니다. 그 이후, ReLU를 적용합니다. learning rate는 “poly”방식을 따라 변화시킵니다. weight decay = 0.0001, momentum = 0.9를 적용합니다. 공정한 비교를 위해, size는 450으로 resize합니다. backbone network는 ImageNet에서 pretrain된 모델을 사용합니다.</p>
 
-<p><strong>Image classification</strong></p>
+<h3 id="32-design-discussion">3.2 Design discussion</h3>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure10.png" width="60%" alt="figure10" /></p>
+<p><img src="/assets/images/posts/2019-08-21-upernet/04.png" alt="table2" /></p>
 
-<p><strong>Few-shot learning</strong></p>
+<p>&lt; 다른 방식과의 비교 &gt;</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure10.png" width="60%" alt="figure10" /></p>
+<p>사실, 이 논문에서 주장하고있는 성능은 PSPNet보다 조금 낮습니다. 하지만, 큰 차이가 없고 계산 시간이 2배정도 빨라서 더 좋은 성능이다라는것을 주장하는 것 같습니다.</p>
 
-<p>그 결과 모든 실험에서 가장 좋은 성능을 보였으며, 네트워크가 깊어짐에 따라서 큰 폭으로 성능 향상이 발생하는 것을 보였습니다.</p>
+<p>결과적으로, 실제 구현을 통해 pyramid 구조를 사용하여 high/low level의 feature를 모두 잘 찾아내며, decoder에서는 bilinear interporation을 사용했기 때문에, 비교적 적은 연산량을 볼 수 있습니다.</p>
+
+<h2 id="4-main-result">4. Main result</h2>
+
+<p><img src="/assets/images/posts/2019-08-21-upernet/05.png" alt="table3" /></p>
+
+<p>&lt; 여러 task에 대한 result &gt;</p>
+
+<p>표를 보시면, 각 task에 맞는 결과들을 볼 수 있습니다. O는 object, P는 part, S는 Scene, M은 Material, T는 Texture에 대한 task를 나타내고 있습니다. 표의 결과를 보았을 때, 하나의 task만을 하는것이 가장 높은 효율이 나왔고, 여러 task를 동시에 진행했을 때 성능이 높아지는것은 확인할 수 없었습니다. 결과적으로, 이 네트워크는 여러가지 작업을 한번에 수행할 수 있다 정도로 볼 수 있을 것 같습니다.</p>
+
+<p>이 논문에서는 소개하는 main result를 다음과 같이 요약해보았습니다.</p>
+<ol>
+  <li>고화질의 input image에서 더욱 성능이 향상되었다.</li>
+  <li>PPM을 head에 추가함으로 더욱 성능을 높였다.</li>
+  <li>deconvolution대신 interpolation을 사용했으며, 1x1 convolution을 사용해 연산량을 줄였다.</li>
+  <li>서로다른 annotations에서 Multi-task learning을 진행하였다.</li>
+</ol>
+
+<h3 id="번외">번외.</h3>
+
+<p><img src="/assets/images/posts/2019-08-21-upernet/06.png" alt="figure3" /></p>
+
+<p>사실 논문에서 하나의 part로 발표된 부분인데, 제 생각에는 덜 중요한 부분이어서 번외로 넣었습니다. 논문의 저자가 object와 part간의 관계를 노드와 간선으로 표현한 표 입니다. 참고만 하시면 될 것 같습니다.</p>
 
 <h2 id="references">References</h2>
 <ul>
-  <li>
-    <p>Park, Wonpyo, et al. “Relational Knowledge Distillation.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2019.</p>
-  </li>
-  <li>
-    <p>Hinton, Geoffrey, Oriol Vinyals, and Jeff Dean. “Distilling the knowledge in a neural network.” arXiv preprint arXiv:1503.02531 (2015).</p>
-  </li>
+  <li>Xiao, Tete, et al. “Unified perceptual parsing for scene understanding.” Proceedings of the European Conference on Computer Vision (ECCV). 2018.</li>
+  <li>Github https://github.com/CSAILVision/unifiedparsing</li>
 </ul>
 
                 </div>
@@ -261,24 +296,24 @@ into the {body} of the default.hbs template -->
                 <!-- #author-->
                 
                     
+                
+                    
+                
+                    
                         <section class="author-card">
                             
-                                <img class="author-profile-image" src="/assets/images/authors/jaemin.jpeg" alt="jaemin" />
+                                <img class="author-profile-image" src="/assets/images/authors/soyeol.jpeg" alt="soyeol" />
                             
                             <section class="author-card-content">
-                                <h4 class="author-card-name"><a href="/author/jaemin">Jaemin Lee</a></h4>
+                                <h4 class="author-card-name"><a href="/author/soyeol">Soyeol Lee</a></h4>
                                 
-                                    <p>🔥</p>
+                                    <p>Read <a href="/author/soyeol">more posts</a> by this author.</p>
                                 
                             </section>
                         </section>
                         <div class="post-full-footer-right">
-                            <a class="author-card-button" href="/author/jaemin">Read More</a>
+                            <a class="author-card-button" href="/author/soyeol">Read More</a>
                         </div>
-                    
-                
-                    
-                
                     
                 
                     
@@ -326,7 +361,7 @@ into the {body} of the default.hbs template -->
                     <article class="read-next-card"
                         
                             
-                                style="background-image: url(url(/assets/images/posts/2019-07-24-rkd/cover.png)"
+                                style="background-image: url(url(/assets/images/posts/2019-08-21-upernet/01.png)"
                         
                     >
                         <header class="read-next-card-header">
@@ -342,11 +377,6 @@ into the {body} of the default.hbs template -->
                                 
                                 
                                   
-                                    
-                                        
-                                        
-                                            <li><a href="/2019/08/upernet">Unified Perceptual Parsing for Scene Understanding</a></li>
-                                        
                                     
                                   
                                 
@@ -372,10 +402,15 @@ into the {body} of the default.hbs template -->
                                     
                                         
                                         
+                                            <li><a href="/2019/08/kinetics-dataset">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</a></li>
+                                        
                                     
                                   
                                 
                                   
+                                    
+                                        
+                                        
                                     
                                   
                                 
@@ -422,63 +457,6 @@ into the {body} of the default.hbs template -->
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/2019/08/kinetics-dataset">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-08-04-kinetics-dataset/cover.PNG)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/08/kinetics-dataset">
-                <header class="post-card-header">
-                    
-                        
-                            
-                                <span class="post-card-tags">Paper-review</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p></p>
-                    
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                
-                    
-                        
-                        <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="Minseok Seo" />
-                        
-                        <span class="post-card-author">
-                            <a href="/author/minseok/">Minseok Seo</a>
-                        </span>
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                <span class="reading-time">
-                    
-                    
-                      1 min read
-                    
-                </span>
-            </footer>
-        </div>
-    </article>
-
-            
 
             <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
             
@@ -486,12 +464,12 @@ into the {body} of the default.hbs template -->
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/2019/07/bag-of-trick">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-07-27-bag-of-tricks/cover.png)"></div>
+            <a class="post-card-image-link" href="/2019/08/Group-Normalization">
+                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-08-21-Group-Normalization/cover.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/07/bag-of-trick">
+            <a class="post-card-content-link" href="/2019/08/Group-Normalization">
                 <header class="post-card-header">
                     
                         
@@ -501,7 +479,7 @@ into the {body} of the default.hbs template -->
                         
                     
 
-                    <h2 class="post-card-title">Bag of Tricks</h2>
+                    <h2 class="post-card-title">Group Normalization</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -555,18 +533,18 @@ into the {body} of the default.hbs template -->
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Relational Knowledge Distillation</div>
+    <div class="floating-header-title">Unified Perceptual Parsing for Scene Understanding</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Relational+Knowledge+Distillation&amp;url=https://blog.airlab.re.kr/2019/07/rkd"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Unified+Perceptual+Parsing+for+Scene+Understanding&amp;url=https://blog.airlab.re.kr/2019/08/upernet"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/07/rkd"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/08/upernet"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 

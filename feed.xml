@@ -1,4 +1,275 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-08-04T12:42:42+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</title><link href="https://blog.airlab.re.kr/2019/08/kinetics-dataset" rel="alternate" type="text/html" title="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset" /><published>2019-08-03T17:00:00+09:00</published><updated>2019-08-03T17:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/08/kinetics-dataset</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/08/kinetics-dataset">&lt;p&gt;Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-08-31T11:57:34+09:00</updated><id>http://localhost:4000/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">Unified Perceptual Parsing for Scene Understanding</title><link href="http://localhost:4000/2019/08/upernet" rel="alternate" type="text/html" title="Unified Perceptual Parsing for Scene Understanding" /><published>2019-08-21T19:03:00+09:00</published><updated>2019-08-21T19:03:00+09:00</updated><id>http://localhost:4000/2019/08/upernet</id><content type="html" xml:base="http://localhost:4000/2019/08/upernet">&lt;h1 id=&quot;unified-perceptual-parsing-for-scene-understanding&quot;&gt;Unified Perceptual Parsing for Scene Understanding&lt;/h1&gt;
+&lt;p&gt;Understanding&lt;/p&gt;
+
+&lt;p&gt;안녕하세요! &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이소열입니다!&lt;/p&gt;
+
+&lt;p&gt;이번에 소개할 논문은 &lt;strong&gt;Unified Perceptual Parsing for Scene Understanding&lt;/strong&gt;입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;이 논문의 실제 구현은 https://github.com/CSAILVision/unifiedparsing 에 있습니다!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h2&gt;
+
+&lt;p&gt;인간의 눈은 한번 장면을 본 것 뿐으로, 매우 다양한 정보를 추출해낼 수 있습니다. 어떤 장면을 보고있는것인지, 이 물체가 무엇인지, 이 물체가 무엇으로 이루어져 있는지(part), 어떤 재질, 재료로 이루어져 있는지 등 다양한 정보가 담겨있습니다. 
+딥러닝과 이미지처리의 발전으로 인간 수준의 recognition이 가능하게 되었지만, 다양한 visual recognition task들은 독립적으로 진행되었습니다. 독립적으로 진행됨에 따라, 이 다양한 작업들을 동시에 진행/학습할 수 있을까? 라는 의문이 생기게 되었고, 이는 논문의 motive가 되었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-upernet/01.png&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;lt; UperNet의 다양한 task &amp;gt;&lt;/p&gt;
+
+&lt;p&gt;UperNet에는 여러가지 challenge가 있습니다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;어떠한 데이터셋에도, 모든 task(level)의 annotation이 있는 데이터셋이 없다. 예를들어, ADE20K는 scene parsing, DTD에는 texture recognition 등 데이터셋에 하나의 task의 annotation만 존재한다.&lt;/li&gt;
+  &lt;li&gt;여러 데이터셋에서 나온 annotation들은 heterogeneous이다(서로 종류가 다름). 예를들어, ADE20k는 pixel-wise annotation들을 가지고 있는 반면, DTD는 image-level annotation들을 가지고 있다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이러한 challenges를 다루기 위해, 이 논문에서는 다른 데이터셋을 다루고, 여러 level의 task를 학습하는 새로운 framework를 제안합니다.&lt;/p&gt;
+
+&lt;p&gt;이 framework는 단일 네트워크에서 feature의 계층적 특성을 이용합니다. 이게 어떤 장면인가를 판별할 때는, high-level feature를 사용하고, object segmentation, part segmentation등은 모든 level의 feature를 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문에서 주장하는 contributions은 다음과 같습니다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;한번에 multiple visual concepts를 분석하는 framework 제안&lt;/li&gt;
+  &lt;li&gt;여러 종류의 dataset에서 학습되는 계층적 구조의 Network 제안&lt;/li&gt;
+  &lt;li&gt;이 모델이 하나의 이미지에서 다양한 정보를 찾아낼 수 있음을 발견&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;2-defining-unified-perceptual-parsing&quot;&gt;2. Defining Unified Perceptual Parsing&lt;/h2&gt;
+
+&lt;h3 id=&quot;21-datasets&quot;&gt;2.1 Datasets&lt;/h3&gt;
+
+&lt;p&gt;다양하고 넓은 visual concept의 segmentation을 수행하기 위해, 이 논문에서는 &lt;strong&gt;Broadly and Densely Labeled Dataset (Broden)&lt;/strong&gt; 을 사용합니다. Broden dataset이라고 표현이 계속되는데, 여러가지 데이터셋을 합치고, 이 네트워크에서 학습을 할 수 있게 간단한 조정을 한 데이터셋 입니다. 이 논문에서 Broden dataset을 위해 ADE20K, Pascal-context, Pascal-Part, OpenSurfaces, DTD데이터셋을 합쳤습니다. 결과적으로, Broden dataset에는 scenes, objects, objects parts, material and textures의 정보가 담겨있습니다.&lt;/p&gt;
+
+&lt;p&gt;하지만, 이 데이터셋에는 다른 클래스의 sample들로부터 unbalance함을 발견했습니다. 따라서, Broden dataset을 구성할 때, 다음과 같은 정책들을 기본으로 하였습니다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;다른 데이터셋에서부터 다온 서로다른 비슷한 concepts들을 합침. 예를 들어 ADE20K, Pascal-Context 및 Pascal-Part의 object 및 part 주석이 병합 및 통합됨.&lt;/li&gt;
+  &lt;li&gt;최소 50개 이상의 데이터가 있는 class만 포함시키며, 최소 20개 이상의 part image만 포함시킴.&lt;/li&gt;
+  &lt;li&gt;OpenSurface 데이터셋에서 under-sample된 label을 수동으로 합침. 예를 들어, stone과 concrete는 stone으로 합치고, 투명 plastic과 불투명 plastic은 plastic으로 합침. 또한, 50게 이하의 이미지를 갖는 label도 제거함.&lt;/li&gt;
+  &lt;li&gt;400 scene label이 넘는 AKE20K를 365개의 label을 가진 Places 데이터셋에 맞춤.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-upernet/02.png&quot; alt=&quot;table1&quot; /&gt;
+&amp;lt; Broden 데이터셋의 구성 &amp;gt;&lt;/p&gt;
+
+&lt;p&gt;위의 표가 Broden dataset의 구성입니다. 여러가지 task를 위한 데이터셋을 사용하였고, 또한 성능 측정 기준을 task마다 달리 하였으며, class의 수를 맞춰주었습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;22-metrics&quot;&gt;2.2 Metrics&lt;/h3&gt;
+
+&lt;p&gt;모델의 성능을 측정하기 위해, 각 데이터셋의 annotations마다 다른 metrics을 사용하였습니다. semantic segmentation을 측정하기 위해 Pixel Accuracyt(P.A.)와 mean IoU(mIoU)를 사용하였습니다. image에 unlabeld area가 존재하는데, 그 부분은 계산을 할 때 제외하였습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;3-designing-networks-for-unified-perceptual-parsing&quot;&gt;3. Designing Networks for Unified Perceptual Parsing&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-upernet/03.png&quot; alt=&quot;figure2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;lt; UperNet의 구조 &amp;gt;&lt;/p&gt;
+
+&lt;p&gt;UperNet은 위와 같은 구조로 구성되어있습니다. 기본적으로 Feature Pyramid Network(FPN)의 형태로 구성되어있습니다. FPN이란, 피라미드 구조로, 다중 레벨 feature를 추출합니다. 또한, 피라미드의 head부분에 PPM Head를 덧붙였습니다. feature map의 encoder부분은 ResNet으로 구성되어있습니다.&lt;/p&gt;
+
+&lt;p&gt;각 stage를 C2, C3, C4, C5라 하고, FPN에서의 feature map output을 P2, P3, P4, P5라고 해봅시다. scene의 정보를 분석하는 작업에서는 high level feature만을 사용합니다. 장면을 분석할 때는, 전체 이미지를 보고 어떤것인지 판단해야 하기 때문입니다. object의 정보를 판단할 때는, 모든 level의 feature를 사용합니다. part segmentation은 하나의 object 내에서 이루어지므로, object와 같은 Fused Feature Map을 사용합니다. marerial에 대한 정보를 판단할 때는, low level feature만을 사용합니다. 마지막으로, texture를 판단할 때는, low level feature만을 사용합니다. 하나의 object 내에서도 여러개의 texture정보가 담겨있을 수 있기 때문입니다.&lt;/p&gt;
+
+&lt;p&gt;또한, texture를 학습할 때는, 전체 네트워크를 학습시킨 이후 texture만을 따로 조금 더(논문에서는 few epoch라고 표현) 학습시킵니다. 그리고 texture는 encoder에 아무런 영향(grad에 관한)을 주지 않습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;31-implementation-details&quot;&gt;3.1 Implementation details&lt;/h3&gt;
+
+&lt;p&gt;우선, 모든 classifier 앞에 convolutional head가 존재합니다. decoder부분에서, 모든 layer의 크기를 맞춰주기 위해, bilinear interpolation방법으로 P2의 scale로 맞춰주고 concat을 진행합니다. 모든 나머지 non-classifier인 convolutional layer(FPN을 포함)에서는 512channel의 output을 가지며 이후 batch normalization을 진행합니다. 그 이후, ReLU를 적용합니다. learning rate는 “poly”방식을 따라 변화시킵니다. weight decay = 0.0001, momentum = 0.9를 적용합니다. 공정한 비교를 위해, size는 450으로 resize합니다. backbone network는 ImageNet에서 pretrain된 모델을 사용합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;32-design-discussion&quot;&gt;3.2 Design discussion&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-upernet/04.png&quot; alt=&quot;table2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;lt; 다른 방식과의 비교 &amp;gt;&lt;/p&gt;
+
+&lt;p&gt;사실, 이 논문에서 주장하고있는 성능은 PSPNet보다 조금 낮습니다. 하지만, 큰 차이가 없고 계산 시간이 2배정도 빨라서 더 좋은 성능이다라는것을 주장하는 것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;결과적으로, 실제 구현을 통해 pyramid 구조를 사용하여 high/low level의 feature를 모두 잘 찾아내며, decoder에서는 bilinear interporation을 사용했기 때문에, 비교적 적은 연산량을 볼 수 있습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;4-main-result&quot;&gt;4. Main result&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-upernet/05.png&quot; alt=&quot;table3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;lt; 여러 task에 대한 result &amp;gt;&lt;/p&gt;
+
+&lt;p&gt;표를 보시면, 각 task에 맞는 결과들을 볼 수 있습니다. O는 object, P는 part, S는 Scene, M은 Material, T는 Texture에 대한 task를 나타내고 있습니다. 표의 결과를 보았을 때, 하나의 task만을 하는것이 가장 높은 효율이 나왔고, 여러 task를 동시에 진행했을 때 성능이 높아지는것은 확인할 수 없었습니다. 결과적으로, 이 네트워크는 여러가지 작업을 한번에 수행할 수 있다 정도로 볼 수 있을 것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문에서는 소개하는 main result를 다음과 같이 요약해보았습니다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;고화질의 input image에서 더욱 성능이 향상되었다.&lt;/li&gt;
+  &lt;li&gt;PPM을 head에 추가함으로 더욱 성능을 높였다.&lt;/li&gt;
+  &lt;li&gt;deconvolution대신 interpolation을 사용했으며, 1x1 convolution을 사용해 연산량을 줄였다.&lt;/li&gt;
+  &lt;li&gt;서로다른 annotations에서 Multi-task learning을 진행하였다.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;번외&quot;&gt;번외.&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-upernet/06.png&quot; alt=&quot;figure3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;사실 논문에서 하나의 part로 발표된 부분인데, 제 생각에는 덜 중요한 부분이어서 번외로 넣었습니다. 논문의 저자가 object와 part간의 관계를 노드와 간선으로 표현한 표 입니다. 참고만 하시면 될 것 같습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Xiao, Tete, et al. “Unified perceptual parsing for scene understanding.” Proceedings of the European Conference on Computer Vision (ECCV). 2018.&lt;/li&gt;
+  &lt;li&gt;Github https://github.com/CSAILVision/unifiedparsing&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Soyeol Lee</name></author><category term="paper-review" /><summary type="html">Unified Perceptual Parsing for Scene Understanding Understanding</summary></entry><entry><title type="html">Group Normalization</title><link href="http://localhost:4000/2019/08/Group-Normalization" rel="alternate" type="text/html" title="Group Normalization" /><published>2019-08-21T05:00:00+09:00</published><updated>2019-08-21T05:00:00+09:00</updated><id>http://localhost:4000/2019/08/Group-Normalization</id><content type="html" xml:base="http://localhost:4000/2019/08/Group-Normalization">&lt;p&gt;Group Normalization 리뷰&lt;/p&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Group Normalization”&lt;/strong&gt; 입니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문은 Yuxin Wu와 Kaiming He 씨가, batch의 크기가 어쩔수 없이 작아야 하는 상황(detection, segmentation and video)에서 batch norm의 한계점을 느끼고 이를 개선하는 방법을 제안 합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Batch Normalization은 딥러닝에서 모델을 설계할 때 필수요소처럼 여겨지고 있습니다. 하지만 detection, segmentation, video와 같이 메모리 소비 때문에 어쩔 수 없이 batch의 크기가 제약될 때 Batch Normalization의 오류는 빠르게 증가합니다. 이 논문에서는 Batch Normalization을 대체할 Group Normalization을 제안하고, 다양한 task에서 이를 실험하고 결과를 보여줍니다. 당연히 결과는  Group Normalization 이 좋습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure1.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;related-work&quot;&gt;Related Work&lt;/h3&gt;
+
+&lt;p&gt;Batch Normalization의 치명적인 단점을 해결하기 위한 노력은 과거에도 많이 있었습니다. Batch Normalization은 말 그대로 Batch 단위로 Normalization 하는것 인데 batch 크기에 영향을 많이 받습니다. 그렇기 때문에 논문에서 소개하는 Related Work은 대부분이 채널 단위로 Normalization을 합니다. 아래의 두 식은 일반적으로 사용하는 평균과 표준편차를 구하느 식 입니다. μ 는 평균이고 σ는 표준편차 입니다. i는 feature 입니다. 예를들어  2D 이미지에서 i는 (iN,iC,iH,iW) 이고 4개의 백터(N, C, H, W)를 가지고 있습니다. ε은 아주 작은값 입니다. X  와 평균 X’이 같으면 0이 되기 때문에 이를 방지하기 위한 값 입니다. S 는 평균과 표준편차가 계산된 픽셀의 집합입니다.&lt;/p&gt;
+
+&lt;p&gt;앞으로 소개드릴 LN,IN,GN은 BN과 마찬가지로 , 학습 가능한 파라메터 γ,β 가 존재하고, 감마는 스케일 베타는 쉬프트 입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul.png&quot; alt=&quot;formul1&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul1.png&quot; alt=&quot;formul2&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;layer-norm&quot;&gt;Layer Norm&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure2.png&quot; alt=&quot;Figure2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Layer Normalization은 Feature 차원 Normalization 입니다. batch 단위로 Normalization 하는 것이 아니라 데이터의 한 이터레이션 마다 평균과 표준편차를 구해주는 것 입니다. 아래의 그림과 식을보면 더 이해가 잘 되실 것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul2.png&quot; alt=&quot;formul3&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure3.png&quot; alt=&quot;Figure3&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;instance-norm&quot;&gt;Instance Norm&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure4.png&quot; alt=&quot;Figure4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Instance Normalization은 Layer Norm에서 각 채널마다 Normalization 해주는 방법 입니다. style transfer을 위해 고안된 방법이기 때문에 style transfer에서 BN을 대체하여 많이 사용하고, real-time generation에 효과적 이라고 알려져 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul4.png&quot; alt=&quot;formul4&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;group-normalization&quot;&gt;Group Normalization&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure5.png&quot; alt=&quot;Figure5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Group Normalization은 Layer Norm과 Instance Norm의 중간쯤 이라고 생각하시면 이해하기 편하실꺼 같습니다. 채널을 그룹지어서 그룹단위로 Normalization 하는 방법입니다. 만약 그룹이 채널 전체면 Layer Norm이 되는것이고, 그룹이 채널 하나면 Instance Norm 이 되는것 입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul5.png&quot; alt=&quot;formul5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;코드로 구현하기 매우 간단합니다.  아래는 pytorch로 구현한 코드 입니다.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch.nn&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GroupBatchnorm2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eps&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1e-10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GroupBatchnorm2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group_num&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 전체 채널을 나눌 그룹 숫자입니다.&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 학습가능한 파라메터 gamma&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;beta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 학습가능한 파레메터 beta&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eps&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eps&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 0방지&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;forward&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;W&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 그룹으로 묶고&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keepdim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 평균&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keepdim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 표준편차&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;W&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 원래대로 돌리기.&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;beta&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Group의 개수 또한 유동적으로 변경되는 값입니다. 이 논문에서는 그룹을 32개 만드는게 가장 좋았다고 합니다. 아래 그림에 보이시는것 처럼 그룹이 1 개이면 LN과 같고 그룹당 채널이 1 이면 IN과 같습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure6.png&quot; alt=&quot;Figure6&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;experiments&quot;&gt;Experiments&lt;/h4&gt;
+
+&lt;p&gt;아래 그림은 batch 크기가 32 images/GPU에서 BN, LN, IN, GN 의 train error 와 val error의 비교 입니다. 잘 알려져 있는것 처럼 BN이 가장 좋은 성능을 보입니다. 하지만 GN도 BN과 비교해서 그래서 크게 차이가 나는게 아닙니다. 또한 왼쪽 train error 그림을 보시면 GN이 조금더 train error가 작습니다. 이걸로 보아 GN이 최적화 하는 능력이 더 좋다고 볼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure7.png&quot; alt=&quot;Figure7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;아래 그림은 batch 크기가 변함의 따라 BN과 GN의 성능 차이를 나타낸 그래프 입니다. BN은 batch 크기가 작아지면 작아질 수록 정확도가 매우 떨어졌으나, GN은 batch 크기가 변함의 따라 정확도의 차이가 거의 없습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure8.png&quot; alt=&quot;Figure8&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
+
+&lt;p&gt;GN은 옛날부터 관심있던 논문인데 이제서야 제대로 읽었습니다.! 이 논문역시 다양한 Normalization 방법을 잘 정리해주고, 의식에 흐름대로 궁금증을 다 실험하고 풀어줘서 너무 좋았습니다.!! Experiments는 제가 중요하다고 생각하는 부분만 설명하고 , 나머지는 생략했기 때문에 더 자세한 내용을 알고 싶으신 분들은 본 논문을 참고하시기 바랍니다.&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Group Normalization 리뷰</summary></entry><entry><title type="html">ResNeXt:Aggregated Residual Transformations for Deep Neural Networks</title><link href="http://localhost:4000/2019/08/resnext" rel="alternate" type="text/html" title="ResNeXt:Aggregated Residual Transformations for Deep Neural Networks" /><published>2019-08-21T00:30:00+09:00</published><updated>2019-08-21T00:30:00+09:00</updated><id>http://localhost:4000/2019/08/resnext</id><content type="html" xml:base="http://localhost:4000/2019/08/resnext">&lt;h1 id=&quot;resnextaggregated-residual-transformations-for-deep-neural-networks&quot;&gt;ResNeXt:Aggregated Residual Transformations for Deep Neural Networks&lt;/h1&gt;
+
+&lt;p&gt;안녕하세요! &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이소열입니다!&lt;/p&gt;
+
+&lt;p&gt;이번에 소개할 논문은 ResNet의 변형 형태인 Aggregated Residual Transformations for Deep Neural Networks(ResNeXt)입니다!&lt;/p&gt;
+
+&lt;h2 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h2&gt;
+
+&lt;p&gt;비전인식에 대한 연구는 “feature engineering”에서 “network engineering”으로 변화하는 추세입니다. 따라서 feature가 수작업으로 만들어지는것이 아닌, model의 architecture를 만드는것으로 옮겨지고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-20-resnext/01.png&quot; alt=&quot;cover&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;lt; ResNeXt의 Basic 블록 구조 &amp;gt;&lt;/p&gt;
+
+&lt;p&gt;하지만, architecture를 디자인하는것은(특히 layer의 층이 두터워질 때) hyper-parameters의 증가로 그 난이도가 어려워지고있습니다.&lt;/p&gt;
+
+&lt;p&gt;같은 모양의 여러 블록을 쌓는 VGG network(2015)처럼, ResNets(2016)도 VGG와 같은 방식을 계승했고, 이 간단한 rule은 hyper parameter의 선택을 보다 간단하게 만들어주었습니다.&lt;/p&gt;
+
+&lt;p&gt;VGG-nets와 달리, Inception model들은 carefully하게 디자인된 방식들은 낮은 연산량으로도 높은 정확도를 이끌어 낼 수 있다고 증명했습니다. Inception model들은 계속 발전하고 있지만, 메인 아이디어는 split-transform-merge(분할, 변형, 병합) strategy입니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문에서는, 하나의 입력을 Group convolution을 통해 여러개로 나누고, 1x1 convolution으로 입력을 transform하고, concat을 통해 merge를 진행합니다.&lt;/p&gt;
+
+&lt;p&gt;또한, 이 모델은 기존의 ResNet보다 연산량은 줄이면서 더 높은 성능을 보였습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;2-method&quot;&gt;2. Method&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-20-resnext/02.png&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;lt; ResNet과 ResNeXt의 기본 구성 &amp;gt;&lt;/p&gt;
+
+&lt;p&gt;논문에 작성되어있는 ResNet-50과 ResNeXt-50의 구성입니다. 표에서 보시면, 각 conv layer를 지날 때 마다, output의 크기가 1/2로 줄어드는것을 볼 수 있습니다. ResNet에서는 하나의 convolution을 깊은 채널로 만든 것을 볼 수 있는 반면에, ResNeXt에서는 조금 더 깊지만 32개의 group convolution을 통해 연산량을 크게 낮춘것을 볼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문에서 나타나있는 C는 cardinarity로, Group convolution의 수로 볼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-20-resnext/03.png&quot; alt=&quot;figure2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;lt; Basic block 구성 &amp;gt;&lt;/p&gt;
+
+&lt;p&gt;이전의 ResNet에서는, ResNet50 이하의 깊이를 갖는 구조에서는 Basic block, 즉 블록을 하나 쌓을 때, convolution을 2개만 진행을 했었습니다. 하지만 ResNeXt에서는, 2개의 블록만 쌓게 된다면 group convolution의 의미가 없어져 성능 향상에 의미가 없게 됩니다. 따라서 ResNeXt에서는 block의 depth가 3 이상일 때 부터 성능이 향상된다고 합니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;3-implemntation-details&quot;&gt;3. Implemntation details&lt;/h2&gt;
+
+&lt;p&gt;이 논문에서는 성능 실험을 위해 ImageNet dataset를 사용했습니다. input image 를 224x224 random crop하였으며, shortcut connection을 위해서는 identity connection을 사용했습니다. (dimension이 변경될 떄는, projection shortcut 을 사용했습니다. ResNet 논문의 Option B를 참고하시면 됩니다.) 또한, Downsampling은 convolution 3,4,5layer에서 진행되었으며, 각 layer의 첫번째 블록에서 stride=2를 통해 진행하였습니다.&lt;/p&gt;
+
+&lt;p&gt;SGD optimizer, mini-batch 256, 8GPU를 사용했으며, weight decay=0.0001, momentum=0.9를 넣었습니다. learning rate는 0.1에서 시작하였으며, 학습동안 3번 learning rate를 1/10로 감소시켰습니다. 또한 weight initialization을 사용했습니다.&lt;/p&gt;
+
+&lt;p&gt;모든 convolution 이후에는 BatchNormalization을 수행하였고, 그 이후에는 ReLU를 붙였습니다. (Shortcut 이후에는 ReLU를 적용하지 않았습니다)&lt;/p&gt;
+
+&lt;h2 id=&quot;4-experiments&quot;&gt;4. Experiments&lt;/h2&gt;
+
+&lt;h3 id=&quot;cardinality-vs-width&quot;&gt;Cardinality vs. Width&lt;/h3&gt;
+
+&lt;p&gt;ResNeXt의 가장 큰 특징이라고 한다면 Group convoluition입니다. 이 Group의 수를 cardinality라고 하는데, group의 수를 늘릴수록 더 낮은 연산량을 가질 수 있습니다. 따라서, 같은 연산량을 갖는 네트워크라고 하면, group을 늘리면 더 깊은 채널(총합)을 가질 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문에서는, cardinality C와 bottleneck width의 trade-off를 비교를 해보았습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-20-resnext/04.png&quot; alt=&quot;table1&quot; /&gt;&lt;/p&gt;
+
+&lt;cardinality와 width=&quot;&quot;&gt;
+
+위의 표는, 파라미터를 일정 수준으로 유지하면서 cardinality와 block width를 변경해본 표 입니다. group의 수를 늘리면 더 많은 channel을 이용할 수 있습니다.
+
+![table2](/assets/images/posts/2019-08-20-resnext/05.png)
+
+&amp;lt; ImageNet 결과 &amp;gt;
+
+그 결과를 비교한 표 입니다. 결과만 말씀드리면, 같은 연산량을 유지할 때, cardinality를 늘리는 것이 성능 향상에 큰 영향이 있었습니다. 또한, 여러가지 dataset에서의 실험을 통해, increasing cardinality의 성능 증명을 볼 수 있습니다.
+
+## References
+
+- He, Kaiming, et al. &quot;Deep residual learning for image recognition.&quot; Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.
+
+- Xie, Saining, et al. &quot;Aggregated residual transformations for deep neural networks.&quot; Proceedings of the IEEE conference on computer vision and pattern recognition. 2017.
+&lt;/cardinality와&gt;</content><author><name>Soyeol Lee</name></author><category term="paper-review" /><summary type="html">ResNeXt:Aggregated Residual Transformations for Deep Neural Networks</summary></entry><entry><title type="html">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</title><link href="http://localhost:4000/2019/08/kinetics-dataset" rel="alternate" type="text/html" title="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset" /><published>2019-08-03T17:00:00+09:00</published><updated>2019-08-03T17:00:00+09:00</updated><id>http://localhost:4000/2019/08/kinetics-dataset</id><content type="html" xml:base="http://localhost:4000/2019/08/kinetics-dataset">&lt;p&gt;Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset”&lt;/strong&gt; 입니다.&lt;/p&gt;
 
@@ -83,7 +354,7 @@ RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만
 
 &lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
 
-&lt;p&gt;이 논문은 action recognition에 입문하는 사람이라면 꼭 읽어 보시는걸 추천드리고, 아직 코드 구현은 못했습니다. 구현이 완료 되는데로 링크 첨부 하겠습니다. 읽어주셔서 감사합니다.&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰</summary></entry><entry><title type="html">Relational Knowledge Distillation</title><link href="https://blog.airlab.re.kr/2019/07/rkd" rel="alternate" type="text/html" title="Relational Knowledge Distillation" /><published>2019-07-28T22:00:00+09:00</published><updated>2019-07-28T22:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/07/rkd</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/07/rkd">&lt;p&gt;Relational Knowledge Distillation&lt;/p&gt;
+&lt;p&gt;이 논문은 action recognition에 입문하는 사람이라면 꼭 읽어 보시는걸 추천드리고, 아직 코드 구현은 못했습니다. 구현이 완료 되는데로 링크 첨부 하겠습니다. 읽어주셔서 감사합니다.&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰</summary></entry><entry><title type="html">Relational Knowledge Distillation</title><link href="http://localhost:4000/2019/07/rkd" rel="alternate" type="text/html" title="Relational Knowledge Distillation" /><published>2019-07-28T22:00:00+09:00</published><updated>2019-07-28T22:00:00+09:00</updated><id>http://localhost:4000/2019/07/rkd</id><content type="html" xml:base="http://localhost:4000/2019/07/rkd">&lt;p&gt;Relational Knowledge Distillation&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!&lt;/p&gt;
 
@@ -158,7 +429,7 @@ RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만
   &lt;li&gt;
     &lt;p&gt;Hinton, Geoffrey, Oriol Vinyals, and Jeff Dean. “Distilling the knowledge in a neural network.” arXiv preprint arXiv:1503.02531 (2015).&lt;/p&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">Relational Knowledge Distillation</summary></entry><entry><title type="html">Bag of Tricks</title><link href="https://blog.airlab.re.kr/2019/07/bag-of-trick" rel="alternate" type="text/html" title="Bag of Tricks" /><published>2019-07-27T05:00:00+09:00</published><updated>2019-07-27T05:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/07/bag-of-trick</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/07/bag-of-trick">&lt;p&gt;Bag of Tricks for Image Classification with Convolutional Neural Networks 리뷰&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">Relational Knowledge Distillation</summary></entry><entry><title type="html">Bag of Tricks</title><link href="http://localhost:4000/2019/07/bag-of-trick" rel="alternate" type="text/html" title="Bag of Tricks" /><published>2019-07-27T05:00:00+09:00</published><updated>2019-07-27T05:00:00+09:00</updated><id>http://localhost:4000/2019/07/bag-of-trick</id><content type="html" xml:base="http://localhost:4000/2019/07/bag-of-trick">&lt;p&gt;Bag of Tricks for Image Classification with Convolutional Neural Networks 리뷰&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Bag of Tricks for Image Classification with Convolutional Neural Networks”&lt;/strong&gt; 입니다.&lt;/p&gt;
 
@@ -271,7 +542,7 @@ pytorch에서는 SGD의 파라메터중 nesterov를 True로 해주시면 됩니�
 
 &lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
 
-&lt;p&gt;이 논문을 딥러닝 입문 초기에 읽었으면 더 좋았을 것 같다는 생각을 했습니다. 나중에 후배들이 생기면 이 논문을 제일 첫 번째로 권해주고 싶을 정도로, 딥러닝을 많이 해봐야 얻을 수 있는 직관들과 꿀팁들을 알려주는 논문이라 매우 좋았습니다. 논문 구현 코드는 제 깃허브&lt;a href=&quot;https://github.com/seominseok0429/pytorch-warmup-cosine-lr&quot;&gt;https://github.com/seominseok0429/pytorch-warmup-cosine-lr&lt;/a&gt;에 올려 두었습니다.&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Bag of Tricks for Image Classification with Convolutional Neural Networks 리뷰</summary></entry><entry><title type="html">DenseNet</title><link href="https://blog.airlab.re.kr/2019/07/densenet" rel="alternate" type="text/html" title="DenseNet" /><published>2019-07-24T22:00:00+09:00</published><updated>2019-07-24T22:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/07/densenet</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/07/densenet">&lt;p&gt;DenseNet: Densely Connected Convolutional Networks&lt;/p&gt;
+&lt;p&gt;이 논문을 딥러닝 입문 초기에 읽었으면 더 좋았을 것 같다는 생각을 했습니다. 나중에 후배들이 생기면 이 논문을 제일 첫 번째로 권해주고 싶을 정도로, 딥러닝을 많이 해봐야 얻을 수 있는 직관들과 꿀팁들을 알려주는 논문이라 매우 좋았습니다. 논문 구현 코드는 제 깃허브&lt;a href=&quot;https://github.com/seominseok0429/pytorch-warmup-cosine-lr&quot;&gt;https://github.com/seominseok0429/pytorch-warmup-cosine-lr&lt;/a&gt;에 올려 두었습니다.&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Bag of Tricks for Image Classification with Convolutional Neural Networks 리뷰</summary></entry><entry><title type="html">DenseNet</title><link href="http://localhost:4000/2019/07/densenet" rel="alternate" type="text/html" title="DenseNet" /><published>2019-07-24T22:00:00+09:00</published><updated>2019-07-24T22:00:00+09:00</updated><id>http://localhost:4000/2019/07/densenet</id><content type="html" xml:base="http://localhost:4000/2019/07/densenet">&lt;p&gt;DenseNet: Densely Connected Convolutional Networks&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. :)&lt;/p&gt;
 
@@ -373,7 +644,7 @@ pytorch에서는 SGD의 파라메터중 nesterov를 True로 해주시면 됩니�
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;Huang, Gao, et al. “Densely connected convolutional networks.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2017.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">DenseNet: Densely Connected Convolutional Networks</summary></entry><entry><title type="html">MobileNetV2</title><link href="https://blog.airlab.re.kr/2019/07/mobilenetv2" rel="alternate" type="text/html" title="MobileNetV2" /><published>2019-07-22T19:00:00+09:00</published><updated>2019-07-22T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/07/mobilenetv2</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/07/mobilenetv2">&lt;p&gt;MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">DenseNet: Densely Connected Convolutional Networks</summary></entry><entry><title type="html">MobileNetV2</title><link href="http://localhost:4000/2019/07/mobilenetv2" rel="alternate" type="text/html" title="MobileNetV2" /><published>2019-07-22T19:00:00+09:00</published><updated>2019-07-22T19:00:00+09:00</updated><id>http://localhost:4000/2019/07/mobilenetv2</id><content type="html" xml:base="http://localhost:4000/2019/07/mobilenetv2">&lt;p&gt;MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 MobileNetV2 : Inverted Residuals and Linear Bottlenecks 입니다. 간단하게 한 줄로 이 논문을 소개하자면 모바일이나, 임베디드에서도 실시간을 작동할 수 있게 모델이 경량화 되면서도, 정확도 또한 많이 떨어지지 않게하여, 속도와 정확도 사이의 트레이드 오프 문제를 어느정도 해결한 네트워크 입니다.&lt;/p&gt;
 
@@ -448,7 +719,7 @@ manifold란 어떤 이미지의 차원들이 존재하는 공간이라고 생각
 
 &lt;p&gt;코드는 cifar10에 적용한 것이고 &lt;a href=&quot;https://github.com/seominseok0429/cifar10-mobilenetv2-pytorch&quot;&gt;https://github.com/seominseok0429/cifar10-mobilenetv2-pytorch&lt;/a&gt; 에 배포해 두었습니다.&lt;/p&gt;
 
-&lt;p&gt;끝까지 읽어 주셔서 감사합니다!&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰</summary></entry><entry><title type="html">Wide Residual Networks</title><link href="https://blog.airlab.re.kr/2019/07/WRN" rel="alternate" type="text/html" title="Wide Residual Networks" /><published>2019-07-17T19:00:00+09:00</published><updated>2019-07-17T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/07/WRN</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/07/WRN">&lt;p&gt;Wide Residual Networks&lt;/p&gt;
+&lt;p&gt;끝까지 읽어 주셔서 감사합니다!&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰</summary></entry><entry><title type="html">Wide Residual Networks</title><link href="http://localhost:4000/2019/07/WRN" rel="alternate" type="text/html" title="Wide Residual Networks" /><published>2019-07-17T19:00:00+09:00</published><updated>2019-07-17T19:00:00+09:00</updated><id>http://localhost:4000/2019/07/WRN</id><content type="html" xml:base="http://localhost:4000/2019/07/WRN">&lt;p&gt;Wide Residual Networks&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. 앞으로 연구실 세미나 준비를 통해 알게 된 내용을 연구실 블로그에 기록하게 되었습니다 :)&lt;/p&gt;
 

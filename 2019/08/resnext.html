@@ -11,7 +11,7 @@
 
 
 
-    <title>Relational Knowledge Distillation</title>
+    <title>ResNeXt:Aggregated Residual Transformations for Deep Neural Networks</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -36,26 +36,26 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="Artificial intelligence and Robotics Laboratory" />
     <link rel="shortcut icon" href="http://localhost:4000/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="http://localhost:4000/2019/07/rkd" />
+    <link rel="canonical" href="http://localhost:4000/2019/08/resnext" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="AiRLab. Research Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Relational Knowledge Distillation" />
-    <meta property="og:description" content="Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은" />
-    <meta property="og:url" content="http://localhost:4000/2019/07/rkd" />
-    <meta property="og:image" content="http://localhost:4000/assets/images/posts/2019-07-24-rkd/cover.png" />
+    <meta property="og:title" content="ResNeXt:Aggregated Residual Transformations for Deep Neural Networks" />
+    <meta property="og:description" content="ResNeXt:Aggregated Residual Transformations for Deep Neural Networks 안녕하세요! AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이소열입니다! 이번에 소개할 논문은 ResNet의 변형 형태인 Aggregated Residual Transformations for Deep Neural Networks(ResNeXt)입니다! 1. Introduction 비전인식에 대한 연구는 “feature engineering”에서 “network engineering”으로 변화하는 추세입니다. 따라서 feature가 수작업으로 만들어지는것이 아닌, model의 architecture를 만드는것으로 옮겨지고 있습니다. &lt; ResNeXt의" />
+    <meta property="og:url" content="http://localhost:4000/2019/08/resnext" />
+    <meta property="og:image" content="http://localhost:4000/assets/images/posts/2019-08-20-resnext/01.png" />
     <meta property="article:publisher" content="https://www.facebook.com/false" />
     <meta property="article:author" content="https://www.facebook.com/false" />
-    <meta property="article:published_time" content="2019-07-28T22:00:00+09:00" />
-    <meta property="article:modified_time" content="2019-07-28T22:00:00+09:00" />
+    <meta property="article:published_time" content="2019-08-21T00:30:00+09:00" />
+    <meta property="article:modified_time" content="2019-08-21T00:30:00+09:00" />
     <meta property="article:tag" content="Paper-review" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Relational Knowledge Distillation" />
-    <meta name="twitter:description" content="Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은" />
+    <meta name="twitter:title" content="ResNeXt:Aggregated Residual Transformations for Deep Neural Networks" />
+    <meta name="twitter:description" content="ResNeXt:Aggregated Residual Transformations for Deep Neural Networks 안녕하세요! AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이소열입니다! 이번에 소개할 논문은 ResNet의 변형 형태인 Aggregated Residual Transformations for Deep Neural Networks(ResNeXt)입니다! 1. Introduction 비전인식에 대한 연구는 “feature engineering”에서 “network engineering”으로 변화하는 추세입니다. 따라서 feature가 수작업으로 만들어지는것이 아닌, model의 architecture를 만드는것으로 옮겨지고 있습니다. &lt; ResNeXt의" />
     <meta name="twitter:url" content="http://localhost:4000/" />
-    <meta name="twitter:image" content="http://localhost:4000/assets/images/posts/2019-07-24-rkd/cover.png" />
+    <meta name="twitter:image" content="http://localhost:4000/assets/images/posts/2019-08-20-resnext/01.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="AiRLab. Research Blog" />
     <meta name="twitter:label2" content="Filed under" />
@@ -74,18 +74,18 @@
         "name": "AiRLab. Research Blog",
         "logo": "http://localhost:4000/assets/images/airlab-logo.png"
     },
-    "url": "http://localhost:4000/2019/07/rkd",
+    "url": "http://localhost:4000/2019/08/resnext",
     "image": {
         "@type": "ImageObject",
-        "url": "http://localhost:4000/assets/images/posts/2019-07-24-rkd/cover.png",
+        "url": "http://localhost:4000/assets/images/posts/2019-08-20-resnext/01.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "http://localhost:4000/2019/07/rkd"
+        "@id": "http://localhost:4000/2019/08/resnext"
     },
-    "description": "Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은"
+    "description": "ResNeXt:Aggregated Residual Transformations for Deep Neural Networks 안녕하세요! AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이소열입니다! 이번에 소개할 논문은 ResNet의 변형 형태인 Aggregated Residual Transformations for Deep Neural Networks(ResNeXt)입니다! 1. Introduction 비전인식에 대한 연구는 “feature engineering”에서 “network engineering”으로 변화하는 추세입니다. 따라서 feature가 수작업으로 만들어지는것이 아닌, model의 architecture를 만드는것으로 옮겨지고 있습니다. &lt; ResNeXt의"
 }
     </script>
 
@@ -98,7 +98,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Relational Knowledge Distillation" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="ResNeXt:Aggregated Residual Transformations for Deep Neural Networks" href="/feed.xml" />
 
 
 </head>
@@ -153,7 +153,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="28 July 2019">28 July 2019</time>
+                    <time class="post-full-meta-date" datetime="21 August 2019">21 August 2019</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -163,92 +163,90 @@ into the {body} of the default.hbs template -->
                         
                     
                 </section>
-                <h1 class="post-full-title">Relational Knowledge Distillation</h1>
+                <h1 class="post-full-title">ResNeXt:Aggregated Residual Transformations for Deep Neural Networks</h1>
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-07-24-rkd/cover.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-08-20-resnext/01.png)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <p>Relational Knowledge Distillation</p>
+                    <h1 id="resnextaggregated-residual-transformations-for-deep-neural-networks">ResNeXt:Aggregated Residual Transformations for Deep Neural Networks</h1>
 
-<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!</p>
+<p>안녕하세요! <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 이소열입니다!</p>
 
-<p>오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (<a href="https://arxiv.org/abs/1904.05068">arXiv:1904.05068</a>)이며, CVPR2019에 Accepted 된 논문입니다.</p>
+<p>이번에 소개할 논문은 ResNet의 변형 형태인 Aggregated Residual Transformations for Deep Neural Networks(ResNeXt)입니다!</p>
 
-<h3 id="knowledge-distillation">Knowledge distillation</h3>
+<h2 id="1-introduction">1. Introduction</h2>
 
-<p>Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 <code class="highlighter-rouge">Distilling the Knowledge in a Neural Network</code>가 있습니다.</p>
+<p>비전인식에 대한 연구는 “feature engineering”에서 “network engineering”으로 변화하는 추세입니다. 따라서 feature가 수작업으로 만들어지는것이 아닌, model의 architecture를 만드는것으로 옮겨지고 있습니다.</p>
 
-<p>이러한 논문의 시작은 computing resources의 양을 줄이이 위해 시작이 되었는데요,</p>
+<p><img src="/assets/images/posts/2019-08-20-resnext/01.png" alt="cover" /></p>
 
-<p>만약 모델의 ACC를 높이기 위해서는 모델을 크게 설계를 하면 되지만 모델이 커질 수록 파라미터의 양은 증가하고 더 많은 computing resource를 차지할 것입니다. 이러한 문제는 computing resource를 감당할 수 있는 인프라를 가 없는 사람들에게는 큰 이슈로 남게되고, 특히 서비스로 배포가 되어야하는 모델들은 경량화 되어야 한다는 조건이 많이 붙습니다.</p>
+<p>&lt; ResNeXt의 Basic 블록 구조 &gt;</p>
 
-<p>이러한 이슈로 큰 모델이 학습한 정보를 <code class="highlighter-rouge">증류(distillation)</code>하여, 작은 모델에 주입할 수 있는 Knowledge distillation가 시작되었습니다.</p>
+<p>하지만, architecture를 디자인하는것은(특히 layer의 층이 두터워질 때) hyper-parameters의 증가로 그 난이도가 어려워지고있습니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure2.png" width="80%" alt="figure2" /></p>
+<p>같은 모양의 여러 블록을 쌓는 VGG network(2015)처럼, ResNets(2016)도 VGG와 같은 방식을 계승했고, 이 간단한 rule은 hyper parameter의 선택을 보다 간단하게 만들어주었습니다.</p>
 
-<p>위와 같은 Softmax를 사용하는 네트워크가 있다고 해봅시다. 그러면 one hot으로 작성된 정답 라벨(hard label)과 predict을 비교하여 backward를 하게 됩니다.</p>
+<p>VGG-nets와 달리, Inception model들은 carefully하게 디자인된 방식들은 낮은 연산량으로도 높은 정확도를 이끌어 낼 수 있다고 증명했습니다. Inception model들은 계속 발전하고 있지만, 메인 아이디어는 split-transform-merge(분할, 변형, 병합) strategy입니다.</p>
 
-<p>Teacher Model은 위와 같은 프로세스로 학습을 진행하고 큰 모델이기 때문에 좋을 ACC를 만들어 낼 것입니다. 그리고 Student Model은 Teacher Model의 softmax를 거치고 나온 0과 1사이의 확률 값을 soft label로 하여 학습하는 방법이 KD(Knowledge Distillation)입니다.</p>
+<p>이 논문에서는, 하나의 입력을 Group convolution을 통해 여러개로 나누고, 1x1 convolution으로 입력을 transform하고, concat을 통해 merge를 진행합니다.</p>
 
-<h3 id="relational-knowledge-distillation">Relational Knowledge Distillation</h3>
+<p>또한, 이 모델은 기존의 ResNet보다 연산량은 줄이면서 더 높은 성능을 보였습니다.</p>
 
-<p>RKD(Relational Knowledge Distillation)는 Knowledge Distillation에서 Knowledge를 어떻게 정의할 것 인가에서 시작이 되었습니다.</p>
+<h2 id="2-method">2. Method</h2>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure1.png" width="80%" alt="figure1" /></p>
+<p><img src="/assets/images/posts/2019-08-20-resnext/02.png" alt="figure1" /></p>
 
-<p><code class="highlighter-rouge">t</code>를 각 Input에서 나오는 Teacher의 output, <code class="highlighter-rouge">s</code>를 Student 의 output이라고 했을 때 기존의 KD는 각각의 t가 s에 point-to-point로 연결되는 위 그림과 매칭됩니다. 때문에 이 논문에서는 기존의 KD를 IKD(Individual Knowledge Distillation)라고 표현합니다.</p>
+<p>&lt; ResNet과 ResNeXt의 기본 구성 &gt;</p>
 
-<p>IKD는 Individual한 output을 Knowledge로 하여 Distillation 한다고 하면, RKD는 output들의 관계(Relation)를 Knowledge로 하여 Distillation합니다.</p>
+<p>논문에 작성되어있는 ResNet-50과 ResNeXt-50의 구성입니다. 표에서 보시면, 각 conv layer를 지날 때 마다, output의 크기가 1/2로 줄어드는것을 볼 수 있습니다. ResNet에서는 하나의 convolution을 깊은 채널로 만든 것을 볼 수 있는 반면에, ResNeXt에서는 조금 더 깊지만 32개의 group convolution을 통해 연산량을 크게 낮춘것을 볼 수 있습니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure3.png" width="80%" alt="figure3" /></p>
+<p>이 논문에서 나타나있는 C는 cardinarity로, Group convolution의 수로 볼 수 있습니다.</p>
 
-<p>이 연구에서 이야기 하는 관계는 각 output이 embedding space에 표현될 때의 node간의 distance와 angle입니다.</p>
+<p><img src="/assets/images/posts/2019-08-20-resnext/03.png" alt="figure2" /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure4.png" width="60%" alt="figure4" />
-<img src="/assets/images/posts/2019-07-24-rkd/figure5.png" width="60%" alt="figure5" /></p>
+<p>&lt; Basic block 구성 &gt;</p>
 
-<p>distance는 위의 식으로 표현 될 수 있고 뮤는 node간 거리의 평균이라고 이해하면 될 것 같습니다. 따라서 아래와 같은 식을 otim하는 것으로 학습 할 수 있습니다.</p>
+<p>이전의 ResNet에서는, ResNet50 이하의 깊이를 갖는 구조에서는 Basic block, 즉 블록을 하나 쌓을 때, convolution을 2개만 진행을 했었습니다. 하지만 ResNeXt에서는, 2개의 블록만 쌓게 된다면 group convolution의 의미가 없어져 성능 향상에 의미가 없게 됩니다. 따라서 ResNeXt에서는 block의 depth가 3 이상일 때 부터 성능이 향상된다고 합니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure6.png" width="60%" alt="figure6" /></p>
+<h2 id="3-implemntation-details">3. Implemntation details</h2>
 
-<p>angle도 아래와 같이 표현이 가능합니다.</p>
+<p>이 논문에서는 성능 실험을 위해 ImageNet dataset를 사용했습니다. input image 를 224x224 random crop하였으며, shortcut connection을 위해서는 identity connection을 사용했습니다. (dimension이 변경될 떄는, projection shortcut 을 사용했습니다. ResNet 논문의 Option B를 참고하시면 됩니다.) 또한, Downsampling은 convolution 3,4,5layer에서 진행되었으며, 각 layer의 첫번째 블록에서 stride=2를 통해 진행하였습니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure7.png" width="60%" alt="figure7" /></p>
+<p>SGD optimizer, mini-batch 256, 8GPU를 사용했으며, weight decay=0.0001, momentum=0.9를 넣었습니다. learning rate는 0.1에서 시작하였으며, 학습동안 3번 learning rate를 1/10로 감소시켰습니다. 또한 weight initialization을 사용했습니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure8.png" width="60%" alt="figure8" /></p>
+<p>모든 convolution 이후에는 BatchNormalization을 수행하였고, 그 이후에는 ReLU를 붙였습니다. (Shortcut 이후에는 ReLU를 적용하지 않았습니다)</p>
 
-<h3 id="experiment">Experiment</h3>
+<h2 id="4-experiments">4. Experiments</h2>
 
-<p>이 논문에서는 여러 Task(Metric learning, Image classification, Few-shot learning) 에서 위에서 소개한 distance-wise, angle-wise 를 통해 학습한 결과를 다른 네트워크와 비교하고 있습니다.</p>
+<h3 id="cardinality-vs-width">Cardinality vs. Width</h3>
 
-<p><strong>Metric learning</strong></p>
+<p>ResNeXt의 가장 큰 특징이라고 한다면 Group convoluition입니다. 이 Group의 수를 cardinality라고 하는데, group의 수를 늘릴수록 더 낮은 연산량을 가질 수 있습니다. 따라서, 같은 연산량을 갖는 네트워크라고 하면, group을 늘리면 더 깊은 채널(총합)을 가질 수 있습니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure9.png" width="100%" alt="figure9" /></p>
+<p>이 논문에서는, cardinality C와 bottleneck width의 trade-off를 비교를 해보았습니다.</p>
 
-<p><strong>Image classification</strong></p>
+<p><img src="/assets/images/posts/2019-08-20-resnext/04.png" alt="table1" /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure10.png" width="60%" alt="figure10" /></p>
+<cardinality와 width="">
 
-<p><strong>Few-shot learning</strong></p>
+위의 표는, 파라미터를 일정 수준으로 유지하면서 cardinality와 block width를 변경해본 표 입니다. group의 수를 늘리면 더 많은 channel을 이용할 수 있습니다.
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure10.png" width="60%" alt="figure10" /></p>
+![table2](/assets/images/posts/2019-08-20-resnext/05.png)
 
-<p>그 결과 모든 실험에서 가장 좋은 성능을 보였으며, 네트워크가 깊어짐에 따라서 큰 폭으로 성능 향상이 발생하는 것을 보였습니다.</p>
+&lt; ImageNet 결과 &gt;
 
-<h2 id="references">References</h2>
-<ul>
-  <li>
-    <p>Park, Wonpyo, et al. “Relational Knowledge Distillation.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2019.</p>
-  </li>
-  <li>
-    <p>Hinton, Geoffrey, Oriol Vinyals, and Jeff Dean. “Distilling the knowledge in a neural network.” arXiv preprint arXiv:1503.02531 (2015).</p>
-  </li>
-</ul>
+그 결과를 비교한 표 입니다. 결과만 말씀드리면, 같은 연산량을 유지할 때, cardinality를 늘리는 것이 성능 향상에 큰 영향이 있었습니다. 또한, 여러가지 dataset에서의 실험을 통해, increasing cardinality의 성능 증명을 볼 수 있습니다.
+
+## References
+
+- He, Kaiming, et al. "Deep residual learning for image recognition." Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.
+
+- Xie, Saining, et al. "Aggregated residual transformations for deep neural networks." Proceedings of the IEEE conference on computer vision and pattern recognition. 2017.
+</cardinality와>
 
                 </div>
             </section>
@@ -261,24 +259,24 @@ into the {body} of the default.hbs template -->
                 <!-- #author-->
                 
                     
+                
+                    
+                
+                    
                         <section class="author-card">
                             
-                                <img class="author-profile-image" src="/assets/images/authors/jaemin.jpeg" alt="jaemin" />
+                                <img class="author-profile-image" src="/assets/images/authors/soyeol.jpeg" alt="soyeol" />
                             
                             <section class="author-card-content">
-                                <h4 class="author-card-name"><a href="/author/jaemin">Jaemin Lee</a></h4>
+                                <h4 class="author-card-name"><a href="/author/soyeol">Soyeol Lee</a></h4>
                                 
-                                    <p>🔥</p>
+                                    <p>Read <a href="/author/soyeol">more posts</a> by this author.</p>
                                 
                             </section>
                         </section>
                         <div class="post-full-footer-right">
-                            <a class="author-card-button" href="/author/jaemin">Read More</a>
+                            <a class="author-card-button" href="/author/soyeol">Read More</a>
                         </div>
-                    
-                
-                    
-                
                     
                 
                     
@@ -326,7 +324,7 @@ into the {body} of the default.hbs template -->
                     <article class="read-next-card"
                         
                             
-                                style="background-image: url(url(/assets/images/posts/2019-07-24-rkd/cover.png)"
+                                style="background-image: url(url(/assets/images/posts/2019-08-20-resnext/01.png)"
                         
                     >
                         <header class="read-next-card-header">
@@ -361,9 +359,13 @@ into the {body} of the default.hbs template -->
                                 
                                   
                                     
+                                  
+                                
+                                  
+                                    
                                         
                                         
-                                            <li><a href="/2019/08/resnext">ResNeXt:Aggregated Residual Transformations for Deep Neural Networks</a></li>
+                                            <li><a href="/2019/08/kinetics-dataset">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</a></li>
                                         
                                     
                                   
@@ -372,10 +374,6 @@ into the {body} of the default.hbs template -->
                                     
                                         
                                         
-                                    
-                                  
-                                
-                                  
                                     
                                   
                                 
@@ -421,6 +419,66 @@ into the {body} of the default.hbs template -->
             
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/2019/08/Group-Normalization">
+                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-08-21-Group-Normalization/cover.png)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/2019/08/Group-Normalization">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Paper-review</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Group Normalization</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="Minseok Seo" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/minseok/">Minseok Seo</a>
+                        </span>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
             
                 
 
@@ -480,66 +538,6 @@ into the {body} of the default.hbs template -->
 
             
 
-            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
-            
-                
-
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/2019/07/bag-of-trick">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-07-27-bag-of-tricks/cover.png)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/07/bag-of-trick">
-                <header class="post-card-header">
-                    
-                        
-                            
-                                <span class="post-card-tags">Paper-review</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">Bag of Tricks</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p></p>
-                    
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                
-                    
-                        
-                        <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="Minseok Seo" />
-                        
-                        <span class="post-card-author">
-                            <a href="/author/minseok/">Minseok Seo</a>
-                        </span>
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                <span class="reading-time">
-                    
-                    
-                      1 min read
-                    
-                </span>
-            </footer>
-        </div>
-    </article>
-
-            
-
         </div>
     </div>
 </aside>
@@ -555,18 +553,18 @@ into the {body} of the default.hbs template -->
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Relational Knowledge Distillation</div>
+    <div class="floating-header-title">ResNeXt:Aggregated Residual Transformations for Deep Neural Networks</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Relational+Knowledge+Distillation&amp;url=https://blog.airlab.re.kr/2019/07/rkd"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=ResNeXt%3AAggregated+Residual+Transformations+for+Deep+Neural+Networks&amp;url=https://blog.airlab.re.kr/2019/08/resnext"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/07/rkd"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/08/resnext"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
