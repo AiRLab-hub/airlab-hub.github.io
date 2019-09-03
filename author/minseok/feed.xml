@@ -2,10 +2,10 @@
 
 <feed xmlns="http://www.w3.org/2005/Atom" >
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
-  <link href="http://localhost:4000/author/minseok/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2019-08-31T11:57:34+09:00</updated>
-  <id>http://localhost:4000/author/minseok/feed.xml</id>
+  <link href="https://blog.airlab.re.kr/author/minseok/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" />
+  <updated>2019-09-04T13:52:21+09:00</updated>
+  <id>https://blog.airlab.re.kr/author/minseok/feed.xml</id>
 
   
   
@@ -33,6 +33,8 @@
     
       
     
+      
+    
   
 
   
@@ -41,11 +43,11 @@
   
     <entry>
       <title type="html">Group Normalization</title>
-      <link href="http://localhost:4000/2019/08/Group-Normalization" rel="alternate" type="text/html" title="Group Normalization" />
+      <link href="https://blog.airlab.re.kr/2019/08/Group-Normalization" rel="alternate" type="text/html" title="Group Normalization" />
       <published>2019-08-21T05:00:00+09:00</published>
       <updated>2019-08-21T05:00:00+09:00</updated>
-      <id>http://localhost:4000/2019/08/Group-Normalization</id>
-      <content type="html" xml:base="http://localhost:4000/2019/08/Group-Normalization">&lt;p&gt;Group Normalization 리뷰&lt;/p&gt;
+      <id>https://blog.airlab.re.kr/2019/08/Group-Normalization</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/08/Group-Normalization">&lt;p&gt;Group Normalization 리뷰&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Group Normalization”&lt;/strong&gt; 입니다.&lt;/p&gt;
 
@@ -163,11 +165,11 @@
   
     <entry>
       <title type="html">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</title>
-      <link href="http://localhost:4000/2019/08/kinetics-dataset" rel="alternate" type="text/html" title="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset" />
+      <link href="https://blog.airlab.re.kr/2019/08/kinetics-dataset" rel="alternate" type="text/html" title="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset" />
       <published>2019-08-03T17:00:00+09:00</published>
       <updated>2019-08-03T17:00:00+09:00</updated>
-      <id>http://localhost:4000/2019/08/kinetics-dataset</id>
-      <content type="html" xml:base="http://localhost:4000/2019/08/kinetics-dataset">&lt;p&gt;Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰&lt;/p&gt;
+      <id>https://blog.airlab.re.kr/2019/08/kinetics-dataset</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/08/kinetics-dataset">&lt;p&gt;Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset”&lt;/strong&gt; 입니다.&lt;/p&gt;
 
@@ -282,11 +284,11 @@ RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만
   
     <entry>
       <title type="html">Bag of Tricks</title>
-      <link href="http://localhost:4000/2019/07/bag-of-trick" rel="alternate" type="text/html" title="Bag of Tricks" />
+      <link href="https://blog.airlab.re.kr/2019/07/bag-of-trick" rel="alternate" type="text/html" title="Bag of Tricks" />
       <published>2019-07-27T05:00:00+09:00</published>
       <updated>2019-07-27T05:00:00+09:00</updated>
-      <id>http://localhost:4000/2019/07/bag-of-trick</id>
-      <content type="html" xml:base="http://localhost:4000/2019/07/bag-of-trick">&lt;p&gt;Bag of Tricks for Image Classification with Convolutional Neural Networks 리뷰&lt;/p&gt;
+      <id>https://blog.airlab.re.kr/2019/07/bag-of-trick</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/07/bag-of-trick">&lt;p&gt;Bag of Tricks for Image Classification with Convolutional Neural Networks 리뷰&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Bag of Tricks for Image Classification with Convolutional Neural Networks”&lt;/strong&gt; 입니다.&lt;/p&gt;
 
@@ -429,11 +431,11 @@ pytorch에서는 SGD의 파라메터중 nesterov를 True로 해주시면 됩니�
   
     <entry>
       <title type="html">MobileNetV2</title>
-      <link href="http://localhost:4000/2019/07/mobilenetv2" rel="alternate" type="text/html" title="MobileNetV2" />
+      <link href="https://blog.airlab.re.kr/2019/07/mobilenetv2" rel="alternate" type="text/html" title="MobileNetV2" />
       <published>2019-07-22T19:00:00+09:00</published>
       <updated>2019-07-22T19:00:00+09:00</updated>
-      <id>http://localhost:4000/2019/07/mobilenetv2</id>
-      <content type="html" xml:base="http://localhost:4000/2019/07/mobilenetv2">&lt;p&gt;MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰&lt;/p&gt;
+      <id>https://blog.airlab.re.kr/2019/07/mobilenetv2</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/07/mobilenetv2">&lt;p&gt;MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 MobileNetV2 : Inverted Residuals and Linear Bottlenecks 입니다. 간단하게 한 줄로 이 논문을 소개하자면 모바일이나, 임베디드에서도 실시간을 작동할 수 있게 모델이 경량화 되면서도, 정확도 또한 많이 떨어지지 않게하여, 속도와 정확도 사이의 트레이드 오프 문제를 어느정도 해결한 네트워크 입니다.&lt;/p&gt;
 
