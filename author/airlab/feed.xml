@@ -2,10 +2,10 @@
 
 <feed xmlns="http://www.w3.org/2005/Atom" >
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
-  <link href="https://blog.airlab.re.kr/author/airlab/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" />
-  <updated>2019-09-04T21:52:14+09:00</updated>
-  <id>https://blog.airlab.re.kr/author/airlab/feed.xml</id>
+  <link href="http://localhost:4000/author/airlab/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
+  <updated>2019-09-05T13:39:57+09:00</updated>
+  <id>http://localhost:4000/author/airlab/feed.xml</id>
 
   
   
@@ -43,19 +43,19 @@
   
     <entry>
       <title type="html">2019년 2학기 정기 상담 안내</title>
-      <link href="https://blog.airlab.re.kr/2019/09/190903" rel="alternate" type="text/html" title="2019년 2학기 정기 상담 안내" />
+      <link href="http://localhost:4000/2019/09/190903" rel="alternate" type="text/html" title="2019년 2학기 정기 상담 안내" />
       <published>2019-09-03T19:00:00+09:00</published>
       <updated>2019-09-03T19:00:00+09:00</updated>
-      <id>https://blog.airlab.re.kr/2019/09/190903</id>
-      <content type="html" xml:base="https://blog.airlab.re.kr/2019/09/190903">&lt;p&gt;한밭대학교 정기상담 안내&lt;/p&gt;
+      <id>http://localhost:4000/2019/09/190903</id>
+      <content type="html" xml:base="http://localhost:4000/2019/09/190903">&lt;p&gt;한밭대학교 정기상담 안내&lt;/p&gt;
 
 &lt;p&gt;최동걸 교수님 상담학생은 아래 한글파일을 참조하여 상담하시기 바랍니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;/assets/post-files/2019-09-03-notice/19년2학기2차상담_학번_이름.hwp&quot; target=&quot;_blank&quot;&gt;19년2학기2차상담_학번_이름.hwp&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/assets/post-files/2019-09-03-notice/19년2학기1차상담_학번_이름.hwp&quot; target=&quot;_blank&quot;&gt;19년2학기1차상담_학번_이름.hwp&lt;/a&gt;&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;상담을 원하는 학생은 &lt;strong&gt;이번주 금요일 (9월 6일)까지&lt;/strong&gt; 교수님 방문 앞 종이에 상담 요청 시간을 적을 것.&lt;/li&gt;
-  &lt;li&gt;상담 받기 하루 전 위 파일을 내려받아 빨간색으로 표시되어 있는 부분을 본인에 맞게 작성하고 &lt;strong&gt;파일 제목을 19년2학기2차상담_학번_이름.hwp로 작성하여 dgchoi@hanbat.ac.kr로 보낼 것&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;상담 받기 하루 전 위 파일을 내려받아 빨간색으로 표시되어 있는 부분을 본인에 맞게 작성하고 &lt;strong&gt;파일 제목을 19년2학기1차상담_학번_이름.hwp로 작성하여 dgchoi@hanbat.ac.kr로 보낼 것&lt;/strong&gt;.&lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;상담 내용은 공백 제외 &lt;strong&gt;최소 500자 이상&lt;/strong&gt; 작성할 것&lt;/p&gt;
   &lt;/li&gt;
