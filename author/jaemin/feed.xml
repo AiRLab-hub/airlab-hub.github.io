@@ -2,10 +2,10 @@
 
 <feed xmlns="http://www.w3.org/2005/Atom" >
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
-  <link href="http://localhost:4000/author/jaemin/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2019-09-05T13:39:57+09:00</updated>
-  <id>http://localhost:4000/author/jaemin/feed.xml</id>
+  <link href="https://blog.airlab.re.kr/author/jaemin/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" />
+  <updated>2019-09-05T13:47:22+09:00</updated>
+  <id>https://blog.airlab.re.kr/author/jaemin/feed.xml</id>
 
   
   
@@ -43,11 +43,11 @@
   
     <entry>
       <title type="html">Relational Knowledge Distillation</title>
-      <link href="http://localhost:4000/2019/07/rkd" rel="alternate" type="text/html" title="Relational Knowledge Distillation" />
+      <link href="https://blog.airlab.re.kr/2019/07/rkd" rel="alternate" type="text/html" title="Relational Knowledge Distillation" />
       <published>2019-07-28T22:00:00+09:00</published>
       <updated>2019-07-28T22:00:00+09:00</updated>
-      <id>http://localhost:4000/2019/07/rkd</id>
-      <content type="html" xml:base="http://localhost:4000/2019/07/rkd">&lt;p&gt;Relational Knowledge Distillation&lt;/p&gt;
+      <id>https://blog.airlab.re.kr/2019/07/rkd</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/07/rkd">&lt;p&gt;Relational Knowledge Distillation&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!&lt;/p&gt;
 
@@ -152,11 +152,11 @@
   
     <entry>
       <title type="html">DenseNet</title>
-      <link href="http://localhost:4000/2019/07/densenet" rel="alternate" type="text/html" title="DenseNet" />
+      <link href="https://blog.airlab.re.kr/2019/07/densenet" rel="alternate" type="text/html" title="DenseNet" />
       <published>2019-07-24T22:00:00+09:00</published>
       <updated>2019-07-24T22:00:00+09:00</updated>
-      <id>http://localhost:4000/2019/07/densenet</id>
-      <content type="html" xml:base="http://localhost:4000/2019/07/densenet">&lt;p&gt;DenseNet: Densely Connected Convolutional Networks&lt;/p&gt;
+      <id>https://blog.airlab.re.kr/2019/07/densenet</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/07/densenet">&lt;p&gt;DenseNet: Densely Connected Convolutional Networks&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. :)&lt;/p&gt;
 
@@ -288,11 +288,11 @@
   
     <entry>
       <title type="html">Wide Residual Networks</title>
-      <link href="http://localhost:4000/2019/07/WRN" rel="alternate" type="text/html" title="Wide Residual Networks" />
+      <link href="https://blog.airlab.re.kr/2019/07/WRN" rel="alternate" type="text/html" title="Wide Residual Networks" />
       <published>2019-07-17T19:00:00+09:00</published>
       <updated>2019-07-17T19:00:00+09:00</updated>
-      <id>http://localhost:4000/2019/07/WRN</id>
-      <content type="html" xml:base="http://localhost:4000/2019/07/WRN">&lt;p&gt;Wide Residual Networks&lt;/p&gt;
+      <id>https://blog.airlab.re.kr/2019/07/WRN</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/07/WRN">&lt;p&gt;Wide Residual Networks&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. 앞으로 연구실 세미나 준비를 통해 알게 된 내용을 연구실 블로그에 기록하게 되었습니다 :)&lt;/p&gt;
 
