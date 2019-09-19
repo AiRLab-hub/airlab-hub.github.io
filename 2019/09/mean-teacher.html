@@ -11,7 +11,7 @@
 
 
 
-    <title>Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</title>
+    <title>Mean teachers are better role models</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -36,26 +36,26 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="Artificial intelligence and Robotics Laboratory" />
     <link rel="shortcut icon" href="https://blog.airlab.re.kr/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="https://blog.airlab.re.kr/2019/08/kinetics-dataset" />
+    <link rel="canonical" href="https://blog.airlab.re.kr/2019/09/mean-teacher" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="AiRLab. Research Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset" />
-    <meta property="og:description" content="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 “Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset” 입니다. 이 논문은 딥마인드에서 발표한 kinetics dataset 논문입니다. 이 논문은 데이터셋 논문임에도" />
-    <meta property="og:url" content="https://blog.airlab.re.kr/2019/08/kinetics-dataset" />
-    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-08-04-kinetics-dataset/cover.PNG" />
+    <meta property="og:title" content="Mean teachers are better role models" />
+    <meta property="og:description" content="Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Mean teachers are better role models (arXiv:1703.01780)이며, NIPS 2017에서 소개된 논문입니다. 이 논문은 Semi-Supervised Leaning에 관련된 논문이고, Π Model과 Temporal ensemble 이후에 소개되었습니다. Π Model Π" />
+    <meta property="og:url" content="https://blog.airlab.re.kr/2019/09/mean-teacher" />
+    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-09-19-mean-teacher/cover.png" />
     <meta property="article:publisher" content="https://www.facebook.com/false" />
     <meta property="article:author" content="https://www.facebook.com/false" />
-    <meta property="article:published_time" content="2019-08-03T17:00:00+09:00" />
-    <meta property="article:modified_time" content="2019-08-03T17:00:00+09:00" />
+    <meta property="article:published_time" content="2019-09-19T11:00:00+09:00" />
+    <meta property="article:modified_time" content="2019-09-19T11:00:00+09:00" />
     <meta property="article:tag" content="Paper-review" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset" />
-    <meta name="twitter:description" content="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 “Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset” 입니다. 이 논문은 딥마인드에서 발표한 kinetics dataset 논문입니다. 이 논문은 데이터셋 논문임에도" />
+    <meta name="twitter:title" content="Mean teachers are better role models" />
+    <meta name="twitter:description" content="Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Mean teachers are better role models (arXiv:1703.01780)이며, NIPS 2017에서 소개된 논문입니다. 이 논문은 Semi-Supervised Leaning에 관련된 논문이고, Π Model과 Temporal ensemble 이후에 소개되었습니다. Π Model Π" />
     <meta name="twitter:url" content="https://blog.airlab.re.kr/" />
-    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-08-04-kinetics-dataset/cover.PNG" />
+    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-09-19-mean-teacher/cover.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="AiRLab. Research Blog" />
     <meta name="twitter:label2" content="Filed under" />
@@ -74,18 +74,18 @@
         "name": "AiRLab. Research Blog",
         "logo": "https://blog.airlab.re.kr/assets/images/airlab-logo.png"
     },
-    "url": "https://blog.airlab.re.kr/2019/08/kinetics-dataset",
+    "url": "https://blog.airlab.re.kr/2019/09/mean-teacher",
     "image": {
         "@type": "ImageObject",
-        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-08-04-kinetics-dataset/cover.PNG",
+        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-09-19-mean-teacher/cover.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://blog.airlab.re.kr/2019/08/kinetics-dataset"
+        "@id": "https://blog.airlab.re.kr/2019/09/mean-teacher"
     },
-    "description": "Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 “Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset” 입니다. 이 논문은 딥마인드에서 발표한 kinetics dataset 논문입니다. 이 논문은 데이터셋 논문임에도"
+    "description": "Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Mean teachers are better role models (arXiv:1703.01780)이며, NIPS 2017에서 소개된 논문입니다. 이 논문은 Semi-Supervised Leaning에 관련된 논문이고, Π Model과 Temporal ensemble 이후에 소개되었습니다. Π Model Π"
 }
     </script>
 
@@ -98,7 +98,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Mean teachers are better role models" href="/feed.xml" />
 
 
 </head>
@@ -154,7 +154,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime=" 3 August 2019"> 3 August 2019</time>
+                    <time class="post-full-meta-date" datetime="19 September 2019">19 September 2019</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -164,103 +164,59 @@ into the {body} of the default.hbs template -->
                         
                     
                 </section>
-                <h1 class="post-full-title">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</h1>
+                <h1 class="post-full-title">Mean teachers are better role models</h1>
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-08-04-kinetics-dataset/cover.PNG)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-09-19-mean-teacher/cover.png)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <p>Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰</p>
+                    <p>Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results</p>
 
-<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 <strong>“Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset”</strong> 입니다.</p>
+<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!</p>
 
-<p>이 논문은 딥마인드에서 발표한 kinetics dataset 논문입니다. 이 논문은 데이터셋 논문임에도 action recognition의 역사와 방향성을 제시해주기 때문에 action recognition에 입문하시는 분들이라면 꼭 읽어 보시는 걸 추천해 드립니다.</p>
+<p>오늘 소개할 논문은 Mean teachers are better role models (<a href="https://arxiv.org/abs/1703.01780">arXiv:1703.01780</a>)이며, NIPS 2017에서 소개된 논문입니다.</p>
 
-<p>기존의 action recognition 문제에서 UCF101 과 HMDB51 같은 규모가 작은 데이터셋은 좋은 성능을 내기 어려웠습니다. 그래서 이 논문 저자는 ImageNet처럼 action recognition에도 빅 데이터셋이 필요성을 느끼고 Kinetics 데이터셋을 만듭니다. Kinetics 데이터셋은 400개의 클래스들 과  한 클래스당 400개가 넘는 clips가 존재하는 빅데이터 셋입니다.(현재는 클래스 700 버전도 업로드 되었습니다.) Kinetics 데이터셋을 학습시킨 파라메터로 전이학습을 진행하여 UCF101 과 HMDB51 과 같은 작은 규모의 데이터셋에서도 좋은 성능을 냈습니다. 또한 Two-Stream Inflated 3D ConvNet (I3D)을 제안하고 전이학습을 진행하여 HMDB51에서는 80.9% UCF101에서는 98.0%를 달성하였습니다.</p>
+<p>이 논문은 Semi-Supervised Leaning에 관련된 논문이고, Π Model과 Temporal ensemble 이후에 소개되었습니다.</p>
 
-<p><img src="/assets/images/posts/2019-08-04-kinetics-dataset/cover.PNG" alt="Image" /></p>
+<p><img src="/assets/images/posts/2019-09-19-mean-teacher/figure1.png" width="80%" alt="figure1" /></p>
 
-<h3 id="the-old-Ⅰ-convnetlstm">The Old Ⅰ: ConvNet+LSTM</h3>
+<h4 id="Π-model">Π Model</h4>
+<p>Π Model은 위 그림의 위 쪽과 같은 구조와 같이, 라벨이 주어진 경우 Closs Entropy를 사용하여 학습을 하고, 라벨이 주어지지 않은 경우는 augmented input의 결과와 이전과 다른 dropout 과 augmention을 사용한 결과의 squared difference를 이용해 학습을 합니다.</p>
 
-<p>영상에서 25 프레임을 뽑아낸후, CNN을 돌려서 나온 결과를 LSTM으로 입력하여 sequential한 정보를 예측해 보겠다는 아이디어 입니다. 직관적으로도 배경을 제거하고 CNN에 들어가는 것이 아니기 때문에 액션보다는 배경에 큰 영향을 받고, 미세한 액션은 잘 찾지 못하는 단점이 있었습니다.(LSTM을 꼭 활용하고 싶으시다면 OCR처럼 액션을 하는 오브젝트를 디텍션한 후 크롭하는 방법을 추천 드립니다.)</p>
+<h4 id="temporal-ensemble">Temporal ensemble</h4>
+<p>Temporal ensemble과 Π Model의 차이점은 라벨이 주어지지 않았을 때 Temporal ensemble은 이전의 결과에 대한 값들을 앙상블한 결과를 가지고 학습을 하는 것입니다.</p>
 
-<p><img src="/assets/images/posts/2019-08-04-kinetics-dataset/figure1.PNG" alt="Image" /></p>
+<h3 id="mean-teacher">Mean Teacher</h3>
+<p><img src="/assets/images/posts/2019-09-19-mean-teacher/cover.png" width="80%" alt="figure3" />
+위에서 소개한 두개의 모델은 모델을 공유하여 학습이 되지만, Mean Teacher의 경우 Student와 Teacher 모델로 나뉘어 학습이 진행됩니다. Teacher 모델은 Student 모델의 Weight를 공유하고, 대신에 Student모델의 아래의 방식과 같이 EMS Weight를 사용합니다.</p>
 
-<h3 id="the-old-Ⅱ-3d-convnets">The old Ⅱ: 3D ConvNets</h3>
+<p><img src="/assets/images/posts/2019-09-19-mean-teacher/figure2.png" width="30%" alt="figure2" /></p>
 
-<p>action recognition에 처음 입문하시는 분들이 가장 먼저 직관적으로 예측가능 한 방법 같습니다. 하지만 3D conv는 3D 컨브보다 더 많은 파라메터가 필요하며, 이는 학습을 어렵게 만듭니다. 그리고 여전히 배경에 영향을 많이 받기 때문에 작은 행동들은 많이 놓치는 경향이 보였습니다.</p>
+<p>그 후 라벨이 주어지지 않은 경우 기존 방식과 유사하게 Teacher 모델과 Student 모델의 consistency cost (J)를 계산하여 학습이 진행되게 됩니다.
+<img src="/assets/images/posts/2019-09-19-mean-teacher/figure3.png" width="40%" alt="figure3" /></p>
 
-<p><img src="/assets/images/posts/2019-08-04-kinetics-dataset/figure2.PNG" alt="Image" /></p>
+<p>이러한 방법은 Temporal ensemble에 비하여 2가지 이점을 가지는데, 첫 번째는 Student와 Teacher 사이의 빠른 Feedback이 가능하여 더 높은 ACC를 가지게 되는 것이고, 두 번째는 large scale datasets을 online으로 학습할 수 있는 것 입니다.</p>
 
-<h3 id="optical-flow-란">Optical flow 란?</h3>
+<p><img src="/assets/images/posts/2019-09-19-mean-teacher/table1.png" width="80%" alt="table1" /></p>
 
-<p>기존 영상처리에서 움직이는 객체를 추적할때 자주 사용하던 방법입니다. Optical flow를 사용하면 움직이는 객체의 x방향 y방향의 벡터를 뽑아 낼 수 있습니다. 이 논문에서는 TVL1방법을 사용 했습니다. TVL1 방법이란 두 프레임 사이의 변화한 점을 픽셀 단위로 추적하면서, 데이터 사이의 차이를 L1 norm으로 구하고, 전체 데이터의 분산을 사용하여 정규화 하는 방법입니다.(딥러닝을 사용하지 않고 Optical flow를 뽑는 방법중 가장 쓸만한 방법 입니다.)</p>
+<p>위의 결과와 같이 SVHM과 CIFAR10 에서의 Mean Teacher를 사용한 네트워크가 Π Model과 Temporal ensemble보다 더 높은 퍼포먼스를 보임을 확인할 수 있습니다.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">optical_flow</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">DualTVL1OpticalFlow_create</span><span class="p">()</span>
-<span class="n">flow</span> <span class="o">=</span> <span class="n">optical_flow</span><span class="o">.</span><span class="n">calc</span><span class="p">(</span><span class="n">prvs</span><span class="p">,</span> <span class="nb">next</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p><img src="/assets/images/posts/2019-08-04-kinetics-dataset/figure3.PNG" alt="Image" /></p>
-
-<h3 id="the-old-Ⅲ-two-stream-networks">The old Ⅲ: Two-Stream Networks</h3>
-
-<p>아직도 활발한 연구가 진행되고 있는 방법이지만, 이 논문 저자는 old 라고 표기했기 때문에 old 라고 표현하겠습니다! 이 방법은 RGB와 Optical flow를 사용한 2D conv 방법입니다. Optical flow를 사용하여 행동을 예측하기 때문에 action을 비교적 잘 찾지만, 아직도 여전히 찝찝한 부분은 남아있습니다. 2D conv이기 때문에 rgb 한장 optical flow한장 들어가기 때문에 한 영상에서 뽑은 프레임 사이의 관계를 예측하는 부분에서는 아직까지 뭔가 찝찝합니다. 또한 이 찝찝함을 해결하기 위하여 rgb와 optical flow에서 나온 결과를 concat하여 3D를 만든후 3D conv를 하는 방법도 있습니다.(이 방법들의 단점을 직관적으로 생각해 보면 rgb는 3D컨브를 해야 RGB프레임 간 관계를 잘 예측 할 수 있기 떄문에 이 방법들은 RGB간 관계를 알기 힘들어서 정확도가 낮게 나온다고 생각합니다. 혹시 이 부분이 틀리다면 댓글로 지적 부탁드립니다.)</p>
-
-<p><img src="/assets/images/posts/2019-08-04-kinetics-dataset/figure4.PNG" alt="Image" /></p>
-
-<h3 id="the-new-two-stream-inflated-3d-convnets">The New: Two-Stream Inflated 3D ConvNets</h3>
-
-<p>RGB와 Optical flow를 동시에 활용한다는 면에서 Two-Stream 방법이고, 2D conv가 아니라 3D conv이기 떄문에 Two-Stream Inflated 3D ConvNets 이라고 정의하며, 앞에서 언급한 모든 방법들보다 이 논문의 실험에서는 정확도가 가장 높았습니다.
-RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만, 그래도 여전히 action을 인식하기에는 부족한 면이 있기 때문에 Optical flow도 활용합니다.</p>
-
-<p><img src="/assets/images/posts/2019-08-04-kinetics-dataset/figure5.PNG" alt="Image" /></p>
-
-<h3 id="inflating-2d-convnets-into-3d">Inflating 2D ConvNets into 3D</h3>
-
-<p>단순하게 2D conv를 3D conv로 변경하려면 시간축 디멘션 하나를 추가하고 pad를 줘서 shape를 맞춰주시면 됩니다. 논문에서 언급한 것 처럼 간단하게 N<em>N을 N</em>N*N을 만들어 주시면 됩니다.</p>
-
-<h3 id="bootstrapping-3d-filters-from-2d-filter">Bootstrapping 3D filters from 2D Filter</h3>
-
-<p>3D conv에서 ImageNet pre-trained 된 weight를 활용하려면 단순하게 weight를 N번 복제해 주시면 됩니다. 뭔가 직관적으로 하면 안될 것 같은 느낌이 들지만 이 논문에서는 실험적으로 이렇게 해서라도 ImageNet pre-trained된 weight를 사용하는게 좋다고 밝힙니다.</p>
-
-<h3 id="pacing-receptive-field-growth-in-space-time-and-network-depth">Pacing receptive field growth in space, time and network depth</h3>
-
-<p>직관적으로 당연히 공간정보와 시간정보의 stride가 적절하게 조절되어야 합니다. 공간정보는 조금 변하는데 시간정보의 stride가 많이 변하면 공간정보를 제대로 못보고, 그렇다고 시간정보의 stride가 조금 변하면 그것은 정지영상과 다름이 없어 행동을 잘 인식하지 못하게 됩니다. 이 논문 저자는 Inflated Inception-V1에서 첫 번째와 두 번째의 Max-Pool레이어에서는 시간축의 stride의 크기를 1 로 설정하면 경험적으로 더 좋았다고 합니다.</p>
-
-<p><img src="/assets/images/posts/2019-08-04-kinetics-dataset/figure6.PNG" alt="Image" /></p>
-
-<h3 id="two-3d-streams">Two 3D Streams</h3>
-
-<p>RGB 정보만 이용해도 3D conv를 사용하면 시간정보를 볼 수 있지만, 이 논문에서는 그래도 Optical flow를 사용하면 경험적으로 더 정확도가 높았다고 합니다. 지금까지 내용을 간단하게 요약하면 아무리 3D conv를 사용하는게 좋고, 3D conv를 사용하더라도 Optical flow를 사용하는게 좋다 입니다.</p>
-
-<h3 id="conculusion">Conculusion</h3>
-
-<p>저는 원래 결론 쓰는 것을 좋아하진 않지만!(개인적인 견해가 들어갈 수 있기 때문에) 데이터셋 논문이기 때문에 결론을 작성하겠습니다. 논문에서 제시한 I3D방법을 사용하는 것이 정확도가 가장 높았고, 정확도 대비 파라메터가 그렇게 많지 않았습니다.</p>
-
-<p><img src="/assets/images/posts/2019-08-04-kinetics-dataset/figure7.PNG" alt="Image" /></p>
-
-<p>파라메터도 적은 편 입니다.</p>
-
-<p><img src="/assets/images/posts/2019-08-04-kinetics-dataset/figure8.PNG" alt="Image" /></p>
-
-<p>정확도도 i3d가 가장 높았으며 i3d 중에서도 optical flow도 활용하는 방법이 가장 좋았습니다.</p>
-
-<p><img src="/assets/images/posts/2019-08-04-kinetics-dataset/figure9.PNG" alt="Image" /></p>
-
-<p>앞에서도 언급했던 것 처럼 Imagenet에서 pre-trained된 것을 활용하는게 더 성능이 좋았습니다.</p>
-
-<p><img src="/assets/images/posts/2019-08-04-kinetics-dataset/figure10.PNG" alt="Image" /></p>
-
-<p>모든 방법에서 i3d 방법이 가장 좋았습니다.</p>
-
-<h3 id="후기">후기</h3>
-
-<p>이 논문은 action recognition에 입문하는 사람이라면 꼭 읽어 보시는걸 추천드리고, 아직 코드 구현은 못했습니다. 구현이 완료 되는데로 링크 첨부 하겠습니다. 읽어주셔서 감사합니다.</p>
-
+<h2 id="references">References</h2>
+<ul>
+  <li>
+    <p>Tarvainen, Antti, and Harri Valpola. “Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results.” Advances in neural information processing systems. 2017.</p>
+  </li>
+  <li>
+    <p>Rasmus, Antti, et al. “Semi-supervised learning with ladder networks.” Advances in neural information processing systems. 2015.</p>
+  </li>
+  <li>
+    <p>Laine, Samuli, and Timo Aila. “Temporal ensembling for semi-supervised learning.” arXiv preprint arXiv:1610.02242 (2016).</p>
+  </li>
+</ul>
 
                 </div>
             </section>
@@ -275,22 +231,22 @@ RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만
                     
                 
                     
-                
-                    
                         <section class="author-card">
                             
-                                <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="minseok" />
+                                <img class="author-profile-image" src="/assets/images/authors/jaemin.jpeg" alt="jaemin" />
                             
                             <section class="author-card-content">
-                                <h4 class="author-card-name"><a href="/author/minseok">Minseok Seo</a></h4>
+                                <h4 class="author-card-name"><a href="/author/jaemin">Jaemin Lee</a></h4>
                                 
-                                    <p>🥟</p>
+                                    <p>🔥</p>
                                 
                             </section>
                         </section>
                         <div class="post-full-footer-right">
-                            <a class="author-card-button" href="/author/minseok">Read More</a>
+                            <a class="author-card-button" href="/author/jaemin">Read More</a>
                         </div>
+                    
+                
                     
                 
                     
@@ -340,7 +296,7 @@ RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만
                     <article class="read-next-card"
                         
                             
-                                style="background-image: url(url(/assets/images/posts/2019-08-04-kinetics-dataset/cover.PNG)"
+                                style="background-image: url(url(/assets/images/posts/2019-09-19-mean-teacher/cover.png)"
                         
                     >
                         <header class="read-next-card-header">
@@ -356,11 +312,6 @@ RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만
                                 
                                 
                                   
-                                    
-                                        
-                                        
-                                            <li><a href="/2019/09/mean-teacher">Mean teachers are better role models</a></li>
-                                        
                                     
                                   
                                 
@@ -388,10 +339,15 @@ RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만
                                     
                                         
                                         
+                                            <li><a href="/2019/08/resnext">ResNeXt:Aggregated Residual Transformations for Deep Neural Networks</a></li>
+                                        
                                     
                                   
                                 
                                   
+                                    
+                                        
+                                        
                                     
                                   
                                 
@@ -445,65 +401,6 @@ RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/2019/08/resnext">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-08-20-resnext/01.png)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/08/resnext">
-                <header class="post-card-header">
-                    
-                        
-                            
-                                <span class="post-card-tags">Paper-review</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">ResNeXt:Aggregated Residual Transformations for Deep Neural Networks</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p></p>
-                    
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                        
-                        <img class="author-profile-image" src="/assets/images/authors/soyeol.jpeg" alt="Soyeol Lee" />
-                        
-                        <span class="post-card-author">
-                            <a href="/author/soyeol/">Soyeol Lee</a>
-                        </span>
-                    
-                
-                    
-                
-                    
-                
-                <span class="reading-time">
-                    
-                    
-                      1 min read
-                    
-                </span>
-            </footer>
-        </div>
-    </article>
-
-            
 
             <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
             
@@ -511,22 +408,22 @@ RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/2019/07/rkd">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-07-24-rkd/cover.png)"></div>
+            <a class="post-card-image-link" href="/2019/09/190903">
+                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-09-03-notice/cover.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/07/rkd">
+            <a class="post-card-content-link" href="/2019/09/190903">
                 <header class="post-card-header">
                     
                         
                             
-                                <span class="post-card-tags">Paper-review</span>
+                                <span class="post-card-tags">Notice</span>
                             
                         
                     
 
-                    <h2 class="post-card-title">Relational Knowledge Distillation</h2>
+                    <h2 class="post-card-title">2019년 2학기 정기 상담 안내</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -537,14 +434,14 @@ RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만
             <footer class="post-card-meta">
                 
                     
-                
-                    
                         
-                        <img class="author-profile-image" src="/assets/images/authors/jaemin.jpeg" alt="Jaemin Lee" />
+                        <img class="author-profile-image" src="/assets/images/authors/airlab.png" alt="AiRLab." />
                         
                         <span class="post-card-author">
-                            <a href="/author/jaemin/">Jaemin Lee</a>
+                            <a href="/author/airlab/">AiRLab.</a>
                         </span>
+                    
+                
                     
                 
                     
@@ -582,18 +479,18 @@ RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</div>
+    <div class="floating-header-title">Mean teachers are better role models</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Quo+Vadis%2C+Action+Recognition%3F+A+New+Model+and+the+Kinetics+Dataset&amp;url=https://blog.airlab.re.kr/2019/08/kinetics-dataset"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Mean+teachers+are+better+role+models&amp;url=https://blog.airlab.re.kr/2019/09/mean-teacher"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/08/kinetics-dataset"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/09/mean-teacher"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 

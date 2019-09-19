@@ -1,4 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-09-05T13:47:22+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">2019년 2학기 정기 상담 안내</title><link href="https://blog.airlab.re.kr/2019/09/190903" rel="alternate" type="text/html" title="2019년 2학기 정기 상담 안내" /><published>2019-09-03T19:00:00+09:00</published><updated>2019-09-03T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/09/190903</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/09/190903">&lt;p&gt;한밭대학교 정기상담 안내&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-09-19T14:47:24+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">Mean teachers are better role models</title><link href="https://blog.airlab.re.kr/2019/09/mean-teacher" rel="alternate" type="text/html" title="Mean teachers are better role models" /><published>2019-09-19T11:00:00+09:00</published><updated>2019-09-19T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/09/mean-teacher</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/09/mean-teacher">&lt;p&gt;Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results&lt;/p&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!&lt;/p&gt;
+
+&lt;p&gt;오늘 소개할 논문은 Mean teachers are better role models (&lt;a href=&quot;https://arxiv.org/abs/1703.01780&quot;&gt;arXiv:1703.01780&lt;/a&gt;)이며, NIPS 2017에서 소개된 논문입니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문은 Semi-Supervised Leaning에 관련된 논문이고, Π Model과 Temporal ensemble 이후에 소개되었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-09-19-mean-teacher/figure1.png&quot; width=&quot;80%&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;Π-model&quot;&gt;Π Model&lt;/h4&gt;
+&lt;p&gt;Π Model은 위 그림의 위 쪽과 같은 구조와 같이, 라벨이 주어진 경우 Closs Entropy를 사용하여 학습을 하고, 라벨이 주어지지 않은 경우는 augmented input의 결과와 이전과 다른 dropout 과 augmention을 사용한 결과의 squared difference를 이용해 학습을 합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;temporal-ensemble&quot;&gt;Temporal ensemble&lt;/h4&gt;
+&lt;p&gt;Temporal ensemble과 Π Model의 차이점은 라벨이 주어지지 않았을 때 Temporal ensemble은 이전의 결과에 대한 값들을 앙상블한 결과를 가지고 학습을 하는 것입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;mean-teacher&quot;&gt;Mean Teacher&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-09-19-mean-teacher/cover.png&quot; width=&quot;80%&quot; alt=&quot;figure3&quot; /&gt;
+위에서 소개한 두개의 모델은 모델을 공유하여 학습이 되지만, Mean Teacher의 경우 Student와 Teacher 모델로 나뉘어 학습이 진행됩니다. Teacher 모델은 Student 모델의 Weight를 공유하고, 대신에 Student모델의 아래의 방식과 같이 EMS Weight를 사용합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-09-19-mean-teacher/figure2.png&quot; width=&quot;30%&quot; alt=&quot;figure2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그 후 라벨이 주어지지 않은 경우 기존 방식과 유사하게 Teacher 모델과 Student 모델의 consistency cost (J)를 계산하여 학습이 진행되게 됩니다.
+&lt;img src=&quot;/assets/images/posts/2019-09-19-mean-teacher/figure3.png&quot; width=&quot;40%&quot; alt=&quot;figure3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이러한 방법은 Temporal ensemble에 비하여 2가지 이점을 가지는데, 첫 번째는 Student와 Teacher 사이의 빠른 Feedback이 가능하여 더 높은 ACC를 가지게 되는 것이고, 두 번째는 large scale datasets을 online으로 학습할 수 있는 것 입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-09-19-mean-teacher/table1.png&quot; width=&quot;80%&quot; alt=&quot;table1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 결과와 같이 SVHM과 CIFAR10 에서의 Mean Teacher를 사용한 네트워크가 Π Model과 Temporal ensemble보다 더 높은 퍼포먼스를 보임을 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Tarvainen, Antti, and Harri Valpola. “Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results.” Advances in neural information processing systems. 2017.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Rasmus, Antti, et al. “Semi-supervised learning with ladder networks.” Advances in neural information processing systems. 2015.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Laine, Samuli, and Timo Aila. “Temporal ensembling for semi-supervised learning.” arXiv preprint arXiv:1610.02242 (2016).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results</summary></entry><entry><title type="html">2019년 2학기 정기 상담 안내</title><link href="https://blog.airlab.re.kr/2019/09/190903" rel="alternate" type="text/html" title="2019년 2학기 정기 상담 안내" /><published>2019-09-03T19:00:00+09:00</published><updated>2019-09-03T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/09/190903</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/09/190903">&lt;p&gt;한밭대학교 정기상담 안내&lt;/p&gt;
 
 &lt;p&gt;최동걸 교수님 상담학생은 아래 한글파일을 참조하여 상담하시기 바랍니다.&lt;/p&gt;
 
@@ -732,63 +774,4 @@ manifold란 어떤 이미지의 차원들이 존재하는 공간이라고 생각
 
 &lt;p&gt;코드는 cifar10에 적용한 것이고 &lt;a href=&quot;https://github.com/seominseok0429/cifar10-mobilenetv2-pytorch&quot;&gt;https://github.com/seominseok0429/cifar10-mobilenetv2-pytorch&lt;/a&gt; 에 배포해 두었습니다.&lt;/p&gt;
 
-&lt;p&gt;끝까지 읽어 주셔서 감사합니다!&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰</summary></entry><entry><title type="html">Wide Residual Networks</title><link href="https://blog.airlab.re.kr/2019/07/WRN" rel="alternate" type="text/html" title="Wide Residual Networks" /><published>2019-07-17T19:00:00+09:00</published><updated>2019-07-17T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/07/WRN</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/07/WRN">&lt;p&gt;Wide Residual Networks&lt;/p&gt;
-
-&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. 앞으로 연구실 세미나 준비를 통해 알게 된 내용을 연구실 블로그에 기록하게 되었습니다 :)&lt;/p&gt;
-
-&lt;p&gt;제가 이번에 읽은 논문은 &lt;strong&gt;Wide Residual Networks&lt;/strong&gt;(Wide ResNet) (&lt;a href=&quot;https://arxiv.org/abs/1605.07146&quot;&gt;arXiv:1605.07146&lt;/a&gt;)이며 2016년 발표가 된 연구입니다.&lt;/p&gt;
-
-&lt;p&gt;같은 과거의 연구들은 점진적으로 CNN(Convolution Neural Networks)이 이미지 인식을 위해 더 깊어질 수 있도록 연구되어왔습니다.&lt;/p&gt;
-
-&lt;p&gt;이를 위해 Optimizer, Initializer, Skip-connection과 같은 많은 방법들이 연구되어왔고, 그중, ResNet(Residual Networks)는 shortcut connection을 통해 네트워크가 깊어지면 깊어질수록 생기는 &lt;code class=&quot;highlighter-rouge&quot;&gt;vanishing gradient&lt;/code&gt;를 해결하면서도 더 깊게 네트워크를 쌓을 수 있도록 설계되었습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;width-vs-depth-in-residual-networks&quot;&gt;Width vs Depth in residual Networks&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-17-WRN/figure1.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;ResNet은 shorcut connection을 통해 많은 layer을 학습 할 수 있도록 하였습니다. 하지만 망이 깊어지면 깊어질 수록 의미있는 정보(context)를 갖는 필터의 수의 비가 적어지는 문제가 발생하게 되었습니다.&lt;/p&gt;
-
-&lt;p&gt;때문에 저자는 Block의 수를 증가시키지 않고, Residual Block의 Channel을 증가시키는 방향으로 연구를 시도하였습니다.&lt;/p&gt;
-
-&lt;p&gt;이 논문에서는 Residual Block을 (a), (c)의 구조와 같이 3x3 컨볼루션이 두 개로 이루어진 경우를 B(3,3)으로 표기하였습니다. 이와 마찬가지로 (b)의 경우는 B(1,3,1) (d)는 B(3,1,3)으로 표기가 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-17-WRN/table1.png&quot; alt=&quot;Table1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;B(3,3)의 경우 구조가 위와 같이 정의됩니다. K 는 widen factor, N은 블록의 수(각 Residual Block의 수)입니다. 이해를 돕기 위해 K가 2인 경우 아래와 같이 구현이 될 수 있습니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;WideResNet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# ...&lt;/span&gt;
-    &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conv1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Conv2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# pseudo code...&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# ...&lt;/span&gt;
-    &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;layer1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_layers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;layer2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_layers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;layer3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_layers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# ...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;dropout&quot;&gt;Dropout&lt;/h3&gt;
-&lt;p&gt;Dropout은 Coadaptive하고 overfitting을 막기 위해 많은 네트워크에 적용되어 왔습니다. 추가적으로 Internal Covariate Shift 이슈를 막기위한 Batch Norm 과 같은 방법들도 연구가되었는데, 이 방법들은 Regularizer의 효과도 볼 수 있습니다.
-이 논문에서는 Residual Block의 컨볼루션 사이에 Dropout(Dorp rate 0.3)을 사용합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;experimental-result&quot;&gt;Experimental result&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-17-WRN/table5.png&quot; alt=&quot;Table5&quot; /&gt;
-본 논문에서는 CIFAR10과 CIFAR100을 여러 모델을 통해 실험하였고, 위의 결과와 같이 WRN(depth 28, k 10)이 test error 4로 가장 높은 성능을 보였습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-17-WRN/figure2.png&quot; alt=&quot;Figure2&quot; /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;실선은 test error, 점선은 train error&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-17-WRN/table6.png&quot; alt=&quot;Table6&quot; /&gt;
-추가적으로 이 논문에서는 Dropout을 사용한 것과 사용하지 않은 것을 비교하였는데, 이 결과 역시 드롭아웃을 사용한 것이 더 좋은 결과를 보입니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;implementation-of-wrn&quot;&gt;Implementation of WRN&lt;/h3&gt;
-
-&lt;p&gt;실제 논문을 &lt;code class=&quot;highlighter-rouge&quot;&gt;pytorch&lt;/code&gt;를 통해 모델을 구현해보았고, 코드는 &lt;a href=&quot;https://github.com/J911/WRN-pytorch&quot;&gt;https://github.com/J911/WRN-pytorch&lt;/a&gt;에 배포해 두었습니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;Zagoruyko, Sergey, and Nikos Komodakis. “Wide residual networks.” arXiv preprint arXiv:1605.07146 (2016).&lt;/li&gt;
-  &lt;li&gt;He, Kaiming, et al. “Deep residual learning for image recognition.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">Wide Residual Networks</summary></entry></feed>
+&lt;p&gt;끝까지 읽어 주셔서 감사합니다!&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">MobileNetV2 : Inverted Residuals and Linear Bottlenecks 리뷰</summary></entry></feed>
