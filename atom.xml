@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>R-CNN</title>
+        
+          <description>&lt;p&gt;R-CNN Review&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 01 Oct 2019 00:00:00 +0900</pubDate>
+        <link>
+        https://blog.airlab.re.kr/2019/10/R-CNN</link>
+        <guid isPermaLink="true">https://blog.airlab.re.kr/2019/10/R-CNN</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Mean teachers are better role models</title>
         
           <description>&lt;p&gt;Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results&lt;/p&gt;

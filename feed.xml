@@ -1,4 +1,141 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-09-20T11:40:21+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">Mean teachers are better role models</title><link href="https://blog.airlab.re.kr/2019/09/mean-teacher" rel="alternate" type="text/html" title="Mean teachers are better role models" /><published>2019-09-19T11:00:00+09:00</published><updated>2019-09-19T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/09/mean-teacher</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/09/mean-teacher">&lt;p&gt;Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-10-01T16:27:12+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">R-CNN</title><link href="https://blog.airlab.re.kr/2019/10/R-CNN" rel="alternate" type="text/html" title="R-CNN" /><published>2019-10-01T00:00:00+09:00</published><updated>2019-10-01T00:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/10/R-CNN</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/10/R-CNN">&lt;p&gt;R-CNN Review&lt;/p&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다. R-CNN을 시작으로 paper review post 를 작성하려고 합니다. ^_^&lt;/p&gt;
+
+&lt;p&gt;이번에 읽은 논문은 &lt;strong&gt;R-CNN&lt;/strong&gt;(Rich feature hierarchies for accurate object detection and semantic segmentation) (&lt;a href=&quot;https://arxiv.org/abs/1311.2524&quot;&gt;arXiv:1311.2524&lt;/a&gt;)입니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;introduciton&quot;&gt;&lt;strong&gt;&lt;u&gt;Introduciton&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;논문 발표 이전&lt;strong&gt;SIFT&lt;/strong&gt;와 &lt;strong&gt;HOG&lt;/strong&gt; 에 상당한 기반을 두고 visual recognition task를 수행했다고 합니다. 그러나 낮은 perpomance 로인해 R-CNN을 고안 하였습니다. 
+여기서 SIFT와 HOG를 간단하게 설명하면, 다음과 같습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;SIFT&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure1.jpg&quot; alt=&quot;figure1&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt; SIFT feature vector는 feature 주변의 영상패치를 4x4 블럭으로 나누고, (1) 각 블럭에 속한 pixel들의 gradient방향과 크기에 대한 histogram을 구하고 bin값으로 연결한 128차원 벡터 입니다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;크기, 형태, 방향에 강인하면서도 구분력이 뛰어나다.&lt;/li&gt;
+  &lt;li&gt;기하학적 정보는 무시하고 feature 단위로 매칭을 수행한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;HOG&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure2.jpg&quot; alt=&quot;figure2&quot; /&gt;&lt;br /&gt;
+ HOG 는 대상 영역을 일정 셀로 분할한뒤, 각 셀마다 edge pixel들의 방향에 대한 histogram을 구한 뒤 이를 bin값으로 연결한 벡터 이다. (edge의 방향 histogram으로 본다.)&lt;br /&gt;
+블록 단위로는 기하학적 정보를 유지하고, 그 내부는 histogram을 사용하여 local변화에 어느정도 강인하다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;template matching과 histogram maching에 중간 단계의 매칭방법이다.&lt;/li&gt;
+  &lt;li&gt;기하학적 정보와 local 한 정보를 모두(일정 양) 가진다.&lt;/li&gt;
+  &lt;li&gt;figure2를 보면 알겠지만 edge의 방향정보를 사용하기 때문에 특이한(독특한) edge를 갖는 object를 식별하는데 적합한 영상 feature이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;SIFT/HOG&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;SIFT&lt;/th&gt;
+      &lt;th&gt;HOG&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;이용하는 정보&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;local information&lt;/td&gt;
+      &lt;td&gt;edge information&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;형태변화가 심한 경우 detection&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;esay&lt;/td&gt;
+      &lt;td&gt;difficult&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;example&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;액자속 그림(패턴)&lt;/td&gt;
+      &lt;td&gt;자동차, 배드민턴 라켓&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;**&lt;/code&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;복잡한 image&lt;/td&gt;
+      &lt;td&gt;단순하고 독특한 image&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;이 논문에서는 &lt;strong&gt;HOG 기반의 시스템 보다 CNN을 사용하여 높은 performance를 보여주기 위해 2가지 문제&lt;/strong&gt;에 초점을 맞춥니다.&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;u&gt;[One]&lt;/u&gt; sliding-window 의 문제점을 파악하고 region proposal Algorithm을 사용했다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure4.png&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;(sliding-window method)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure5.png&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;(region-proposal method)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;sliding window는 탐색해야하는 영역의 수가 이미지 전체이기 때문에 비효율적이고 입력 영상에 ‘물체가 있을거 같은’ 영역을 빠른 속도로 찾아내는 region proposal algorithm을 사용 하였다.&lt;br /&gt;
+&lt;strong&gt;결과적으로 search space가 훨씬 줄어들기 때문에 빠르고 효율적 이다.&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;u&gt;[Two]&lt;/u&gt; large CNN을 training하기 위한 충분한 dataset이 없었고, ILSVRC DATA로 pre-training 된 model을 가져와서 fine-tune 하여 PASCAL DATA에 적용하였다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;object-detection-with-r-cnn&quot;&gt;&lt;strong&gt;&lt;u&gt;object detection with R-CNN&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;                   R-CNN은 3가지의 module 로 구성되어 있습니다.
+&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure3.png&quot; alt=&quot;figure3&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;region proposal을 얻어내는 module&lt;/li&gt;
+  &lt;li&gt;CNN에 넣어 feture map을 얻어내는 module&lt;/li&gt;
+  &lt;li&gt;CNN을 통해 추출된 feture map을 이용하여 Linear SVM을 사용하여 분류하는 module&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;이때, CNN model은 Alexnet을 거의 그대로 가져와 사용하였다.&lt;br /&gt;
+당연히 CNN은 고정 크기의 input을 입력으로 받기 때문에. region proposal을 CNN에 넣기 위해 crop &amp;amp; warp 를 한다.
+논문에 나와있지만, 읽다보면 왜 R-CNN은 Classifier로 Softmax를 쓰지 않고 SVM을 사용했는지에 대한 의문이 들 수 있다. 근데 이는 수식적에 근간을 두고 사용한 것이 아닌 실험적인 결과로 Softmax를 사용했을때 mAP가 낮아졌기 때문에 SVM을 사용한 것 이다.(54.2% -&amp;gt; 50.9%)&lt;/p&gt;
+
+&lt;p&gt;SVM을 간단하게 설명하면 CNN으로 부터 추출된 featuer vector들을 class별로 점수를 주고 object인지 아닌지 object라면 어떤 object 인지 판별하는 classifier이다.&lt;/p&gt;
+
+&lt;p&gt;figure를 보면 Bbox reg 라는 부분이 있는데 bounding Box Regression인데 이는 필수로 사용해야 하는 부분은 아니라고 한다. 그러나 사용한 mAP가 더 좋기 때문에 사용하는 것을 권장한다.&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure6.png&quot; width=&quot;400&quot; height=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;(Bounding-box method)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;
+ground-truth(G) 와 Predicted-Box(P) 가 있을때, P를 G로 mapping 해주는 것이다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure7.png&quot; width=&quot;600&quot; height=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;(Result)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;
+결과적으로, 다음과 같은 output을 얻을 수 있다.&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;논문을-읽으면서-여러자료들을-참고하여-r-cnn의-단점을-이해해-보았다&quot;&gt;&lt;u&gt;논문을 읽으면서 여러자료들을 참고하여 R-CNN의 단점을 이해해 보았다.&lt;/u&gt;&lt;/h4&gt;
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure8.png&quot; width=&quot;900&quot; height=&quot;200&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;(Table)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;
+위와 같이 VOC2010 test에서 좋은 성능을 보였지만 단점은 존재한다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;region proposal된 약 2K의 image를 모두 crop하고 warp하는 과정에서 cpu를 통해 이뤄지기 때문에, 매우 비효율 적이라는 점을 이해하였다.&lt;br /&gt;
+&lt;strong&gt;직접 경험해본 일화&lt;/strong&gt;중 하나는, 1980x1080 를 224x224 image preprocessing 하는 과정이 오래걸려서 GPU가 놀고 있는 시간이 많았던 적이 있다. (224x224 image를 따로 저장하여 문제 해결.)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;3가지의 module을 따로 학습해야하기 때문에 비효율적이다.
+&lt;strong&gt;때문에 Fast_R-CNN에서 Multi-task loss&lt;/strong&gt;를 사용한다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;end-to-end 학습이 불가능 하다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Daehan Kim</name></author><category term="paper-review" /><summary type="html">R-CNN Review</summary></entry><entry><title type="html">Mean teachers are better role models</title><link href="https://blog.airlab.re.kr/2019/09/mean-teacher" rel="alternate" type="text/html" title="Mean teachers are better role models" /><published>2019-09-19T11:00:00+09:00</published><updated>2019-09-19T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/09/mean-teacher</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/09/mean-teacher">&lt;p&gt;Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!&lt;/p&gt;
 
@@ -658,106 +795,4 @@ pytorch에서는 SGD의 파라메터중 nesterov를 True로 해주시면 됩니�
 
 &lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
 
-&lt;p&gt;이 논문을 딥러닝 입문 초기에 읽었으면 더 좋았을 것 같다는 생각을 했습니다. 나중에 후배들이 생기면 이 논문을 제일 첫 번째로 권해주고 싶을 정도로, 딥러닝을 많이 해봐야 얻을 수 있는 직관들과 꿀팁들을 알려주는 논문이라 매우 좋았습니다. 논문 구현 코드는 제 깃허브&lt;a href=&quot;https://github.com/seominseok0429/pytorch-warmup-cosine-lr&quot;&gt;https://github.com/seominseok0429/pytorch-warmup-cosine-lr&lt;/a&gt;에 올려 두었습니다.&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Bag of Tricks for Image Classification with Convolutional Neural Networks 리뷰</summary></entry><entry><title type="html">DenseNet</title><link href="https://blog.airlab.re.kr/2019/07/densenet" rel="alternate" type="text/html" title="DenseNet" /><published>2019-07-24T22:00:00+09:00</published><updated>2019-07-24T22:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/07/densenet</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/07/densenet">&lt;p&gt;DenseNet: Densely Connected Convolutional Networks&lt;/p&gt;
-
-&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. :)&lt;/p&gt;
-
-&lt;p&gt;제가 이번에 읽은 논문은 &lt;strong&gt;Densely Connected Convolutional Networks&lt;/strong&gt;(DenseNet) (&lt;a href=&quot;https://arxiv.org/abs/1608.06993&quot;&gt;arXiv:1608.06993&lt;/a&gt;)이며 2016년 처음 발표가 된 연구입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-densenet/resnet-figure1.png&quot; alt=&quot;resnet-figure1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;ResNet에서의 shortcut Connection과 같은 Shorter Connection의 연구를 통해 과거보다 더 깊고, 더 정확하며, 더 효율적인 네트워크가 만들어져왔습니다.&lt;/p&gt;
-
-&lt;p&gt;이 논문에서는 ResNet과 비슷하지만 다른 네트워크(DenseNet)를 제안하고있습니다.&lt;/p&gt;
-
-&lt;p&gt;DenseNet은 아래와 같이 각각의 레이어의 모든 레어어가 모두 feed-forward로 연결되어있는 구조로 되어있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-densenet/figure1.png&quot; width=&quot;50%&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;각 DenseBlock의 Convolution Layer는 이전의 모든 Convolution Layer의 Output들과 Concatenate되어 Convolution되게 됩니다. 여기서 ResNet과의 차이점이 들어나게 되는데 ResNet은 과거의 Feature Map이 서로 더해지는 반면에 DenseNet에서는 각 Feature Map들이 Concat 되는 것입니다. 이를 통해 DenseNet은 과거의 Feature Map과 현재의 Feature Map이 서로 섞이지 않고 학습이 될 수 있도록 합니다.&lt;/p&gt;
-
-&lt;p&gt;이러한 구조는 아래와 같은 장점을 발생시킵니다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Vanishing-gradient 문제 완화&lt;/li&gt;
-  &lt;li&gt;더 강력한 피쳐 프로파게이션이 가능&lt;/li&gt;
-  &lt;li&gt;피쳐 재사용을 촉진&lt;/li&gt;
-  &lt;li&gt;파라미터의 수를 감소&lt;/li&gt;
-  &lt;li&gt;Regularlizing 효과와 Overfitting 감소&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;그리고 이 논문은 여러 벤치마크 DB인 CIFAR10, CIFAR100, SVHN, ImageNet에서 검증되었고, 논문발표 당시 state-of-the-art를 달성했습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;architecture&quot;&gt;Architecture&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-densenet/table1.png&quot; width=&quot;80%&quot; alt=&quot;table1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;DenseNet은 표와 같은 구조로 설계가 되어있습니다. 여기에서 차별점이 되는 Dense Block과, Transition Block을 한번 알아봅시다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Dense Block&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Dense Block은 DenseNet의 가장 중요한 컨셉이 포함된 블록입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-densenet/figure1.png&quot; width=&quot;50%&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 사진과 같이 각 레이어는 이전의 레이어의 Output을 계속 Concat하여 Feed-forward 합니다. 그러다 보면 어느 지점에서는 채널이 아주 커지는 경우가 생길 수 있는데, 이 때문에 이 논문에서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Growth rate&lt;/code&gt;이라는 개념을 도입합니다. 각 블록의 Convolution들은 Growth rate만큼의 채널만 Output하여 너무 큰 Output이 발생하지 않도록 해줍니다. 따라서, 위 그림은 Growth rate가 4인 경우의 그림입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Transition Block&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;DenseNet은 Feature를 Down-sampling하기 위해 Transition Block을 사용합니다. Transition Block은  1x1 Convolution과 average pooling으로 구성이 돠어있으며, DenseNet의 하이퍼파라미터인 &lt;code class=&quot;highlighter-rouge&quot;&gt;theta&lt;/code&gt;값을 통해 다운샘플링하게 됩니다. 기본으로는 theta에 0.5를 주어 average pooling시 stride를 2 (1/theta)로 주어 다운샘플링하게 됩니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;experimental-result&quot;&gt;Experimental Result&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-densenet/table2.png&quot; width=&quot;80%&quot; alt=&quot;table2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;본 논문에서는 여러 환경에서의 실험을 진행하였는데, DesneNet이 가장 뛰여난 성능을 보이는 것으로 나타났습니다.(수치는 test error(%))&lt;/p&gt;
-
-&lt;h3 id=&quot;implementation-of-densenet-for-cifar10&quot;&gt;Implementation of DenseNet for CIFAR10&lt;/h3&gt;
-
-&lt;p&gt;실제 논문을 &lt;code class=&quot;highlighter-rouge&quot;&gt;pytorch&lt;/code&gt;를 통해 모델을 구현해보았고, 코드는 &lt;a href=&quot;https://github.com/J911/DenseNet-pytorch&quot;&gt;https://github.com/J911/DenseNet-pytorch&lt;/a&gt;에 배포해 두었습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-densenet/result.png&quot; width=&quot;80%&quot; alt=&quot;table2&quot; /&gt;&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;color&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;growth_rate&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;theta&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;dropout&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;scheduler&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;test error(%)&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Orange&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;32&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0.5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0.5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;lr_decay [60, 120, 160]&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;5.45&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Blue&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;32&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0.5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0.0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;lr_decay [60, 120, 160]&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;7.08&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Pink&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;32&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0.5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0.0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;CosineAnnealingLR&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;4.86&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;Huang, Gao, et al. “Densely connected convolutional networks.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2017.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">DenseNet: Densely Connected Convolutional Networks</summary></entry></feed>
+&lt;p&gt;이 논문을 딥러닝 입문 초기에 읽었으면 더 좋았을 것 같다는 생각을 했습니다. 나중에 후배들이 생기면 이 논문을 제일 첫 번째로 권해주고 싶을 정도로, 딥러닝을 많이 해봐야 얻을 수 있는 직관들과 꿀팁들을 알려주는 논문이라 매우 좋았습니다. 논문 구현 코드는 제 깃허브&lt;a href=&quot;https://github.com/seominseok0429/pytorch-warmup-cosine-lr&quot;&gt;https://github.com/seominseok0429/pytorch-warmup-cosine-lr&lt;/a&gt;에 올려 두었습니다.&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Bag of Tricks for Image Classification with Convolutional Neural Networks 리뷰</summary></entry></feed>
