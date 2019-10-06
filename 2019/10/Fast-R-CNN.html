@@ -11,7 +11,7 @@
 
 
 
-    <title>Wide Residual Networks</title>
+    <title>Fast-R-CNN</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -36,26 +36,26 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="Artificial intelligence and Robotics Laboratory" />
     <link rel="shortcut icon" href="https://blog.airlab.re.kr/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="https://blog.airlab.re.kr/2019/07/WRN" />
+    <link rel="canonical" href="https://blog.airlab.re.kr/2019/10/Fast-R-CNN" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="AiRLab. Research Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Wide Residual Networks" />
-    <meta property="og:description" content="Wide Residual Networks 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. 앞으로 연구실 세미나 준비를 통해 알게 된 내용을 연구실 블로그에 기록하게 되었습니다 :) 제가 이번에 읽은 논문은 Wide Residual Networks(Wide ResNet) (arXiv:1605.07146)이며 2016년 발표가 된 연구입니다. 같은 과거의 연구들은 점진적으로 CNN(Convolution Neural Networks)이 이미지 인식을 위해 더 깊어질 수 있도록" />
-    <meta property="og:url" content="https://blog.airlab.re.kr/2019/07/WRN" />
-    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-07-17-WRN/cover.png" />
+    <meta property="og:title" content="Fast-R-CNN" />
+    <meta property="og:description" content="Fast-R-CNN Review 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다. 지난번 R-CNN 에 이어서 Fast-R-CNN 을 Review 해보려고 합니다.. ^_^ 이번에 읽은 논문은 Fast-R-CNN(arXiv:1504.08083)입니다. Introduciton 당시 deep ConvNet[14,16]이 발전하면서 image classification과 object detection의 Acc가 상당히 향상 되었다고 합니다. 당연히 classification보다 object detection이 복잡합니다. 때문에, [9,11,19,25]는 느리고 비효율적인 multi-stage pipline model을" />
+    <meta property="og:url" content="https://blog.airlab.re.kr/2019/10/Fast-R-CNN" />
+    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-10-04-Fast-R-CNN/figure1.png" />
     <meta property="article:publisher" content="https://www.facebook.com/false" />
     <meta property="article:author" content="https://www.facebook.com/false" />
-    <meta property="article:published_time" content="2019-07-17T19:00:00+09:00" />
-    <meta property="article:modified_time" content="2019-07-17T19:00:00+09:00" />
+    <meta property="article:published_time" content="2019-10-04T00:00:00+09:00" />
+    <meta property="article:modified_time" content="2019-10-04T00:00:00+09:00" />
     <meta property="article:tag" content="Paper-review" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Wide Residual Networks" />
-    <meta name="twitter:description" content="Wide Residual Networks 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. 앞으로 연구실 세미나 준비를 통해 알게 된 내용을 연구실 블로그에 기록하게 되었습니다 :) 제가 이번에 읽은 논문은 Wide Residual Networks(Wide ResNet) (arXiv:1605.07146)이며 2016년 발표가 된 연구입니다. 같은 과거의 연구들은 점진적으로 CNN(Convolution Neural Networks)이 이미지 인식을 위해 더 깊어질 수 있도록" />
+    <meta name="twitter:title" content="Fast-R-CNN" />
+    <meta name="twitter:description" content="Fast-R-CNN Review 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다. 지난번 R-CNN 에 이어서 Fast-R-CNN 을 Review 해보려고 합니다.. ^_^ 이번에 읽은 논문은 Fast-R-CNN(arXiv:1504.08083)입니다. Introduciton 당시 deep ConvNet[14,16]이 발전하면서 image classification과 object detection의 Acc가 상당히 향상 되었다고 합니다. 당연히 classification보다 object detection이 복잡합니다. 때문에, [9,11,19,25]는 느리고 비효율적인 multi-stage pipline model을" />
     <meta name="twitter:url" content="https://blog.airlab.re.kr/" />
-    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-07-17-WRN/cover.png" />
+    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-10-04-Fast-R-CNN/figure1.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="AiRLab. Research Blog" />
     <meta name="twitter:label2" content="Filed under" />
@@ -74,18 +74,18 @@
         "name": "AiRLab. Research Blog",
         "logo": "https://blog.airlab.re.kr/assets/images/airlab-logo.png"
     },
-    "url": "https://blog.airlab.re.kr/2019/07/WRN",
+    "url": "https://blog.airlab.re.kr/2019/10/Fast-R-CNN",
     "image": {
         "@type": "ImageObject",
-        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-07-17-WRN/cover.png",
+        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-10-04-Fast-R-CNN/figure1.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://blog.airlab.re.kr/2019/07/WRN"
+        "@id": "https://blog.airlab.re.kr/2019/10/Fast-R-CNN"
     },
-    "description": "Wide Residual Networks 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. 앞으로 연구실 세미나 준비를 통해 알게 된 내용을 연구실 블로그에 기록하게 되었습니다 :) 제가 이번에 읽은 논문은 Wide Residual Networks(Wide ResNet) (arXiv:1605.07146)이며 2016년 발표가 된 연구입니다. 같은 과거의 연구들은 점진적으로 CNN(Convolution Neural Networks)이 이미지 인식을 위해 더 깊어질 수 있도록"
+    "description": "Fast-R-CNN Review 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다. 지난번 R-CNN 에 이어서 Fast-R-CNN 을 Review 해보려고 합니다.. ^_^ 이번에 읽은 논문은 Fast-R-CNN(arXiv:1504.08083)입니다. Introduciton 당시 deep ConvNet[14,16]이 발전하면서 image classification과 object detection의 Acc가 상당히 향상 되었다고 합니다. 당연히 classification보다 object detection이 복잡합니다. 때문에, [9,11,19,25]는 느리고 비효율적인 multi-stage pipline model을"
 }
     </script>
 
@@ -98,7 +98,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Wide Residual Networks" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Fast-R-CNN" href="/feed.xml" />
 
 
 </head>
@@ -155,7 +155,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="17 July 2019">17 July 2019</time>
+                    <time class="post-full-meta-date" datetime=" 4 October 2019"> 4 October 2019</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -165,76 +165,144 @@ into the {body} of the default.hbs template -->
                         
                     
                 </section>
-                <h1 class="post-full-title">Wide Residual Networks</h1>
+                <h1 class="post-full-title">Fast-R-CNN</h1>
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-07-17-WRN/cover.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-10-04-Fast-R-CNN/figure1.png)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <p>Wide Residual Networks</p>
+                    <p>Fast-R-CNN Review</p>
 
-<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다. 앞으로 연구실 세미나 준비를 통해 알게 된 내용을 연구실 블로그에 기록하게 되었습니다 :)</p>
+<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다. 지난번 R-CNN 에 이어서 Fast-R-CNN 을 Review 해보려고 합니다.. ^_^</p>
 
-<p>제가 이번에 읽은 논문은 <strong>Wide Residual Networks</strong>(Wide ResNet) (<a href="https://arxiv.org/abs/1605.07146">arXiv:1605.07146</a>)이며 2016년 발표가 된 연구입니다.</p>
+<p>이번에 읽은 논문은 <strong>Fast-R-CNN</strong>(<a href="https://https://arxiv.org/abs/1504.08083">arXiv:1504.08083</a>)입니다.</p>
 
-<p>같은 과거의 연구들은 점진적으로 CNN(Convolution Neural Networks)이 이미지 인식을 위해 더 깊어질 수 있도록 연구되어왔습니다.</p>
+<hr />
 
-<p>이를 위해 Optimizer, Initializer, Skip-connection과 같은 많은 방법들이 연구되어왔고, 그중, ResNet(Residual Networks)는 shortcut connection을 통해 네트워크가 깊어지면 깊어질수록 생기는 <code class="highlighter-rouge">vanishing gradient</code>를 해결하면서도 더 깊게 네트워크를 쌓을 수 있도록 설계되었습니다.</p>
+<h4 id="introduciton"><strong><u>Introduciton</u></strong></h4>
 
-<h3 id="width-vs-depth-in-residual-networks">Width vs Depth in residual Networks</h3>
+<p>당시 deep ConvNet[14,16]이 발전하면서 image classification과 object detection의 Acc가 상당히 향상 되었다고 합니다. <br />
+당연히 classification보다 object detection이 복잡합니다. 때문에, [9,11,19,25]는 느리고 비효율적인 multi-stage pipline model을 train합니다.<br />
+[14,16]은 Alex_net과 Backpropagation입니다.<br />
+[9,11,19,25]는 R-CNN,SPP,Overfeat,segDeepM입니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-17-WRN/figure1.png" alt="Figure1" /></p>
+<p><strong><u>Multi-stage_pipline</u></strong><br />
+R-CNN에서 3개의 module을 따로 학습 해야하는 것을 생각하면 될 것 같습니다.<br /></p>
 
-<p>ResNet은 shorcut connection을 통해 많은 layer을 학습 할 수 있도록 하였습니다. 하지만 망이 깊어지면 깊어질 수록 의미있는 정보(context)를 갖는 필터의 수의 비가 적어지는 문제가 발생하게 되었습니다.</p>
+<p><strong>논문에서는</strong> detection task가 object의 정밀한 localization을 필요로 하기 때문에 <u>두가지 issue</u>가 생긴다고 합니다.<br /></p>
 
-<p>때문에 저자는 Block의 수를 증가시키지 않고, Residual Block의 Channel을 증가시키는 방향으로 연구를 시도하였습니다.</p>
+<p><strong>[Issue1]</strong> : 수많은 객체 위치 후보들을 처리해야한다.<br />
+이는 Speed,accuracy,simplicification을 손상시킵니다.<br />
+<strong>[Issue2]</strong> : 정확한 localization을 위해 rough_localization을 다듬어야한다.<br /></p>
 
-<p>이 논문에서는 Residual Block을 (a), (c)의 구조와 같이 3x3 컨볼루션이 두 개로 이루어진 경우를 B(3,3)으로 표기하였습니다. 이와 마찬가지로 (b)의 경우는 B(1,3,1) (d)는 B(3,1,3)으로 표기가 가능합니다.</p>
+<p><strong>때문에 논문에서는</strong> [9,11]Network를 base로 하여 train과정을 단순화 합니다. (Sigle-stage traing algorthm을 제안합니다.) 결과적으로, R-CNN,SPP_net보다 VGGnet을 각각 9배,3배 빠르게 학습합니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-17-WRN/table1.png" alt="Table1" /></p>
+<p><strong><u>R-CNN의 단점</u></strong><br /></p>
+<ol>
+  <li>Multi-stage pipline(train)(Region proposal,SVM,bounding-box)</li>
+  <li>SVM과 bounding-box regressor의 경우(train) 각 image의 proposal의 feature들이 disk에 기록됩니다. (VGG16의 경우 2.5일이 소요됩니다._VOC07)</li>
+  <li>object detection이 느리다.</li>
+</ol>
 
-<p>B(3,3)의 경우 구조가 위와 같이 정의됩니다. K 는 widen factor, N은 블록의 수(각 Residual Block의 수)입니다. 이해를 돕기 위해 K가 2인 경우 아래와 같이 구현이 될 수 있습니다.</p>
+<p><strong>논문에서는</strong> Fast-R-CNN을 설명하기전, R-CNN과 SPPnet을 비교합니다.</p>
+<ol>
+  <li>SPPnet은 sharing compute를 이용하여 R-CNN의 속도를 높이기 위해 제안되었다.
+    <ul>
+      <li>여기서 말하는 sharing compute는 R-CNN과 달리 SPPnet은 한번의 convnet을 통과한 feature를 이용해 detection을 함으로써, end-to-end 학습이 된다는 이야기를 하는 것 입니다.</li>
+    </ul>
+  </li>
+  <li>결과적으로, test:10~100배, train:3배 빠릅니다. <br /></li>
+</ol>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">WideResNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="c"># ...</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c"># pseudo code...</span>
-    <span class="c"># ...</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layers</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layers</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="mi">16</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">32</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">layer3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layers</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="mi">32</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">64</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="c"># ...</span>
-</code></pre></div></div>
+<p><strong>그러나</strong>, SPPnet도 주목할만한 <strong>단점</strong>이 있습니다. (drawback)</p>
+<ol>
+  <li>SPPnet도 R-CNN과 마찬가지로, train은 multi-stage pipline(feature extraction/fine-tune(log_loss)/SVM train, bounding-box regressors 를 가집니다.) 또, feature가 disk에 기록됩니다.</li>
+  <li>SPPnet에서 제안된 algorithm은 convolutional layer를 update할수 없고 convolution layer 전에 SPP를 할 수 없다.(network perpomance를 제한한다.)<br /></li>
+</ol>
 
-<h3 id="dropout">Dropout</h3>
-<p>Dropout은 Coadaptive하고 overfitting을 막기 위해 많은 네트워크에 적용되어 왔습니다. 추가적으로 Internal Covariate Shift 이슈를 막기위한 Batch Norm 과 같은 방법들도 연구가되었는데, 이 방법들은 Regularizer의 효과도 볼 수 있습니다.
-이 논문에서는 Residual Block의 컨볼루션 사이에 Dropout(Dorp rate 0.3)을 사용합니다.</p>
+<p><strong><u>Contributions</u></strong><br /></p>
 
-<h3 id="experimental-result">Experimental result</h3>
-<p><img src="/assets/images/posts/2019-07-17-WRN/table5.png" alt="Table5" />
-본 논문에서는 CIFAR10과 CIFAR100을 여러 모델을 통해 실험하였고, 위의 결과와 같이 WRN(depth 28, k 10)이 test error 4로 가장 높은 성능을 보였습니다.</p>
+<center><img src="/assets/images/posts/2019-10-04-Fast-R-CNN/figure4.png" width="1000" hight="300" /></center>
+<center>(Fast-R-CNN)</center>
+<p><br /></p>
 
-<p><img src="/assets/images/posts/2019-07-17-WRN/figure2.png" alt="Figure2" /></p>
-<blockquote>
-  <p>실선은 test error, 점선은 train error</p>
-</blockquote>
+<ol>
+  <li>image의 region_proposal을 crop&amp;warp한 R-CNN과 달리 Fast-R-CNN은 입력이미지와 RoI_projection(object proposal)을 입력으로 받는다.</li>
+  <li>network를 통해 convfeature map을 생성하기위해 전체 이미지를 처리한다.</li>
+  <li>각 object proposal에 대해 RoIPooling layer가 고정길이 vector를 추출한다. (각 feature vector는 fc_layer에 연속적으로 전달된다.)</li>
+</ol>
 
-<p><img src="/assets/images/posts/2019-07-17-WRN/table6.png" alt="Table6" />
-추가적으로 이 논문에서는 Dropout을 사용한 것과 사용하지 않은 것을 비교하였는데, 이 결과 역시 드롭아웃을 사용한 것이 더 좋은 결과를 보입니다.</p>
+<p><strong><u>Multi-task loss</u></strong><br /></p>
+<center><img src="/assets/images/posts/2019-10-04-Fast-R-CNN/figure10.png" width="1000" hight="300" /></center>
+<center>(Multi-task loss)</center>
+<p><br /></p>
 
-<h3 id="implementation-of-wrn">Implementation of WRN</h3>
+<p><strong><u>RoI pooling layer</u></strong><br />
+입력이미지에 한번만 CNN을 적용하고 RoI pooling을 이용하여 object 판별을 위한 feature를 추출하자는 것이 핵심이다.<br /></p>
+<ul>
+  <li>RoI로 추출할 feature size = HxW(eg.7x7)</li>
+  <li>Feature map 위에 RoI의 좌표 (r,c,h,w)</li>
+</ul>
+<center><img src="/assets/images/posts/2019-10-04-Fast-R-CNN/figure7.gif" width="678" hight="300" /></center>
+<center>(RoI pooling layer)</center>
+<p><br />
+Feature map위에서 h/H x w/W 만큼 Grid를 만들어 pooling 하면 결과적으로 원하는 HxW (첫 fc-layer와 호환이 되도록 하는 사이즈)feature size가 됩니다.<br />
+(서로 다른 size의 region proposal이 입력되더라도 같은 size의 stride로 7x7을 만들어준다.)</p>
 
-<p>실제 논문을 <code class="highlighter-rouge">pytorch</code>를 통해 모델을 구현해보았고, 코드는 <a href="https://github.com/J911/WRN-pytorch">https://github.com/J911/WRN-pytorch</a>에 배포해 두었습니다.</p>
+<p><strong><u>Initializing from pre-trained networks</u></strong><br /></p>
+
+<p>논문에서는 pre-train된 ImageNet networks를 각각 실험합니다. pre-train network가 Fast-R-CNN을 initialize할때 3가지의 transform을 거칩니다.<br /></p>
+<ol>
+  <li>마지막 maxpooling layer를 RoI pooling layer로 대체 한다.</li>
+  <li>network_last fully connected layer와 softmax layer는  two sibling layer로 대체됩니다.</li>
+  <li>network는 two input 을 받도록 합니다. (image list와 해당 image의 RoI 목록)</li>
+</ol>
+
+<p><strong><u>Mini-batch sampling</u></strong><br /></p>
+
+<p>fine-tuning에서, N=2(image),R=128 로 하여 R/N으로 image당 64RoI를 뽑습니다. CNN연산량을 줄이는 효과가 있습니다.       다음 그림과 같은 방식을 hierarchical sampling이라고 합니다.(계층적 샘플링)
+Ground-truth와 IoU &gt; 0.5 (Positive), [0.1,0.5] 일 경우 Negative로 구분합니다. (즉, IoU가 너무 낮은것은 sample로 추가하지 않는다.) 
+//train 할때, image horizontally flipped(p=0.5)의 augmentation만 사용하고 다른 augmentation 은 사용하지 않았다고 합니다. //</p>
+<center><img src="/assets/images/posts/2019-10-04-Fast-R-CNN/figure6.png" width="678" hight="300" /></center>
+<center>(Mini-batch sampling)</center>
+<p><br /></p>
+
+<h4 id="scale-invariance"><u>Scale invariance</u><br /></h4>
+<p>논문에서 Scal invariance 를 해결하기 위해 2가지 방법을 사용하였습니다.<br /></p>
+
+<p><strong>[brute force learning]</strong><br />
+train/test 에서 미리 정해진 픽셀 크기로 처리된다. 때문에, network는 train_data 로 부터 정해진 scale의 detection을 해야합니다.<br /></p>
+
+<p><strong>[using image pyramids]</strong><br />
+image pyramid를 통해 network는 scale invariance를 제공한다. Test 에서는 image pyramid는 각region_proposal을 nomalize하는데 사용됩니다.<br /></p>
+
+<p>논문에서는 GPU memory issue로 인하여 소규모 네트워크에 대해서만 multi_scale train을 하였다고 합니다. 즉, multi_scale에 관한 실험은 별로 진행하지 않았다는 것이며 논문의 내용은 scale invariance에 더 초점을 맞추고 있습니다.
+<br /></p>
+
+<h4 id="conclusion"><u>Conclusion</u></h4>
+<p>저자가 말한대로 Fast-R-CNN은 R-CNN과 SPPnet과 다르게 깔끔함을 강조하고 있다.
+Fast-R-CNN의 특징은 다음과 같다. <br /></p>
+
+<ol>
+  <li>이미지당 CNN을 한번만 수행한다.</li>
+  <li>RoI pooling layer의 도입.(마지막 max-pooling 대신 사용되었다.)</li>
+  <li>Classification 에서 SVM을 사용하던 것 과 달리 Softmax로 변경되었다. 즉, 하나의 network가 된것이다.</li>
+  <li>Multitask loss 에서 보면 bounding Box regressor 또한 network의 부분이 되었다. <br /></li>
+</ol>
+
+<p><strong>이러한 특징을 바탕으로</strong> , R-CNN/SPPnet과 달리 mAP가 높고, multi-task loss 를 이용하여 single-satge train이 가능하고, end-to-end학습이 가능하고 feature caching을 하지 않으므로 disk 공간을 필요로 하지 않는다는 장점이 있다.</p>
+
+<p>Fast-R-CNN의 다음 버전인, Faster-R-CNN은 region proposal 생성 방식의 개선을 주 논점으로 다룹니다.</p>
 
 <h2 id="references">References</h2>
 <ul>
-  <li>Zagoruyko, Sergey, and Nikos Komodakis. “Wide residual networks.” arXiv preprint arXiv:1605.07146 (2016).</li>
-  <li>He, Kaiming, et al. “Deep residual learning for image recognition.” Proceedings of the IEEE conference on computer vision and pattern recognition. 2016.</li>
+  <li>R. Girshick. Fast R-CNN. arXiv:1504.08083, 2015.</li>
 </ul>
+
 
                 </div>
             </section>
@@ -249,26 +317,26 @@ into the {body} of the default.hbs template -->
                     
                 
                     
+                
+                    
+                
+                    
+                
+                    
                         <section class="author-card">
                             
-                                <img class="author-profile-image" src="/assets/images/authors/jaemin.jpeg" alt="jaemin" />
+                                <img class="author-profile-image" src="/assets/images/authors/daehan.jpeg" alt="daehan" />
                             
                             <section class="author-card-content">
-                                <h4 class="author-card-name"><a href="/author/jaemin">Jaemin Lee</a></h4>
+                                <h4 class="author-card-name"><a href="/author/daehan">Daehan Kim</a></h4>
                                 
-                                    <p>🔥</p>
+                                    <p>미래는 지금이다.</p>
                                 
                             </section>
                         </section>
                         <div class="post-full-footer-right">
-                            <a class="author-card-button" href="/author/jaemin">Read More</a>
+                            <a class="author-card-button" href="/author/daehan">Read More</a>
                         </div>
-                    
-                
-                    
-                
-                    
-                
                     
                 
                     
@@ -314,7 +382,7 @@ into the {body} of the default.hbs template -->
                     <article class="read-next-card"
                         
                             
-                                style="background-image: url(url(/assets/images/posts/2019-07-17-WRN/cover.png)"
+                                style="background-image: url(url(/assets/images/posts/2019-10-04-Fast-R-CNN/figure1.png)"
                         
                     >
                         <header class="read-next-card-header">
@@ -330,11 +398,6 @@ into the {body} of the default.hbs template -->
                                 
                                 
                                   
-                                    
-                                        
-                                        
-                                            <li><a href="/2019/10/Fast-R-CNN">Fast-R-CNN</a></li>
-                                        
                                     
                                   
                                 
@@ -360,16 +423,11 @@ into the {body} of the default.hbs template -->
                                     
                                         
                                         
+                                            <li><a href="/2019/09/R(2+1)D">R(2+1)D</a></li>
+                                        
                                     
                                   
                                 
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
                                   
                                 
                                   
@@ -422,6 +480,16 @@ into the {body} of the default.hbs template -->
                                   
                                 
                                   
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
                                     
                                   
                                 
@@ -440,16 +508,19 @@ into the {body} of the default.hbs template -->
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
                 
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/2019/07/mobilenetv2">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-07-22-mobilenetv2/cover.png)"></div>
+            <a class="post-card-image-link" href="/2019/10/R-CNN">
+                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-10-01-R-CNN/figure9.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/07/mobilenetv2">
+            <a class="post-card-content-link" href="/2019/10/R-CNN">
                 <header class="post-card-header">
                     
                         
@@ -459,7 +530,7 @@ into the {body} of the default.hbs template -->
                         
                     
 
-                    <h2 class="post-card-title">MobileNetV2</h2>
+                    <h2 class="post-card-title">R-CNN</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -474,16 +545,16 @@ into the {body} of the default.hbs template -->
                     
                 
                     
+                
+                    
+                
+                    
                         
-                        <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="Minseok Seo" />
+                        <img class="author-profile-image" src="/assets/images/authors/daehan.jpeg" alt="Daehan Kim" />
                         
                         <span class="post-card-author">
-                            <a href="/author/minseok/">Minseok Seo</a>
+                            <a href="/author/daehan/">Daehan Kim</a>
                         </span>
-                    
-                
-                    
-                
                     
                 
                     
@@ -498,9 +569,6 @@ into the {body} of the default.hbs template -->
         </div>
     </article>
 
-            
-
-            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
             
 
         </div>
@@ -518,18 +586,18 @@ into the {body} of the default.hbs template -->
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Wide Residual Networks</div>
+    <div class="floating-header-title">Fast-R-CNN</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Wide+Residual+Networks&amp;url=https://blog.airlab.re.kr/2019/07/WRN"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Fast-R-CNN&amp;url=https://blog.airlab.re.kr/2019/10/Fast-R-CNN"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/07/WRN"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/10/Fast-R-CNN"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
