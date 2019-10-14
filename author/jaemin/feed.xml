@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
   <link href="https://blog.airlab.re.kr/author/jaemin/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" />
-  <updated>2019-10-08T16:15:48+09:00</updated>
+  <updated>2019-10-14T20:13:01+09:00</updated>
   <id>https://blog.airlab.re.kr/author/jaemin/feed.xml</id>
 
   
@@ -59,7 +59,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-09-19-mean-teacher/figure1.png&quot; width=&quot;80%&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;Π-model&quot;&gt;Π Model&lt;/h4&gt;
+&lt;h4 id=&quot;π-model&quot;&gt;Π Model&lt;/h4&gt;
 &lt;p&gt;Π Model은 위 그림의 위 쪽과 같은 구조와 같이, 라벨이 주어진 경우 Closs Entropy를 사용하여 학습을 하고, 라벨이 주어지지 않은 경우는 augmented input의 결과와 이전과 다른 dropout 과 augmention을 사용한 결과의 squared difference를 이용해 학습을 합니다.&lt;/p&gt;
 
 &lt;h4 id=&quot;temporal-ensemble&quot;&gt;Temporal ensemble&lt;/h4&gt;
