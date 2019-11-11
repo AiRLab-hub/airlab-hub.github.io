@@ -1,4 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-10-21T21:38:53+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">Fast-R-CNN</title><link href="https://blog.airlab.re.kr/2019/10/Fast-R-CNN" rel="alternate" type="text/html" title="Fast-R-CNN" /><published>2019-10-04T00:00:00+09:00</published><updated>2019-10-04T00:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/10/Fast%20R-CNN</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/10/Fast-R-CNN">&lt;p&gt;Fast-R-CNN Review&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-11-11T09:07:11+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">Non-local Neural Networks</title><link href="https://blog.airlab.re.kr/2019/11/nonlocal" rel="alternate" type="text/html" title="Non-local Neural Networks" /><published>2019-11-03T11:00:00+09:00</published><updated>2019-11-03T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/nonlocal</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/nonlocal">&lt;p&gt;오늘 소개할 논문은 Non-local Neural Networks (&lt;a href=&quot;https://arxiv.org/abs/1711.07971&quot;&gt;arXiv:1711.07971&lt;/a&gt;)이며, CVPR2018에서 소개된 논문입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;기존의 Convolution Neural Networks들은 3x3, 5x5과 같은 작은 Filter를 거치며 국소적인 피쳐의 특성을 추출해 낼 수 있기 때문에, Pooling과 함께 사용하며 많은 SOTA Architecture들을 만들어냈습니다.&lt;/p&gt;
+
+&lt;p&gt;하지만, 이러한 CNN 구조는 피쳐의 특수한 특성을 추출 하는 것에 대하여는 훌륭한 퍼포먼스를 보이지만, 영상의 전체의 Context를 보는 것에는 한계를 보이고 있습니다. 이번에 소개시켜드리는 Non-local Neural Networks는 기존의 Non-local Mean Filter에서 착안을 하여 네트워크가 입력의 전체적인 Context역시 학습할 수 있도록 도와줍니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;non-local-mean-filter&quot;&gt;Non-local Mean Filter&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-03-nonlocal/non-local-filter.png&quot; width=&quot;300px&quot; alt=&quot;figure1&quot; /&gt;
+Non-local Mean Filter는 기존의 영상처리에서 사용되던 denoising 알고리즘으로, 위 사진과 같이 특정 구역에 대하여, 모든 영역에 대하여 유사한 픽셀들을 찾아 평균을 처리하는 방식으로 denoising합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;non-local-networks&quot;&gt;Non-local Networks&lt;/h3&gt;
+&lt;p&gt;Non-local Networks는 Non-local Block으로 모듈화 되어 CNN 구조 사이에 삽입되어 사용될 수 있습니다.
+&lt;img src=&quot;/assets/images/posts/2019-11-03-nonlocal/non-local.png&quot; width=&quot;60%&quot; alt=&quot;figure2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 다이어그램이 Non-local Block의 다이어그램입니다. 입력된 Input에 대하여 1x1 Conv를 통하여 theta, phi, g를 만들어 낸 뒤 phi의 aixs를 교차해주어 theta와 연산 후 Softmax를 거쳐 모든 맵에 대한 Score Map를 만들어줍니다. 이 맵은 어텐션맵과 유사한 느낌으로 이해가 됩니다. 이 맵과 g를 연산하여 입력에 대하여 어텐션이 적용된 맵을 만들어준뒤 1x1 Conv를 거쳐 기존의 입력과 더하여 출력을하는 구조입니다. 따라서 Non-local 블록은 local한 정보가 아닌 Non-local한 영역까지 학습이 가능한 것입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;application&quot;&gt;Application&lt;/h3&gt;
+&lt;p&gt;Non-local은 General하게 여러 도메인에서 사용될 수 있습니다. 유명한 네트워크들은 Action Recognition에서 I3D + ResNext101 구조에 Non-local Block를 붙인 구조와 Segmentation에 Non-local Block를 붙인 구조들이 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;I3D + Non-local&lt;/strong&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-03-nonlocal/nonlocal-i3d.png&quot; width=&quot;80%&quot; alt=&quot;figure3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 결과를 보시면, Optical Flow를 fusion한 다른 Architecture보다 NL을 붙이고 RGB영상만 사용한 구조가 더 높은 성능을 보이고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CCNet&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-03-nonlocal/ccnet.png&quot; width=&quot;50%&quot; alt=&quot;figure4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Segmentation Task에서도 NL은 좋은 성능을 보입니다. CCNet은 이번 ICCV2019에 소개된 네트워크인데, NL이 연산량이 많은 이슈를 Criss Cross 방식을 통해 연산량은 줄이면서 NL의 효과를 그대로 가져가는 구조를 소개하였습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-03-nonlocal/CCNet-result.png&quot; width=&quot;60%&quot; alt=&quot;figure5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;결과를 보면 NL 혹은 RCCA(Recurrent Criss-Cross Attention)를 붙인 네트워크가 CityScapes와 ADE20K 에서 SOTA를 달성한 것을 볼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;CCNet은 다음번에 자세히 리뷰해 보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;simple-implementation-of-nl&quot;&gt;Simple implementation of NL&lt;/h3&gt;
+&lt;p&gt;간단한 NL(2D)를 구현해본 코드를 공유합니다.
+&lt;a href=&quot;https://github.com/J911/DeepLabV3-NonLocal/blob/master/models/NonLocalBlock.py&quot;&gt;https://github.com/J911/DeepLabV3-NonLocal/blob/master/models/NonLocalBlock.py&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Wang, Xiaolong, et al. “Non-local neural networks.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018.&lt;/li&gt;
+  &lt;li&gt;Huang, Zilong, et al. “Ccnet: Criss-cross attention for semantic segmentation.” arXiv preprint arXiv:1811.11721 (2018).&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">오늘 소개할 논문은 Non-local Neural Networks (arXiv:1711.07971)이며, CVPR2018에서 소개된 논문입니다.</summary></entry><entry><title type="html">Fast-R-CNN</title><link href="https://blog.airlab.re.kr/2019/10/Fast-R-CNN" rel="alternate" type="text/html" title="Fast-R-CNN" /><published>2019-10-04T00:00:00+09:00</published><updated>2019-10-04T00:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/10/Fast%20R-CNN</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/10/Fast-R-CNN">&lt;p&gt;Fast-R-CNN Review&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다. 지난번 R-CNN 에 이어서 Fast-R-CNN 을 Review 해보려고 합니다.. ^_^&lt;/p&gt;
 
@@ -733,79 +778,4 @@ RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만
 
 &lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
 
-&lt;p&gt;이 논문은 action recognition에 입문하는 사람이라면 꼭 읽어 보시는걸 추천드리고, 아직 코드 구현은 못했습니다. 구현이 완료 되는데로 링크 첨부 하겠습니다. 읽어주셔서 감사합니다.&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰</summary></entry><entry><title type="html">Relational Knowledge Distillation</title><link href="https://blog.airlab.re.kr/2019/07/rkd" rel="alternate" type="text/html" title="Relational Knowledge Distillation" /><published>2019-07-28T22:00:00+09:00</published><updated>2019-07-28T22:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/07/rkd</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/07/rkd">&lt;p&gt;Relational Knowledge Distillation&lt;/p&gt;
-
-&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!&lt;/p&gt;
-
-&lt;p&gt;오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (&lt;a href=&quot;https://arxiv.org/abs/1904.05068&quot;&gt;arXiv:1904.05068&lt;/a&gt;)이며, CVPR2019에 Accepted 된 논문입니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;knowledge-distillation&quot;&gt;Knowledge distillation&lt;/h3&gt;
-
-&lt;p&gt;Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 &lt;code class=&quot;highlighter-rouge&quot;&gt;Distilling the Knowledge in a Neural Network&lt;/code&gt;가 있습니다.&lt;/p&gt;
-
-&lt;p&gt;이러한 논문의 시작은 computing resources의 양을 줄이이 위해 시작이 되었는데요,&lt;/p&gt;
-
-&lt;p&gt;만약 모델의 ACC를 높이기 위해서는 모델을 크게 설계를 하면 되지만 모델이 커질 수록 파라미터의 양은 증가하고 더 많은 computing resource를 차지할 것입니다. 이러한 문제는 computing resource를 감당할 수 있는 인프라를 가 없는 사람들에게는 큰 이슈로 남게되고, 특히 서비스로 배포가 되어야하는 모델들은 경량화 되어야 한다는 조건이 많이 붙습니다.&lt;/p&gt;
-
-&lt;p&gt;이러한 이슈로 큰 모델이 학습한 정보를 &lt;code class=&quot;highlighter-rouge&quot;&gt;증류(distillation)&lt;/code&gt;하여, 작은 모델에 주입할 수 있는 Knowledge distillation가 시작되었습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure2.png&quot; width=&quot;80%&quot; alt=&quot;figure2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위와 같은 Softmax를 사용하는 네트워크가 있다고 해봅시다. 그러면 one hot으로 작성된 정답 라벨(hard label)과 predict을 비교하여 backward를 하게 됩니다.&lt;/p&gt;
-
-&lt;p&gt;Teacher Model은 위와 같은 프로세스로 학습을 진행하고 큰 모델이기 때문에 좋을 ACC를 만들어 낼 것입니다. 그리고 Student Model은 Teacher Model의 softmax를 거치고 나온 0과 1사이의 확률 값을 soft label로 하여 학습하는 방법이 KD(Knowledge Distillation)입니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;relational-knowledge-distillation&quot;&gt;Relational Knowledge Distillation&lt;/h3&gt;
-
-&lt;p&gt;RKD(Relational Knowledge Distillation)는 Knowledge Distillation에서 Knowledge를 어떻게 정의할 것 인가에서 시작이 되었습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure1.png&quot; width=&quot;80%&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt;를 각 Input에서 나오는 Teacher의 output, &lt;code class=&quot;highlighter-rouge&quot;&gt;s&lt;/code&gt;를 Student 의 output이라고 했을 때 기존의 KD는 각각의 t가 s에 point-to-point로 연결되는 위 그림과 매칭됩니다. 때문에 이 논문에서는 기존의 KD를 IKD(Individual Knowledge Distillation)라고 표현합니다.&lt;/p&gt;
-
-&lt;p&gt;IKD는 Individual한 output을 Knowledge로 하여 Distillation 한다고 하면, RKD는 output들의 관계(Relation)를 Knowledge로 하여 Distillation합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure3.png&quot; width=&quot;80%&quot; alt=&quot;figure3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이 연구에서 이야기 하는 관계는 각 output이 embedding space에 표현될 때의 node간의 distance와 angle입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure4.png&quot; width=&quot;60%&quot; alt=&quot;figure4&quot; /&gt;
-&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure5.png&quot; width=&quot;60%&quot; alt=&quot;figure5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;distance는 위의 식으로 표현 될 수 있고 뮤는 node간 거리의 평균이라고 이해하면 될 것 같습니다. 따라서 아래와 같은 식을 otim하는 것으로 학습 할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure6.png&quot; width=&quot;60%&quot; alt=&quot;figure6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;angle도 아래와 같이 표현이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure7.png&quot; width=&quot;60%&quot; alt=&quot;figure7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure8.png&quot; width=&quot;60%&quot; alt=&quot;figure8&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;experiment&quot;&gt;Experiment&lt;/h3&gt;
-
-&lt;p&gt;이 논문에서는 여러 Task(Metric learning, Image classification, Few-shot learning) 에서 위에서 소개한 distance-wise, angle-wise 를 통해 학습한 결과를 다른 네트워크와 비교하고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Metric learning&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure9.png&quot; width=&quot;100%&quot; alt=&quot;figure9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Image classification&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure10.png&quot; width=&quot;60%&quot; alt=&quot;figure10&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Few-shot learning&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure10.png&quot; width=&quot;60%&quot; alt=&quot;figure10&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그 결과 모든 실험에서 가장 좋은 성능을 보였으며, 네트워크가 깊어짐에 따라서 큰 폭으로 성능 향상이 발생하는 것을 보였습니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Park, Wonpyo, et al. “Relational Knowledge Distillation.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2019.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Hinton, Geoffrey, Oriol Vinyals, and Jeff Dean. “Distilling the knowledge in a neural network.” arXiv preprint arXiv:1503.02531 (2015).&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">Relational Knowledge Distillation</summary></entry></feed>
+&lt;p&gt;이 논문은 action recognition에 입문하는 사람이라면 꼭 읽어 보시는걸 추천드리고, 아직 코드 구현은 못했습니다. 구현이 완료 되는데로 링크 첨부 하겠습니다. 읽어주셔서 감사합니다.&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰</summary></entry></feed>

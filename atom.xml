@@ -8,6 +8,21 @@
     
       
       <item>
+        <title>Non-local Neural Networks</title>
+        
+          <description>&lt;p&gt;오늘 소개할 논문은 Non-local Neural Networks (&lt;a href=&quot;https://arxiv.org/abs/1711.07971&quot;&gt;arXiv:1711.07971&lt;/a&gt;)이며, CVPR2018에서 소개된 논문입니다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 03 Nov 2019 11:00:00 +0900</pubDate>
+        <link>
+        https://blog.airlab.re.kr/2019/11/nonlocal</link>
+        <guid isPermaLink="true">https://blog.airlab.re.kr/2019/11/nonlocal</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Fast-R-CNN</title>
         
           <description>&lt;p&gt;Fast-R-CNN Review&lt;/p&gt;

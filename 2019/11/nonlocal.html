@@ -11,7 +11,7 @@
 
 
 
-    <title>R(2+1)D</title>
+    <title>Non-local Neural Networks</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -36,26 +36,26 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="Artificial intelligence and Robotics Laboratory" />
     <link rel="shortcut icon" href="https://blog.airlab.re.kr/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="https://blog.airlab.re.kr/2019/09/R(2+1)D" />
+    <link rel="canonical" href="https://blog.airlab.re.kr/2019/11/nonlocal" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="AiRLab. Research Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="R(2+1)D" />
-    <meta property="og:description" content="A Closer Look at Spatiotemporal Convolutions for Action Recognition 리뷰 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 “A Closer Look at Spatiotemporal Convolutions for Action Recognition” 입니다. 이 논문은 Facebook에서 “Du Tran”씨가 2018년도에 cvpr에서 발표한 논문입니다. 이 논문은 3D conv를 공간정보와 시간정보로" />
-    <meta property="og:url" content="https://blog.airlab.re.kr/2019/09/R(2+1)D" />
-    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-09-19-RD/cover.png" />
+    <meta property="og:title" content="Non-local Neural Networks" />
+    <meta property="og:description" content="오늘 소개할 논문은 Non-local Neural Networks (arXiv:1711.07971)이며, CVPR2018에서 소개된 논문입니다. Introduction 기존의 Convolution Neural Networks들은 3x3, 5x5과 같은 작은 Filter를 거치며 국소적인 피쳐의 특성을 추출해 낼 수 있기 때문에, Pooling과 함께 사용하며 많은 SOTA Architecture들을 만들어냈습니다. 하지만, 이러한 CNN 구조는 피쳐의 특수한 특성을 추출 하는 것에 대하여는 훌륭한 퍼포먼스를 보이지만," />
+    <meta property="og:url" content="https://blog.airlab.re.kr/2019/11/nonlocal" />
+    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-11-03-nonlocal/cover.png" />
     <meta property="article:publisher" content="https://www.facebook.com/false" />
     <meta property="article:author" content="https://www.facebook.com/false" />
-    <meta property="article:published_time" content="2019-09-18T19:00:00+09:00" />
-    <meta property="article:modified_time" content="2019-09-18T19:00:00+09:00" />
+    <meta property="article:published_time" content="2019-11-03T11:00:00+09:00" />
+    <meta property="article:modified_time" content="2019-11-03T11:00:00+09:00" />
     <meta property="article:tag" content="Paper-review" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="R(2+1)D" />
-    <meta name="twitter:description" content="A Closer Look at Spatiotemporal Convolutions for Action Recognition 리뷰 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 “A Closer Look at Spatiotemporal Convolutions for Action Recognition” 입니다. 이 논문은 Facebook에서 “Du Tran”씨가 2018년도에 cvpr에서 발표한 논문입니다. 이 논문은 3D conv를 공간정보와 시간정보로" />
+    <meta name="twitter:title" content="Non-local Neural Networks" />
+    <meta name="twitter:description" content="오늘 소개할 논문은 Non-local Neural Networks (arXiv:1711.07971)이며, CVPR2018에서 소개된 논문입니다. Introduction 기존의 Convolution Neural Networks들은 3x3, 5x5과 같은 작은 Filter를 거치며 국소적인 피쳐의 특성을 추출해 낼 수 있기 때문에, Pooling과 함께 사용하며 많은 SOTA Architecture들을 만들어냈습니다. 하지만, 이러한 CNN 구조는 피쳐의 특수한 특성을 추출 하는 것에 대하여는 훌륭한 퍼포먼스를 보이지만," />
     <meta name="twitter:url" content="https://blog.airlab.re.kr/" />
-    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-09-19-RD/cover.png" />
+    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-11-03-nonlocal/cover.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="AiRLab. Research Blog" />
     <meta name="twitter:label2" content="Filed under" />
@@ -74,18 +74,18 @@
         "name": "AiRLab. Research Blog",
         "logo": "https://blog.airlab.re.kr/assets/images/airlab-logo.png"
     },
-    "url": "https://blog.airlab.re.kr/2019/09/R(2+1)D",
+    "url": "https://blog.airlab.re.kr/2019/11/nonlocal",
     "image": {
         "@type": "ImageObject",
-        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-09-19-RD/cover.png",
+        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-11-03-nonlocal/cover.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://blog.airlab.re.kr/2019/09/R(2+1)D"
+        "@id": "https://blog.airlab.re.kr/2019/11/nonlocal"
     },
-    "description": "A Closer Look at Spatiotemporal Convolutions for Action Recognition 리뷰 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 “A Closer Look at Spatiotemporal Convolutions for Action Recognition” 입니다. 이 논문은 Facebook에서 “Du Tran”씨가 2018년도에 cvpr에서 발표한 논문입니다. 이 논문은 3D conv를 공간정보와 시간정보로"
+    "description": "오늘 소개할 논문은 Non-local Neural Networks (arXiv:1711.07971)이며, CVPR2018에서 소개된 논문입니다. Introduction 기존의 Convolution Neural Networks들은 3x3, 5x5과 같은 작은 Filter를 거치며 국소적인 피쳐의 특성을 추출해 낼 수 있기 때문에, Pooling과 함께 사용하며 많은 SOTA Architecture들을 만들어냈습니다. 하지만, 이러한 CNN 구조는 피쳐의 특수한 특성을 추출 하는 것에 대하여는 훌륭한 퍼포먼스를 보이지만,"
 }
     </script>
 
@@ -98,7 +98,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="R(2+1)D" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Non-local Neural Networks" href="/feed.xml" />
 
 
 </head>
@@ -156,7 +156,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="18 September 2019">18 September 2019</time>
+                    <time class="post-full-meta-date" datetime=" 3 November 2019"> 3 November 2019</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -166,78 +166,62 @@ into the {body} of the default.hbs template -->
                         
                     
                 </section>
-                <h1 class="post-full-title">R(2+1)D</h1>
+                <h1 class="post-full-title">Non-local Neural Networks</h1>
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-09-19-RD/cover.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-11-03-nonlocal/cover.png)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <h3 id="a-closer-look-at-spatiotemporal-convolutions-for-action-recognition-리뷰">A Closer Look at Spatiotemporal Convolutions for Action Recognition 리뷰</h3>
-
-<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 <strong>“A Closer Look at Spatiotemporal Convolutions for Action Recognition”</strong> 입니다.</p>
-
-<p>이 논문은 Facebook에서 “Du Tran”씨가 2018년도에 cvpr에서 발표한 논문입니다. 이 논문은 3D conv를 공간정보와 시간정보로 나눠 conv하는 구조를 처음 제안하였고, 다양한 spatiotemporal conv 방법들을 비교합니다. 또한 Sports-1m, kenetics, ucf101, hmdb51에서 state-of-the-art를 달성합니다.</p>
+                    <p>오늘 소개할 논문은 Non-local Neural Networks (<a href="https://arxiv.org/abs/1711.07971">arXiv:1711.07971</a>)이며, CVPR2018에서 소개된 논문입니다.</p>
 
 <h3 id="introduction">Introduction</h3>
+<p>기존의 Convolution Neural Networks들은 3x3, 5x5과 같은 작은 Filter를 거치며 국소적인 피쳐의 특성을 추출해 낼 수 있기 때문에, Pooling과 함께 사용하며 많은 SOTA Architecture들을 만들어냈습니다.</p>
 
-<p>AlexNet이 처음공개된 이후로 이미지 인식 분야는 multi-scale convolutions, residual learning, dense connections 과 같은 많은 진보가 있었습니다. 반면에 비디오 분야에서는 “새롭다” 하는 큰 발전이 없습니다. 현재의 state-of-the-art인 I3D또한 bset hand-crafted 방법인 iDT랑 비교하였을때 그렇게 놀랄만한 진보는 아닙니다.(저의 의견이 아닙니다. 논문저자의 의견입니다 ㅎㅎ.) 또한 image-based 2D CNN의 Sports-1M에서의 성능은 state-of-the-art랑 비슷합니다.(저자는 3D conv의 진보는 없고, image-based 방법이랑 별 차이가 없다고 강조하는것 같습니다.) 이러한 결과에 기초하여, 시퀀스의 정적 프레임에 이미 포함 된 강력한 행동 클래스 정보 때문에, 시간적 추론이 정확한 행동 인식에 필수적이지 않다고 생각 할 수도 있습니다. 논문저자는 시간적 정보가 행동인식에 필수적이지 않다는 생각을 제거하기 위하여, 다양한 실험을 진행합니다. 논문저자들의 실험에 의하면, 3D ResNets이 Sports-1M 및 Kinetics과 같은 action recognition benchmarks에서 훈련되고 평가 될 때 동일한 깊이에 대해 2D ResNets보다 월등히 뛰어남을 보여줍니다. 이러한 실험결과에 기초하여, 논문 저자들은 2D cnn과 3d cnn 사이의 R(2+1)D를 제안합니다. (2+1)D의 의미는 3D conv를 두개의 개별적인 2D 공간 conv와 1D 시간 conv로 분해하는것 입니다. 첫번째 장점은 파라메터가 증가하지 않고, relu를 두번 사용할 수 있기때문에 비선형성을 증가시킬수 있습니다. 두번째 장점은 optimization하는 것을 도와주는 것입니다. 아래의 그림은 똑같은 구조여도 R(2+1)D가 더 최적화가 잘된다는 그래프 입니다.</p>
+<p>하지만, 이러한 CNN 구조는 피쳐의 특수한 특성을 추출 하는 것에 대하여는 훌륭한 퍼포먼스를 보이지만, 영상의 전체의 Context를 보는 것에는 한계를 보이고 있습니다. 이번에 소개시켜드리는 Non-local Neural Networks는 기존의 Non-local Mean Filter에서 착안을 하여 네트워크가 입력의 전체적인 Context역시 학습할 수 있도록 도와줍니다.</p>
 
-<p><img src="/assets/images/posts/2019-09-19-RD/img1.png" alt="Figure1" /></p>
+<h3 id="non-local-mean-filter">Non-local Mean Filter</h3>
+<p><img src="/assets/images/posts/2019-11-03-nonlocal/non-local-filter.png" width="300px" alt="figure1" />
+Non-local Mean Filter는 기존의 영상처리에서 사용되던 denoising 알고리즘으로, 위 사진과 같이 특정 구역에 대하여, 모든 영역에 대하여 유사한 픽셀들을 찾아 평균을 처리하는 방식으로 denoising합니다.</p>
 
-<h2 id="convolutional-residual-blocks-for-video">Convolutional residual blocks for video</h2>
+<h3 id="non-local-networks">Non-local Networks</h3>
+<p>Non-local Networks는 Non-local Block으로 모듈화 되어 CNN 구조 사이에 삽입되어 사용될 수 있습니다.
+<img src="/assets/images/posts/2019-11-03-nonlocal/non-local.png" width="60%" alt="figure2" /></p>
 
-<p>이 논문에서 사용하는 residual blocks은 전부 “vanilla” residual blocks을 사용합니다. 아래의 표현에서 3 x L x H x W,라는 표현들이 나오는데, 3은 rgb 3채널, L을 프레임 길이, H는 높이, W 넓이 입니다.</p>
+<p>위의 다이어그램이 Non-local Block의 다이어그램입니다. 입력된 Input에 대하여 1x1 Conv를 통하여 theta, phi, g를 만들어 낸 뒤 phi의 aixs를 교차해주어 theta와 연산 후 Softmax를 거쳐 모든 맵에 대한 Score Map를 만들어줍니다. 이 맵은 어텐션맵과 유사한 느낌으로 이해가 됩니다. 이 맵과 g를 연산하여 입력에 대하여 어텐션이 적용된 맵을 만들어준뒤 1x1 Conv를 거쳐 기존의 입력과 더하여 출력을하는 구조입니다. 따라서 Non-local 블록은 local한 정보가 아닌 Non-local한 영역까지 학습이 가능한 것입니다.</p>
 
-<h4 id="r2d-2d-convolutions-over-the-entire-clip">R2D: 2D convolutions over the entire clip</h4>
+<h3 id="application">Application</h3>
+<p>Non-local은 General하게 여러 도메인에서 사용될 수 있습니다. 유명한 네트워크들은 Action Recognition에서 I3D + ResNext101 구조에 Non-local Block를 붙인 구조와 Segmentation에 Non-local Block를 붙인 구조들이 있습니다.</p>
 
-<p>R2D는 2D CNN방법이고, 3L x H x W 입니다. 즉 프레임의 길이를 하나의 차원으로 보는것이 아니라, 채널로 보는것 입니다. 1프레임당 3채널씩 할당되는것 입니다.</p>
+<p><strong>I3D + Non-local</strong>
+<img src="/assets/images/posts/2019-11-03-nonlocal/nonlocal-i3d.png" width="80%" alt="figure3" /></p>
 
-<h4 id="f-r2d-2d-convolutions-over-frames">f-R2D: 2D convolutions over frames</h4>
+<p>위의 결과를 보시면, Optical Flow를 fusion한 다른 Architecture보다 NL을 붙이고 RGB영상만 사용한 구조가 더 높은 성능을 보이고 있습니다.</p>
 
-<p>f-R2D는 2D CNN방법이고, 프레임을 채널로 쌓아서 사용하는 방법이 아니라, 전체의 프레임을 개별적으로 2D CNN 하는 방법 입니다.</p>
+<p><strong>CCNet</strong></p>
 
-<h4 id="r3d-3d-convolutions">R3D: 3D convolutions</h4>
+<p><img src="/assets/images/posts/2019-11-03-nonlocal/ccnet.png" width="50%" alt="figure4" /></p>
 
-<p>R3D는 가장 일반적은 3D conv 방법이고, 3 x L x H X W 입니다. 프레임을 시간축을 하나 추가하여 stack하고 3D conv를 하는것 입니다.</p>
+<p>Segmentation Task에서도 NL은 좋은 성능을 보입니다. CCNet은 이번 ICCV2019에 소개된 네트워크인데, NL이 연산량이 많은 이슈를 Criss Cross 방식을 통해 연산량은 줄이면서 NL의 효과를 그대로 가져가는 구조를 소개하였습니다.</p>
 
-<h4 id="mcxand-rmcx-mixed-3d-2d-convolutions">MCxand rMCx: mixed 3D-2D convolutions</h4>
+<p><img src="/assets/images/posts/2019-11-03-nonlocal/CCNet-result.png" width="60%" alt="figure5" /></p>
 
-<p>한 가지 가설은 모션 모델링(즉, 3D convolution)이 초기 계층에서 특히 유용할 수 있는 반면, 후반 계층에서는 필수적이지 않는다는 가설 입니다. 학습초기에는 3D ResNets (R3D)를 초기에 사용하고, 후반에는 2D conv를 사용합니다. 또 그 반대는 학습초기에는 2D conv를 사용하다가 후반에는 3D conv 사용하는 방법입니다.</p>
+<p>결과를 보면 NL 혹은 RCCA(Recurrent Criss-Cross Attention)를 붙인 네트워크가 CityScapes와 ADE20K 에서 SOTA를 달성한 것을 볼 수 있습니다.</p>
 
-<h4 id="r21d-21d-convolutions">R(2+1)D: (2+1)D convolutions</h4>
+<p>CCNet은 다음번에 자세히 리뷰해 보도록 하겠습니다.</p>
 
-<p>또 이 방법은 논문저자가 주장하는 방법인데, full 3D conv를 2D의 공간 conv와 1D 시간 conv로 분해합니다. 논문 저자는 3D convolutional filters(N×t×d×d)를  N x 1 x d x d 와 M x t x 1 x 1로 분해 합니다. 그렇게하면 기존의 3D conv와 동일하면서, 비선형성을 증가시키고 최적화에 도움을 줍니다. 아래의 그림은 앞에서 언급한 다양한 구조의 그림입니다.</p>
+<h3 id="simple-implementation-of-nl">Simple implementation of NL</h3>
+<p>간단한 NL(2D)를 구현해본 코드를 공유합니다.
+<a href="https://github.com/J911/DeepLabV3-NonLocal/blob/master/models/NonLocalBlock.py">https://github.com/J911/DeepLabV3-NonLocal/blob/master/models/NonLocalBlock.py</a></p>
 
-<p><img src="/assets/images/posts/2019-09-19-RD/img2.png" alt="Figure2" /></p>
-
-<h3 id="experiments">Experiments</h3>
-
-<p>이 논문의 저자는 Resnet을 사용하기 위하여, 오버피팅이 나타나지 않기 위하여 충분히 큰 데이터셋인 Sport 1M, Kinetics을 사용합니다. 또한 다른 작은 데이터셋에서 잘 작동하나 궁금하기 때문에, UCF101,HMDB51에 transfer learning을 적용합니다.</p>
-
-<h4 id="experimental-setup">Experimental setup</h4>
-
-<p>모든 프레임의 사이즈는 112 x 112로 사용하였고,자세한 구조는 아래의 그림을 봐주시면 됩니다. 다양한 디테일이 논문에 언급되는데 더 자세하게 알고 싶으시면 논문을 읽어보시는걸 추천드립니다.</p>
-
-<h4 id="comparison-of-spatiotemporal-convolutions">Comparison of spatiotemporal convolutions</h4>
-
-<p>R2D부터 R(2+1)D까지 모든 net을 clip단위와 video단위로 평가합니다. 아래의 첨부한 그림을 보면, 이 논문저자가 주장한 R(2+1)D 방법은 R3D방법과 파라메터 차이는 나지 않지만 정확도는 모든 부분에서 가장 높은걸 확인할 수 있습니다.</p>
-
-<p><img src="/assets/images/posts/2019-09-19-RD/img3.png" alt="Figure3" /></p>
-
-<h4 id="action-recognition-with-a-34-layer-r21d-net">Action recognition with a 34-layer R(2+1)D net</h4>
-
-<p>이 부분에서는 다양한 데이터셋과 기존의 방법들에서 실험한 결과들을 정리합니다. 아래의 표를 확인해 보시면 i3d-two-stream방법을 제외하고는 모두 1등을 달성하였습니다. i3d-two-stream방법에 비하여 정확도가 낮은 이유는 옵티컬 플로우를 뽑는 방법이 i3d는 tvl1 방법이지만, 이논문의 저자는 Farneback’s 방법을 사용하기 때문이라고 논문 저자는 추측하고 있습니다.</p>
-
-<p><img src="/assets/images/posts/2019-09-19-RD/img4.png" alt="Figure4" />
-<img src="/assets/images/posts/2019-09-19-RD/img5.png" alt="Figure5" /></p>
-
-<h3 id="후기">후기</h3>
-
-<p>이 논문을 읽으면서 I3D의 논문과 매우 비슷하다고 생각했습니다. 하지만 이 논문은 hand-craft논문들도 잘 정리해 줘서 좋았고,Farneback 방법과 tvl1방법의 차이라던지, 다양한 기술들에 대하여 잘 기술한것 같습니다. 하지만 제가 개인적으로 생각할때 이 논문 또한 뭐 대단한 하게 새로운 아이디어라고 생각하지 않습니다.</p>
+<h2 id="references">References</h2>
+<ul>
+  <li>Wang, Xiaolong, et al. “Non-local neural networks.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018.</li>
+  <li>Huang, Zilong, et al. “Ccnet: Criss-cross attention for semantic segmentation.” arXiv preprint arXiv:1811.11721 (2018).</li>
+</ul>
 
                 </div>
             </section>
@@ -254,22 +238,22 @@ into the {body} of the default.hbs template -->
                     
                 
                     
-                
-                    
                         <section class="author-card">
                             
-                                <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="minseok" />
+                                <img class="author-profile-image" src="/assets/images/authors/jaemin.jpeg" alt="jaemin" />
                             
                             <section class="author-card-content">
-                                <h4 class="author-card-name"><a href="/author/minseok">Minseok Seo</a></h4>
+                                <h4 class="author-card-name"><a href="/author/jaemin">Jaemin Lee</a></h4>
                                 
-                                    <p>🥟</p>
+                                    <p>🔥</p>
                                 
                             </section>
                         </section>
                         <div class="post-full-footer-right">
-                            <a class="author-card-button" href="/author/minseok">Read More</a>
+                            <a class="author-card-button" href="/author/jaemin">Read More</a>
                         </div>
+                    
+                
                     
                 
                     
@@ -325,7 +309,7 @@ into the {body} of the default.hbs template -->
                     <article class="read-next-card"
                         
                             
-                                style="background-image: url(url(/assets/images/posts/2019-09-19-RD/cover.png)"
+                                style="background-image: url(url(/assets/images/posts/2019-11-03-nonlocal/cover.png)"
                         
                     >
                         <header class="read-next-card-header">
@@ -341,11 +325,6 @@ into the {body} of the default.hbs template -->
                                 
                                 
                                   
-                                    
-                                        
-                                        
-                                            <li><a href="/2019/11/nonlocal">Non-local Neural Networks</a></li>
-                                        
                                     
                                   
                                 
@@ -371,10 +350,15 @@ into the {body} of the default.hbs template -->
                                     
                                         
                                         
+                                            <li><a href="/2019/09/mean-teacher">Mean teachers are better role models</a></li>
+                                        
                                     
                                   
                                 
                                   
+                                    
+                                        
+                                        
                                     
                                   
                                 
@@ -458,16 +442,19 @@ into the {body} of the default.hbs template -->
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
                 
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/2019/09/mean-teacher">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-09-19-mean-teacher/cover.png)"></div>
+            <a class="post-card-image-link" href="/2019/10/Fast-R-CNN">
+                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-10-04-Fast-R-CNN/figure1.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/09/mean-teacher">
+            <a class="post-card-content-link" href="/2019/10/Fast-R-CNN">
                 <header class="post-card-header">
                     
                         
@@ -477,7 +464,7 @@ into the {body} of the default.hbs template -->
                         
                     
 
-                    <h2 class="post-card-title">Mean teachers are better role models</h2>
+                    <h2 class="post-card-title">Fast-R-CNN</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -492,88 +479,18 @@ into the {body} of the default.hbs template -->
                     
                 
                     
-                        
-                        <img class="author-profile-image" src="/assets/images/authors/jaemin.jpeg" alt="Jaemin Lee" />
-                        
-                        <span class="post-card-author">
-                            <a href="/author/jaemin/">Jaemin Lee</a>
-                        </span>
-                    
                 
                     
                 
                     
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                <span class="reading-time">
-                    
-                    
-                      1 min read
-                    
-                </span>
-            </footer>
-        </div>
-    </article>
-
-            
-
-            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
-            
-                
-
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/2019/09/190903">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-09-03-notice/cover.png)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/09/190903">
-                <header class="post-card-header">
-                    
-                        
-                            
-                                <span class="post-card-tags">Notice</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">2019년 2학기 정기 상담 안내</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p></p>
-                    
-                </section>
-            </a>
-            <footer class="post-card-meta">
                 
                     
                         
-                        <img class="author-profile-image" src="/assets/images/authors/airlab.png" alt="AiRLab." />
+                        <img class="author-profile-image" src="/assets/images/authors/daehan.jpeg" alt="Daehan Kim" />
                         
                         <span class="post-card-author">
-                            <a href="/author/airlab/">AiRLab.</a>
+                            <a href="/author/daehan/">Daehan Kim</a>
                         </span>
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
                     
@@ -611,18 +528,18 @@ into the {body} of the default.hbs template -->
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">R(2+1)D</div>
+    <div class="floating-header-title">Non-local Neural Networks</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=R%282%2B1%29D&amp;url=https://blog.airlab.re.kr/2019/09/R(2+1)D"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Non-local+Neural+Networks&amp;url=https://blog.airlab.re.kr/2019/11/nonlocal"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/09/R(2+1)D"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/11/nonlocal"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
