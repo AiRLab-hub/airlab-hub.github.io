@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
   <link href="https://blog.airlab.re.kr/tag/paper-review/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" />
-  <updated>2019-11-11T09:07:11+09:00</updated>
+  <updated>2019-11-13T18:04:46+09:00</updated>
   <id>https://blog.airlab.re.kr/tag/paper-review/feed.xml</id>
 
   
@@ -48,6 +48,155 @@
   
   
 
+  
+    <entry>
+      <title type="html">Transfer learning</title>
+      <link href="https://blog.airlab.re.kr/2019/11/Transfer-learning" rel="alternate" type="text/html" title="Transfer learning" />
+      <published>2019-11-13T05:00:00+09:00</published>
+      <updated>2019-11-13T05:00:00+09:00</updated>
+      <id>https://blog.airlab.re.kr/2019/11/Transfer-learning</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/11/Transfer-learning">&lt;p&gt;Transfer learning 리뷰&lt;/p&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 노현철 입니다. 
+제가 이번에 리뷰할 논문은 &lt;strong&gt;“How transferable are features in deep neuralnetworks?”&lt;/strong&gt; 이른바 &lt;strong&gt;“transfer learning”&lt;/strong&gt; 에 관한 논문입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;transfer learning이란 
+적은 dataset에서 학습을 시키면 over-fitting이 일어날 가능성이 많아짐으로 많은 dataset에서 학습을 시킨 일부의 layer들을 가져와서 이 적은 dataset에 적용 시켜 적은 dataset에서도 강인함을 보여줄 수 있는 것이 transfer learning입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-Transfer-learning/01.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;모든 데이터셋으로 학습을 시키면 초반 레이어에서는 Generality한 파라미터들이 나오고 후반 레이어에서는 Specificity한 파라미터들이 나온다. transfer learning은 초반 레이어에 나오는 Generality한 파라미터를 이용하는 것이다. 그 이유는 각각의 데이터 셋을 학습시켜 얻고자하는  목적이나 원하는 것들이 다르기 때문에 Generality한 파라미터들을 사용하는 것이다. 이 논문에서는 어디까지가 Generality하고 어디서부터 Specificity한지 실험도 하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-Transfer-learning/02.png&quot; alt=&quot;Figure2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;그림에서 보듯이  Generality 레이어에서는 Gabor filters, color blobs 와 같은 것들이 학습된다.
+&lt;img src=&quot;/assets/images/posts/2019-11-13-Transfer-learning/03.png&quot; alt=&quot;Figure3&quot; /&gt;&lt;/p&gt;
+&lt;h5 id=&quot;gabor-filters&quot;&gt;Gabor filters&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-Transfer-learning/04.png&quot; alt=&quot;Figure4&quot; /&gt;&lt;/p&gt;
+&lt;h5 id=&quot;color-blobs&quot;&gt;color blobs&lt;/h5&gt;
+
+&lt;h3 id=&quot;experimental&quot;&gt;Experimental&lt;/h3&gt;
+
+&lt;p&gt;● 1000개의 이미지넷에서 500(A), 500(B) 로 나누어 실험을 한다.&lt;/p&gt;
+
+&lt;p&gt;● A, B 모두 총 8개의 conv레이어를 사용할 것이다.&lt;/p&gt;
+
+&lt;p&gt;● transferred layers는 frozen시키거나 fine-tuned시키는 실험이다. fine-tuned을 사용한 것은 (+)가 쓰여져 있는 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-Transfer-learning/05.png&quot; alt=&quot;Figure5&quot; /&gt;
+그림에서 보듯이 baseA 와 baseB는 transfer없이 학습을 시킨 것이고 BnB, AnB는 각각 B에서 학습시킨 파라미터를 B에 적용, A에서 학습시킨 파라미터를 B에 적용한다는 의미이다. (+)가 붙은 경우들은 fine-tuned을 시킨경우들이다. (기본적으로 transferred layers들은 frozen 시킴) 
+transfer시키는 레이어의 범위는 1번째 레이어 에서부터 마지막 8번째 레이어 까지 각각 실험하여서 어디까지 General 한지보고, 또한 fine-tuning 하였을 때 성능의 변화가 있는지 보는 실험이다.&lt;/p&gt;
+&lt;h4 id=&quot;results&quot;&gt;results&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-Transfer-learning/06.png&quot; alt=&quot;Figure6&quot; /&gt;&lt;/p&gt;
+&lt;h4 id=&quot;bnb&quot;&gt;BnB&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;(n=1, 2) base B와 동일&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;(n=3,4,5) 성능저하
+    &lt;ul&gt;
+      &lt;li&gt;레이어간 co-adapted(동화기능)이 있어 상위 레이어만 이 기능을 배울 수 없다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;(n=6,7) 성능 다소상향
+    &lt;ul&gt;
+      &lt;li&gt;학습의 필요성이 점차 줄어듦.&lt;/li&gt;
+      &lt;li&gt;(6,7or7,8)사이 features가 co-adapted이 덜하다.&lt;/li&gt;
+      &lt;li&gt;중간보다 하단,상단이 optimization 하기 좋다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;bnb-1&quot;&gt;BnB+&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;전체적으로 base B와 비슷
+    &lt;ul&gt;
+      &lt;li&gt;co-adapted(동화기능)의 성능저하를 방지시켜줌.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;성능향상은 없었음.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;anb&quot;&gt;AnB&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;일부 layer는 Transfer Learning 하는것이 좋다.&lt;/li&gt;
+  &lt;li&gt;(n=1,2) layer는 general 하다.&lt;/li&gt;
+  &lt;li&gt;(n=3) 약간감소, (n=4,5,6,7) 성능대폭하락
+    &lt;ul&gt;
+      &lt;li&gt;이것으로 인해 두 가지 감소 이유를 알 수 있음.&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;1) (n=3,4,5) co-adaptation으로 인한 감소&lt;/p&gt;
+
+    &lt;p&gt;2) (n=6,7) generality 보단 specificity 하기 때문&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;anb-1&quot;&gt;AnB+&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;Fine-tuning은 좋은 성능을 보여줌.
+    &lt;ul&gt;
+      &lt;li&gt;Transfer Learning의 목적과 반대로 dataset이 많은 경우에도 사용하면 성능을 향상 시킬 수 있다!&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;(n=1~7) 성능을 유지, 성능 향상
+    &lt;ul&gt;
+      &lt;li&gt;이 효과는 첫번째 네트워크(A)의 양에 크게 의존하지 않음.&lt;/li&gt;
+      &lt;li&gt;이 효과는 너무 많은 retraining을 한다는 것은 놀라운 일.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;co-adapted 때문에 중간layers에서 분할하는 것은 어렵다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;상위layers의 specialization로 인해 Transfer Learning의 부정적인 영향을 끼친다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;random weights보단 Transfer Learning이 좋다.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;new task에 Transfer Learning, fine-tuning을 더하면 성능을 향상 시키는데 유용할 수 있다.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
+
+&lt;p&gt;랩실에 들어오고 첫 세미나 발표를 한 논문이고, 또한 끝까지 읽어본 몇 안되는 논문이라 더욱 뜻깊고 기억에 남는 논문이였습니다.
+지금은 많이 부족하지만 세미나와 논문리뷰를 하면서 실력을 한층 한층 쌓아 나아가겠습니다. 감사합니다!!!!!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Hyeoncheol Noh</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="paper-review" />
+      
+
+      
+        <summary type="html">Transfer learning 리뷰</summary>
+      
+
+      
+      
+    </entry>
   
     <entry>
       <title type="html">Non-local Neural Networks</title>
@@ -122,6 +271,109 @@ Non-local Mean Filter는 기존의 영상처리에서 사용되던 denoising 알
 
       
         <summary type="html">오늘 소개할 논문은 Non-local Neural Networks (arXiv:1711.07971)이며, CVPR2018에서 소개된 논문입니다.</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">SlowFast Network for Video Recognition</title>
+      <link href="https://blog.airlab.re.kr/2019/10/SlowFast" rel="alternate" type="text/html" title="SlowFast Network for Video Recognition" />
+      <published>2019-10-04T00:00:00+09:00</published>
+      <updated>2019-10-04T00:00:00+09:00</updated>
+      <id>https://blog.airlab.re.kr/2019/10/SlowFast</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/10/SlowFast">&lt;p&gt;안녕하세요? 이번에 &lt;strong&gt;SlowFast&lt;/strong&gt; 논문 Review를 하게된 &lt;strong&gt;AirLab&lt;/strong&gt; 이상우입니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;introduction&quot;&gt;&lt;strong&gt;&lt;u&gt;Introduction&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;SlowFast는 Video Recognition 을 위한 네트워크 구조입니다. 이 네트워크는 FAIR (FaceBook Artificial Intelligence Research) 에서 발표한 논문으로
+이전의 다른 네트워크들과의 다른점은 Opticalflow 를 사용하지 않은 영상 인식 네트워크 였다는 것입니다. 이로써 End-To-End 학습이 영상인식에서도 가능해졌다고 합니다.
+이 논문은 영장류의 물체의 행동을 인식하는 세포에서 영감을 받았다고 하는데 자세한 내용은 밑에서 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;slowfast-networks&quot;&gt;&lt;strong&gt;&lt;u&gt;SlowFast Networks&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure1.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+
+&lt;center&gt;(figure1. SlowFast Networks)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;SlowFast는 2가지의 Pathway가 있습니다. 위에 보이는 Pathway는 Slow pathway라고 부르며, 이 Pathway는 낮은 프레임으로 주어질 수 있는 의미적 정보를 포착하도록
+설계가 되었다고 합니다. 간단한 예를 들면 박수라는 행동에서 손이라는 객체를 파악하는데 힘을 싣는 경로입니다. 반대로 Fast Pathway의 경우는 높은 프레임속도로 빠르게 변화하는
+움직임을 포착하는 역할을 합니다. 이 부분이 기존 영상인식에서 Opticalflow 로 수행되었던 부분입니다.
+Slow Pathway는 τ 값을 가지는데 대표적으로 16을 사용하였다고 합니다. 이 값은 30프레임의 영상의 경우 30프레임중에 약 2프레임 정도의 이미지만 뽑아준다고 합니다.
+Fast Pathway는 t/α 값을 가지고 α의 값을 1 이상의 값을 가진다고 합니다. 논문 저자는 대표적으로 8의 값을 사용하였다고 합니다. (t = 전체 프레임) 30프레임 인 경우
+약 4프레임 정도의 이미지를 뽑게 됩니다.
+이 논문에서 중요한 부분은 Fast Pathway인데 이 부분은 전체 연산량의 20% 밖에 수행하지 않는다고 합니다. 저는 처음에 보고 많은 프레임을 다루는데 더 많은 연산량이
+사용될거라 생각했는데 이 부분에서 중요한 아이디어가 있었습니다. Fast Pathway의 경우 위에서 Opticalflow 를 대체해서 사용된 부분이고, 움직임을 포착하는 것을 위해
+설계되었다고 하였습니다. 이 부분에서 느낌이 오신분이 있을수도 있는데요. 결론적으로 &lt;strong&gt;많은 채널의 정보를 사용하지 않습니다.&lt;/strong&gt; 단순히 예를 들어 말씀을 드리면, 박수라는 행동을
+인식하기 위해서 손을 인식해야되고 손이 무엇을 할수 있는지 파악을 해야합니다. 그래서 의미적 정보를 파악할 때 손이라는 객체의 색상이 살색이라면 조금 더 쉽게 손을 파악할 수 있습니다.
+하지만 손이라는 정보를 알고선 행동을 파악할 떄는 손이 회색,노란색이라도 손이라는 정보를 안다면 박수라는 행동을 쉽게 인식할 수 있습니다.
+논문에서는 공간과 차원에 대한 특별한 처리가 없기때문에 채널의 수가 적어도 된다고 설명이 되어있으며, 즉 이는 &lt;strong&gt;계산이 가벼워지고 처리속도가 빨라지게&lt;/strong&gt; 되었다고 합니다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure2.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;(figure2. An example instantiation of the SlowFast network)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;위에 이미지를 참조하시면 조금 더 이해에 도움이 되실겁니다. 초록색의 경우 Fast Pathway에서 나오는 프레임입니다. Slow Pathway보다 높은 프레임률을 사용하고 있다는
+것이 확인이 됩니다. 노란색의 경우 Fast Pathway에서 사용하는 채널의 수를 보여줍니다. Slow Pathway에서 사용하는 값의 1/8 정도의 채널의 수를 사용하고 있는것도 확인이 됩니다.&lt;/p&gt;
+
+&lt;p&gt;그런데 이쯤에서 궁금한 점이 생기셨을 겁니다. 각각의 Pathway에서 나온 출력값은 다른 형태를 띄고 있는데 어떻게 두 개를 합쳐서 영상 인식을 하게 되는걸까요?
+이 부분에서는 Lateral Connections 라는 방식을 사용하여서 간단히 두개의 값의 형태를 맞춰줍니다.
+Slow pathway  = {T, S^2, C}
+Fast pathway  = {αT, S^2, βC}
+각각 pathway에서 나온 feature의 형태는 이러한 형태를 띄는데 3가지 방식을 중점으로 형태를 바꿔주게 됩니다.
+[1]. Time-to-channel : {αT, S^2, βC} 이러한 feature의 형태를 {T, S^2, αβC} 형태로 바꿔줍니다. 즉 α값을 하나 프레임의 채널로 변환을 시킵니다.
+[2]. Time-strided sampling : {αT, S^2, βC} α프레임 중 하나만 샘플링하여 {T, S^2, βC}의 형태로 바줍니다.
+[3]. Time-strided convolution : 2βC 의 출력 채널과 stride = α 를 가진 5×1^2 커널의 3D convolution을 사용한다고 합니다.
+즉, 전체적으로 컨볼루션과 샘플링 프레임을 채널단위로 바꿔주며 Slow pathway와 Fast pathway를 맞춰줍니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;main-results&quot;&gt;&lt;strong&gt;&lt;u&gt;Main Results&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure3.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;(figure3. Comparison with the state-of-the-art on Kinetics-400.)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure4.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;(figure3. Accuracy/complexity tradeof.)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure5.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;(figure3. Per-category AP on AVA.)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;제가 논문을 읽으면서 느낀점이 있는 몇가지 결과를 가지고 왔습니다. 
+figure3 의 경우 Kinetics 데이터에서 Resnet 101을 백본으로 사용한 SlowFast 네트워크가 Opticalflow 를 사용한 다른 네트워크보다 좋은 성능을 보이면서
+영상 인식에서 이제는 Opticalflow 보다는 RGB 채널을 통한 접근이 더 발전할 것으로 보입니다.
+figure4 의 경우 SlowFast Network 에서 Slow만 단일적으로 사용했을 때보다 Slow와 Fast를 같이 사용했을 때 더 효율적인 모습이 보여졌으며 네트워크가 깊어 질수록
+더 좋은 성능을 보여주었습니다.
+figure5 의 경우 Fast Pathway 의 문제점이라고 할 수 있는 점이 보였습니다. 위에서 말했듯이, Slow와 Fast를 같이 썼을 경우에 전체적으로 성능향상이 있었으나 몇가지 행동은
+그런게 많은 행동의 변화가 없는 경우가 있었습니다. Fast Pathway의 역할이 중요하지 않은 행동들 즉 잠을 자거나, 핸드폰으로 통화를 하는 등 움직임이 별로 없는 행동에서는 Slow Pathway 만 단독적으로 썼을 때가 더 성능이 좋았습니다. 이런 점을 보면 Fast Pathway가 정적인 행동에서는 긍정적인 영향을 미치지 않으며, 정적인 행동에서는 다른 접근법이 필요하다고 저는 느껴졌습니다.&lt;/p&gt;
+
+&lt;p&gt;이상 SlowFast 논문 리뷰를 마치며 읽어주신 분들께 감사드리며, 틀린 점이나 고쳐야 될 부분은 댓글이나 mwlee0860@gmail.com 으로 메일을 보내주시면 감사하겠습니다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Sangwoo Lee</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="paper-review" />
+      
+
+      
+        <summary type="html">안녕하세요? 이번에 SlowFast 논문 Review를 하게된 AirLab 이상우입니다.</summary>
       
 
       
@@ -997,234 +1249,6 @@ ground-truth(G) 와 Predicted-Box(P) 가 있을때, P를 G로 mapping 해주는 
 
       
         <summary type="html">ResNeXt:Aggregated Residual Transformations for Deep Neural Networks</summary>
-      
-
-      
-      
-    </entry>
-  
-    <entry>
-      <title type="html">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</title>
-      <link href="https://blog.airlab.re.kr/2019/08/kinetics-dataset" rel="alternate" type="text/html" title="Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset" />
-      <published>2019-08-03T17:00:00+09:00</published>
-      <updated>2019-08-03T17:00:00+09:00</updated>
-      <id>https://blog.airlab.re.kr/2019/08/kinetics-dataset</id>
-      <content type="html" xml:base="https://blog.airlab.re.kr/2019/08/kinetics-dataset">&lt;p&gt;Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰&lt;/p&gt;
-
-&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset”&lt;/strong&gt; 입니다.&lt;/p&gt;
-
-&lt;p&gt;이 논문은 딥마인드에서 발표한 kinetics dataset 논문입니다. 이 논문은 데이터셋 논문임에도 action recognition의 역사와 방향성을 제시해주기 때문에 action recognition에 입문하시는 분들이라면 꼭 읽어 보시는 걸 추천해 드립니다.&lt;/p&gt;
-
-&lt;p&gt;기존의 action recognition 문제에서 UCF101 과 HMDB51 같은 규모가 작은 데이터셋은 좋은 성능을 내기 어려웠습니다. 그래서 이 논문 저자는 ImageNet처럼 action recognition에도 빅 데이터셋이 필요성을 느끼고 Kinetics 데이터셋을 만듭니다. Kinetics 데이터셋은 400개의 클래스들 과  한 클래스당 400개가 넘는 clips가 존재하는 빅데이터 셋입니다.(현재는 클래스 700 버전도 업로드 되었습니다.) Kinetics 데이터셋을 학습시킨 파라메터로 전이학습을 진행하여 UCF101 과 HMDB51 과 같은 작은 규모의 데이터셋에서도 좋은 성능을 냈습니다. 또한 Two-Stream Inflated 3D ConvNet (I3D)을 제안하고 전이학습을 진행하여 HMDB51에서는 80.9% UCF101에서는 98.0%를 달성하였습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-04-kinetics-dataset/cover.PNG&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;the-old-ⅰ-convnetlstm&quot;&gt;The Old Ⅰ: ConvNet+LSTM&lt;/h3&gt;
-
-&lt;p&gt;영상에서 25 프레임을 뽑아낸후, CNN을 돌려서 나온 결과를 LSTM으로 입력하여 sequential한 정보를 예측해 보겠다는 아이디어 입니다. 직관적으로도 배경을 제거하고 CNN에 들어가는 것이 아니기 때문에 액션보다는 배경에 큰 영향을 받고, 미세한 액션은 잘 찾지 못하는 단점이 있었습니다.(LSTM을 꼭 활용하고 싶으시다면 OCR처럼 액션을 하는 오브젝트를 디텍션한 후 크롭하는 방법을 추천 드립니다.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-04-kinetics-dataset/figure1.PNG&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;the-old-ⅱ-3d-convnets&quot;&gt;The old Ⅱ: 3D ConvNets&lt;/h3&gt;
-
-&lt;p&gt;action recognition에 처음 입문하시는 분들이 가장 먼저 직관적으로 예측가능 한 방법 같습니다. 하지만 3D conv는 3D 컨브보다 더 많은 파라메터가 필요하며, 이는 학습을 어렵게 만듭니다. 그리고 여전히 배경에 영향을 많이 받기 때문에 작은 행동들은 많이 놓치는 경향이 보였습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-04-kinetics-dataset/figure2.PNG&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;optical-flow-란&quot;&gt;Optical flow 란?&lt;/h3&gt;
-
-&lt;p&gt;기존 영상처리에서 움직이는 객체를 추적할때 자주 사용하던 방법입니다. Optical flow를 사용하면 움직이는 객체의 x방향 y방향의 벡터를 뽑아 낼 수 있습니다. 이 논문에서는 TVL1방법을 사용 했습니다. TVL1 방법이란 두 프레임 사이의 변화한 점을 픽셀 단위로 추적하면서, 데이터 사이의 차이를 L1 norm으로 구하고, 전체 데이터의 분산을 사용하여 정규화 하는 방법입니다.(딥러닝을 사용하지 않고 Optical flow를 뽑는 방법중 가장 쓸만한 방법 입니다.)&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;optical_flow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DualTVL1OpticalFlow_create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;flow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;optical_flow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;calc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prvs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-04-kinetics-dataset/figure3.PNG&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;the-old-ⅲ-two-stream-networks&quot;&gt;The old Ⅲ: Two-Stream Networks&lt;/h3&gt;
-
-&lt;p&gt;아직도 활발한 연구가 진행되고 있는 방법이지만, 이 논문 저자는 old 라고 표기했기 때문에 old 라고 표현하겠습니다! 이 방법은 RGB와 Optical flow를 사용한 2D conv 방법입니다. Optical flow를 사용하여 행동을 예측하기 때문에 action을 비교적 잘 찾지만, 아직도 여전히 찝찝한 부분은 남아있습니다. 2D conv이기 때문에 rgb 한장 optical flow한장 들어가기 때문에 한 영상에서 뽑은 프레임 사이의 관계를 예측하는 부분에서는 아직까지 뭔가 찝찝합니다. 또한 이 찝찝함을 해결하기 위하여 rgb와 optical flow에서 나온 결과를 concat하여 3D를 만든후 3D conv를 하는 방법도 있습니다.(이 방법들의 단점을 직관적으로 생각해 보면 rgb는 3D컨브를 해야 RGB프레임 간 관계를 잘 예측 할 수 있기 떄문에 이 방법들은 RGB간 관계를 알기 힘들어서 정확도가 낮게 나온다고 생각합니다. 혹시 이 부분이 틀리다면 댓글로 지적 부탁드립니다.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-04-kinetics-dataset/figure4.PNG&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;the-new-two-stream-inflated-3d-convnets&quot;&gt;The New: Two-Stream Inflated 3D ConvNets&lt;/h3&gt;
-
-&lt;p&gt;RGB와 Optical flow를 동시에 활용한다는 면에서 Two-Stream 방법이고, 2D conv가 아니라 3D conv이기 떄문에 Two-Stream Inflated 3D ConvNets 이라고 정의하며, 앞에서 언급한 모든 방법들보다 이 논문의 실험에서는 정확도가 가장 높았습니다.
-RGB를 3D conv 함으로써 시간정보를 계층적으로 만들 수 있지만, 그래도 여전히 action을 인식하기에는 부족한 면이 있기 때문에 Optical flow도 활용합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-04-kinetics-dataset/figure5.PNG&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;inflating-2d-convnets-into-3d&quot;&gt;Inflating 2D ConvNets into 3D&lt;/h3&gt;
-
-&lt;p&gt;단순하게 2D conv를 3D conv로 변경하려면 시간축 디멘션 하나를 추가하고 pad를 줘서 shape를 맞춰주시면 됩니다. 논문에서 언급한 것 처럼 간단하게 N&lt;em&gt;N을 N&lt;/em&gt;N*N을 만들어 주시면 됩니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;bootstrapping-3d-filters-from-2d-filter&quot;&gt;Bootstrapping 3D filters from 2D Filter&lt;/h3&gt;
-
-&lt;p&gt;3D conv에서 ImageNet pre-trained 된 weight를 활용하려면 단순하게 weight를 N번 복제해 주시면 됩니다. 뭔가 직관적으로 하면 안될 것 같은 느낌이 들지만 이 논문에서는 실험적으로 이렇게 해서라도 ImageNet pre-trained된 weight를 사용하는게 좋다고 밝힙니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;pacing-receptive-field-growth-in-space-time-and-network-depth&quot;&gt;Pacing receptive field growth in space, time and network depth&lt;/h3&gt;
-
-&lt;p&gt;직관적으로 당연히 공간정보와 시간정보의 stride가 적절하게 조절되어야 합니다. 공간정보는 조금 변하는데 시간정보의 stride가 많이 변하면 공간정보를 제대로 못보고, 그렇다고 시간정보의 stride가 조금 변하면 그것은 정지영상과 다름이 없어 행동을 잘 인식하지 못하게 됩니다. 이 논문 저자는 Inflated Inception-V1에서 첫 번째와 두 번째의 Max-Pool레이어에서는 시간축의 stride의 크기를 1 로 설정하면 경험적으로 더 좋았다고 합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-04-kinetics-dataset/figure6.PNG&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;two-3d-streams&quot;&gt;Two 3D Streams&lt;/h3&gt;
-
-&lt;p&gt;RGB 정보만 이용해도 3D conv를 사용하면 시간정보를 볼 수 있지만, 이 논문에서는 그래도 Optical flow를 사용하면 경험적으로 더 정확도가 높았다고 합니다. 지금까지 내용을 간단하게 요약하면 아무리 3D conv를 사용하는게 좋고, 3D conv를 사용하더라도 Optical flow를 사용하는게 좋다 입니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;conculusion&quot;&gt;Conculusion&lt;/h3&gt;
-
-&lt;p&gt;저는 원래 결론 쓰는 것을 좋아하진 않지만!(개인적인 견해가 들어갈 수 있기 때문에) 데이터셋 논문이기 때문에 결론을 작성하겠습니다. 논문에서 제시한 I3D방법을 사용하는 것이 정확도가 가장 높았고, 정확도 대비 파라메터가 그렇게 많지 않았습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-04-kinetics-dataset/figure7.PNG&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;파라메터도 적은 편 입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-04-kinetics-dataset/figure8.PNG&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;정확도도 i3d가 가장 높았으며 i3d 중에서도 optical flow도 활용하는 방법이 가장 좋았습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-04-kinetics-dataset/figure9.PNG&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;앞에서도 언급했던 것 처럼 Imagenet에서 pre-trained된 것을 활용하는게 더 성능이 좋았습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-04-kinetics-dataset/figure10.PNG&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;모든 방법에서 i3d 방법이 가장 좋았습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
-
-&lt;p&gt;이 논문은 action recognition에 입문하는 사람이라면 꼭 읽어 보시는걸 추천드리고, 아직 코드 구현은 못했습니다. 구현이 완료 되는데로 링크 첨부 하겠습니다. 읽어주셔서 감사합니다.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      <author>
-          <name>Minseok Seo</name>
-        
-        
-      </author>
-
-      
-
-      
-        <category term="paper-review" />
-      
-
-      
-        <summary type="html">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset 리뷰</summary>
-      
-
-      
-      
-    </entry>
-  
-    <entry>
-      <title type="html">Relational Knowledge Distillation</title>
-      <link href="https://blog.airlab.re.kr/2019/07/rkd" rel="alternate" type="text/html" title="Relational Knowledge Distillation" />
-      <published>2019-07-28T22:00:00+09:00</published>
-      <updated>2019-07-28T22:00:00+09:00</updated>
-      <id>https://blog.airlab.re.kr/2019/07/rkd</id>
-      <content type="html" xml:base="https://blog.airlab.re.kr/2019/07/rkd">&lt;p&gt;Relational Knowledge Distillation&lt;/p&gt;
-
-&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!&lt;/p&gt;
-
-&lt;p&gt;오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (&lt;a href=&quot;https://arxiv.org/abs/1904.05068&quot;&gt;arXiv:1904.05068&lt;/a&gt;)이며, CVPR2019에 Accepted 된 논문입니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;knowledge-distillation&quot;&gt;Knowledge distillation&lt;/h3&gt;
-
-&lt;p&gt;Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 &lt;code class=&quot;highlighter-rouge&quot;&gt;Distilling the Knowledge in a Neural Network&lt;/code&gt;가 있습니다.&lt;/p&gt;
-
-&lt;p&gt;이러한 논문의 시작은 computing resources의 양을 줄이이 위해 시작이 되었는데요,&lt;/p&gt;
-
-&lt;p&gt;만약 모델의 ACC를 높이기 위해서는 모델을 크게 설계를 하면 되지만 모델이 커질 수록 파라미터의 양은 증가하고 더 많은 computing resource를 차지할 것입니다. 이러한 문제는 computing resource를 감당할 수 있는 인프라를 가 없는 사람들에게는 큰 이슈로 남게되고, 특히 서비스로 배포가 되어야하는 모델들은 경량화 되어야 한다는 조건이 많이 붙습니다.&lt;/p&gt;
-
-&lt;p&gt;이러한 이슈로 큰 모델이 학습한 정보를 &lt;code class=&quot;highlighter-rouge&quot;&gt;증류(distillation)&lt;/code&gt;하여, 작은 모델에 주입할 수 있는 Knowledge distillation가 시작되었습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure2.png&quot; width=&quot;80%&quot; alt=&quot;figure2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위와 같은 Softmax를 사용하는 네트워크가 있다고 해봅시다. 그러면 one hot으로 작성된 정답 라벨(hard label)과 predict을 비교하여 backward를 하게 됩니다.&lt;/p&gt;
-
-&lt;p&gt;Teacher Model은 위와 같은 프로세스로 학습을 진행하고 큰 모델이기 때문에 좋을 ACC를 만들어 낼 것입니다. 그리고 Student Model은 Teacher Model의 softmax를 거치고 나온 0과 1사이의 확률 값을 soft label로 하여 학습하는 방법이 KD(Knowledge Distillation)입니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;relational-knowledge-distillation&quot;&gt;Relational Knowledge Distillation&lt;/h3&gt;
-
-&lt;p&gt;RKD(Relational Knowledge Distillation)는 Knowledge Distillation에서 Knowledge를 어떻게 정의할 것 인가에서 시작이 되었습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure1.png&quot; width=&quot;80%&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt;를 각 Input에서 나오는 Teacher의 output, &lt;code class=&quot;highlighter-rouge&quot;&gt;s&lt;/code&gt;를 Student 의 output이라고 했을 때 기존의 KD는 각각의 t가 s에 point-to-point로 연결되는 위 그림과 매칭됩니다. 때문에 이 논문에서는 기존의 KD를 IKD(Individual Knowledge Distillation)라고 표현합니다.&lt;/p&gt;
-
-&lt;p&gt;IKD는 Individual한 output을 Knowledge로 하여 Distillation 한다고 하면, RKD는 output들의 관계(Relation)를 Knowledge로 하여 Distillation합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure3.png&quot; width=&quot;80%&quot; alt=&quot;figure3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이 연구에서 이야기 하는 관계는 각 output이 embedding space에 표현될 때의 node간의 distance와 angle입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure4.png&quot; width=&quot;60%&quot; alt=&quot;figure4&quot; /&gt;
-&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure5.png&quot; width=&quot;60%&quot; alt=&quot;figure5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;distance는 위의 식으로 표현 될 수 있고 뮤는 node간 거리의 평균이라고 이해하면 될 것 같습니다. 따라서 아래와 같은 식을 otim하는 것으로 학습 할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure6.png&quot; width=&quot;60%&quot; alt=&quot;figure6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;angle도 아래와 같이 표현이 가능합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure7.png&quot; width=&quot;60%&quot; alt=&quot;figure7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure8.png&quot; width=&quot;60%&quot; alt=&quot;figure8&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;experiment&quot;&gt;Experiment&lt;/h3&gt;
-
-&lt;p&gt;이 논문에서는 여러 Task(Metric learning, Image classification, Few-shot learning) 에서 위에서 소개한 distance-wise, angle-wise 를 통해 학습한 결과를 다른 네트워크와 비교하고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Metric learning&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure9.png&quot; width=&quot;100%&quot; alt=&quot;figure9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Image classification&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure10.png&quot; width=&quot;60%&quot; alt=&quot;figure10&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Few-shot learning&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-07-24-rkd/figure10.png&quot; width=&quot;60%&quot; alt=&quot;figure10&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그 결과 모든 실험에서 가장 좋은 성능을 보였으며, 네트워크가 깊어짐에 따라서 큰 폭으로 성능 향상이 발생하는 것을 보였습니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Park, Wonpyo, et al. “Relational Knowledge Distillation.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2019.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Hinton, Geoffrey, Oriol Vinyals, and Jeff Dean. “Distilling the knowledge in a neural network.” arXiv preprint arXiv:1503.02531 (2015).&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content>
-
-      
-      
-      
-      
-      
-
-      <author>
-          <name>Jaemin Lee</name>
-        
-        
-      </author>
-
-      
-
-      
-        <category term="paper-review" />
-      
-
-      
-        <summary type="html">Relational Knowledge Distillation</summary>
       
 
       

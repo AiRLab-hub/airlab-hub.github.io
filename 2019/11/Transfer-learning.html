@@ -11,7 +11,7 @@
 
 
 
-    <title>Mean teachers are better role models</title>
+    <title>Transfer learning</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -36,26 +36,26 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="Artificial intelligence and Robotics Laboratory" />
     <link rel="shortcut icon" href="https://blog.airlab.re.kr/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="https://blog.airlab.re.kr/2019/09/mean-teacher" />
+    <link rel="canonical" href="https://blog.airlab.re.kr/2019/11/Transfer-learning" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="AiRLab. Research Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Mean teachers are better role models" />
-    <meta property="og:description" content="Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Mean teachers are better role models (arXiv:1703.01780)이며, NIPS 2017에서 소개된 논문입니다. 이 논문은 Semi-Supervised Leaning에 관련된 논문이고, Π Model과 Temporal ensemble 이후에 소개되었습니다. Π Model Π" />
-    <meta property="og:url" content="https://blog.airlab.re.kr/2019/09/mean-teacher" />
-    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-09-19-mean-teacher/cover.png" />
+    <meta property="og:title" content="Transfer learning" />
+    <meta property="og:description" content="Transfer learning 리뷰 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 노현철 입니다. 제가 이번에 리뷰할 논문은 “How transferable are features in deep neuralnetworks?” 이른바 “transfer learning” 에 관한 논문입니다. Introduction transfer learning이란 적은 dataset에서 학습을 시키면 over-fitting이 일어날 가능성이 많아짐으로 많은 dataset에서 학습을 시킨 일부의 layer들을 가져와서 이 적은 dataset에 적용 시켜" />
+    <meta property="og:url" content="https://blog.airlab.re.kr/2019/11/Transfer-learning" />
+    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-11-13-Transfer-learning/cover.png" />
     <meta property="article:publisher" content="https://www.facebook.com/false" />
     <meta property="article:author" content="https://www.facebook.com/false" />
-    <meta property="article:published_time" content="2019-09-19T11:00:00+09:00" />
-    <meta property="article:modified_time" content="2019-09-19T11:00:00+09:00" />
+    <meta property="article:published_time" content="2019-11-13T05:00:00+09:00" />
+    <meta property="article:modified_time" content="2019-11-13T05:00:00+09:00" />
     <meta property="article:tag" content="Paper-review" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Mean teachers are better role models" />
-    <meta name="twitter:description" content="Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Mean teachers are better role models (arXiv:1703.01780)이며, NIPS 2017에서 소개된 논문입니다. 이 논문은 Semi-Supervised Leaning에 관련된 논문이고, Π Model과 Temporal ensemble 이후에 소개되었습니다. Π Model Π" />
+    <meta name="twitter:title" content="Transfer learning" />
+    <meta name="twitter:description" content="Transfer learning 리뷰 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 노현철 입니다. 제가 이번에 리뷰할 논문은 “How transferable are features in deep neuralnetworks?” 이른바 “transfer learning” 에 관한 논문입니다. Introduction transfer learning이란 적은 dataset에서 학습을 시키면 over-fitting이 일어날 가능성이 많아짐으로 많은 dataset에서 학습을 시킨 일부의 layer들을 가져와서 이 적은 dataset에 적용 시켜" />
     <meta name="twitter:url" content="https://blog.airlab.re.kr/" />
-    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-09-19-mean-teacher/cover.png" />
+    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-11-13-Transfer-learning/cover.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="AiRLab. Research Blog" />
     <meta name="twitter:label2" content="Filed under" />
@@ -74,18 +74,18 @@
         "name": "AiRLab. Research Blog",
         "logo": "https://blog.airlab.re.kr/assets/images/airlab-logo.png"
     },
-    "url": "https://blog.airlab.re.kr/2019/09/mean-teacher",
+    "url": "https://blog.airlab.re.kr/2019/11/Transfer-learning",
     "image": {
         "@type": "ImageObject",
-        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-09-19-mean-teacher/cover.png",
+        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-11-13-Transfer-learning/cover.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://blog.airlab.re.kr/2019/09/mean-teacher"
+        "@id": "https://blog.airlab.re.kr/2019/11/Transfer-learning"
     },
-    "description": "Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Mean teachers are better role models (arXiv:1703.01780)이며, NIPS 2017에서 소개된 논문입니다. 이 논문은 Semi-Supervised Leaning에 관련된 논문이고, Π Model과 Temporal ensemble 이후에 소개되었습니다. Π Model Π"
+    "description": "Transfer learning 리뷰 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 노현철 입니다. 제가 이번에 리뷰할 논문은 “How transferable are features in deep neuralnetworks?” 이른바 “transfer learning” 에 관한 논문입니다. Introduction transfer learning이란 적은 dataset에서 학습을 시키면 over-fitting이 일어날 가능성이 많아짐으로 많은 dataset에서 학습을 시킨 일부의 layer들을 가져와서 이 적은 dataset에 적용 시켜"
 }
     </script>
 
@@ -98,7 +98,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Mean teachers are better role models" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Transfer learning" href="/feed.xml" />
 
 
 </head>
@@ -156,7 +156,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="19 September 2019">19 September 2019</time>
+                    <time class="post-full-meta-date" datetime="13 November 2019">13 November 2019</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -166,59 +166,132 @@ into the {body} of the default.hbs template -->
                         
                     
                 </section>
-                <h1 class="post-full-title">Mean teachers are better role models</h1>
+                <h1 class="post-full-title">Transfer learning</h1>
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-09-19-mean-teacher/cover.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-11-13-Transfer-learning/cover.png)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <p>Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results</p>
+                    <p>Transfer learning 리뷰</p>
 
-<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!</p>
+<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 노현철 입니다. 
+제가 이번에 리뷰할 논문은 <strong>“How transferable are features in deep neuralnetworks?”</strong> 이른바 <strong>“transfer learning”</strong> 에 관한 논문입니다.</p>
 
-<p>오늘 소개할 논문은 Mean teachers are better role models (<a href="https://arxiv.org/abs/1703.01780">arXiv:1703.01780</a>)이며, NIPS 2017에서 소개된 논문입니다.</p>
+<h3 id="introduction">Introduction</h3>
 
-<p>이 논문은 Semi-Supervised Leaning에 관련된 논문이고, Π Model과 Temporal ensemble 이후에 소개되었습니다.</p>
+<p>transfer learning이란 
+적은 dataset에서 학습을 시키면 over-fitting이 일어날 가능성이 많아짐으로 많은 dataset에서 학습을 시킨 일부의 layer들을 가져와서 이 적은 dataset에 적용 시켜 적은 dataset에서도 강인함을 보여줄 수 있는 것이 transfer learning입니다.</p>
 
-<p><img src="/assets/images/posts/2019-09-19-mean-teacher/figure1.png" width="80%" alt="figure1" /></p>
+<p><img src="/assets/images/posts/2019-11-13-Transfer-learning/01.png" alt="Figure1" /></p>
 
-<h4 id="π-model">Π Model</h4>
-<p>Π Model은 위 그림의 위 쪽과 같은 구조와 같이, 라벨이 주어진 경우 Closs Entropy를 사용하여 학습을 하고, 라벨이 주어지지 않은 경우는 augmented input의 결과와 이전과 다른 dropout 과 augmention을 사용한 결과의 squared difference를 이용해 학습을 합니다.</p>
+<p>모든 데이터셋으로 학습을 시키면 초반 레이어에서는 Generality한 파라미터들이 나오고 후반 레이어에서는 Specificity한 파라미터들이 나온다. transfer learning은 초반 레이어에 나오는 Generality한 파라미터를 이용하는 것이다. 그 이유는 각각의 데이터 셋을 학습시켜 얻고자하는  목적이나 원하는 것들이 다르기 때문에 Generality한 파라미터들을 사용하는 것이다. 이 논문에서는 어디까지가 Generality하고 어디서부터 Specificity한지 실험도 하였다.</p>
 
-<h4 id="temporal-ensemble">Temporal ensemble</h4>
-<p>Temporal ensemble과 Π Model의 차이점은 라벨이 주어지지 않았을 때 Temporal ensemble은 이전의 결과에 대한 값들을 앙상블한 결과를 가지고 학습을 하는 것입니다.</p>
+<p><img src="/assets/images/posts/2019-11-13-Transfer-learning/02.png" alt="Figure2" /></p>
 
-<h3 id="mean-teacher">Mean Teacher</h3>
-<p><img src="/assets/images/posts/2019-09-19-mean-teacher/cover.png" width="80%" alt="figure3" />
-위에서 소개한 두개의 모델은 모델을 공유하여 학습이 되지만, Mean Teacher의 경우 Student와 Teacher 모델로 나뉘어 학습이 진행됩니다. Teacher 모델은 Student 모델의 Weight를 공유하고, 대신에 Student모델의 아래의 방식과 같이 EMS Weight를 사용합니다.</p>
+<p>그림에서 보듯이  Generality 레이어에서는 Gabor filters, color blobs 와 같은 것들이 학습된다.
+<img src="/assets/images/posts/2019-11-13-Transfer-learning/03.png" alt="Figure3" /></p>
+<h5 id="gabor-filters">Gabor filters</h5>
 
-<p><img src="/assets/images/posts/2019-09-19-mean-teacher/figure2.png" width="30%" alt="figure2" /></p>
+<p><img src="/assets/images/posts/2019-11-13-Transfer-learning/04.png" alt="Figure4" /></p>
+<h5 id="color-blobs">color blobs</h5>
 
-<p>그 후 라벨이 주어지지 않은 경우 기존 방식과 유사하게 Teacher 모델과 Student 모델의 consistency cost (J)를 계산하여 학습이 진행되게 됩니다.
-<img src="/assets/images/posts/2019-09-19-mean-teacher/figure3.png" width="40%" alt="figure3" /></p>
+<h3 id="experimental">Experimental</h3>
 
-<p>이러한 방법은 Temporal ensemble에 비하여 2가지 이점을 가지는데, 첫 번째는 Student와 Teacher 사이의 빠른 Feedback이 가능하여 더 높은 ACC를 가지게 되는 것이고, 두 번째는 large scale datasets을 online으로 학습할 수 있는 것 입니다.</p>
+<p>● 1000개의 이미지넷에서 500(A), 500(B) 로 나누어 실험을 한다.</p>
 
-<p><img src="/assets/images/posts/2019-09-19-mean-teacher/table1.png" width="80%" alt="table1" /></p>
+<p>● A, B 모두 총 8개의 conv레이어를 사용할 것이다.</p>
 
-<p>위의 결과와 같이 SVHM과 CIFAR10 에서의 Mean Teacher를 사용한 네트워크가 Π Model과 Temporal ensemble보다 더 높은 퍼포먼스를 보임을 확인할 수 있습니다.</p>
+<p>● transferred layers는 frozen시키거나 fine-tuned시키는 실험이다. fine-tuned을 사용한 것은 (+)가 쓰여져 있는 것이다.</p>
 
-<h2 id="references">References</h2>
+<p><img src="/assets/images/posts/2019-11-13-Transfer-learning/05.png" alt="Figure5" />
+그림에서 보듯이 baseA 와 baseB는 transfer없이 학습을 시킨 것이고 BnB, AnB는 각각 B에서 학습시킨 파라미터를 B에 적용, A에서 학습시킨 파라미터를 B에 적용한다는 의미이다. (+)가 붙은 경우들은 fine-tuned을 시킨경우들이다. (기본적으로 transferred layers들은 frozen 시킴) 
+transfer시키는 레이어의 범위는 1번째 레이어 에서부터 마지막 8번째 레이어 까지 각각 실험하여서 어디까지 General 한지보고, 또한 fine-tuning 하였을 때 성능의 변화가 있는지 보는 실험이다.</p>
+<h4 id="results">results</h4>
+<p><img src="/assets/images/posts/2019-11-13-Transfer-learning/06.png" alt="Figure6" /></p>
+<h4 id="bnb">BnB</h4>
+<ol>
+  <li>
+    <p>(n=1, 2) base B와 동일</p>
+  </li>
+  <li>(n=3,4,5) 성능저하
+    <ul>
+      <li>레이어간 co-adapted(동화기능)이 있어 상위 레이어만 이 기능을 배울 수 없다.</li>
+    </ul>
+  </li>
+  <li>(n=6,7) 성능 다소상향
+    <ul>
+      <li>학습의 필요성이 점차 줄어듦.</li>
+      <li>(6,7or7,8)사이 features가 co-adapted이 덜하다.</li>
+      <li>중간보다 하단,상단이 optimization 하기 좋다.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="bnb-1">BnB+</h4>
+<ol>
+  <li>전체적으로 base B와 비슷
+    <ul>
+      <li>co-adapted(동화기능)의 성능저하를 방지시켜줌.</li>
+    </ul>
+  </li>
+  <li>성능향상은 없었음.</li>
+</ol>
+
+<h4 id="anb">AnB</h4>
+<ol>
+  <li>일부 layer는 Transfer Learning 하는것이 좋다.</li>
+  <li>(n=1,2) layer는 general 하다.</li>
+  <li>(n=3) 약간감소, (n=4,5,6,7) 성능대폭하락
+    <ul>
+      <li>이것으로 인해 두 가지 감소 이유를 알 수 있음.</li>
+    </ul>
+
+    <p>1) (n=3,4,5) co-adaptation으로 인한 감소</p>
+
+    <p>2) (n=6,7) generality 보단 specificity 하기 때문</p>
+  </li>
+</ol>
+
+<h4 id="anb-1">AnB+</h4>
+<ol>
+  <li>Fine-tuning은 좋은 성능을 보여줌.
+    <ul>
+      <li>Transfer Learning의 목적과 반대로 dataset이 많은 경우에도 사용하면 성능을 향상 시킬 수 있다!</li>
+    </ul>
+  </li>
+  <li>(n=1~7) 성능을 유지, 성능 향상
+    <ul>
+      <li>이 효과는 첫번째 네트워크(A)의 양에 크게 의존하지 않음.</li>
+      <li>이 효과는 너무 많은 retraining을 한다는 것은 놀라운 일.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="conclusions">Conclusions</h4>
+
 <ul>
   <li>
-    <p>Tarvainen, Antti, and Harri Valpola. “Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results.” Advances in neural information processing systems. 2017.</p>
+    <p>co-adapted 때문에 중간layers에서 분할하는 것은 어렵다.</p>
   </li>
   <li>
-    <p>Rasmus, Antti, et al. “Semi-supervised learning with ladder networks.” Advances in neural information processing systems. 2015.</p>
+    <p>상위layers의 specialization로 인해 Transfer Learning의 부정적인 영향을 끼친다.</p>
   </li>
   <li>
-    <p>Laine, Samuli, and Timo Aila. “Temporal ensembling for semi-supervised learning.” arXiv preprint arXiv:1610.02242 (2016).</p>
+    <p>random weights보단 Transfer Learning이 좋다.</p>
+  </li>
+  <li>
+    <p>new task에 Transfer Learning, fine-tuning을 더하면 성능을 향상 시키는데 유용할 수 있다.</p>
   </li>
 </ul>
+
+<h3 id="후기">후기</h3>
+
+<p>랩실에 들어오고 첫 세미나 발표를 한 논문이고, 또한 끝까지 읽어본 몇 안되는 논문이라 더욱 뜻깊고 기억에 남는 논문이였습니다.
+지금은 많이 부족하지만 세미나와 논문리뷰를 하면서 실력을 한층 한층 쌓아 나아가겠습니다. 감사합니다!!!!!</p>
 
                 </div>
             </section>
@@ -235,34 +308,34 @@ into the {body} of the default.hbs template -->
                     
                 
                     
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
                         <section class="author-card">
                             
-                                <img class="author-profile-image" src="/assets/images/authors/jaemin.jpeg" alt="jaemin" />
+                                <img class="author-profile-image" src="/assets/images/authors/hyeoncheol.jpeg" alt="hyeoncheol" />
                             
                             <section class="author-card-content">
-                                <h4 class="author-card-name"><a href="/author/jaemin">Jaemin Lee</a></h4>
+                                <h4 class="author-card-name"><a href="/author/hyeoncheol">Hyeoncheol Noh</a></h4>
                                 
-                                    <p>🔥</p>
+                                    <p>Read <a href="/author/hyeoncheol">more posts</a> by this author.</p>
                                 
                             </section>
                         </section>
                         <div class="post-full-footer-right">
-                            <a class="author-card-button" href="/author/jaemin">Read More</a>
+                            <a class="author-card-button" href="/author/hyeoncheol">Read More</a>
                         </div>
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
                 <!-- /author  -->
@@ -306,7 +379,7 @@ into the {body} of the default.hbs template -->
                     <article class="read-next-card"
                         
                             
-                                style="background-image: url(url(/assets/images/posts/2019-09-19-mean-teacher/cover.png)"
+                                style="background-image: url(url(/assets/images/posts/2019-11-13-Transfer-learning/cover.png)"
                         
                     >
                         <header class="read-next-card-header">
@@ -322,11 +395,6 @@ into the {body} of the default.hbs template -->
                                 
                                 
                                   
-                                    
-                                        
-                                        
-                                            <li><a href="/2019/11/Transfer-learning">Transfer learning</a></li>
-                                        
                                     
                                   
                                 
@@ -352,6 +420,8 @@ into the {body} of the default.hbs template -->
                                     
                                         
                                         
+                                            <li><a href="/2019/10/Fast-R-CNN">Fast-R-CNN</a></li>
+                                        
                                     
                                   
                                 
@@ -363,6 +433,9 @@ into the {body} of the default.hbs template -->
                                   
                                 
                                   
+                                    
+                                        
+                                        
                                     
                                   
                                 
@@ -453,73 +526,6 @@ into the {body} of the default.hbs template -->
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/2019/10/R-CNN">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-10-01-R-CNN/figure9.png)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/10/R-CNN">
-                <header class="post-card-header">
-                    
-                        
-                            
-                                <span class="post-card-tags">Paper-review</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">R-CNN</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p></p>
-                    
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                        
-                        <img class="author-profile-image" src="/assets/images/authors/daehan.jpeg" alt="Daehan Kim" />
-                        
-                        <span class="post-card-author">
-                            <a href="/author/daehan/">Daehan Kim</a>
-                        </span>
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                <span class="reading-time">
-                    
-                    
-                      1 min read
-                    
-                </span>
-            </footer>
-        </div>
-    </article>
-
-            
 
             <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
             
@@ -527,12 +533,12 @@ into the {body} of the default.hbs template -->
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/2019/09/R(2+1)D">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-09-19-RD/cover.png)"></div>
+            <a class="post-card-image-link" href="/2019/11/nonlocal">
+                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-11-03-nonlocal/cover.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/09/R(2+1)D">
+            <a class="post-card-content-link" href="/2019/11/nonlocal">
                 <header class="post-card-header">
                     
                         
@@ -542,7 +548,7 @@ into the {body} of the default.hbs template -->
                         
                     
 
-                    <h2 class="post-card-title">R(2+1)D</h2>
+                    <h2 class="post-card-title">Non-local Neural Networks</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -557,14 +563,14 @@ into the {body} of the default.hbs template -->
                     
                 
                     
-                
-                    
                         
-                        <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="Minseok Seo" />
+                        <img class="author-profile-image" src="/assets/images/authors/jaemin.jpeg" alt="Jaemin Lee" />
                         
                         <span class="post-card-author">
-                            <a href="/author/minseok/">Minseok Seo</a>
+                            <a href="/author/jaemin/">Jaemin Lee</a>
                         </span>
+                    
+                
                     
                 
                     
@@ -606,18 +612,18 @@ into the {body} of the default.hbs template -->
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Mean teachers are better role models</div>
+    <div class="floating-header-title">Transfer learning</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Mean+teachers+are+better+role+models&amp;url=https://blog.airlab.re.kr/2019/09/mean-teacher"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Transfer+learning&amp;url=https://blog.airlab.re.kr/2019/11/Transfer-learning"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/09/mean-teacher"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/11/Transfer-learning"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
