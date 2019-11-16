@@ -11,7 +11,7 @@
 
 
 
-    <title>Relational Knowledge Distillation</title>
+    <title>GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -36,26 +36,26 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="Artificial intelligence and Robotics Laboratory" />
     <link rel="shortcut icon" href="https://blog.airlab.re.kr/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="https://blog.airlab.re.kr/2019/07/rkd" />
+    <link rel="canonical" href="https://blog.airlab.re.kr/2019/11/gcnet" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="AiRLab. Research Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Relational Knowledge Distillation" />
-    <meta property="og:description" content="Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은" />
-    <meta property="og:url" content="https://blog.airlab.re.kr/2019/07/rkd" />
-    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-07-24-rkd/cover.png" />
+    <meta property="og:title" content="GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond" />
+    <meta property="og:description" content="안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 GCNet으로 (arXiv:1904.11492)으로 이번 ICCV 2019 워크숍에서 소개가 되었던 논문입니다. 이전에 소개시켜드렸던 Non-local을 시각화하고, 문제점을 지적하는 논문으로 의미가 크다고 생각합니다. Non-local Non-local Block은 Global Conext를 query-specific하게 접근하는 방식으로 많이 알려져 왔습니다. 위 그림의 NL 블록을 보더라도 Shape이 HW x HW 로" />
+    <meta property="og:url" content="https://blog.airlab.re.kr/2019/11/gcnet" />
+    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-11-16-gcnet/figure2.png" />
     <meta property="article:publisher" content="https://www.facebook.com/false" />
     <meta property="article:author" content="https://www.facebook.com/false" />
-    <meta property="article:published_time" content="2019-07-28T22:00:00+09:00" />
-    <meta property="article:modified_time" content="2019-07-28T22:00:00+09:00" />
+    <meta property="article:published_time" content="2019-11-16T11:00:00+09:00" />
+    <meta property="article:modified_time" content="2019-11-16T11:00:00+09:00" />
     <meta property="article:tag" content="Paper-review" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Relational Knowledge Distillation" />
-    <meta name="twitter:description" content="Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은" />
+    <meta name="twitter:title" content="GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond" />
+    <meta name="twitter:description" content="안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 GCNet으로 (arXiv:1904.11492)으로 이번 ICCV 2019 워크숍에서 소개가 되었던 논문입니다. 이전에 소개시켜드렸던 Non-local을 시각화하고, 문제점을 지적하는 논문으로 의미가 크다고 생각합니다. Non-local Non-local Block은 Global Conext를 query-specific하게 접근하는 방식으로 많이 알려져 왔습니다. 위 그림의 NL 블록을 보더라도 Shape이 HW x HW 로" />
     <meta name="twitter:url" content="https://blog.airlab.re.kr/" />
-    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-07-24-rkd/cover.png" />
+    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-11-16-gcnet/figure2.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="AiRLab. Research Blog" />
     <meta name="twitter:label2" content="Filed under" />
@@ -74,18 +74,18 @@
         "name": "AiRLab. Research Blog",
         "logo": "https://blog.airlab.re.kr/assets/images/airlab-logo.png"
     },
-    "url": "https://blog.airlab.re.kr/2019/07/rkd",
+    "url": "https://blog.airlab.re.kr/2019/11/gcnet",
     "image": {
         "@type": "ImageObject",
-        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-07-24-rkd/cover.png",
+        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-11-16-gcnet/figure2.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://blog.airlab.re.kr/2019/07/rkd"
+        "@id": "https://blog.airlab.re.kr/2019/11/gcnet"
     },
-    "description": "Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은"
+    "description": "안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 GCNet으로 (arXiv:1904.11492)으로 이번 ICCV 2019 워크숍에서 소개가 되었던 논문입니다. 이전에 소개시켜드렸던 Non-local을 시각화하고, 문제점을 지적하는 논문으로 의미가 크다고 생각합니다. Non-local Non-local Block은 Global Conext를 query-specific하게 접근하는 방식으로 많이 알려져 왔습니다. 위 그림의 NL 블록을 보더라도 Shape이 HW x HW 로"
 }
     </script>
 
@@ -98,7 +98,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Relational Knowledge Distillation" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond" href="/feed.xml" />
 
 
 </head>
@@ -156,7 +156,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="28 July 2019">28 July 2019</time>
+                    <time class="post-full-meta-date" datetime="16 November 2019">16 November 2019</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -166,90 +166,102 @@ into the {body} of the default.hbs template -->
                         
                     
                 </section>
-                <h1 class="post-full-title">Relational Knowledge Distillation</h1>
+                <h1 class="post-full-title">GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond</h1>
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-07-24-rkd/cover.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-11-16-gcnet/figure2.png)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <p>Relational Knowledge Distillation</p>
+                    <p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!
+오늘 소개할 논문은 GCNet으로 (<a href="https://arxiv.org/abs/1904.11492">arXiv:1904.11492</a>)으로 이번 ICCV 2019 워크숍에서 소개가 되었던 논문입니다.</p>
 
-<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!</p>
+<p>이전에 소개시켜드렸던 <a href="https://j911.me/2019/11/nonlocal.html">Non-local</a>을 시각화하고, 문제점을 지적하는 논문으로 의미가 크다고 생각합니다.</p>
 
-<p>오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (<a href="https://arxiv.org/abs/1904.05068">arXiv:1904.05068</a>)이며, CVPR2019에 Accepted 된 논문입니다.</p>
+<h2 id="non-local">Non-local</h2>
+<p><img src="/assets/images/posts/2019-11-16-gcnet/non-local.png" width="60%" alt="non-local" /></p>
 
-<h3 id="knowledge-distillation">Knowledge distillation</h3>
+<p>Non-local Block은 Global Conext를 query-specific하게 접근하는 방식으로 많이 알려져 왔습니다.</p>
 
-<p>Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 <code class="highlighter-rouge">Distilling the Knowledge in a Neural Network</code>가 있습니다.</p>
+<p>위 그림의 NL 블록을 보더라도 Shape이  HW x HW 로 각 포인트에 대하여 전체 포인트에 대한 Score Map을 만드는 것을 볼 수 있습니다.</p>
 
-<p>이러한 논문의 시작은 computing resources의 양을 줄이이 위해 시작이 되었는데요,</p>
+<p>이번 GCNet에서는 이러한 필터를 시각화해보았는데요.</p>
 
-<p>만약 모델의 ACC를 높이기 위해서는 모델을 크게 설계를 하면 되지만 모델이 커질 수록 파라미터의 양은 증가하고 더 많은 computing resource를 차지할 것입니다. 이러한 문제는 computing resource를 감당할 수 있는 인프라를 가 없는 사람들에게는 큰 이슈로 남게되고, 특히 서비스로 배포가 되어야하는 모델들은 경량화 되어야 한다는 조건이 많이 붙습니다.</p>
+<p><img src="/assets/images/posts/2019-11-16-gcnet/figure2.png" width="60%" alt="figure1" /></p>
 
-<p>이러한 이슈로 큰 모델이 학습한 정보를 <code class="highlighter-rouge">증류(distillation)</code>하여, 작은 모델에 주입할 수 있는 Knowledge distillation가 시작되었습니다.</p>
+<p>위 결과를 보면 각 Point(query)에 대한 NL의 시각화 맵을 볼 수 있는데, 여기서 재밌는 것은 서로 다른 Point에 대하여 모든 결과들이 거의 유사한 heatmap을 보인다는 것입니다. 이는 정량적으로도 확인을 할 수 있는데요.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure2.png" width="80%" alt="figure2" /></p>
+<p><img src="/assets/images/posts/2019-11-16-gcnet/figure3.png" width="60%" alt="figure2" /></p>
 
-<p>위와 같은 Softmax를 사용하는 네트워크가 있다고 해봅시다. 그러면 one hot으로 작성된 정답 라벨(hard label)과 predict을 비교하여 backward를 하게 됩니다.</p>
+<p>위의 Method는 여러 Non-local의 종류이고, E-Gaussian(Embedding Gaussian)이 Original NL 입니다.</p>
 
-<p>Teacher Model은 위와 같은 프로세스로 학습을 진행하고 큰 모델이기 때문에 좋을 ACC를 만들어 낼 것입니다. 그리고 Student Model은 Teacher Model의 softmax를 거치고 나온 0과 1사이의 확률 값을 soft label로 하여 학습하는 방법이 KD(Knowledge Distillation)입니다.</p>
+<p>여기서의 Cosine distance를 보더라고, 서로 다른 InPut에 대하여 큰 차이가 없는 Output이 나오는 것을 정량적으로도 확인을 할 수 있습니다.</p>
 
-<h3 id="relational-knowledge-distillation">Relational Knowledge Distillation</h3>
+<h2 id="simplifying-the-non-local-block-snl">Simplifying the Non-local Block (SNL)</h2>
 
-<p>RKD(Relational Knowledge Distillation)는 Knowledge Distillation에서 Knowledge를 어떻게 정의할 것 인가에서 시작이 되었습니다.</p>
+<p><img src="/assets/images/posts/2019-11-16-gcnet/figure7.png" width="50%" alt="figure6" /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure1.png" width="80%" alt="figure1" /></p>
+<p>위의 결과처럼 모든 point에서 유사한 heatmap이 나온다고 하면, 충분히 NL의 크기를 줄일 수 있을 것이라고 생각이 드실 겁니다. 논문에서도 이러한 부분을 지적하며 경량화된 Simplifying Non-local Block을 제시하는데요.</p>
 
-<p><code class="highlighter-rouge">t</code>를 각 Input에서 나오는 Teacher의 output, <code class="highlighter-rouge">s</code>를 Student 의 output이라고 했을 때 기존의 KD는 각각의 t가 s에 point-to-point로 연결되는 위 그림과 매칭됩니다. 때문에 이 논문에서는 기존의 KD를 IKD(Individual Knowledge Distillation)라고 표현합니다.</p>
+<p><img src="/assets/images/posts/2019-11-16-gcnet/figure4.png" width="50%" alt="figure3" /></p>
 
-<p>IKD는 Individual한 output을 Knowledge로 하여 Distillation 한다고 하면, RKD는 output들의 관계(Relation)를 Knowledge로 하여 Distillation합니다.</p>
+<p>위의 수식은 기존의 NL로 각 point i에 대하여, 모든 point j가 연산되는 i, j가 서로 연관적인 것으로 표현이 되고 있습니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure3.png" width="80%" alt="figure3" /></p>
+<p>하지만 위의 결과처럼 모든 포인트에 대하여, 비슷한 결과가 나오고 있으니 i와 j는 독립적(query independent)으로 아래와 같이 변경해 볼 수 있습니다.</p>
 
-<p>이 연구에서 이야기 하는 관계는 각 output이 embedding space에 표현될 때의 node간의 distance와 angle입니다.</p>
+<p><img src="/assets/images/posts/2019-11-16-gcnet/figure5.png" width="50%" alt="figure4" /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure4.png" width="60%" alt="figure4" />
-<img src="/assets/images/posts/2019-07-24-rkd/figure5.png" width="60%" alt="figure5" /></p>
+<p>여기서 조금 더 연산량을 줄이기 위해 W(v)를 밖으로 뺌으로서 아래의 SNL이 완셩이 됩니다.</p>
 
-<p>distance는 위의 식으로 표현 될 수 있고 뮤는 node간 거리의 평균이라고 이해하면 될 것 같습니다. 따라서 아래와 같은 식을 otim하는 것으로 학습 할 수 있습니다.</p>
+<p><img src="/assets/images/posts/2019-11-16-gcnet/figure6.png" width="50%" alt="figure5" /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure6.png" width="60%" alt="figure6" /></p>
+<p>아래 Mask RCNN에서의 결과를 보게 되면 NL과 SNL의 성능이 크게 차이가 나지 않음을(아니 조금더 좋음을?)볼 수 있습니다. 또한 연산량과, Prams를 보더라도 SNL이 훨씬 효율적이여 보입니다.</p>
 
-<p>angle도 아래와 같이 표현이 가능합니다.</p>
+<p><img src="/assets/images/posts/2019-11-16-gcnet/figure8.png" width="50%" alt="figure7" /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure7.png" width="60%" alt="figure7" /></p>
+<h2 id="global-context-block">Global Context Block</h2>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure8.png" width="60%" alt="figure8" /></p>
+<p><img src="/assets/images/posts/2019-11-16-gcnet/figure9.png" width="80%" alt="figure8" /></p>
 
-<h3 id="experiment">Experiment</h3>
+<p>위의 사진처럼 Global Context 모듈들은 Context modeling과 Transform 모델로 분리되어 표현이 될 수 있습니다. 여기서 GCNet은 SNL의 context modeling block 과 SE block의 Transform block이 합쳐진 형태로 구성이 되었습니다. 때문에 SE의 Transform에서 Conv를 2번 나누어 계산 하는 효과인 연산량을 더 낮추는 효과도 가지게 되었습니다.(SNL Transform 연산량: C<em>C, GCNet 연산량: C</em>C/r + C/r*C)</p>
 
-<p>이 논문에서는 여러 Task(Metric learning, Image classification, Few-shot learning) 에서 위에서 소개한 distance-wise, angle-wise 를 통해 학습한 결과를 다른 네트워크와 비교하고 있습니다.</p>
+<p><img src="/assets/images/posts/2019-11-16-gcnet/figure10.png" width="50%" alt="figure9" /></p>
 
-<p><strong>Metric learning</strong></p>
+<p>이를 위해 하이퍼 파라미터(r) 하나가 추가 되었는데요, 논문에서는 r을 4로 설정한 것이 가장 높은 성능을 보인다고 보여주고 있습니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure9.png" width="100%" alt="figure9" /></p>
+<p><img src="/assets/images/posts/2019-11-16-gcnet/figure11.png" width="50%" alt="figure10" /></p>
 
-<p><strong>Image classification</strong></p>
+<p>추가적으로 Layer Norm을 추가하여, Normalize 및 Regularize의 효과를 보았다고 합니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure10.png" width="60%" alt="figure10" /></p>
+<p>따라서, 최종적으로 GCNet은 아래 수식 하나로 표현이 되게 됩니다.</p>
 
-<p><strong>Few-shot learning</strong></p>
+<p><img src="/assets/images/posts/2019-11-16-gcnet/figure12.png" width="50%" alt="figure11" /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure10.png" width="60%" alt="figure10" /></p>
+<h2 id="experiment">Experiment</h2>
 
-<p>그 결과 모든 실험에서 가장 좋은 성능을 보였으며, 네트워크가 깊어짐에 따라서 큰 폭으로 성능 향상이 발생하는 것을 보였습니다.</p>
+<p><img src="/assets/images/posts/2019-11-16-gcnet/figure12.png" width="50%" alt="figure12" /></p>
+
+<p>논문의 실험은 Mask RCNN과 Classification, Action Recognition에서 실험되었고, 모든 보틀넥에서 GCBlock을 사용한 것이 가장 좋은 성능을 보였습니다.</p>
+
+<h2 id="마치며">마치며..</h2>
+
+<p>이번 논문은 NL의 문제점을 지적하고, NL을 시각화 하는 것만으로도 충분하게 의미기 큰 논문이었던 것 같습니다. 또한 NL의 파라미터와 연산량을 줄여 기존에 한개 혹은 두개만 사용가능 했던 것을 모든 보틀넥에 삽입하여 성능을 크게 키운 것도 인상적입니다.</p>
+
+<p>하지만, all GCNet처럼, all SNL도 실험 결과가 있었으면 하는 아쉬움도 남습니다.</p>
+
+<p>이번에 ICCV2019를 다녀와서 다음번에 ICCV에 소개되었던 재밌는 논문들을 더 소개시켜드리도록 하겠습니다. 감사합니다 :)</p>
 
 <h2 id="references">References</h2>
+
 <ul>
   <li>
-    <p>Park, Wonpyo, et al. “Relational Knowledge Distillation.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2019.</p>
+    <p>Cao, Yue, et al. “GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond.” arXiv preprint arXiv:1904.11492 (2019).</p>
   </li>
   <li>
-    <p>Hinton, Geoffrey, Oriol Vinyals, and Jeff Dean. “Distilling the knowledge in a neural network.” arXiv preprint arXiv:1503.02531 (2015).</p>
+    <p><a href="https://j911.me/2019/11/nonlocal.html">https://j911.me/2019/11/nonlocal.html</a></p>
   </li>
 </ul>
 
@@ -339,7 +351,7 @@ into the {body} of the default.hbs template -->
                     <article class="read-next-card"
                         
                             
-                                style="background-image: url(url(/assets/images/posts/2019-07-24-rkd/cover.png)"
+                                style="background-image: url(url(/assets/images/posts/2019-11-16-gcnet/figure2.png)"
                         
                     >
                         <header class="read-next-card-header">
@@ -355,11 +367,6 @@ into the {body} of the default.hbs template -->
                                 
                                 
                                   
-                                    
-                                        
-                                        
-                                            <li><a href="/2019/11/gcnet">GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond</a></li>
-                                        
                                     
                                   
                                 
@@ -385,37 +392,9 @@ into the {body} of the default.hbs template -->
                                     
                                         
                                         
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
+                                            <li><a href="/2019/11/nonlocal">Non-local Neural Networks</a></li>
                                         
                                     
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
                                   
                                 
                                   
@@ -447,6 +426,39 @@ into the {body} of the default.hbs template -->
                                   
                                 
                                   
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
                                     
                                   
                                 
@@ -493,73 +505,6 @@ into the {body} of the default.hbs template -->
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/2019/08/kinetics-dataset">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-08-04-kinetics-dataset/cover.PNG)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/08/kinetics-dataset">
-                <header class="post-card-header">
-                    
-                        
-                            
-                                <span class="post-card-tags">Paper-review</span>
-                            
-                        
-                    
-
-                    <h2 class="post-card-title">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    
-                        <p></p>
-                    
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                        
-                        <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="Minseok Seo" />
-                        
-                        <span class="post-card-author">
-                            <a href="/author/minseok/">Minseok Seo</a>
-                        </span>
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                <span class="reading-time">
-                    
-                    
-                      1 min read
-                    
-                </span>
-            </footer>
-        </div>
-    </article>
-
-            
 
             <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
             
@@ -567,12 +512,12 @@ into the {body} of the default.hbs template -->
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/2019/07/bag-of-trick">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-07-27-bag-of-tricks/cover.png)"></div>
+            <a class="post-card-image-link" href="/2019/11/SlowFast">
+                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-11-08-SlowFast/figure1.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/07/bag-of-trick">
+            <a class="post-card-content-link" href="/2019/11/SlowFast">
                 <header class="post-card-header">
                     
                         
@@ -582,7 +527,7 @@ into the {body} of the default.hbs template -->
                         
                     
 
-                    <h2 class="post-card-title">Bag of Tricks</h2>
+                    <h2 class="post-card-title">SlowFast Network for Video Recognition</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -599,18 +544,18 @@ into the {body} of the default.hbs template -->
                     
                 
                     
+                
+                    
+                
+                    
+                
+                    
                         
-                        <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="Minseok Seo" />
+                        <img class="author-profile-image" src="/assets/images/authors/sangwoo.jpeg" alt="Sangwoo Lee" />
                         
                         <span class="post-card-author">
-                            <a href="/author/minseok/">Minseok Seo</a>
+                            <a href="/author/sangwoo/">Sangwoo Lee</a>
                         </span>
-                    
-                
-                    
-                
-                    
-                
                     
                 
                     
@@ -646,18 +591,18 @@ into the {body} of the default.hbs template -->
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Relational Knowledge Distillation</div>
+    <div class="floating-header-title">GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Relational+Knowledge+Distillation&amp;url=https://blog.airlab.re.kr/2019/07/rkd"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=GCNet%3A+Non-local+Networks+Meet+Squeeze-Excitation+Networks+and+Beyond&amp;url=https://blog.airlab.re.kr/2019/11/gcnet"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/07/rkd"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/11/gcnet"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 

@@ -11,7 +11,7 @@
 
 
 
-    <title>Relational Knowledge Distillation</title>
+    <title>SlowFast Network for Video Recognition</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -36,26 +36,26 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="Artificial intelligence and Robotics Laboratory" />
     <link rel="shortcut icon" href="https://blog.airlab.re.kr/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="https://blog.airlab.re.kr/2019/07/rkd" />
+    <link rel="canonical" href="https://blog.airlab.re.kr/2019/11/SlowFast" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="AiRLab. Research Blog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Relational Knowledge Distillation" />
-    <meta property="og:description" content="Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은" />
-    <meta property="og:url" content="https://blog.airlab.re.kr/2019/07/rkd" />
-    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-07-24-rkd/cover.png" />
+    <meta property="og:title" content="SlowFast Network for Video Recognition" />
+    <meta property="og:description" content="안녕하세요? 이번에 SlowFast 논문 Review를 하게된 AirLab 이상우입니다. Introduction SlowFast는 Video Recognition 을 위한 네트워크 구조입니다. 이 네트워크는 FAIR (FaceBook Artificial Intelligence Research) 에서 발표한 논문으로 이전의 다른 네트워크들과의 다른점은 Opticalflow 를 사용하지 않은 영상 인식 네트워크 였다는 것입니다. 이로써 End-To-End 학습이 영상인식에서도 가능해졌다고 합니다. 이 논문은 영장류의 물체의 행동을" />
+    <meta property="og:url" content="https://blog.airlab.re.kr/2019/11/SlowFast" />
+    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-11-08-SlowFast/figure1.png" />
     <meta property="article:publisher" content="https://www.facebook.com/false" />
     <meta property="article:author" content="https://www.facebook.com/false" />
-    <meta property="article:published_time" content="2019-07-28T22:00:00+09:00" />
-    <meta property="article:modified_time" content="2019-07-28T22:00:00+09:00" />
+    <meta property="article:published_time" content="2019-11-13T06:00:00+09:00" />
+    <meta property="article:modified_time" content="2019-11-13T06:00:00+09:00" />
     <meta property="article:tag" content="Paper-review" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Relational Knowledge Distillation" />
-    <meta name="twitter:description" content="Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은" />
+    <meta name="twitter:title" content="SlowFast Network for Video Recognition" />
+    <meta name="twitter:description" content="안녕하세요? 이번에 SlowFast 논문 Review를 하게된 AirLab 이상우입니다. Introduction SlowFast는 Video Recognition 을 위한 네트워크 구조입니다. 이 네트워크는 FAIR (FaceBook Artificial Intelligence Research) 에서 발표한 논문으로 이전의 다른 네트워크들과의 다른점은 Opticalflow 를 사용하지 않은 영상 인식 네트워크 였다는 것입니다. 이로써 End-To-End 학습이 영상인식에서도 가능해졌다고 합니다. 이 논문은 영장류의 물체의 행동을" />
     <meta name="twitter:url" content="https://blog.airlab.re.kr/" />
-    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-07-24-rkd/cover.png" />
+    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-11-08-SlowFast/figure1.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="AiRLab. Research Blog" />
     <meta name="twitter:label2" content="Filed under" />
@@ -74,18 +74,18 @@
         "name": "AiRLab. Research Blog",
         "logo": "https://blog.airlab.re.kr/assets/images/airlab-logo.png"
     },
-    "url": "https://blog.airlab.re.kr/2019/07/rkd",
+    "url": "https://blog.airlab.re.kr/2019/11/SlowFast",
     "image": {
         "@type": "ImageObject",
-        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-07-24-rkd/cover.png",
+        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-11-08-SlowFast/figure1.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https://blog.airlab.re.kr/2019/07/rkd"
+        "@id": "https://blog.airlab.re.kr/2019/11/SlowFast"
     },
-    "description": "Relational Knowledge Distillation 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (arXiv:1904.05068)이며, CVPR2019에 Accepted 된 논문입니다. Knowledge distillation Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 Distilling the Knowledge in a Neural Network가 있습니다. 이러한 논문의 시작은"
+    "description": "안녕하세요? 이번에 SlowFast 논문 Review를 하게된 AirLab 이상우입니다. Introduction SlowFast는 Video Recognition 을 위한 네트워크 구조입니다. 이 네트워크는 FAIR (FaceBook Artificial Intelligence Research) 에서 발표한 논문으로 이전의 다른 네트워크들과의 다른점은 Opticalflow 를 사용하지 않은 영상 인식 네트워크 였다는 것입니다. 이로써 End-To-End 학습이 영상인식에서도 가능해졌다고 합니다. 이 논문은 영장류의 물체의 행동을"
 }
     </script>
 
@@ -98,7 +98,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Relational Knowledge Distillation" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="SlowFast Network for Video Recognition" href="/feed.xml" />
 
 
 </head>
@@ -156,7 +156,7 @@ into the {body} of the default.hbs template -->
 
             <header class="post-full-header">
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="28 July 2019">28 July 2019</time>
+                    <time class="post-full-meta-date" datetime="13 November 2019">13 November 2019</time>
                     
                         <span class="date-divider">/</span>
                         
@@ -166,92 +166,86 @@ into the {body} of the default.hbs template -->
                         
                     
                 </section>
-                <h1 class="post-full-title">Relational Knowledge Distillation</h1>
+                <h1 class="post-full-title">SlowFast Network for Video Recognition</h1>
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-07-24-rkd/cover.png)">
+            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-11-08-SlowFast/figure1.png)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
-                    <p>Relational Knowledge Distillation</p>
+                    <p>안녕하세요? 이번에 <strong>SlowFast</strong> 논문 Review를 하게된 <strong>AirLab</strong> 이상우입니다.</p>
 
-<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!</p>
+<hr />
 
-<p>오늘 소개할 논문은 Relational Knowledge Distillation(RKD) (<a href="https://arxiv.org/abs/1904.05068">arXiv:1904.05068</a>)이며, CVPR2019에 Accepted 된 논문입니다.</p>
+<h4 id="introduction"><strong><u>Introduction</u></strong></h4>
 
-<h3 id="knowledge-distillation">Knowledge distillation</h3>
+<p>SlowFast는 Video Recognition 을 위한 네트워크 구조입니다. 이 네트워크는 FAIR (FaceBook Artificial Intelligence Research) 에서 발표한 논문으로
+이전의 다른 네트워크들과의 다른점은 Opticalflow 를 사용하지 않은 영상 인식 네트워크 였다는 것입니다. 이로써 End-To-End 학습이 영상인식에서도 가능해졌다고 합니다.
+이 논문은 영장류의 물체의 행동을 인식하는 세포에서 영감을 받았다고 하는데 자세한 내용은 밑에서 알아보도록 하겠습니다.</p>
 
-<p>Knowledge distillation은 Teacher Model이 Student Model에게 Knowledge를 transferring 하는 것 인데요, 이러한 연구의 대표적인 연구는 Hinton의 <code class="highlighter-rouge">Distilling the Knowledge in a Neural Network</code>가 있습니다.</p>
+<h4 id="slowfast-networks"><strong><u>SlowFast Networks</u></strong></h4>
 
-<p>이러한 논문의 시작은 computing resources의 양을 줄이이 위해 시작이 되었는데요,</p>
+<center><img src="/assets/images/posts/2019-11-08-SlowFast/figure1.png" width="1000" hight="300" /></center>
 
-<p>만약 모델의 ACC를 높이기 위해서는 모델을 크게 설계를 하면 되지만 모델이 커질 수록 파라미터의 양은 증가하고 더 많은 computing resource를 차지할 것입니다. 이러한 문제는 computing resource를 감당할 수 있는 인프라를 가 없는 사람들에게는 큰 이슈로 남게되고, 특히 서비스로 배포가 되어야하는 모델들은 경량화 되어야 한다는 조건이 많이 붙습니다.</p>
+<center>(figure1. SlowFast Networks)</center>
+<p><br /></p>
 
-<p>이러한 이슈로 큰 모델이 학습한 정보를 <code class="highlighter-rouge">증류(distillation)</code>하여, 작은 모델에 주입할 수 있는 Knowledge distillation가 시작되었습니다.</p>
+<p>SlowFast는 2가지의 Pathway가 있습니다. 위에 보이는 Pathway는 Slow pathway라고 부르며, 이 Pathway는 낮은 프레임으로 주어질 수 있는 의미적 정보를 포착하도록
+설계가 되었다고 합니다. 간단한 예를 들면 박수라는 행동에서 손이라는 객체를 파악하는데 힘을 싣는 경로입니다. 반대로 Fast Pathway의 경우는 높은 프레임속도로 빠르게 변화하는
+움직임을 포착하는 역할을 합니다. 이 부분이 기존 영상인식에서 Opticalflow 로 수행되었던 부분입니다.
+Slow Pathway는 τ 값을 가지는데 대표적으로 16을 사용하였다고 합니다. 이 값은 30프레임의 영상의 경우 30프레임중에 약 2프레임 정도의 이미지만 뽑아준다고 합니다.
+Fast Pathway는 t/α 값을 가지고 α의 값을 1 이상의 값을 가진다고 합니다. 논문 저자는 대표적으로 8의 값을 사용하였다고 합니다. (t = 전체 프레임) 30프레임 인 경우
+약 4프레임 정도의 이미지를 뽑게 됩니다.
+이 논문에서 중요한 부분은 Fast Pathway인데 이 부분은 전체 연산량의 20% 밖에 수행하지 않는다고 합니다. 저는 처음에 보고 많은 프레임을 다루는데 더 많은 연산량이
+사용될거라 생각했는데 이 부분에서 중요한 아이디어가 있었습니다. Fast Pathway의 경우 위에서 Opticalflow 를 대체해서 사용된 부분이고, 움직임을 포착하는 것을 위해
+설계되었다고 하였습니다. 이 부분에서 느낌이 오신분이 있을수도 있는데요. 결론적으로 <strong>많은 채널의 정보를 사용하지 않습니다.</strong> 단순히 예를 들어 말씀을 드리면, 박수라는 행동을
+인식하기 위해서 손을 인식해야되고 손이 무엇을 할수 있는지 파악을 해야합니다. 그래서 의미적 정보를 파악할 때 손이라는 객체의 색상이 살색이라면 조금 더 쉽게 손을 파악할 수 있습니다.
+하지만 손이라는 정보를 알고선 행동을 파악할 떄는 손이 회색,노란색이라도 손이라는 정보를 안다면 박수라는 행동을 쉽게 인식할 수 있습니다.
+논문에서는 공간과 차원에 대한 특별한 처리가 없기때문에 채널의 수가 적어도 된다고 설명이 되어있으며, 즉 이는 <strong>계산이 가벼워지고 처리속도가 빨라지게</strong> 되었다고 합니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure2.png" width="80%" alt="figure2" /></p>
+<center><img src="/assets/images/posts/2019-11-08-SlowFast/figure2.png" width="1000" hight="300" /></center>
+<center>(figure2. An example instantiation of the SlowFast network)</center>
+<p><br /></p>
 
-<p>위와 같은 Softmax를 사용하는 네트워크가 있다고 해봅시다. 그러면 one hot으로 작성된 정답 라벨(hard label)과 predict을 비교하여 backward를 하게 됩니다.</p>
+<p>위에 이미지를 참조하시면 조금 더 이해에 도움이 되실겁니다. 초록색의 경우 Fast Pathway에서 나오는 프레임입니다. Slow Pathway보다 높은 프레임률을 사용하고 있다는
+것이 확인이 됩니다. 노란색의 경우 Fast Pathway에서 사용하는 채널의 수를 보여줍니다. Slow Pathway에서 사용하는 값의 1/8 정도의 채널의 수를 사용하고 있는것도 확인이 됩니다.</p>
 
-<p>Teacher Model은 위와 같은 프로세스로 학습을 진행하고 큰 모델이기 때문에 좋을 ACC를 만들어 낼 것입니다. 그리고 Student Model은 Teacher Model의 softmax를 거치고 나온 0과 1사이의 확률 값을 soft label로 하여 학습하는 방법이 KD(Knowledge Distillation)입니다.</p>
+<p>그런데 이쯤에서 궁금한 점이 생기셨을 겁니다. 각각의 Pathway에서 나온 출력값은 다른 형태를 띄고 있는데 어떻게 두 개를 합쳐서 영상 인식을 하게 되는걸까요?
+이 부분에서는 Lateral Connections 라는 방식을 사용하여서 간단히 두개의 값의 형태를 맞춰줍니다.
+Slow pathway  = {T, S^2, C}
+Fast pathway  = {αT, S^2, βC}
+각각 pathway에서 나온 feature의 형태는 이러한 형태를 띄는데 3가지 방식을 중점으로 형태를 바꿔주게 됩니다.
+[1]. Time-to-channel : {αT, S^2, βC} 이러한 feature의 형태를 {T, S^2, αβC} 형태로 바꿔줍니다. 즉 α값을 하나 프레임의 채널로 변환을 시킵니다.
+[2]. Time-strided sampling : {αT, S^2, βC} α프레임 중 하나만 샘플링하여 {T, S^2, βC}의 형태로 바줍니다.
+[3]. Time-strided convolution : 2βC 의 출력 채널과 stride = α 를 가진 5×1^2 커널의 3D convolution을 사용한다고 합니다.
+즉, 전체적으로 컨볼루션과 샘플링 프레임을 채널단위로 바꿔주며 Slow pathway와 Fast pathway를 맞춰줍니다.</p>
 
-<h3 id="relational-knowledge-distillation">Relational Knowledge Distillation</h3>
+<h4 id="main-results"><strong><u>Main Results</u></strong></h4>
 
-<p>RKD(Relational Knowledge Distillation)는 Knowledge Distillation에서 Knowledge를 어떻게 정의할 것 인가에서 시작이 되었습니다.</p>
+<center><img src="/assets/images/posts/2019-11-08-SlowFast/figure3.png" width="1000" hight="300" /></center>
+<center>(figure3. Comparison with the state-of-the-art on Kinetics-400.)</center>
+<p><br /></p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure1.png" width="80%" alt="figure1" /></p>
+<center><img src="/assets/images/posts/2019-11-08-SlowFast/figure4.png" width="1000" hight="300" /></center>
+<center>(figure3. Accuracy/complexity tradeof.)</center>
+<p><br /></p>
 
-<p><code class="highlighter-rouge">t</code>를 각 Input에서 나오는 Teacher의 output, <code class="highlighter-rouge">s</code>를 Student 의 output이라고 했을 때 기존의 KD는 각각의 t가 s에 point-to-point로 연결되는 위 그림과 매칭됩니다. 때문에 이 논문에서는 기존의 KD를 IKD(Individual Knowledge Distillation)라고 표현합니다.</p>
+<center><img src="/assets/images/posts/2019-11-08-SlowFast/figure5.png" width="1000" hight="300" /></center>
+<center>(figure3. Per-category AP on AVA.)</center>
+<p><br /></p>
 
-<p>IKD는 Individual한 output을 Knowledge로 하여 Distillation 한다고 하면, RKD는 output들의 관계(Relation)를 Knowledge로 하여 Distillation합니다.</p>
+<p>제가 논문을 읽으면서 느낀점이 있는 몇가지 결과를 가지고 왔습니다. 
+figure3 의 경우 Kinetics 데이터에서 Resnet 101을 백본으로 사용한 SlowFast 네트워크가 Opticalflow 를 사용한 다른 네트워크보다 좋은 성능을 보이면서
+영상 인식에서 이제는 Opticalflow 보다는 RGB 채널을 통한 접근이 더 발전할 것으로 보입니다.
+figure4 의 경우 SlowFast Network 에서 Slow만 단일적으로 사용했을 때보다 Slow와 Fast를 같이 사용했을 때 더 효율적인 모습이 보여졌으며 네트워크가 깊어 질수록
+더 좋은 성능을 보여주었습니다.
+figure5 의 경우 Fast Pathway 의 문제점이라고 할 수 있는 점이 보였습니다. 위에서 말했듯이, Slow와 Fast를 같이 썼을 경우에 전체적으로 성능향상이 있었으나 몇가지 행동은
+그런게 많은 행동의 변화가 없는 경우가 있었습니다. Fast Pathway의 역할이 중요하지 않은 행동들 즉 잠을 자거나, 핸드폰으로 통화를 하는 등 움직임이 별로 없는 행동에서는 Slow Pathway 만 단독적으로 썼을 때가 더 성능이 좋았습니다. 이런 점을 보면 Fast Pathway가 정적인 행동에서는 긍정적인 영향을 미치지 않으며, 정적인 행동에서는 다른 접근법이 필요하다고 저는 느껴졌습니다.</p>
 
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure3.png" width="80%" alt="figure3" /></p>
-
-<p>이 연구에서 이야기 하는 관계는 각 output이 embedding space에 표현될 때의 node간의 distance와 angle입니다.</p>
-
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure4.png" width="60%" alt="figure4" />
-<img src="/assets/images/posts/2019-07-24-rkd/figure5.png" width="60%" alt="figure5" /></p>
-
-<p>distance는 위의 식으로 표현 될 수 있고 뮤는 node간 거리의 평균이라고 이해하면 될 것 같습니다. 따라서 아래와 같은 식을 otim하는 것으로 학습 할 수 있습니다.</p>
-
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure6.png" width="60%" alt="figure6" /></p>
-
-<p>angle도 아래와 같이 표현이 가능합니다.</p>
-
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure7.png" width="60%" alt="figure7" /></p>
-
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure8.png" width="60%" alt="figure8" /></p>
-
-<h3 id="experiment">Experiment</h3>
-
-<p>이 논문에서는 여러 Task(Metric learning, Image classification, Few-shot learning) 에서 위에서 소개한 distance-wise, angle-wise 를 통해 학습한 결과를 다른 네트워크와 비교하고 있습니다.</p>
-
-<p><strong>Metric learning</strong></p>
-
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure9.png" width="100%" alt="figure9" /></p>
-
-<p><strong>Image classification</strong></p>
-
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure10.png" width="60%" alt="figure10" /></p>
-
-<p><strong>Few-shot learning</strong></p>
-
-<p><img src="/assets/images/posts/2019-07-24-rkd/figure10.png" width="60%" alt="figure10" /></p>
-
-<p>그 결과 모든 실험에서 가장 좋은 성능을 보였으며, 네트워크가 깊어짐에 따라서 큰 폭으로 성능 향상이 발생하는 것을 보였습니다.</p>
-
-<h2 id="references">References</h2>
-<ul>
-  <li>
-    <p>Park, Wonpyo, et al. “Relational Knowledge Distillation.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2019.</p>
-  </li>
-  <li>
-    <p>Hinton, Geoffrey, Oriol Vinyals, and Jeff Dean. “Distilling the knowledge in a neural network.” arXiv preprint arXiv:1503.02531 (2015).</p>
-  </li>
-</ul>
+<p>이상 SlowFast 논문 리뷰를 마치며 읽어주신 분들께 감사드리며, 틀린 점이나 고쳐야 될 부분은 댓글이나 mwlee0860@gmail.com 으로 메일을 보내주시면 감사하겠습니다.</p>
 
                 </div>
             </section>
@@ -268,28 +262,28 @@ into the {body} of the default.hbs template -->
                     
                 
                     
+                
+                    
+                
+                    
+                
+                    
+                
+                    
                         <section class="author-card">
                             
-                                <img class="author-profile-image" src="/assets/images/authors/jaemin.jpeg" alt="jaemin" />
+                                <img class="author-profile-image" src="/assets/images/authors/sangwoo.jpeg" alt="sangwoo" />
                             
                             <section class="author-card-content">
-                                <h4 class="author-card-name"><a href="/author/jaemin">Jaemin Lee</a></h4>
+                                <h4 class="author-card-name"><a href="/author/sangwoo">Sangwoo Lee</a></h4>
                                 
-                                    <p>🔥</p>
+                                    <p>👻</p>
                                 
                             </section>
                         </section>
                         <div class="post-full-footer-right">
-                            <a class="author-card-button" href="/author/jaemin">Read More</a>
+                            <a class="author-card-button" href="/author/sangwoo">Read More</a>
                         </div>
-                    
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
                     
@@ -339,7 +333,7 @@ into the {body} of the default.hbs template -->
                     <article class="read-next-card"
                         
                             
-                                style="background-image: url(url(/assets/images/posts/2019-07-24-rkd/cover.png)"
+                                style="background-image: url(url(/assets/images/posts/2019-11-08-SlowFast/figure1.png)"
                         
                     >
                         <header class="read-next-card-header">
@@ -365,11 +359,6 @@ into the {body} of the default.hbs template -->
                                 
                                   
                                     
-                                        
-                                        
-                                            <li><a href="/2019/11/SlowFast">SlowFast Network for Video Recognition</a></li>
-                                        
-                                    
                                   
                                 
                                   
@@ -385,37 +374,9 @@ into the {body} of the default.hbs template -->
                                     
                                         
                                         
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
+                                            <li><a href="/2019/11/nonlocal">Non-local Neural Networks</a></li>
                                         
                                     
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
-                                  
-                                    
-                                        
-                                        
-                                    
-                                  
-                                
                                   
                                 
                                   
@@ -447,6 +408,39 @@ into the {body} of the default.hbs template -->
                                   
                                 
                                   
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
                                     
                                   
                                 
@@ -497,12 +491,12 @@ into the {body} of the default.hbs template -->
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/2019/08/kinetics-dataset">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-08-04-kinetics-dataset/cover.PNG)"></div>
+            <a class="post-card-image-link" href="/2019/11/gcnet">
+                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-11-16-gcnet/figure2.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/08/kinetics-dataset">
+            <a class="post-card-content-link" href="/2019/11/gcnet">
                 <header class="post-card-header">
                     
                         
@@ -512,7 +506,7 @@ into the {body} of the default.hbs template -->
                         
                     
 
-                    <h2 class="post-card-title">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</h2>
+                    <h2 class="post-card-title">GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -527,14 +521,14 @@ into the {body} of the default.hbs template -->
                     
                 
                     
-                
-                    
                         
-                        <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="Minseok Seo" />
+                        <img class="author-profile-image" src="/assets/images/authors/jaemin.jpeg" alt="Jaemin Lee" />
                         
                         <span class="post-card-author">
-                            <a href="/author/minseok/">Minseok Seo</a>
+                            <a href="/author/jaemin/">Jaemin Lee</a>
                         </span>
+                    
+                
                     
                 
                     
@@ -567,12 +561,12 @@ into the {body} of the default.hbs template -->
 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/2019/07/bag-of-trick">
-                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-07-27-bag-of-tricks/cover.png)"></div>
+            <a class="post-card-image-link" href="/2019/11/Transfer-learning">
+                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-11-13-Transfer-learning/cover.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/2019/07/bag-of-trick">
+            <a class="post-card-content-link" href="/2019/11/Transfer-learning">
                 <header class="post-card-header">
                     
                         
@@ -582,7 +576,7 @@ into the {body} of the default.hbs template -->
                         
                     
 
-                    <h2 class="post-card-title">Bag of Tricks</h2>
+                    <h2 class="post-card-title">Transfer learning</h2>
                 </header>
                 <section class="post-card-excerpt">
                     
@@ -599,24 +593,24 @@ into the {body} of the default.hbs template -->
                     
                 
                     
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
                         
-                        <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="Minseok Seo" />
+                        <img class="author-profile-image" src="/assets/images/authors/hyeoncheol.jpeg" alt="Hyeoncheol Noh" />
                         
                         <span class="post-card-author">
-                            <a href="/author/minseok/">Minseok Seo</a>
+                            <a href="/author/hyeoncheol/">Hyeoncheol Noh</a>
                         </span>
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
                     
                 
                 <span class="reading-time">
@@ -646,18 +640,18 @@ into the {body} of the default.hbs template -->
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Relational Knowledge Distillation</div>
+    <div class="floating-header-title">SlowFast Network for Video Recognition</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Relational+Knowledge+Distillation&amp;url=https://blog.airlab.re.kr/2019/07/rkd"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=SlowFast+Network+for+Video+Recognition&amp;url=https://blog.airlab.re.kr/2019/11/SlowFast"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/07/rkd"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/11/SlowFast"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 

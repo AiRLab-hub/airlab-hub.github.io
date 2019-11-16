@@ -1,4 +1,160 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-11-13T18:04:46+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">Transfer learning</title><link href="https://blog.airlab.re.kr/2019/11/Transfer-learning" rel="alternate" type="text/html" title="Transfer learning" /><published>2019-11-13T05:00:00+09:00</published><updated>2019-11-13T05:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/Transfer-learning</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/Transfer-learning">&lt;p&gt;Transfer learning 리뷰&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-11-16T22:27:16+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond</title><link href="https://blog.airlab.re.kr/2019/11/gcnet" rel="alternate" type="text/html" title="GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond" /><published>2019-11-16T11:00:00+09:00</published><updated>2019-11-16T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/gcnet</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/gcnet">&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!
+오늘 소개할 논문은 GCNet으로 (&lt;a href=&quot;https://arxiv.org/abs/1904.11492&quot;&gt;arXiv:1904.11492&lt;/a&gt;)으로 이번 ICCV 2019 워크숍에서 소개가 되었던 논문입니다.&lt;/p&gt;
+
+&lt;p&gt;이전에 소개시켜드렸던 &lt;a href=&quot;https://j911.me/2019/11/nonlocal.html&quot;&gt;Non-local&lt;/a&gt;을 시각화하고, 문제점을 지적하는 논문으로 의미가 크다고 생각합니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;non-local&quot;&gt;Non-local&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/non-local.png&quot; width=&quot;60%&quot; alt=&quot;non-local&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Non-local Block은 Global Conext를 query-specific하게 접근하는 방식으로 많이 알려져 왔습니다.&lt;/p&gt;
+
+&lt;p&gt;위 그림의 NL 블록을 보더라도 Shape이  HW x HW 로 각 포인트에 대하여 전체 포인트에 대한 Score Map을 만드는 것을 볼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이번 GCNet에서는 이러한 필터를 시각화해보았는데요.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure2.png&quot; width=&quot;60%&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 결과를 보면 각 Point(query)에 대한 NL의 시각화 맵을 볼 수 있는데, 여기서 재밌는 것은 서로 다른 Point에 대하여 모든 결과들이 거의 유사한 heatmap을 보인다는 것입니다. 이는 정량적으로도 확인을 할 수 있는데요.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure3.png&quot; width=&quot;60%&quot; alt=&quot;figure2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 Method는 여러 Non-local의 종류이고, E-Gaussian(Embedding Gaussian)이 Original NL 입니다.&lt;/p&gt;
+
+&lt;p&gt;여기서의 Cosine distance를 보더라고, 서로 다른 InPut에 대하여 큰 차이가 없는 Output이 나오는 것을 정량적으로도 확인을 할 수 있습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;simplifying-the-non-local-block-snl&quot;&gt;Simplifying the Non-local Block (SNL)&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure7.png&quot; width=&quot;50%&quot; alt=&quot;figure6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 결과처럼 모든 point에서 유사한 heatmap이 나온다고 하면, 충분히 NL의 크기를 줄일 수 있을 것이라고 생각이 드실 겁니다. 논문에서도 이러한 부분을 지적하며 경량화된 Simplifying Non-local Block을 제시하는데요.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure4.png&quot; width=&quot;50%&quot; alt=&quot;figure3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 수식은 기존의 NL로 각 point i에 대하여, 모든 point j가 연산되는 i, j가 서로 연관적인 것으로 표현이 되고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;하지만 위의 결과처럼 모든 포인트에 대하여, 비슷한 결과가 나오고 있으니 i와 j는 독립적(query independent)으로 아래와 같이 변경해 볼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure5.png&quot; width=&quot;50%&quot; alt=&quot;figure4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;여기서 조금 더 연산량을 줄이기 위해 W(v)를 밖으로 뺌으로서 아래의 SNL이 완셩이 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure6.png&quot; width=&quot;50%&quot; alt=&quot;figure5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;아래 Mask RCNN에서의 결과를 보게 되면 NL과 SNL의 성능이 크게 차이가 나지 않음을(아니 조금더 좋음을?)볼 수 있습니다. 또한 연산량과, Prams를 보더라도 SNL이 훨씬 효율적이여 보입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure8.png&quot; width=&quot;50%&quot; alt=&quot;figure7&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;global-context-block&quot;&gt;Global Context Block&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure9.png&quot; width=&quot;80%&quot; alt=&quot;figure8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 사진처럼 Global Context 모듈들은 Context modeling과 Transform 모델로 분리되어 표현이 될 수 있습니다. 여기서 GCNet은 SNL의 context modeling block 과 SE block의 Transform block이 합쳐진 형태로 구성이 되었습니다. 때문에 SE의 Transform에서 Conv를 2번 나누어 계산 하는 효과인 연산량을 더 낮추는 효과도 가지게 되었습니다.(SNL Transform 연산량: C&lt;em&gt;C, GCNet 연산량: C&lt;/em&gt;C/r + C/r*C)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure10.png&quot; width=&quot;50%&quot; alt=&quot;figure9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이를 위해 하이퍼 파라미터(r) 하나가 추가 되었는데요, 논문에서는 r을 4로 설정한 것이 가장 높은 성능을 보인다고 보여주고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure11.png&quot; width=&quot;50%&quot; alt=&quot;figure10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;추가적으로 Layer Norm을 추가하여, Normalize 및 Regularize의 효과를 보았다고 합니다.&lt;/p&gt;
+
+&lt;p&gt;따라서, 최종적으로 GCNet은 아래 수식 하나로 표현이 되게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure12.png&quot; width=&quot;50%&quot; alt=&quot;figure11&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;experiment&quot;&gt;Experiment&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure12.png&quot; width=&quot;50%&quot; alt=&quot;figure12&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;논문의 실험은 Mask RCNN과 Classification, Action Recognition에서 실험되었고, 모든 보틀넥에서 GCBlock을 사용한 것이 가장 좋은 성능을 보였습니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;마치며&quot;&gt;마치며..&lt;/h2&gt;
+
+&lt;p&gt;이번 논문은 NL의 문제점을 지적하고, NL을 시각화 하는 것만으로도 충분하게 의미기 큰 논문이었던 것 같습니다. 또한 NL의 파라미터와 연산량을 줄여 기존에 한개 혹은 두개만 사용가능 했던 것을 모든 보틀넥에 삽입하여 성능을 크게 키운 것도 인상적입니다.&lt;/p&gt;
+
+&lt;p&gt;하지만, all GCNet처럼, all SNL도 실험 결과가 있었으면 하는 아쉬움도 남습니다.&lt;/p&gt;
+
+&lt;p&gt;이번에 ICCV2019를 다녀와서 다음번에 ICCV에 소개되었던 재밌는 논문들을 더 소개시켜드리도록 하겠습니다. 감사합니다 :)&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Cao, Yue, et al. “GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond.” arXiv preprint arXiv:1904.11492 (2019).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://j911.me/2019/11/nonlocal.html&quot;&gt;https://j911.me/2019/11/nonlocal.html&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 GCNet으로 (arXiv:1904.11492)으로 이번 ICCV 2019 워크숍에서 소개가 되었던 논문입니다.</summary></entry><entry><title type="html">SlowFast Network for Video Recognition</title><link href="https://blog.airlab.re.kr/2019/11/SlowFast" rel="alternate" type="text/html" title="SlowFast Network for Video Recognition" /><published>2019-11-13T06:00:00+09:00</published><updated>2019-11-13T06:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/SlowFast</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/SlowFast">&lt;p&gt;안녕하세요? 이번에 &lt;strong&gt;SlowFast&lt;/strong&gt; 논문 Review를 하게된 &lt;strong&gt;AirLab&lt;/strong&gt; 이상우입니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;introduction&quot;&gt;&lt;strong&gt;&lt;u&gt;Introduction&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;SlowFast는 Video Recognition 을 위한 네트워크 구조입니다. 이 네트워크는 FAIR (FaceBook Artificial Intelligence Research) 에서 발표한 논문으로
+이전의 다른 네트워크들과의 다른점은 Opticalflow 를 사용하지 않은 영상 인식 네트워크 였다는 것입니다. 이로써 End-To-End 학습이 영상인식에서도 가능해졌다고 합니다.
+이 논문은 영장류의 물체의 행동을 인식하는 세포에서 영감을 받았다고 하는데 자세한 내용은 밑에서 알아보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;slowfast-networks&quot;&gt;&lt;strong&gt;&lt;u&gt;SlowFast Networks&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure1.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+
+&lt;center&gt;(figure1. SlowFast Networks)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;SlowFast는 2가지의 Pathway가 있습니다. 위에 보이는 Pathway는 Slow pathway라고 부르며, 이 Pathway는 낮은 프레임으로 주어질 수 있는 의미적 정보를 포착하도록
+설계가 되었다고 합니다. 간단한 예를 들면 박수라는 행동에서 손이라는 객체를 파악하는데 힘을 싣는 경로입니다. 반대로 Fast Pathway의 경우는 높은 프레임속도로 빠르게 변화하는
+움직임을 포착하는 역할을 합니다. 이 부분이 기존 영상인식에서 Opticalflow 로 수행되었던 부분입니다.
+Slow Pathway는 τ 값을 가지는데 대표적으로 16을 사용하였다고 합니다. 이 값은 30프레임의 영상의 경우 30프레임중에 약 2프레임 정도의 이미지만 뽑아준다고 합니다.
+Fast Pathway는 t/α 값을 가지고 α의 값을 1 이상의 값을 가진다고 합니다. 논문 저자는 대표적으로 8의 값을 사용하였다고 합니다. (t = 전체 프레임) 30프레임 인 경우
+약 4프레임 정도의 이미지를 뽑게 됩니다.
+이 논문에서 중요한 부분은 Fast Pathway인데 이 부분은 전체 연산량의 20% 밖에 수행하지 않는다고 합니다. 저는 처음에 보고 많은 프레임을 다루는데 더 많은 연산량이
+사용될거라 생각했는데 이 부분에서 중요한 아이디어가 있었습니다. Fast Pathway의 경우 위에서 Opticalflow 를 대체해서 사용된 부분이고, 움직임을 포착하는 것을 위해
+설계되었다고 하였습니다. 이 부분에서 느낌이 오신분이 있을수도 있는데요. 결론적으로 &lt;strong&gt;많은 채널의 정보를 사용하지 않습니다.&lt;/strong&gt; 단순히 예를 들어 말씀을 드리면, 박수라는 행동을
+인식하기 위해서 손을 인식해야되고 손이 무엇을 할수 있는지 파악을 해야합니다. 그래서 의미적 정보를 파악할 때 손이라는 객체의 색상이 살색이라면 조금 더 쉽게 손을 파악할 수 있습니다.
+하지만 손이라는 정보를 알고선 행동을 파악할 떄는 손이 회색,노란색이라도 손이라는 정보를 안다면 박수라는 행동을 쉽게 인식할 수 있습니다.
+논문에서는 공간과 차원에 대한 특별한 처리가 없기때문에 채널의 수가 적어도 된다고 설명이 되어있으며, 즉 이는 &lt;strong&gt;계산이 가벼워지고 처리속도가 빨라지게&lt;/strong&gt; 되었다고 합니다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure2.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;(figure2. An example instantiation of the SlowFast network)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;위에 이미지를 참조하시면 조금 더 이해에 도움이 되실겁니다. 초록색의 경우 Fast Pathway에서 나오는 프레임입니다. Slow Pathway보다 높은 프레임률을 사용하고 있다는
+것이 확인이 됩니다. 노란색의 경우 Fast Pathway에서 사용하는 채널의 수를 보여줍니다. Slow Pathway에서 사용하는 값의 1/8 정도의 채널의 수를 사용하고 있는것도 확인이 됩니다.&lt;/p&gt;
+
+&lt;p&gt;그런데 이쯤에서 궁금한 점이 생기셨을 겁니다. 각각의 Pathway에서 나온 출력값은 다른 형태를 띄고 있는데 어떻게 두 개를 합쳐서 영상 인식을 하게 되는걸까요?
+이 부분에서는 Lateral Connections 라는 방식을 사용하여서 간단히 두개의 값의 형태를 맞춰줍니다.
+Slow pathway  = {T, S^2, C}
+Fast pathway  = {αT, S^2, βC}
+각각 pathway에서 나온 feature의 형태는 이러한 형태를 띄는데 3가지 방식을 중점으로 형태를 바꿔주게 됩니다.
+[1]. Time-to-channel : {αT, S^2, βC} 이러한 feature의 형태를 {T, S^2, αβC} 형태로 바꿔줍니다. 즉 α값을 하나 프레임의 채널로 변환을 시킵니다.
+[2]. Time-strided sampling : {αT, S^2, βC} α프레임 중 하나만 샘플링하여 {T, S^2, βC}의 형태로 바줍니다.
+[3]. Time-strided convolution : 2βC 의 출력 채널과 stride = α 를 가진 5×1^2 커널의 3D convolution을 사용한다고 합니다.
+즉, 전체적으로 컨볼루션과 샘플링 프레임을 채널단위로 바꿔주며 Slow pathway와 Fast pathway를 맞춰줍니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;main-results&quot;&gt;&lt;strong&gt;&lt;u&gt;Main Results&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure3.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;(figure3. Comparison with the state-of-the-art on Kinetics-400.)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure4.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;(figure3. Accuracy/complexity tradeof.)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure5.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;(figure3. Per-category AP on AVA.)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;제가 논문을 읽으면서 느낀점이 있는 몇가지 결과를 가지고 왔습니다. 
+figure3 의 경우 Kinetics 데이터에서 Resnet 101을 백본으로 사용한 SlowFast 네트워크가 Opticalflow 를 사용한 다른 네트워크보다 좋은 성능을 보이면서
+영상 인식에서 이제는 Opticalflow 보다는 RGB 채널을 통한 접근이 더 발전할 것으로 보입니다.
+figure4 의 경우 SlowFast Network 에서 Slow만 단일적으로 사용했을 때보다 Slow와 Fast를 같이 사용했을 때 더 효율적인 모습이 보여졌으며 네트워크가 깊어 질수록
+더 좋은 성능을 보여주었습니다.
+figure5 의 경우 Fast Pathway 의 문제점이라고 할 수 있는 점이 보였습니다. 위에서 말했듯이, Slow와 Fast를 같이 썼을 경우에 전체적으로 성능향상이 있었으나 몇가지 행동은
+그런게 많은 행동의 변화가 없는 경우가 있었습니다. Fast Pathway의 역할이 중요하지 않은 행동들 즉 잠을 자거나, 핸드폰으로 통화를 하는 등 움직임이 별로 없는 행동에서는 Slow Pathway 만 단독적으로 썼을 때가 더 성능이 좋았습니다. 이런 점을 보면 Fast Pathway가 정적인 행동에서는 긍정적인 영향을 미치지 않으며, 정적인 행동에서는 다른 접근법이 필요하다고 저는 느껴졌습니다.&lt;/p&gt;
+
+&lt;p&gt;이상 SlowFast 논문 리뷰를 마치며 읽어주신 분들께 감사드리며, 틀린 점이나 고쳐야 될 부분은 댓글이나 mwlee0860@gmail.com 으로 메일을 보내주시면 감사하겠습니다.&lt;/p&gt;</content><author><name>Sangwoo Lee</name></author><category term="paper-review" /><summary type="html">안녕하세요? 이번에 SlowFast 논문 Review를 하게된 AirLab 이상우입니다.</summary></entry><entry><title type="html">Transfer learning</title><link href="https://blog.airlab.re.kr/2019/11/Transfer-learning" rel="alternate" type="text/html" title="Transfer learning" /><published>2019-11-13T05:00:00+09:00</published><updated>2019-11-13T05:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/Transfer-learning</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/Transfer-learning">&lt;p&gt;Transfer learning 리뷰&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 노현철 입니다. 
 제가 이번에 리뷰할 논문은 &lt;strong&gt;“How transferable are features in deep neuralnetworks?”&lt;/strong&gt; 이른바 &lt;strong&gt;“transfer learning”&lt;/strong&gt; 에 관한 논문입니다.&lt;/p&gt;
@@ -113,7 +269,8 @@ transfer시키는 레이어의 범위는 1번째 레이어 에서부터 마지�
 &lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
 
 &lt;p&gt;랩실에 들어오고 첫 세미나 발표를 한 논문이고, 또한 끝까지 읽어본 몇 안되는 논문이라 더욱 뜻깊고 기억에 남는 논문이였습니다.
-지금은 많이 부족하지만 세미나와 논문리뷰를 하면서 실력을 한층 한층 쌓아 나아가겠습니다. 감사합니다!!!!!&lt;/p&gt;</content><author><name>Hyeoncheol Noh</name></author><category term="paper-review" /><summary type="html">Transfer learning 리뷰</summary></entry><entry><title type="html">Non-local Neural Networks</title><link href="https://blog.airlab.re.kr/2019/11/nonlocal" rel="alternate" type="text/html" title="Non-local Neural Networks" /><published>2019-11-03T11:00:00+09:00</published><updated>2019-11-03T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/nonlocal</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/nonlocal">&lt;p&gt;오늘 소개할 논문은 Non-local Neural Networks (&lt;a href=&quot;https://arxiv.org/abs/1711.07971&quot;&gt;arXiv:1711.07971&lt;/a&gt;)이며, CVPR2018에서 소개된 논문입니다.&lt;/p&gt;
+지금은 많이 부족하지만 세미나와 논문리뷰를 하면서 실력을 한층 한층 쌓아 나아가겠습니다. 감사합니다!!!!!&lt;/p&gt;</content><author><name>Hyeoncheol Noh</name></author><category term="paper-review" /><summary type="html">Transfer learning 리뷰</summary></entry><entry><title type="html">Non-local Neural Networks</title><link href="https://blog.airlab.re.kr/2019/11/nonlocal" rel="alternate" type="text/html" title="Non-local Neural Networks" /><published>2019-11-03T11:00:00+09:00</published><updated>2019-11-03T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/nonlocal</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/nonlocal">&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!
+오늘 소개할 논문은 Non-local Neural Networks (&lt;a href=&quot;https://arxiv.org/abs/1711.07971&quot;&gt;arXiv:1711.07971&lt;/a&gt;)이며, CVPR2018에서 소개된 논문입니다.&lt;/p&gt;
 
 &lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;기존의 Convolution Neural Networks들은 3x3, 5x5과 같은 작은 Filter를 거치며 국소적인 피쳐의 특성을 추출해 낼 수 있기 때문에, Pooling과 함께 사용하며 많은 SOTA Architecture들을 만들어냈습니다.&lt;/p&gt;
@@ -158,76 +315,7 @@ Non-local Mean Filter는 기존의 영상처리에서 사용되던 denoising 알
 &lt;ul&gt;
   &lt;li&gt;Wang, Xiaolong, et al. “Non-local neural networks.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018.&lt;/li&gt;
   &lt;li&gt;Huang, Zilong, et al. “Ccnet: Criss-cross attention for semantic segmentation.” arXiv preprint arXiv:1811.11721 (2018).&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">오늘 소개할 논문은 Non-local Neural Networks (arXiv:1711.07971)이며, CVPR2018에서 소개된 논문입니다.</summary></entry><entry><title type="html">SlowFast Network for Video Recognition</title><link href="https://blog.airlab.re.kr/2019/10/SlowFast" rel="alternate" type="text/html" title="SlowFast Network for Video Recognition" /><published>2019-10-04T00:00:00+09:00</published><updated>2019-10-04T00:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/10/SlowFast</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/10/SlowFast">&lt;p&gt;안녕하세요? 이번에 &lt;strong&gt;SlowFast&lt;/strong&gt; 논문 Review를 하게된 &lt;strong&gt;AirLab&lt;/strong&gt; 이상우입니다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;introduction&quot;&gt;&lt;strong&gt;&lt;u&gt;Introduction&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;p&gt;SlowFast는 Video Recognition 을 위한 네트워크 구조입니다. 이 네트워크는 FAIR (FaceBook Artificial Intelligence Research) 에서 발표한 논문으로
-이전의 다른 네트워크들과의 다른점은 Opticalflow 를 사용하지 않은 영상 인식 네트워크 였다는 것입니다. 이로써 End-To-End 학습이 영상인식에서도 가능해졌다고 합니다.
-이 논문은 영장류의 물체의 행동을 인식하는 세포에서 영감을 받았다고 하는데 자세한 내용은 밑에서 알아보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;slowfast-networks&quot;&gt;&lt;strong&gt;&lt;u&gt;SlowFast Networks&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure1.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-
-&lt;center&gt;(figure1. SlowFast Networks)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;SlowFast는 2가지의 Pathway가 있습니다. 위에 보이는 Pathway는 Slow pathway라고 부르며, 이 Pathway는 낮은 프레임으로 주어질 수 있는 의미적 정보를 포착하도록
-설계가 되었다고 합니다. 간단한 예를 들면 박수라는 행동에서 손이라는 객체를 파악하는데 힘을 싣는 경로입니다. 반대로 Fast Pathway의 경우는 높은 프레임속도로 빠르게 변화하는
-움직임을 포착하는 역할을 합니다. 이 부분이 기존 영상인식에서 Opticalflow 로 수행되었던 부분입니다.
-Slow Pathway는 τ 값을 가지는데 대표적으로 16을 사용하였다고 합니다. 이 값은 30프레임의 영상의 경우 30프레임중에 약 2프레임 정도의 이미지만 뽑아준다고 합니다.
-Fast Pathway는 t/α 값을 가지고 α의 값을 1 이상의 값을 가진다고 합니다. 논문 저자는 대표적으로 8의 값을 사용하였다고 합니다. (t = 전체 프레임) 30프레임 인 경우
-약 4프레임 정도의 이미지를 뽑게 됩니다.
-이 논문에서 중요한 부분은 Fast Pathway인데 이 부분은 전체 연산량의 20% 밖에 수행하지 않는다고 합니다. 저는 처음에 보고 많은 프레임을 다루는데 더 많은 연산량이
-사용될거라 생각했는데 이 부분에서 중요한 아이디어가 있었습니다. Fast Pathway의 경우 위에서 Opticalflow 를 대체해서 사용된 부분이고, 움직임을 포착하는 것을 위해
-설계되었다고 하였습니다. 이 부분에서 느낌이 오신분이 있을수도 있는데요. 결론적으로 &lt;strong&gt;많은 채널의 정보를 사용하지 않습니다.&lt;/strong&gt; 단순히 예를 들어 말씀을 드리면, 박수라는 행동을
-인식하기 위해서 손을 인식해야되고 손이 무엇을 할수 있는지 파악을 해야합니다. 그래서 의미적 정보를 파악할 때 손이라는 객체의 색상이 살색이라면 조금 더 쉽게 손을 파악할 수 있습니다.
-하지만 손이라는 정보를 알고선 행동을 파악할 떄는 손이 회색,노란색이라도 손이라는 정보를 안다면 박수라는 행동을 쉽게 인식할 수 있습니다.
-논문에서는 공간과 차원에 대한 특별한 처리가 없기때문에 채널의 수가 적어도 된다고 설명이 되어있으며, 즉 이는 &lt;strong&gt;계산이 가벼워지고 처리속도가 빨라지게&lt;/strong&gt; 되었다고 합니다.&lt;/p&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure2.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(figure2. An example instantiation of the SlowFast network)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;위에 이미지를 참조하시면 조금 더 이해에 도움이 되실겁니다. 초록색의 경우 Fast Pathway에서 나오는 프레임입니다. Slow Pathway보다 높은 프레임률을 사용하고 있다는
-것이 확인이 됩니다. 노란색의 경우 Fast Pathway에서 사용하는 채널의 수를 보여줍니다. Slow Pathway에서 사용하는 값의 1/8 정도의 채널의 수를 사용하고 있는것도 확인이 됩니다.&lt;/p&gt;
-
-&lt;p&gt;그런데 이쯤에서 궁금한 점이 생기셨을 겁니다. 각각의 Pathway에서 나온 출력값은 다른 형태를 띄고 있는데 어떻게 두 개를 합쳐서 영상 인식을 하게 되는걸까요?
-이 부분에서는 Lateral Connections 라는 방식을 사용하여서 간단히 두개의 값의 형태를 맞춰줍니다.
-Slow pathway  = {T, S^2, C}
-Fast pathway  = {αT, S^2, βC}
-각각 pathway에서 나온 feature의 형태는 이러한 형태를 띄는데 3가지 방식을 중점으로 형태를 바꿔주게 됩니다.
-[1]. Time-to-channel : {αT, S^2, βC} 이러한 feature의 형태를 {T, S^2, αβC} 형태로 바꿔줍니다. 즉 α값을 하나 프레임의 채널로 변환을 시킵니다.
-[2]. Time-strided sampling : {αT, S^2, βC} α프레임 중 하나만 샘플링하여 {T, S^2, βC}의 형태로 바줍니다.
-[3]. Time-strided convolution : 2βC 의 출력 채널과 stride = α 를 가진 5×1^2 커널의 3D convolution을 사용한다고 합니다.
-즉, 전체적으로 컨볼루션과 샘플링 프레임을 채널단위로 바꿔주며 Slow pathway와 Fast pathway를 맞춰줍니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;main-results&quot;&gt;&lt;strong&gt;&lt;u&gt;Main Results&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure3.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(figure3. Comparison with the state-of-the-art on Kinetics-400.)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure4.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(figure3. Accuracy/complexity tradeof.)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure5.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(figure3. Per-category AP on AVA.)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;제가 논문을 읽으면서 느낀점이 있는 몇가지 결과를 가지고 왔습니다. 
-figure3 의 경우 Kinetics 데이터에서 Resnet 101을 백본으로 사용한 SlowFast 네트워크가 Opticalflow 를 사용한 다른 네트워크보다 좋은 성능을 보이면서
-영상 인식에서 이제는 Opticalflow 보다는 RGB 채널을 통한 접근이 더 발전할 것으로 보입니다.
-figure4 의 경우 SlowFast Network 에서 Slow만 단일적으로 사용했을 때보다 Slow와 Fast를 같이 사용했을 때 더 효율적인 모습이 보여졌으며 네트워크가 깊어 질수록
-더 좋은 성능을 보여주었습니다.
-figure5 의 경우 Fast Pathway 의 문제점이라고 할 수 있는 점이 보였습니다. 위에서 말했듯이, Slow와 Fast를 같이 썼을 경우에 전체적으로 성능향상이 있었으나 몇가지 행동은
-그런게 많은 행동의 변화가 없는 경우가 있었습니다. Fast Pathway의 역할이 중요하지 않은 행동들 즉 잠을 자거나, 핸드폰으로 통화를 하는 등 움직임이 별로 없는 행동에서는 Slow Pathway 만 단독적으로 썼을 때가 더 성능이 좋았습니다. 이런 점을 보면 Fast Pathway가 정적인 행동에서는 긍정적인 영향을 미치지 않으며, 정적인 행동에서는 다른 접근법이 필요하다고 저는 느껴졌습니다.&lt;/p&gt;
-
-&lt;p&gt;이상 SlowFast 논문 리뷰를 마치며 읽어주신 분들께 감사드리며, 틀린 점이나 고쳐야 될 부분은 댓글이나 mwlee0860@gmail.com 으로 메일을 보내주시면 감사하겠습니다.&lt;/p&gt;</content><author><name>Sangwoo Lee</name></author><category term="paper-review" /><summary type="html">안녕하세요? 이번에 SlowFast 논문 Review를 하게된 AirLab 이상우입니다.</summary></entry><entry><title type="html">Fast-R-CNN</title><link href="https://blog.airlab.re.kr/2019/10/Fast-R-CNN" rel="alternate" type="text/html" title="Fast-R-CNN" /><published>2019-10-04T00:00:00+09:00</published><updated>2019-10-04T00:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/10/Fast%20R-CNN</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/10/Fast-R-CNN">&lt;p&gt;Fast-R-CNN Review&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Non-local Neural Networks (arXiv:1711.07971)이며, CVPR2018에서 소개된 논문입니다.</summary></entry><entry><title type="html">Fast-R-CNN</title><link href="https://blog.airlab.re.kr/2019/10/Fast-R-CNN" rel="alternate" type="text/html" title="Fast-R-CNN" /><published>2019-10-04T00:00:00+09:00</published><updated>2019-10-04T00:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/10/Fast%20R-CNN</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/10/Fast-R-CNN">&lt;p&gt;Fast-R-CNN Review&lt;/p&gt;
 
 &lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다. 지난번 R-CNN 에 이어서 Fast-R-CNN 을 Review 해보려고 합니다.. ^_^&lt;/p&gt;
 
@@ -716,92 +804,4 @@ ground-truth(G) 와 Predicted-Box(P) 가 있을때, P를 G로 mapping 해주는 
 &lt;ul&gt;
   &lt;li&gt;Xiao, Tete, et al. “Unified perceptual parsing for scene understanding.” Proceedings of the European Conference on Computer Vision (ECCV). 2018.&lt;/li&gt;
   &lt;li&gt;Github https://github.com/CSAILVision/unifiedparsing&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Soyeol Lee</name></author><category term="paper-review" /><summary type="html">Unified Perceptual Parsing for Scene Understanding Understanding</summary></entry><entry><title type="html">Group Normalization</title><link href="https://blog.airlab.re.kr/2019/08/Group-Normalization" rel="alternate" type="text/html" title="Group Normalization" /><published>2019-08-21T05:00:00+09:00</published><updated>2019-08-21T05:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/08/Group-Normalization</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/08/Group-Normalization">&lt;p&gt;Group Normalization 리뷰&lt;/p&gt;
-
-&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Group Normalization”&lt;/strong&gt; 입니다.&lt;/p&gt;
-
-&lt;p&gt;이 논문은 Yuxin Wu와 Kaiming He 씨가, batch의 크기가 어쩔수 없이 작아야 하는 상황(detection, segmentation and video)에서 batch norm의 한계점을 느끼고 이를 개선하는 방법을 제안 합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
-
-&lt;p&gt;Batch Normalization은 딥러닝에서 모델을 설계할 때 필수요소처럼 여겨지고 있습니다. 하지만 detection, segmentation, video와 같이 메모리 소비 때문에 어쩔 수 없이 batch의 크기가 제약될 때 Batch Normalization의 오류는 빠르게 증가합니다. 이 논문에서는 Batch Normalization을 대체할 Group Normalization을 제안하고, 다양한 task에서 이를 실험하고 결과를 보여줍니다. 당연히 결과는  Group Normalization 이 좋습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure1.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;related-work&quot;&gt;Related Work&lt;/h3&gt;
-
-&lt;p&gt;Batch Normalization의 치명적인 단점을 해결하기 위한 노력은 과거에도 많이 있었습니다. Batch Normalization은 말 그대로 Batch 단위로 Normalization 하는것 인데 batch 크기에 영향을 많이 받습니다. 그렇기 때문에 논문에서 소개하는 Related Work은 대부분이 채널 단위로 Normalization을 합니다. 아래의 두 식은 일반적으로 사용하는 평균과 표준편차를 구하느 식 입니다. μ 는 평균이고 σ는 표준편차 입니다. i는 feature 입니다. 예를들어  2D 이미지에서 i는 (iN,iC,iH,iW) 이고 4개의 백터(N, C, H, W)를 가지고 있습니다. ε은 아주 작은값 입니다. X  와 평균 X’이 같으면 0이 되기 때문에 이를 방지하기 위한 값 입니다. S 는 평균과 표준편차가 계산된 픽셀의 집합입니다.&lt;/p&gt;
-
-&lt;p&gt;앞으로 소개드릴 LN,IN,GN은 BN과 마찬가지로 , 학습 가능한 파라메터 γ,β 가 존재하고, 감마는 스케일 베타는 쉬프트 입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul.png&quot; alt=&quot;formul1&quot; /&gt;
-&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul1.png&quot; alt=&quot;formul2&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;layer-norm&quot;&gt;Layer Norm&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure2.png&quot; alt=&quot;Figure2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Layer Normalization은 Feature 차원 Normalization 입니다. batch 단위로 Normalization 하는 것이 아니라 데이터의 한 이터레이션 마다 평균과 표준편차를 구해주는 것 입니다. 아래의 그림과 식을보면 더 이해가 잘 되실 것 같습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul2.png&quot; alt=&quot;formul3&quot; /&gt;
-&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure3.png&quot; alt=&quot;Figure3&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;instance-norm&quot;&gt;Instance Norm&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure4.png&quot; alt=&quot;Figure4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Instance Normalization은 Layer Norm에서 각 채널마다 Normalization 해주는 방법 입니다. style transfer을 위해 고안된 방법이기 때문에 style transfer에서 BN을 대체하여 많이 사용하고, real-time generation에 효과적 이라고 알려져 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul4.png&quot; alt=&quot;formul4&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;group-normalization&quot;&gt;Group Normalization&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure5.png&quot; alt=&quot;Figure5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Group Normalization은 Layer Norm과 Instance Norm의 중간쯤 이라고 생각하시면 이해하기 편하실꺼 같습니다. 채널을 그룹지어서 그룹단위로 Normalization 하는 방법입니다. 만약 그룹이 채널 전체면 Layer Norm이 되는것이고, 그룹이 채널 하나면 Instance Norm 이 되는것 입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/formul5.png&quot; alt=&quot;formul5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;코드로 구현하기 매우 간단합니다.  아래는 pytorch로 구현한 코드 입니다.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch.nn&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GroupBatchnorm2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eps&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1e-10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;nb&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GroupBatchnorm2d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group_num&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 전체 채널을 나눌 그룹 숫자입니다.&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 학습가능한 파라메터 gamma&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;beta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 학습가능한 파레메터 beta&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eps&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eps&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 0방지&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;forward&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;W&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;# 그룹으로 묶고&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keepdim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 평균&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;keepdim&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 표준편차&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;W&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 원래대로 돌리기.&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gamma&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;beta&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Group의 개수 또한 유동적으로 변경되는 값입니다. 이 논문에서는 그룹을 32개 만드는게 가장 좋았다고 합니다. 아래 그림에 보이시는것 처럼 그룹이 1 개이면 LN과 같고 그룹당 채널이 1 이면 IN과 같습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure6.png&quot; alt=&quot;Figure6&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;experiments&quot;&gt;Experiments&lt;/h4&gt;
-
-&lt;p&gt;아래 그림은 batch 크기가 32 images/GPU에서 BN, LN, IN, GN 의 train error 와 val error의 비교 입니다. 잘 알려져 있는것 처럼 BN이 가장 좋은 성능을 보입니다. 하지만 GN도 BN과 비교해서 그래서 크게 차이가 나는게 아닙니다. 또한 왼쪽 train error 그림을 보시면 GN이 조금더 train error가 작습니다. 이걸로 보아 GN이 최적화 하는 능력이 더 좋다고 볼 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure7.png&quot; alt=&quot;Figure7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;아래 그림은 batch 크기가 변함의 따라 BN과 GN의 성능 차이를 나타낸 그래프 입니다. BN은 batch 크기가 작아지면 작아질 수록 정확도가 매우 떨어졌으나, GN은 batch 크기가 변함의 따라 정확도의 차이가 거의 없습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-Group-Normalization/Figure8.png&quot; alt=&quot;Figure8&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
-
-&lt;p&gt;GN은 옛날부터 관심있던 논문인데 이제서야 제대로 읽었습니다.! 이 논문역시 다양한 Normalization 방법을 잘 정리해주고, 의식에 흐름대로 궁금증을 다 실험하고 풀어줘서 너무 좋았습니다.!! Experiments는 제가 중요하다고 생각하는 부분만 설명하고 , 나머지는 생략했기 때문에 더 자세한 내용을 알고 싶으신 분들은 본 논문을 참고하시기 바랍니다.&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Group Normalization 리뷰</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Soyeol Lee</name></author><category term="paper-review" /><summary type="html">Unified Perceptual Parsing for Scene Understanding Understanding</summary></entry></feed>

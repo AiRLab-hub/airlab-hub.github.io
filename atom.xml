@@ -8,6 +8,37 @@
     
       
       <item>
+        <title>GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond</title>
+        
+          <description>&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!
+오늘 소개할 논문은 GCNet으로 (&lt;a href=&quot;https://arxiv.org/abs/1904.11492&quot;&gt;arXiv:1904.11492&lt;/a&gt;)으로 이번 ICCV 2019 워크숍에서 소개가 되었던 논문입니다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sat, 16 Nov 2019 11:00:00 +0900</pubDate>
+        <link>
+        https://blog.airlab.re.kr/2019/11/gcnet</link>
+        <guid isPermaLink="true">https://blog.airlab.re.kr/2019/11/gcnet</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>SlowFast Network for Video Recognition</title>
+        
+          <description>&lt;p&gt;안녕하세요? 이번에 &lt;strong&gt;SlowFast&lt;/strong&gt; 논문 Review를 하게된 &lt;strong&gt;AirLab&lt;/strong&gt; 이상우입니다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 13 Nov 2019 06:00:00 +0900</pubDate>
+        <link>
+        https://blog.airlab.re.kr/2019/11/SlowFast</link>
+        <guid isPermaLink="true">https://blog.airlab.re.kr/2019/11/SlowFast</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Transfer learning</title>
         
           <description>&lt;p&gt;Transfer learning 리뷰&lt;/p&gt;
@@ -25,7 +56,8 @@
       <item>
         <title>Non-local Neural Networks</title>
         
-          <description>&lt;p&gt;오늘 소개할 논문은 Non-local Neural Networks (&lt;a href=&quot;https://arxiv.org/abs/1711.07971&quot;&gt;arXiv:1711.07971&lt;/a&gt;)이며, CVPR2018에서 소개된 논문입니다.&lt;/p&gt;
+          <description>&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!
+오늘 소개할 논문은 Non-local Neural Networks (&lt;a href=&quot;https://arxiv.org/abs/1711.07971&quot;&gt;arXiv:1711.07971&lt;/a&gt;)이며, CVPR2018에서 소개된 논문입니다.&lt;/p&gt;
 
 </description>
         
@@ -33,21 +65,6 @@
         <link>
         https://blog.airlab.re.kr/2019/11/nonlocal</link>
         <guid isPermaLink="true">https://blog.airlab.re.kr/2019/11/nonlocal</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>SlowFast Network for Video Recognition</title>
-        
-          <description>&lt;p&gt;안녕하세요? 이번에 &lt;strong&gt;SlowFast&lt;/strong&gt; 논문 Review를 하게된 &lt;strong&gt;AirLab&lt;/strong&gt; 이상우입니다.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Fri, 04 Oct 2019 00:00:00 +0900</pubDate>
-        <link>
-        https://blog.airlab.re.kr/2019/10/SlowFast</link>
-        <guid isPermaLink="true">https://blog.airlab.re.kr/2019/10/SlowFast</guid>
       </item>
       
     

@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
   <link href="https://blog.airlab.re.kr/author/sangwoo/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" />
-  <updated>2019-11-13T18:04:46+09:00</updated>
+  <updated>2019-11-16T22:27:16+09:00</updated>
   <id>https://blog.airlab.re.kr/author/sangwoo/feed.xml</id>
 
   
@@ -51,11 +51,11 @@
   
     <entry>
       <title type="html">SlowFast Network for Video Recognition</title>
-      <link href="https://blog.airlab.re.kr/2019/10/SlowFast" rel="alternate" type="text/html" title="SlowFast Network for Video Recognition" />
-      <published>2019-10-04T00:00:00+09:00</published>
-      <updated>2019-10-04T00:00:00+09:00</updated>
-      <id>https://blog.airlab.re.kr/2019/10/SlowFast</id>
-      <content type="html" xml:base="https://blog.airlab.re.kr/2019/10/SlowFast">&lt;p&gt;안녕하세요? 이번에 &lt;strong&gt;SlowFast&lt;/strong&gt; 논문 Review를 하게된 &lt;strong&gt;AirLab&lt;/strong&gt; 이상우입니다.&lt;/p&gt;
+      <link href="https://blog.airlab.re.kr/2019/11/SlowFast" rel="alternate" type="text/html" title="SlowFast Network for Video Recognition" />
+      <published>2019-11-13T06:00:00+09:00</published>
+      <updated>2019-11-13T06:00:00+09:00</updated>
+      <id>https://blog.airlab.re.kr/2019/11/SlowFast</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/11/SlowFast">&lt;p&gt;안녕하세요? 이번에 &lt;strong&gt;SlowFast&lt;/strong&gt; 논문 Review를 하게된 &lt;strong&gt;AirLab&lt;/strong&gt; 이상우입니다.&lt;/p&gt;
 
 &lt;hr /&gt;
 
