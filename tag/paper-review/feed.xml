@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
   <link href="https://blog.airlab.re.kr/tag/paper-review/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" />
-  <updated>2019-11-27T18:47:39+09:00</updated>
+  <updated>2019-11-27T18:51:22+09:00</updated>
   <id>https://blog.airlab.re.kr/tag/paper-review/feed.xml</id>
 
   
@@ -169,16 +169,16 @@ GoogleNet-GAP(heuristics)가 37.1%로 CAM방법중 가장 성능이 좋지만 fu
 이 결과는 보고된 인간 수준 성능(5.1%)를 능가하는 최초의 결과 입니다.&lt;/p&gt;
 
 &lt;h3 id=&quot;parametric-rectifiers&quot;&gt;Parametric Rectifiers&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/ReLU_vs_PReLU.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-27-He-initialization/ReLU_vs_PReLU.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
 ReLU와 PReLU그래프 입니다. 여기서 PReLU 그래프의 경우, 음의 부분은 일정한 값을 가지지 않고 적응적으로 학습 합니다.
-&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/PReLU_Definition.PNG&quot; width=&quot;30%&quot; alt=&quot;error&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-27-He-initialization/PReLU_Definition.PNG&quot; width=&quot;30%&quot; alt=&quot;error&quot; /&gt;
 a&lt;sub&gt;i&lt;/sub&gt;=0 일경우 ReLU가 되고, a&lt;sub&gt;i&lt;/sub&gt;가 학습 가능한 파라미터일 경우 PReLU가 되며 a&lt;sub&gt;i&lt;/sub&gt;=0.01 일 경우 Leaky ReLU가 됩니다.
 이때 PReLU는 매우 적은 수의 추가 매개변수를 도입하였습니다. (추가 파라미터의 수는 총 채널수와 동일하고, 이는 총 가중치 수를 고려할때 무시가 가능합니다.)
 그렇기 때문에 Overfitting에 대해 걱정을 하지 않아도 되는 이점이 있습니다.&lt;/p&gt;
 
 &lt;h3 id=&quot;initialization-of-filter-weights-for-rectifiers&quot;&gt;Initialization of Filter Weights for Rectifiers&lt;/h3&gt;
 &lt;p&gt;&lt;b&gt;“Xavier” initialization VS “He” initialization&lt;/b&gt;
-&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/Xavier_vs_He.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-27-He-initialization/Xavier_vs_He.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
 “Xavier”초기화 방법은 무작위 초기화가 아닌 입력과 출력의 특성을 고려한 방법으로, 선형인 경우에서만 사용 가능하지만
 “He”초기화 방법은 비선형일 경우에도 사용이 가능한 “Xavier”방법의 변형입니다. 이 방법은 비 선형적인 ReLU와 PReLU함수에서도 사용이 가능합니다.
 위 그래프의 빨간색이 “He”초기화 방법을 파란색은 “Xavier”초기화 방법을 나타냅니다.
@@ -188,7 +188,7 @@ He 초기화 방법은 가중치 분포를 2로 나누어 비 선형함수에서
 
 &lt;p&gt;따라서 “He”초기화 방법이 더 깊은 모델에서 적용이 가능하다는 것을 알 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/table2.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-27-He-initialization/table2.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
 하지만 ImageNet에서는 아직 큰 이점을 찾지 못했습니다.
 30-layer 모델의 경우 38.56/16.59의 top-1/top-5 error를 가지는 반면에 위 표(14-layer)의 33.82/13.34 보다 훨씬 좋지 않음을 볼 수있는데
 이는 layer가 깊을 수록 training error가 증가하기 때문이며 이 문제는 여전히 open problem 입니다.&lt;/p&gt;
@@ -197,7 +197,7 @@ He 초기화 방법은 가중치 분포를 2로 나누어 비 선형함수에서
 
 &lt;h3 id=&quot;experiments-on-imagenet&quot;&gt;Experiments on ImageNet&lt;/h3&gt;
 &lt;p&gt;&lt;b&gt;ReLU VS PReLU&lt;/b&gt;
-&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/Fig4.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-27-He-initialization/Fig4.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
 여기서 PReLU는 channel-wise 버전을 사용했고, ReLU와 PReLU 모두 같은 epoch으로 train하였습니다.
 위 그래프는 training 동안 train/val error를 나타냈습니다.&lt;/p&gt;
 
@@ -205,10 +205,10 @@ He 초기화 방법은 가중치 분포를 2로 나누어 비 선형함수에서
 따라서 PReLU가 ReLU에 비해 더 좋은 성능을 가지고 있음을 다시 한번 입증 하였습니다.&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;Single-model Results and Multi-model Results&lt;/b&gt;
-&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/realsinglemodel.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt; 
+&lt;img src=&quot;/assets/images/posts/2019-11-27-He-initialization/realsinglemodel.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt; 
 A+ReLU가 VGG-19에 보고된 7.1% single-model의 결과 보다 상당히 좋습니다.
 이는 얕은 모델을 미리 train 하지 않고 end-to-end train을 했기 때문이라고 보고 있습니다.
-&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/multimodel.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-27-He-initialization/multimodel.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
 또한 C+PReLU는 5.7%로 multi-model 보다 좋은 결과를 가졌고, model B와 modle C를 비교했을때 C가 더 나음을 볼수있습니다.
 (model B는 model A에 비해 deep하고, model C는 wide한 model입니다.)&lt;/p&gt;
 
@@ -217,7 +217,7 @@ A+ReLU가 VGG-19에 보고된 7.1% single-model의 결과 보다 상당히 좋�
 &lt;p&gt;&lt;b&gt;Surpassing Human-Level Performance?&lt;/b&gt;&lt;/p&gt;
 
 &lt;p&gt;ImageNet 데이터셋에서 인간 성능이 약 5.1% top-5 error 인데 비해 이 연구는 4.94%의 error 결과를 도출 했습니다. 이는 인간 수준의 성과를 초과했음을 의미합니다.
-&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/Fig5.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-27-He-initialization/Fig5.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;이들의 방법으로 위 그림을 coucal”, “komondor”, “yellow lady’s slipper” 라고 성공적으로 인식을 하는 반면에 인간은 개,새,꽃 이라고 단순하게 인식을 합니다.
 이렇게 특정 데이터셋에서는 우수한 결과를 도출하지만  일반적인 객체 인식에서 문맥의 이해나 고도의 지식이 필요한 경우에는 실수를 저지르기때문에 machine vision이  human vision을 능가하는것은 아닙니다.
