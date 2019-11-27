@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
   <link href="https://blog.airlab.re.kr/author/daehan/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" />
-  <updated>2019-11-16T22:27:16+09:00</updated>
+  <updated>2019-11-27T18:21:42+09:00</updated>
   <id>https://blog.airlab.re.kr/author/daehan/feed.xml</id>
 
   
@@ -48,6 +48,197 @@
   
   
 
+  
+    <entry>
+      <title type="html">Mixup: BEYOND EMPIRICAL RISK MINIMIZATION</title>
+      <link href="https://blog.airlab.re.kr/2019/11/mixup" rel="alternate" type="text/html" title="Mixup: BEYOND EMPIRICAL RISK MINIMIZATION" />
+      <published>2019-11-23T11:00:00+09:00</published>
+      <updated>2019-11-23T11:00:00+09:00</updated>
+      <id>https://blog.airlab.re.kr/2019/11/mixup</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/11/mixup">&lt;h3 id=&quot;mixup-beyond-empirical-risk-minimization-review&quot;&gt;Mixup: BEYOND EMPIRICAL RISK MINIMIZATION Review&lt;/h3&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다.&lt;/p&gt;
+
+&lt;p&gt;이번에 읽은 논문은 &lt;strong&gt;Mixup&lt;/strong&gt; 입니다. (&lt;a href=&quot;https://arxiv.org/abs/1710.09412&quot;&gt;arXiv:1710.09412&lt;/a&gt;)입니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;이번에는 &lt;b&gt;Data Augmentation&lt;/b&gt; 에 관련된 논문입니다. 
+&lt;b&gt;저는 Augmentation 관련 논문에서 핵심적인 부분은 결국, 한정된 Data를 어떻게 다뤄야 효과적으로 학습할 수 있을까? 에 관한 대답이라고 생각합니다.&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;논문에서 저자는 일반적으로 Dataset에 의존하여 학습하는 것을 비판하고 있습니다. 여기서 비판이란 Dataset의 원론적인 비판이 아닌, Dataset을 그대로 학습하는 것에 대한 문제점을 지적하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;“Train Data와 조금만 다른 Data를 설명할 수 없다.” 이 부분에서 Train Data에 dependent 한 문제점을 지적하고 있습니다.&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;Deeplearning이 활성화된 시기부터 계속적으로 연구되고있는 부분이기도 합니다.&lt;/p&gt;
+
+&lt;p&gt;저자는 한정적인 Dataset에서 어떻게하면 더 General 하게 model 을 만들 수 있을까에 대한 고민을 많이 한 것으로 보입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;BackGround&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;모델의 학습을 위해서 아래와 같은 expected risk를 최소화 하여야 합니다.&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-Mixup/img_02.png&quot; width=&quot;600&quot; height=&quot;130&quot; /&gt;[figure_01] (P(x,y) = 결합분포, L = loss-funtion)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;
+ 그러나 대부분의 경우 Joint distribution(결합 확률분포(두 개 이상의 확률변수에 대한 확률분포))을 모릅니다.&lt;/p&gt;
+
+&lt;p&gt;그렇기 때문에 일반적인 학습의 경우 아래와 같이 학습할 Dataset을 사용하여 &lt;b&gt;empirical distribution&lt;/b&gt;을 아래와 같이 나타냅니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Empirical distribution(ERM)&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-Mixup/img_03.png&quot; width=&quot;600&quot; height=&quot;170&quot; /&gt;[figure_02]&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;  따라서, &lt;b&gt;위에서 구한 Empirical distribution&lt;/b&gt; P를 통하여 &lt;b&gt;Expected risk R&lt;/b&gt;을 아래와 같이 나타낼 수 있습니다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-Mixup/img_04.png&quot; width=&quot;800&quot; height=&quot;100&quot; /&gt;[figure_03]&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;  간단하게 설명하자면, [figure_01] 을 통해 model을 학습하여야 하는데, dP(x,y) 즉, (joint distribution)을 모르는 경우가 대부분이니까, Train data를 사용하여 [figure_02]와 같이 joint distribution을 empirical distribution으로 대체하여 사용한다. 라는 것입니다.&lt;/p&gt;
+
+&lt;p&gt;결과적으로 [figure_03]과 같은 식이 됩니다.&lt;/p&gt;
+
+&lt;p&gt;그리고 이를 &lt;b&gt;ERM(Empirical Risk Minimization)&lt;/b&gt; 이라고 합니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Vicinity distribution(VRM)&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;위에 설명한 joint distribution 을 vicinity distribution을 통해 대체 할 수 도 있습니다. 다음과 같습니다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-Mixup/img_05.png&quot; width=&quot;600&quot; height=&quot;140&quot; /&gt;[figure_04] virtual feature-target pair(x ̃,y ̃),&lt;br /&gt; vicinity of the training feature-target pair (xi,yi).&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;  간단하게 trian data에 가상의 어떤 data를 섞었다고 생각하면 된다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-Mixup/img_06.png&quot; width=&quot;600&quot; height=&quot;50&quot; /&gt;[figure_05]&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;
+이때 논문에서는 위와 같이 구성한다면, 즉, x ̃와 xi의 차를 평균으로 갖고, 분산값을 Sigma^2으로 갖는 정규분포가 vicinity distribution이 된다고 설명하고 있고, 이 효과는 학습데이터에 Gaussian noise을 더한 것으로 이해하면 된다고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;이를 VRM (Vicinal Risk Minimization)이라고 한다.&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;&lt;u&gt;나는 지금까지 ERM/VRM을 이해하는 것이 논문에서 제안하는 바를 이해하는데 충분한 배경이 되었다.
+&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;이제 본격적으로 &lt;b&gt;MixUp의 idea&lt;/b&gt;를 살펴보면, 다음과 같이 정리할 수 있다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-Mixup/img_07.png&quot; width=&quot;100%&quot; height=&quot;100&quot; /&gt;[figure_06] Mixup&lt;br /&gt; &lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;위에서 본 VRM과 수식이 많이 유사하다. 
+당연한 것이 VRM에서 가상의 어떤 data를 섞는 다고 했던 부분을 Dataset에서 가져와서 쓰겠다는 것이다.&lt;/p&gt;
+
+&lt;p&gt;실제 학습에서 사용되는 코드는 다음과 같다.&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_08.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_07] Mixup_pytorch_code&lt;br /&gt; &lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;code를 보면 lambda 값은 beta분포에서 뽑게 되는데, 분포가 [0,1] 사이에서 뽑아지게 됨으로, interpolation의 비율(가상의 data를 train data에 섞는 비율) 을 랜덤하면서도 적절하게 가져갈 수 있게 된다. 여기서 alpha 값은 1로 고정한다.&lt;/p&gt;
+
+&lt;p&gt;그렇게 되면 학습하는 이미지는 다음과 같이 볼 수 있다.&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_01.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_08] Mixup_pytorch_image&lt;br /&gt; &lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Experiments (CIFAR10 &amp;amp; 100)&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_09.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_09] Mixup_pytorch_image&lt;br /&gt; &lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;위와 같이 CIFAR 10 &amp;amp; 100 에서 기존의 성능보다 1.1% ~ 4.5% 성능을 높이게 되었다.&lt;/p&gt;
+
+&lt;p&gt;즉, 같은 model 같은 Dataset으로 x% 만큼 general한 model을 뽑게 되었다는 것이다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Experiments (corrupted label)&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_11.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_10] corrupted label Acc examples&lt;br /&gt; &lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 표를 보면 손상된 label에 대한 정확도가 기존에 방법보다 굉장히 많은 Acc를 갖는 것을 확인 할 수 있다. 또, 이 실험을 통해서 dropout과 mixup이 긍정적인 결과를 도출해 낸다는 것 또한 확인 할 수 있다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Experiments (Adversarial example)&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_10.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_11] Robustness to adversarial examples&lt;br /&gt; &lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 부분도 요즘 핫한 부분인데, 간단하게 말해서 사람눈에는 똑같이 Panda, car로 구분되지만 computer입장에서는 그렇지 못하게 만드는 즉, 오류를 범하게 만드는 noise를 첨가하는 attack 이라고 할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;FGSM,I-FGSM 의 경우 Attack mechanism 이라고 보시면 될 것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;기존 학습법 보다 Mixup의 방법이 더 높은 방어능력을 갖고 있다. 즉, 기존보다 더 adversarial attack 에 robust 하다고 볼 수 있습니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Experiments (CIFAR10)&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_12.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_12]&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 실험 결과를 통하여 Mixup에서 weight decay값은 10^-4이 좋다는 것을 설명하고 있으며, 첨가하는 data를 어떻게 하면 좋을 지에 관한 내용이 포함되어 있습니다.&lt;/p&gt;
+
+&lt;p&gt;가장 높은 Acc를 보인것은 AC + RP 입니다. 또, SC는 효과가 없다고 말하고 있습니다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;AC : mix between all classes.
+SC : mix within the same class.
+RP : mix between random pairs.
+KNN : mix between k-nearest neighbors(k=200)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;후기-implementation&quot;&gt;후기 (implementation)&lt;/h3&gt;
+
+&lt;p&gt;우선, DataAugementation에 관한 논문을 처음 접했는데 굉장히 흥미로웠다. 2019_ICCV를 다녀와서 느낀점이 많은데, 그 중 하나는 Data를 어떻게 다룰것인가에 관한 관심이 생겼다는 것이다. 천천히 읽어가면서, CutMix까지 읽어볼 생각이다.&lt;/p&gt;
+
+&lt;p&gt;이번논문을 통해, pytorch를 이용하여. 직접. 구현을 하였는데.&lt;/p&gt;
+
+&lt;p&gt;preActresnet-18의 경우 오차가 0.5% 정도로 거의 paper-performance에 가깝게 구현되었다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_13.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_13] compare performance(even | paper | my)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;[figure_13]을 보면 알 수 있듯이 기존 model을 좀더 general 하게 가져갈 수 있다는 장점이 좋은 것 같다.&lt;/p&gt;
+
+&lt;p&gt;그리고, 혹시나 구현중에 model의 train loss 가 잘 떨어지지 않고, train Acc가 낮다고 잘 못 한거 아닌가 라는 생각을 할 수 있는데, 직접구현한 결과 mixup은 일반적으로 학습하는 cifar100 data를  막 95% 99% 학습할 수가 없다.&lt;/p&gt;
+
+&lt;p&gt;왜냐면 train data 가 그만큼 어렵기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;그러나 test loss 는 더 낮고 test Acc는 더높기 때문에 general 한 결과를 얻어낼 수 있기 때문에 긍정적인것 같다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;references&quot;&gt;[References]&lt;/h1&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;  &lt;a href=&quot;https://arxiv.org/abs/1710.09412&quot;&gt;mixup: Beyond Empirical Risk Minimization
+&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Daehan Kim</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="paper-review" />
+      
+
+      
+        <summary type="html">Mixup: BEYOND EMPIRICAL RISK MINIMIZATION Review</summary>
+      
+
+      
+      
+    </entry>
   
     <entry>
       <title type="html">Fast-R-CNN</title>

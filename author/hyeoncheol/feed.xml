@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
   <link href="https://blog.airlab.re.kr/author/hyeoncheol/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" />
-  <updated>2019-11-16T22:27:16+09:00</updated>
+  <updated>2019-11-27T18:21:42+09:00</updated>
   <id>https://blog.airlab.re.kr/author/hyeoncheol/feed.xml</id>
 
   
@@ -48,6 +48,186 @@
   
   
 
+  
+    <entry>
+      <title type="html">DeepLabV2</title>
+      <link href="https://blog.airlab.re.kr/2019/11/DeepLabV2" rel="alternate" type="text/html" title="DeepLabV2" />
+      <published>2019-11-23T20:00:00+09:00</published>
+      <updated>2019-11-23T20:00:00+09:00</updated>
+      <id>https://blog.airlab.re.kr/2019/11/DeepLabV2</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/11/DeepLabV2">&lt;p&gt;DeepLabV2 리뷰&lt;/p&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 노현철 입니다. 
+제가 이번에 리뷰할 논문은 &lt;strong&gt;“DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs”&lt;/strong&gt; 입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/1.png&quot; alt=&quot;Figure1&quot; /&gt;
+요번 논문을 읽기전에 DeepLabV1 논문을 읽지 않아서 인터넷을 간단하게 찾아보았습니다. 검색을 해보니 DeepLabV1에서 주장하는 내용은 CONDITIONAL RANDOM FIELDS(CRF) 라는 내용 한가지 였습니다. semantic segmentation은 픽셀단위의 조밀한 예측이 필요함으로 CRF를 후처리 과정으로 사용하여 픽셀단위 예측의 정확도를 더 높일 수 있게 되었습니다. 특히 fully connected CRF를 사용하면 위 그림과 같이 detail이 살아 있는 결과를 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/2.png&quot; alt=&quot;Figure2&quot; /&gt;
+또한 이러한 CRF를 한번만 사용하는 것이 아니라  여러번 사용하게 된다면 조금 더 좋은 결과를 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문에서는 DeepLabv1을 보완하고자 CRF를 포함한 3가지 이슈가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;1) CONDITIONAL RANDOM FIELDS (CRF)&lt;/p&gt;
+
+&lt;p&gt;2) Atrous convolution (dilated convolution)&lt;/p&gt;
+
+&lt;p&gt;3) Atrous Spatial Pyramid Pooling (ASPP)&lt;/p&gt;
+
+&lt;h5 id=&quot;atrous-convolution-dilated-convolution&quot;&gt;Atrous convolution (dilated convolution)&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/3.png&quot; alt=&quot;Figure3&quot; /&gt;
+기존 DCNN에서 receptive field을 확장 시키려면 pooling 후 convolution 했어야 했습니다. 이것은 feature들의 크기를 줄일 뿐만 아니라 연산량 또한 증가 시켰습니다. 이 논문에서 말하는 Atrous convolution은 이러한 이러한 현상들을 줄여 준다고 합니다. 이 Atrous convolution은 dilated convolution과 이름만 다를 뿐 같은 개념이라고 보시면 됩니다. Atrous convolution는 기존 convolution 과 연산량은 같지만 receptive field 가 확장되는 효과를 가져옵니다. 위에 사진을 보면 rate만큼 간격을 벌리고 그 간격은 0으로 만들어 버려서 receptive field의 크기를 확장 시키는 것 입니다.
+&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/4.png&quot; alt=&quot;Figure4&quot; /&gt;
+사진으로 비교해 보아도 pooling + conv 보단 Atrous convolution을 사용하는 것이 receptive field가 확장되있는 것을 직관적으로 볼 수 있습니다.&lt;/p&gt;
+
+&lt;h5 id=&quot;atrous-spatial-pyramid-pooling-aspp&quot;&gt;Atrous Spatial Pyramid Pooling (ASPP)&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/5.png&quot; alt=&quot;Figure5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Spatial Pyramid Pooling(SPP)은 sppnet에서 영감을 받고 쓰였다고 하는데 이 논문 spp에 Atrous convolution을 더하여 aspp이라는 방법을 제시 하였습니다.
+Atrous convolution을 사용하여 각각의 rate 값들을 각각 {6, 12, 18. 24} 로 하여 Pyramid Pooling 하였습니다. 그리고 이들의 결과들을 합쳐 각각의 receptive field를 수용하여 여러크기의 물체를 인식하는데 좋은 결과를 가져왔습니다.&lt;/p&gt;
+
+&lt;h5 id=&quot;deeplab-v1-v2-비교&quot;&gt;DeepLab v1, v2 비교&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/6.png&quot; alt=&quot;Figure6&quot; /&gt;
+DeepLab v1, v2를 구조를 사진으로 비교해보자면 우선 input image가 들어가면 v1은 기본적인 DCNN을 사용하였지만 v2는 Atrous convolution을 사용하여 DCNN을 하였습니다. 그 결과 score map의 크기가 v1보단 v2가 더 크게 나오는것을 볼 수 있습니다. 다음은 bi-linear interpolation방법을 통해 원본의 크기만큼 upsample하였습니다. 그리고 fully connected CRF을 사용하여 정확도를 한층 높였습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;experimental&quot;&gt;Experimental&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/7.png&quot; alt=&quot;Figure7&quot; /&gt;
+실험은 ‘fc6’ layer의 rate값들을 각각 다르게 하여 실험 하였습니다. 그 결과 Kernel: 7x7, rate: 4, CRF사용 하였을때가 Kernel: 3x3, rate: 12, CRF사용 하였을 때와 성능이 같은걸 볼 수 있습니다. 그러나 전자의 실험이 후자의 실험보다 parameters도 많고, speed(img/sec)도 느린것으로 나타났습니다. 그래서 DeepLab-LargeFOV은 kernel size 3×3, r = 12 을 사용하게 되었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/8.png&quot; alt=&quot;Figure8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;두번째 실험은 위 실험에서 구한 DeepLab-LargeFOV와 ASPP안에 들어가는 Atrous convolution rate값들을 다르게 하고 비교하는 실험입니다.
+ASPP-S는 rate = {2, 4, 8, 12}, ASPP-L는 rate = {6, 12, 18, 24}입니다. 
+실험 결과 rate값이 ASPP-S보다 높게잡은 ASPP-L의 결과가 더 좋은 것으로 나타났습니다.
+&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/9.png&quot; alt=&quot;Figure9&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
+&lt;p&gt;어쩌다보니 deeplab v1을 읽지않고 v2를 먼저 읽게 되었는데 나름 v1의 내용이 많이 없어서 다행이였습니다. 다음번에는 v3를 읽고 리뷰를 써보도록 하겠습니다..!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Hyeoncheol Noh</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="paper-review" />
+      
+
+      
+        <summary type="html">DeepLabV2 리뷰</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">PSPNET</title>
+      <link href="https://blog.airlab.re.kr/2019/11/pspnet" rel="alternate" type="text/html" title="PSPNET" />
+      <published>2019-11-23T19:00:00+09:00</published>
+      <updated>2019-11-23T19:00:00+09:00</updated>
+      <id>https://blog.airlab.re.kr/2019/11/pspnet</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/11/pspnet">&lt;p&gt;PSPNET 리뷰&lt;/p&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 노현철 입니다. 
+제가 이번에 리뷰할 논문은 &lt;strong&gt;“Pyramid Scene Parsing Network”&lt;/strong&gt; 입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;pspnet을 읽기전에 Fully Convolutional Network(FCN)에 관한 논문을 읽어보진 않아서 간단하게 인터넷으로 찾아보았습니다. FCN은 Fully Connected layer 가 없는 CNN이 통용됩다고 합니다. 이 FC layer를 없앤 이유는 위치정보의 손실 때문에 없앴다고 합니다.(Segmentation 은 위치정보가 핵심적)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/1.PNG&quot; alt=&quot;Figure1&quot; /&gt;
+이 논문에서는 FCN의 한계점을 나타내고 있습니다. 위에 사진을 보듯이 FCN은 보트를 자동차로 인식을하고, 비슷한 카테고리(건물, 초고층 빌딩)는 명확하지않고 둘 다 인식을 하고, 마지막으로 베개와 시트의 외관이 비슷해서 베개를 파싱하지 못하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이러한 문제점들을 보완하고자 이 논문에서 제안하고있는 complex-scene parsing 이슈가 세가지가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;1) Mismatched Relationship (주변 환경의 관계)&lt;/p&gt;
+
+&lt;p&gt;2) Confusion Categories (혼란의 카테고리)&lt;/p&gt;
+
+&lt;p&gt;3) Inconspicuous Classes (눈에 띄지 않는 클래스)&lt;/p&gt;
+
+&lt;h5 id=&quot;mismatched-relationship&quot;&gt;Mismatched Relationship&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/2.PNG&quot; alt=&quot;Figure2&quot; /&gt;
+FCN은 ‘보트’를 ‘자동차’로 인식을 하였습니다. 이것은 단순히 외관으로만 판단하였기 때문에 틀렸다 라고 볼 수 있습니다. 하지만 일반적으로 ‘강 위에 자동차’ 보단 ‘강 위에 보트’일 가능성이 더 큽니다. pspnet에서는 외관만 판단하는 것이 아니라 주변 환경까지 고려하여 ‘자동차’가 아닌 ‘보트’로 Prediction 하는 것입니다.&lt;/p&gt;
+
+&lt;h5 id=&quot;confusion-categories&quot;&gt;Confusion Categories&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/3.PNG&quot; alt=&quot;Figure3&quot; /&gt;
+Ground Truth를 보듯이 건물과 초고층빌딩사진에서 보듯이 FCN은 건물과 초고층 빌딩 둘 다 인식하고 있습니다. 이러한 비슷한 카테고리{(건물, 초고층 빌딩),(들판, 땅)}들은 혼돈을 줄 수 있습니다. 이러한 문제점을 해결하기 위해 global contextual information 사용하면 카테고리안에 relationship이 명확해 질 수 있다.&lt;/p&gt;
+
+&lt;h5 id=&quot;inconspicuous-classes&quot;&gt;Inconspicuous Classes&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/4.PNG&quot; alt=&quot;Figure4&quot; /&gt;
+FCN은 베개와 시트의 유사한 외관으로 인해 구별을 못하고 있습니다. 이는 global scene category를 보면 베개를 파싱 못할 수 있습니다. 이를 개선하기 위해서  눈에 띄지 않는 object, stuff를 포함하는 여러 sub-regions에 global contextual information를 사용하여 해결할 수 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;pspnet구조&quot;&gt;pspnet구조&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/5.PNG&quot; alt=&quot;Figure5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 사진은 pspnet의 전체적인 구조를 설명하는 사진입니다.&lt;/p&gt;
+
+&lt;p&gt;첫번째로 input image(a)가 주어지면 CNN을 사용하여 Feature map을 얻는데 여기서 사용하는 CNN은 resnet을 사용하였고 dilated Convolution를 사용한 FCN구조라고 합니다. (dilated Convolution은 공간적 특징을 유지하기 때문에 Segmentation 많이사용) 이 Feature map 에서 local contextual information를 얻고 이것을 pool을 하게됩니다. pool의 종류에는 Max pooling, average pooling 둘 다 사용하게 되었지만 average가 우세하여 대부분은 average pooling을 사용하게 되었습니다. 이러한 pooling으로 인해 global contextual information을 얻어냅니다. 또한 pool을 할때 Pyramid Pooling Module을 사용하였고 이는 (1×1, 2×2, 3×3, 6×6)×N 의 크기를 가진 sub-region으로 만들어냅니다.&lt;/p&gt;
+
+&lt;p&gt;global contextual information의 이해를 돕기위해 사진을 보시면
+&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/6.PNG&quot; alt=&quot;Figure6&quot; /&gt;
+Feature map을 4개의 sub-region으로 나누고 2×2로 average pooling 하면 각 각의 sub-region 특징을 알 수 있습니다. 예를들어 초록 원이 자동차라면 나머지 sub-region의 특징이 물인지 도로인지 구분하여서 상황을 고려할 수 있습니다. ( Segmentaion에 있어서 더 좋은 성능)&lt;/p&gt;
+
+&lt;p&gt;끝으로 (1×1, 2×2, 3×3, 6×6)×N 을 conv하여 1/N 로 줄입니다. 그 이유는 마지막 Feature map들을 Upsampling하고 기존 Feature map과 이어붙이기 때문에 비율을 같게 해주는 것 입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;experimental&quot;&gt;Experimental&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/7.PNG&quot; alt=&quot;Figure7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;실험은 resnet을 기본으로 사용하였고 여기서 B1은 Pyramid Pooling Module의 1x1만 사용했다 라는 뜻이고, B1236 은 1x1, 2x2, 3x3, 6x6 라는 뜻입니다. max보단 average사용했을때 성능이 더 좋았고 DR-dimension reduction (N -&amp;gt; 1/N) 을 사용했을때 성능이 제일 좋았습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/8.PNG&quot; alt=&quot;Figure8&quot; /&gt;
+표에도 나타나듯이 ResNet이 깊을수록 성능이 좋았고 MS(multi-scale)사용했을때 성능이 제일 좋았습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/9.PNG&quot; alt=&quot;Figure9&quot; /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
+&lt;p&gt;최근들어 Segmentaion에 관심이 생겨 읽게 되었습니다. 조금 아쉬웠던 점이 이 논문이 나오기 전 논문을 먼저 읽고 읽었으면 와닿는 부분이나 이론적인 부분들이 더욱 많았을텐데 라는 생각이 들었습니다. 다음번에는 pspnet 이전에 나온 논문을 읽어보고 싶습니다..!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Hyeoncheol Noh</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="paper-review" />
+      
+
+      
+        <summary type="html">PSPNET 리뷰</summary>
+      
+
+      
+      
+    </entry>
   
     <entry>
       <title type="html">Transfer learning</title>

@@ -4,7 +4,7 @@
   <generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator>
   <link href="https://blog.airlab.re.kr/author/minseok/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" />
-  <updated>2019-11-16T22:27:16+09:00</updated>
+  <updated>2019-11-27T18:21:42+09:00</updated>
   <id>https://blog.airlab.re.kr/author/minseok/feed.xml</id>
 
   
@@ -48,6 +48,171 @@
   
   
 
+  
+    <entry>
+      <title type="html">Manifold Mixup: Better Representations by Interpolating Hidden States</title>
+      <link href="https://blog.airlab.re.kr/2019/11/manifold-mixup" rel="alternate" type="text/html" title="Manifold Mixup: Better Representations by Interpolating Hidden States" />
+      <published>2019-11-22T11:00:00+09:00</published>
+      <updated>2019-11-22T11:00:00+09:00</updated>
+      <id>https://blog.airlab.re.kr/2019/11/manifold-mixup</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/11/manifold-mixup">&lt;h3 id=&quot;manifold-mixup-better-representations-by-interpolating-hidden-states-리뷰&quot;&gt;Manifold Mixup: Better Representations by Interpolating Hidden States 리뷰&lt;/h3&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Manifold Mixup: Better Representations by Interpolating Hidden States”&lt;/strong&gt; 입니다.&lt;/p&gt;
+
+&lt;p&gt;Manifold Mixup: Better Representations by Interpolating Hidden States은(이하 Manifold Mixup) 2019ICML에 통과된 논문으로 카테고리는 Classification, Data Augmentation 입니다. 또한 딥러닝의 대가 Yoshua Bengio가 저자로 참여된 논문입니다. Manifold Mixup은 Mixup 논문에서 영감을 얻었으며, 인풋으로 들어오는 이미지 뿐만아니라, hidden states사이에서도 mixup을 하자는게 주된 내용이고, CIFAR100에서는 mixup을 능가하는 성능을 보입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Manifold Mixup을 이해하기 위해서는 우선 매니폴드 가 무엇인지 먼저 아셔야 합니다. 저는 이 논문을 이해할 정도로만 매니폴드를 설명할 것 이니, 혹시 더 궁금하시다면, &lt;a href=&quot;https://www.youtube.com/watch?v=o_peo6U7IRM&amp;amp;t=4692s&quot;&gt;https://www.youtube.com/watch?v=o_peo6U7IRM&amp;amp;t=4692s&lt;/a&gt; 이활석님의 매니폴드 설명을 참고하시면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img2.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 그림이 매니폴드를 나타내는 그림 입니다. 매니폴드란 데이터가 사는 공간입니다. 위의 사진처럼 한 매니폴드가 있으면, 그 위에 모든 데이터를 표현할 수 있고, 그림처럼 똑같은 4 이더라도 다 다른 위치에 있습니다. 또한 사람눈으로는 매우 닮아있는 4 라고 할지라도 매니폴드상 거리가 멀수도, 가까울 수도 있습니다. 직관적으로 딥러닝은 이러한 매니폴드에서 공통된 특성을 가로지르는 하나의 선을 찾는 것 이라고 생각하셔도 될 것 같습니다.
+이제 매니폴드를 간략하게 알았으니 다음 설명으로 넘어가겠습니다.&lt;/p&gt;
+
+&lt;p&gt;논문 저자는 친절하게 Manifold Mixup을 한줄로 요약해 줍니다. “Manifold Mixup improves the hidden representations and decision boundaries of neural networks at multiple layers.” 즉 매니폴드 믹스업이란, “다중 레이어가 있을때 그냥 믹스업 처럼 인풋만 이미지를 섞어버리면 불공평하니, 다중 레이어 모든 핏쳐맵에서 섞자!” 입니다. 실제로 이 말이 이 논문의 전부이며 앞으로는 이 말을 증명하고 실험하는 과정입니다. 또한 이 논문은 라벨 스무딩의 효과가 있다. 라고 생각하시면 이해하기 편하실것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img3.png&quot; alt=&quot;Figure1&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img4.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 그림들은 저자가 2D spiral dataset으로 시각화한 그림입니다. 상단의 그림의 왼쪽은 아무것도 사용하지 않은 base이며, 상단의 오른쪽은 Manifold Mixup 입니다. 그림에서 보이는것과 같이 두개의 정확도는 비슷하지만, base는 오버피팅이 생긴 것을 한 눈에 알수 있고, Manifold Mixup은 오버피팅이 일어나지 않은 것을 볼수 있습니다. 또한 아래의 그림은 기존 유명 regularizers 들과의 성능을 정성적으로 비교한 것이며, 정성적으로는 Manifold Mixup이 좋아 보이나, “Manifold Mixup이 다른 타 regularizers들을 능가하는 방법이다!” 라고 생각하지 마시고, 그냥 저런 유명 방법들과 견줄만한 방법이다. 정도로만 생각하시면 좋을것 같습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;manifold-mixup&quot;&gt;Manifold Mixup&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img5.png&quot; alt=&quot;Figure1&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img6.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 수식들은 Manifold Mixup을 이해하기 쉽게 저자가 수식으로 표현한 것이며, 상단의 수식은 매니폴드에 존재하는 hidden states를 섞고, label도 그 수치만큼 섞겠다는 이야기 입니다. 아래의 수식은 전체 학습 프로세스가 어떻게 작동되는지 설명한 수식이며, 학습이 진행되면 input을 포함한 hidden states에 Mixup이 동작한다는 수식입니다. 또한 Beta는 Beta분포를 따르는 것을 의미합니다. Beta분포를 사용한 이유는 랜덤하게 뽑으면 섞이는 두 대상이 일정하게 섞일 확률이 높기 때문에, 한쪽이 더 우세하게 섞기 위하여 Beta분포를 사용한 것 입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;empirical-investigation-of-flattening&quot;&gt;Empirical Investigation of Flattening&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img7.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;논문 저자는 Flattening 하는 것이 왜 좋은가를 실험하기 위하여 MNIST데이터 셋에서 Singular Value Decomposition (SVD)을 통하여 실험합니다.
+SVD를 직관적으로 설명하면 선형대수에서 배우는 특이값 분해로 같은 이미지에서 투영변환, 스케일변환, 회전변환을 하였을때 딥러닝 관점에서 augmentation이 된 데이터들 즉 매니폴드를 지나가는 직선의 거리 라고 생각하시면 될 것 같습니다. 이러한 SVD 값이 Maniflod Mixup이 가장 작았습니다. 위의 그림은 이것을 시각화 한 것이고, Manifold Mixup을 사용한 방법에서 MNIST 데이터들이 잘 분류된걸 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img8.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 논문저자는 위의 그래프와 같이 다양한 어규멘테이션에서 실험을 합니다. 논문저자가 주장한대로 Maniflod Mixup을하면 매니폴드를 직관하는 선을 찾기 쉬워져 같은 데이터라면 결과가 좋아야 합니다. 위 그래프도 논문저자가 주장한대로 매니폴드 믹스업은 다양한 데이터에서 강인합니다. 하지만 아쉬운 점은 이 논문 저자는 극한의 튜닝을 했습니다. epoch를 2000까지 돌리는둥 ,,, 최소 1200epoch를 학습합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;experiments&quot;&gt;Experiments&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img9.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;마지막으로 실험 입니다. 논문 저자는 CIFAR10, 100 TINY Imagenet에서 실험을 하였습니다. 위의 표는 그 결과 입니다. 보이시는것과 같이 CIFAR10,100에서는 베타분포를 만들때 사용하는 알파값이 2일때 성능이 가장 좋고 Manifold Mixup에서 성능이 가장 좋습니다. 하지만 TINY Imagenet에서는 mixup보다 성능이 낮은데, 아마 tiny라 그런것이고, full imagenet이면 manifold mixup이 더 좋습니다. 그 결과는 cutmix논문을 참고하시면 확인하실수 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
+
+&lt;p&gt;이 논문은 저의 직관과 비슷하여 재미있게 읽었던 논문 입니다. 하지만 epoch를 1500까지 맞춰줘야 논문 성능을 구현 할수 있는점(저는 1200에 구현했습니다 ㅎㅎ) 하이퍼파라메터를 공개하지 않은점. 수학적으로 너무 무거운점이 아쉬웠습니다.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Minseok Seo</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="paper-review" />
+      
+
+      
+        <summary type="html">Manifold Mixup: Better Representations by Interpolating Hidden States 리뷰</summary>
+      
+
+      
+      
+    </entry>
+  
+    <entry>
+      <title type="html">Shake-Shake regularization</title>
+      <link href="https://blog.airlab.re.kr/2019/11/shake-shake-regularization" rel="alternate" type="text/html" title="Shake-Shake regularization" />
+      <published>2019-11-16T11:00:00+09:00</published>
+      <updated>2019-11-16T11:00:00+09:00</updated>
+      <id>https://blog.airlab.re.kr/2019/11/shake-shake-regularization</id>
+      <content type="html" xml:base="https://blog.airlab.re.kr/2019/11/shake-shake-regularization">&lt;h3 id=&quot;shake-shake-regularization-리뷰&quot;&gt;Shake-Shake regularization 리뷰&lt;/h3&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Shake-Shake regularization”&lt;/strong&gt; 입니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문은 크게보면 Data augmentation에 속하는 논문 입니다. 지금까지는 Data augmentation을 이미지에 했다면, Shake-Shake regularization 논문은 Internal Representations에 augmentation을 합니다. (Internal Representations은 feature map과, weight를 의미합니다.) 이런 Internal Representations augmentation을 통하여 그 당시 CIFAR10, CIFAR100에서 state of the art를 달성합니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img1.png&quot; alt=&quot;Figure1&quot; /&gt;
+위 그림과 같이 컴퓨터는 사람과는 다르게 물체를 일정 규칙이 있는 스칼라 값으로 인식합니다. 그렇다면 컴퓨터 입장에서는 feature map 그리고 이미지 는 일정 규칙이 있는 데이터이기 때문에 현재처럼 이미지에서만 Data augmentation을 하지말고, Internal Representations에도 Data augmentation을 해주자고 주장합니다. 또한 Internal Representations에 Data augmentation을 해주면 stochastically “blending” 효과가 있다고 주장합니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;model-description-on-3-branch-resnets&quot;&gt;Model description on 3-branch ResNets&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img2.png&quot; alt=&quot;Figure2&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img3.png&quot; alt=&quot;Figure3&quot; /&gt;
+논문 저자는 Shake-Shake regularization을 적용하기 간편한 ResNet 구조에서 실험을 하고, 이해를 돕기 위하여 위와 같은 간단한 수식을 말합니다. 위에 보이는 수식 1은 일반적은 resnet입니다. W는 weight이고, x는 텐서, F는 residual function입니다. 논문 저자는 수식 2와 같이, F앞에 일정 α(0과 1 사이의 랜덤한 값)을 곱해줘 Internal Representations에 Data augmentation을 해주는 효과를 냅니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;training-procedure&quot;&gt;Training procedure&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/cover.png&quot; alt=&quot;Figure4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 shake-shake-regularization의 전체 학습 절차 입니다. 학습의 forward 부분에서도 α[0~1] 사이의 값을 곱해줘서 data augmentation 효과를 주고, backward 부분에도 β[0~1]의 값을 곱해줘서 기존의 연구 되었던 gradient noise를 주는 방식을 gradient augmentaion으로 대체해 줄 수 있다고 논문 저자는 주장합니다. 또한 테스트시에는 0.5로 값을 고정해 줍니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;cifar-10-cifar-100&quot;&gt;CIFAR-10, CIFAR-100&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img4.png&quot; alt=&quot;Figure5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림과 같이 본 논문의 저자는 다양한 실험을 진행하였습니다. Forward pass는 Even / Shake, Backward pass는 Even / Shake / Keep, Mini-batch update rule 은 Image / Batch로 진행하였습니다. Even은 α값을 0.5로 고정하는 방법이고, Shake는 α값은 0~1사이의 값을 랜덤하고 곱해줍니다. Backward의 Kepp은 Forward에 사용한 α값을 그대로 사용하는것 입니다. 또한 Image는 미니배치에서 모든 이미지에 α,β 를 적용하는것이고, Batch 는 미니 배치 단위로 다 같은 α,β를 적용하는것 입니다. 위 그림과 같이 shake shake image가 가장 성능이 좋았고, Even shake batch가 가장 성능이 안 좋았습니다. shake shake image 가 가장 많은 augmentation을 적용한 것이니 당연한 결과라고 생각하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img5.png&quot; alt=&quot;Figure6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 배치사이즈를 128에서 32로 줄인 다음 CIFAR100에서 실험한 테이블 입니다. 위에 보이는 결과와 같이 배치사이즈가 줄어 들때는 S S I 조합 보다는 S E I 조합이 조금 더 경쟁력 있다는 것을 알 수 있습니다. 논문저자도 이와 관련해서 해석을 하지 못했습니다. 저 또한 그 이유를 해석하는데 어려움이 있어 혹시 아시는분은 댓글 부탁 드립니다. ㅠㅡㅠ&lt;/p&gt;
+
+&lt;h2 id=&quot;comparisons-with-state-of-the-art-results&quot;&gt;Comparisons with state-of-the-art results&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img6.png&quot; alt=&quot;Figure7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 표는 기존의 state-of-the-art 결과와 비교한 표 입니다. 보이시는 것과 같이 저자가 주장한 방법이 state-of-the-art를 달성하였습니다. CIFAR10 에서는 S S I 가 CIFAR100에는 S E I 가 가장 좋았습니다. 이 결과를 분석해보면, gradient에 β를 곱해주는 방법은 좋은 성능을 보장하지 못합니다. 제 생각에는 저자가 주장하는 방법은 gradient noise방법을 완벽하게 대체하지는 못하는 것 같습니다. 또한 논문 저나는 imagenet실험을 하지 않아 많이 아쉽습니다.(제 생각에는 imagenet에서는 잘 안될것 같긴 합니다.)&lt;/p&gt;
+
+&lt;h2 id=&quot;correlation-between-residual-branches&quot;&gt;Correlation between residual branches&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img7.png&quot; alt=&quot;Figure8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;마지막으로 논문저자는 Shake-Shake regularization을 분석합니다. residual branches사이의 공분산을 구하여 서로의 관계성을 계산합니다. 위 그림은 feature map을 펼친후 나온 스칼라 값들로 관계성을 구한것 입니다. 거의 아무것도 안해준 조합인 Even Even Batch 와 거의 모든 augmentation을 해준 Shake Shake Image 조합을 비교 하였습니다. 그 결과, Shake Shake Image 조합에서 residual branches 값들 사이의 관계성이 작게 나왔으므로, Shake-Shake regularization을 해준다면 overfitting이 일어날 확률을 낮춰줄 수 있음을 보여줍니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;후기&quot;&gt;후기&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img8.png&quot; alt=&quot;Figure9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림과 같이 사실 이 논문 저자는 실험을 상당히 많이 했습니다. BatchNorm을 사용하지 않거나, skip connection을 제거하는등 많은 실험을 하였습니다. 하지만 본 리뷰에서 그런 실험을 리뷰하지 않는 이유는 너무나도 당연하기 때문입니다. BatchNorm을 사용하면 성능저하가 있고, skip connection을 제거하면 성능의 약간의 향상은 있지만 유의미 하지는 않습니다. 또한 그 행동이 CIFAR10,100이여서 상승한 것이지 imagenet이었다면 어떻게 될지 모른다는 생각을 했습니다. 이 논문 자체로는 유의미하게 좋은 논문이라고 생각들진 않지만, shake drop, mixup, cutmix등 다른 augmentation 논문을 읽을때 큰 도움이 된다고 생각이 됩니다. (또한 이 논문이 쓸 내용이 없을떄 어떻게 논문을 꽉 꽉 채울수 있나 좋은 교본으로 느껴졌습니다 ㅋㅋㅋ)&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      <author>
+          <name>Minseok Seo</name>
+        
+        
+      </author>
+
+      
+
+      
+        <category term="paper-review" />
+      
+
+      
+        <summary type="html">Shake-Shake regularization 리뷰</summary>
+      
+
+      
+      
+    </entry>
   
     <entry>
       <title type="html">R(2+1)D</title>

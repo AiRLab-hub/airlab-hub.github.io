@@ -8,6 +8,111 @@
     
       
       <item>
+        <title>Exploring Randomly Wired Neural Networks for Image Recognition</title>
+        
+          <description>&lt;p&gt;안녕하세요 AiRLab 이상우입니다. 이번에 읽어본 논문은 Exploring Randomly Wired Neural Networks for Image Recognition 으로 Network Architecture 를 Random 하게 만들어보면 어떨까? 하는 생각을 가진 논문입니다.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 26 Nov 2019 19:00:00 +0900</pubDate>
+        <link>
+        https://blog.airlab.re.kr/2019/11/Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition</link>
+        <guid isPermaLink="true">https://blog.airlab.re.kr/2019/11/Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>DeepLabV2</title>
+        
+          <description>&lt;p&gt;DeepLabV2 리뷰&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sat, 23 Nov 2019 20:00:00 +0900</pubDate>
+        <link>
+        https://blog.airlab.re.kr/2019/11/DeepLabV2</link>
+        <guid isPermaLink="true">https://blog.airlab.re.kr/2019/11/DeepLabV2</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>PSPNET</title>
+        
+          <description>&lt;p&gt;PSPNET 리뷰&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sat, 23 Nov 2019 19:00:00 +0900</pubDate>
+        <link>
+        https://blog.airlab.re.kr/2019/11/pspnet</link>
+        <guid isPermaLink="true">https://blog.airlab.re.kr/2019/11/pspnet</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Mixup: BEYOND EMPIRICAL RISK MINIMIZATION</title>
+        
+          <description>&lt;h3 id=&quot;mixup-beyond-empirical-risk-minimization-review&quot;&gt;Mixup: BEYOND EMPIRICAL RISK MINIMIZATION Review&lt;/h3&gt;
+
+</description>
+        
+        <pubDate>Sat, 23 Nov 2019 11:00:00 +0900</pubDate>
+        <link>
+        https://blog.airlab.re.kr/2019/11/mixup</link>
+        <guid isPermaLink="true">https://blog.airlab.re.kr/2019/11/mixup</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Manifold Mixup: Better Representations by Interpolating Hidden States</title>
+        
+          <description>&lt;h3 id=&quot;manifold-mixup-better-representations-by-interpolating-hidden-states-리뷰&quot;&gt;Manifold Mixup: Better Representations by Interpolating Hidden States 리뷰&lt;/h3&gt;
+
+</description>
+        
+        <pubDate>Fri, 22 Nov 2019 11:00:00 +0900</pubDate>
+        <link>
+        https://blog.airlab.re.kr/2019/11/manifold-mixup</link>
+        <guid isPermaLink="true">https://blog.airlab.re.kr/2019/11/manifold-mixup</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Batch Normalization-Accelerating Deep Network Training by Reducing Internal Covariate Shift</title>
+        
+          <description>&lt;p&gt;Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 18 Nov 2019 19:00:00 +0900</pubDate>
+        <link>
+        https://blog.airlab.re.kr/2019/11/Batch-Normalization(+group-normalization)</link>
+        <guid isPermaLink="true">https://blog.airlab.re.kr/2019/11/Batch-Normalization(+group-normalization)</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Shake-Shake regularization</title>
+        
+          <description>&lt;h3 id=&quot;shake-shake-regularization-리뷰&quot;&gt;Shake-Shake regularization 리뷰&lt;/h3&gt;
+
+</description>
+        
+        <pubDate>Sat, 16 Nov 2019 11:00:00 +0900</pubDate>
+        <link>
+        https://blog.airlab.re.kr/2019/11/shake-shake-regularization</link>
+        <guid isPermaLink="true">https://blog.airlab.re.kr/2019/11/shake-shake-regularization</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond</title>
         
           <description>&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!

@@ -1,4 +1,546 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-11-16T22:27:16+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond</title><link href="https://blog.airlab.re.kr/2019/11/gcnet" rel="alternate" type="text/html" title="GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond" /><published>2019-11-16T11:00:00+09:00</published><updated>2019-11-16T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/gcnet</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/gcnet">&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-11-27T18:21:42+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">Exploring Randomly Wired Neural Networks for Image Recognition</title><link href="https://blog.airlab.re.kr/2019/11/Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition" rel="alternate" type="text/html" title="Exploring Randomly Wired Neural Networks for Image Recognition" /><published>2019-11-26T19:00:00+09:00</published><updated>2019-11-26T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition">&lt;p&gt;안녕하세요 AiRLab 이상우입니다. 이번에 읽어본 논문은 Exploring Randomly Wired Neural Networks for Image Recognition 으로 Network Architecture 를 Random 하게 만들어보면 어떨까? 하는 생각을 가진 논문입니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;introduction&quot;&gt;&lt;strong&gt;&lt;u&gt;Introduction&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition/figure_r_1.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;논문 저자는 네트워크의 정규한 패턴의 연결이 있는 Network Architecture가 꾸준히 발전해왔으며 이러한 연결들을 랜덤하게 연결하면 어떻게 되는지 실험을 해보았다고 합니다. 결과는 생각보다 놀라웠으며 기존의 Network 보다 성능이 더 좋거나 성능을 견줄만한 결과를 보여주었다고 합니다. 이로써 Network Architecture를 수동적으로 개발하는 것보다는 앞으로 Network generator 를 개발하는 것이 더 좋을 것이다라는 생각을 가지고 있습니다.&lt;br /&gt;
+자세하기 알아보기전에 이 논문은 랜덤하게 연결을 해보면 어떨까? 라는 것이 메인 아이디어인만큼 사실 인공지능에서 큰 영감을 줄만한 내용보다는 어떻게 하면 Network를 랜덤하게 연결하는지와 관련된 내용이 논문의 주된 구성입니다.
+하지만 제 생각에는 이 논문이 Network Architecture 의 연구 방향을 바꿀만한 논문이라 다들 한번씩 읽어보시면 좋을거 같습니다. 이제 자세한 내용을 소개해드리겠습니다.&lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;methodology&quot;&gt;&lt;strong&gt;&lt;u&gt;Methodology&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;이 논문에서 소개하는 Network generator 는  &lt;strong&gt;g(Θ,s)&lt;/strong&gt; 라는 값을 가지고 네트워크를 생성합니다. 이 값이 가지는 의미를 하나하나 설명하겠습니다. &lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Θ&lt;/strong&gt; : 네트워크의 다양한 정보를 포함하고 있는 값입니다. 예를 들어 VGG generator 가 있다면 VGG-16 으로 만들건지 VGG-34로 만들지를 결정하고 Network 의 깊이,폭,필터의 크기 등을 지정할 수 있습니다.&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;g&lt;/strong&gt; : graph의 연결을 결정합니다. 예를 들면 ResNet generator 가 있다면 F(x)의 값을 연결을 g를 통해서 x+f(x) 를 만들어 주는 값입니다. &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;g(Θ)&lt;/strong&gt; : 집합 N을 반환합니다. 위에 값으로 생성된 연결과 설정을 가지고 만든 네트워크를 반환합니다.&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;s&lt;/strong&gt; : 이 과정을 몇번 반복할 것인지 정합니다. g(θ) 를 몇번 호출하여 랜덤 네트워크 패밀리를 구성할 수 있습니다.&lt;br /&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition/figure_r_2.png&quot; width=&quot;200&quot; hight=&quot;70&quot; /&gt;&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;논문 저자는 random graph 를 생성하고, 생성된 graph를 가지고 Network에 매핑을 시키는 방식을 가지고 만들었습니다. 그래서 Network generator 는 일반적인 graph를 생성하며 시작되고, 노드를 연결하는 일련의 노드와 edge를 생성합니다. edge는 위에 그림에서 보이는 노드로 들어오거나 나가는 화살표이며, 이는 데이더의 Flow라고 합니다. 파란색 원으로 구성된 부분은 노드라고 부르며 노드는 들어오는 데이터는 weight의 합계를 통해 conv로 들어가며 conv 는 ReLu - convolution - BN triplet 로 구성되어있다고 합니다. 또 노드는 몇개의 Input,Output edge를 가질 수 있다고 합니다. 이를 통해 graph 이론의 일반 graph 생성기를 자유롭게 사용하며 graph를 얻으면 신경망에 매핑이 된다고 합니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;random-graph-models&quot;&gt;&lt;strong&gt;&lt;u&gt;Random Graph Models&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition/figure_r_3.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;위에 보시다 싶이 3가지 방법으로 짜여진 graph들이 있습니다. 이는 위에서 설명한 일반 graph 생성기로 생성된 graph들이며 이 방법들이 어떻게 사용되었는지 설명을 해드리겠습니다.&lt;br /&gt;
+첫번째 방법으로는 Erdos-R ˝ enyi 으로 &lt;strong&gt;ER&lt;/strong&gt;로 표시하고 있습니다. ER 은 N의 노드를 사용하는 경우, 임의의 두개의 노드는 다른 노드들과는 무관하게 edge가 P의 확률로 연결이 된다고 합니다. 이 방법은 모든 노드 쌍에 대해서 반복되며 ER은 P의 확률만을 가지고 있기때문에 ER(P) 로 표시한다고 합니다. &lt;br /&gt;
+두번째 방법으로는 Barabasi-Albert 으로 &lt;strong&gt;BA&lt;/strong&gt;로 표시하고 있습니다. BA 은 순차적으로 새 노드를 추가하여 랜덤 graph를 생성하며 초기 상태는 edge가 없는 M노드부터 시작된다고 합니다. 이 방법은 순차적으로 M개의 edge가 있는 노드가 생성될 때까지 반복하며, 중복되는 방향의 edge는 생성하지 않는다고 합니다. 이 과정은 N개의 노드가 생길 때까지 반복하며, BA는 단일 파라미터 M을 가지며, BA(M)으로 표시됩니다. &lt;br /&gt;
+세번째 방법으로는 Watts-Strogatz 으로 &lt;strong&gt;WS&lt;/strong&gt;로 표시하고 있습니다. WS 은 처음에 N노드는 정기적으로 링에 배치되고 각 노드는 인접한 K/2에 연결된다고 합니다. 그런 다음 시계방향 루프에서 모든 노드 V에 대해 시계방향 I번째 다음 노드에 연결하는 edge가 P의 확률로 연결이 됩니다. I는 1 ≤ i ≤ K/2 이며 K/2 번 반복된다고 합니다. &lt;br /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;experiments&quot;&gt;&lt;strong&gt;&lt;u&gt;Experiments&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition/figure_r_4.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;figure1. Comparison on random graph generators : ER,BA, and WS&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;일반 graph 생성기 3개로 생성된 네트워크들의 정확도를 비교한 사진입니다. 직관적으로 보이는 결과이니 자세한 설명은 생략하겠습니다. &lt;br /&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition/figure_r_5.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;figure2. ImageNet: small computation regime&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 논문 저자가 생성한 랜덤 네트워크로 다른 논문의 네트워크들과 비교했을 때도 정확도 면에서 경쟁력이 있는 결과는 보여줍니다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition/figure_r_6.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;figure3. ImageNet: large computation regime.&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 결과는 FLOPs와 params 수가 현저히 적은데도 불구하고 다른 네트워크들과 비슷한 정확도를 보여주고 있습니다. 가장 정확도가 좋은 PNASNNet-5와 1.3% 가 나지만 FLOPs와 params 수가 확실히 차이가 나는것을 보실 수 있습니다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition/figure_r_7.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
+&lt;center&gt;figure4. COCO object detection&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;COCO dataset 에서 backbone을 ResNet과 ResNext를 사용했을 때 보다 RandWire를 썻을 때 정확도가 전체적으로 향상되있는 것을 볼수 있습니다. FLOP은 비슷하거나 더 낮다고 하였습니다.&lt;br /&gt;
+논문을 마치며 저의 생각은 앞으로 네트워크 구조의 발전이 네트워크 생성기의 설계쪽으로 기울어져 갈것같습니다. 비록 논문의 내용이 인공지능에 영감을 줄만한 내용은 충분히 있었다고는 생각하지 않았으나 네트워크 구조에 대한 방향성이 바뀔 수 있는 논문이라 충분히 읽어볼만 하다고 생각합니다. 부족한 점은 저의 메일이나 댓글로 남겨주세요. 감사합니다.&lt;/p&gt;</content><author><name>Sangwoo Lee</name></author><category term="paper-review" /><summary type="html">안녕하세요 AiRLab 이상우입니다. 이번에 읽어본 논문은 Exploring Randomly Wired Neural Networks for Image Recognition 으로 Network Architecture 를 Random 하게 만들어보면 어떨까? 하는 생각을 가진 논문입니다.</summary></entry><entry><title type="html">DeepLabV2</title><link href="https://blog.airlab.re.kr/2019/11/DeepLabV2" rel="alternate" type="text/html" title="DeepLabV2" /><published>2019-11-23T20:00:00+09:00</published><updated>2019-11-23T20:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/DeepLabV2</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/DeepLabV2">&lt;p&gt;DeepLabV2 리뷰&lt;/p&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 노현철 입니다. 
+제가 이번에 리뷰할 논문은 &lt;strong&gt;“DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs”&lt;/strong&gt; 입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/1.png&quot; alt=&quot;Figure1&quot; /&gt;
+요번 논문을 읽기전에 DeepLabV1 논문을 읽지 않아서 인터넷을 간단하게 찾아보았습니다. 검색을 해보니 DeepLabV1에서 주장하는 내용은 CONDITIONAL RANDOM FIELDS(CRF) 라는 내용 한가지 였습니다. semantic segmentation은 픽셀단위의 조밀한 예측이 필요함으로 CRF를 후처리 과정으로 사용하여 픽셀단위 예측의 정확도를 더 높일 수 있게 되었습니다. 특히 fully connected CRF를 사용하면 위 그림과 같이 detail이 살아 있는 결과를 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/2.png&quot; alt=&quot;Figure2&quot; /&gt;
+또한 이러한 CRF를 한번만 사용하는 것이 아니라  여러번 사용하게 된다면 조금 더 좋은 결과를 얻을 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문에서는 DeepLabv1을 보완하고자 CRF를 포함한 3가지 이슈가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;1) CONDITIONAL RANDOM FIELDS (CRF)&lt;/p&gt;
+
+&lt;p&gt;2) Atrous convolution (dilated convolution)&lt;/p&gt;
+
+&lt;p&gt;3) Atrous Spatial Pyramid Pooling (ASPP)&lt;/p&gt;
+
+&lt;h5 id=&quot;atrous-convolution-dilated-convolution&quot;&gt;Atrous convolution (dilated convolution)&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/3.png&quot; alt=&quot;Figure3&quot; /&gt;
+기존 DCNN에서 receptive field을 확장 시키려면 pooling 후 convolution 했어야 했습니다. 이것은 feature들의 크기를 줄일 뿐만 아니라 연산량 또한 증가 시켰습니다. 이 논문에서 말하는 Atrous convolution은 이러한 이러한 현상들을 줄여 준다고 합니다. 이 Atrous convolution은 dilated convolution과 이름만 다를 뿐 같은 개념이라고 보시면 됩니다. Atrous convolution는 기존 convolution 과 연산량은 같지만 receptive field 가 확장되는 효과를 가져옵니다. 위에 사진을 보면 rate만큼 간격을 벌리고 그 간격은 0으로 만들어 버려서 receptive field의 크기를 확장 시키는 것 입니다.
+&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/4.png&quot; alt=&quot;Figure4&quot; /&gt;
+사진으로 비교해 보아도 pooling + conv 보단 Atrous convolution을 사용하는 것이 receptive field가 확장되있는 것을 직관적으로 볼 수 있습니다.&lt;/p&gt;
+
+&lt;h5 id=&quot;atrous-spatial-pyramid-pooling-aspp&quot;&gt;Atrous Spatial Pyramid Pooling (ASPP)&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/5.png&quot; alt=&quot;Figure5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Spatial Pyramid Pooling(SPP)은 sppnet에서 영감을 받고 쓰였다고 하는데 이 논문 spp에 Atrous convolution을 더하여 aspp이라는 방법을 제시 하였습니다.
+Atrous convolution을 사용하여 각각의 rate 값들을 각각 {6, 12, 18. 24} 로 하여 Pyramid Pooling 하였습니다. 그리고 이들의 결과들을 합쳐 각각의 receptive field를 수용하여 여러크기의 물체를 인식하는데 좋은 결과를 가져왔습니다.&lt;/p&gt;
+
+&lt;h5 id=&quot;deeplab-v1-v2-비교&quot;&gt;DeepLab v1, v2 비교&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/6.png&quot; alt=&quot;Figure6&quot; /&gt;
+DeepLab v1, v2를 구조를 사진으로 비교해보자면 우선 input image가 들어가면 v1은 기본적인 DCNN을 사용하였지만 v2는 Atrous convolution을 사용하여 DCNN을 하였습니다. 그 결과 score map의 크기가 v1보단 v2가 더 크게 나오는것을 볼 수 있습니다. 다음은 bi-linear interpolation방법을 통해 원본의 크기만큼 upsample하였습니다. 그리고 fully connected CRF을 사용하여 정확도를 한층 높였습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;experimental&quot;&gt;Experimental&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/7.png&quot; alt=&quot;Figure7&quot; /&gt;
+실험은 ‘fc6’ layer의 rate값들을 각각 다르게 하여 실험 하였습니다. 그 결과 Kernel: 7x7, rate: 4, CRF사용 하였을때가 Kernel: 3x3, rate: 12, CRF사용 하였을 때와 성능이 같은걸 볼 수 있습니다. 그러나 전자의 실험이 후자의 실험보다 parameters도 많고, speed(img/sec)도 느린것으로 나타났습니다. 그래서 DeepLab-LargeFOV은 kernel size 3×3, r = 12 을 사용하게 되었습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/8.png&quot; alt=&quot;Figure8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;두번째 실험은 위 실험에서 구한 DeepLab-LargeFOV와 ASPP안에 들어가는 Atrous convolution rate값들을 다르게 하고 비교하는 실험입니다.
+ASPP-S는 rate = {2, 4, 8, 12}, ASPP-L는 rate = {6, 12, 18, 24}입니다. 
+실험 결과 rate값이 ASPP-S보다 높게잡은 ASPP-L의 결과가 더 좋은 것으로 나타났습니다.
+&lt;img src=&quot;/assets/images/posts/2019-11-24-DeepLabV2/9.png&quot; alt=&quot;Figure9&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
+&lt;p&gt;어쩌다보니 deeplab v1을 읽지않고 v2를 먼저 읽게 되었는데 나름 v1의 내용이 많이 없어서 다행이였습니다. 다음번에는 v3를 읽고 리뷰를 써보도록 하겠습니다..!&lt;/p&gt;</content><author><name>Hyeoncheol Noh</name></author><category term="paper-review" /><summary type="html">DeepLabV2 리뷰</summary></entry><entry><title type="html">PSPNET</title><link href="https://blog.airlab.re.kr/2019/11/pspnet" rel="alternate" type="text/html" title="PSPNET" /><published>2019-11-23T19:00:00+09:00</published><updated>2019-11-23T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/pspnet</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/pspnet">&lt;p&gt;PSPNET 리뷰&lt;/p&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 노현철 입니다. 
+제가 이번에 리뷰할 논문은 &lt;strong&gt;“Pyramid Scene Parsing Network”&lt;/strong&gt; 입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;pspnet을 읽기전에 Fully Convolutional Network(FCN)에 관한 논문을 읽어보진 않아서 간단하게 인터넷으로 찾아보았습니다. FCN은 Fully Connected layer 가 없는 CNN이 통용됩다고 합니다. 이 FC layer를 없앤 이유는 위치정보의 손실 때문에 없앴다고 합니다.(Segmentation 은 위치정보가 핵심적)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/1.PNG&quot; alt=&quot;Figure1&quot; /&gt;
+이 논문에서는 FCN의 한계점을 나타내고 있습니다. 위에 사진을 보듯이 FCN은 보트를 자동차로 인식을하고, 비슷한 카테고리(건물, 초고층 빌딩)는 명확하지않고 둘 다 인식을 하고, 마지막으로 베개와 시트의 외관이 비슷해서 베개를 파싱하지 못하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;이러한 문제점들을 보완하고자 이 논문에서 제안하고있는 complex-scene parsing 이슈가 세가지가 있습니다.&lt;/p&gt;
+
+&lt;p&gt;1) Mismatched Relationship (주변 환경의 관계)&lt;/p&gt;
+
+&lt;p&gt;2) Confusion Categories (혼란의 카테고리)&lt;/p&gt;
+
+&lt;p&gt;3) Inconspicuous Classes (눈에 띄지 않는 클래스)&lt;/p&gt;
+
+&lt;h5 id=&quot;mismatched-relationship&quot;&gt;Mismatched Relationship&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/2.PNG&quot; alt=&quot;Figure2&quot; /&gt;
+FCN은 ‘보트’를 ‘자동차’로 인식을 하였습니다. 이것은 단순히 외관으로만 판단하였기 때문에 틀렸다 라고 볼 수 있습니다. 하지만 일반적으로 ‘강 위에 자동차’ 보단 ‘강 위에 보트’일 가능성이 더 큽니다. pspnet에서는 외관만 판단하는 것이 아니라 주변 환경까지 고려하여 ‘자동차’가 아닌 ‘보트’로 Prediction 하는 것입니다.&lt;/p&gt;
+
+&lt;h5 id=&quot;confusion-categories&quot;&gt;Confusion Categories&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/3.PNG&quot; alt=&quot;Figure3&quot; /&gt;
+Ground Truth를 보듯이 건물과 초고층빌딩사진에서 보듯이 FCN은 건물과 초고층 빌딩 둘 다 인식하고 있습니다. 이러한 비슷한 카테고리{(건물, 초고층 빌딩),(들판, 땅)}들은 혼돈을 줄 수 있습니다. 이러한 문제점을 해결하기 위해 global contextual information 사용하면 카테고리안에 relationship이 명확해 질 수 있다.&lt;/p&gt;
+
+&lt;h5 id=&quot;inconspicuous-classes&quot;&gt;Inconspicuous Classes&lt;/h5&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/4.PNG&quot; alt=&quot;Figure4&quot; /&gt;
+FCN은 베개와 시트의 유사한 외관으로 인해 구별을 못하고 있습니다. 이는 global scene category를 보면 베개를 파싱 못할 수 있습니다. 이를 개선하기 위해서  눈에 띄지 않는 object, stuff를 포함하는 여러 sub-regions에 global contextual information를 사용하여 해결할 수 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;pspnet구조&quot;&gt;pspnet구조&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/5.PNG&quot; alt=&quot;Figure5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 사진은 pspnet의 전체적인 구조를 설명하는 사진입니다.&lt;/p&gt;
+
+&lt;p&gt;첫번째로 input image(a)가 주어지면 CNN을 사용하여 Feature map을 얻는데 여기서 사용하는 CNN은 resnet을 사용하였고 dilated Convolution를 사용한 FCN구조라고 합니다. (dilated Convolution은 공간적 특징을 유지하기 때문에 Segmentation 많이사용) 이 Feature map 에서 local contextual information를 얻고 이것을 pool을 하게됩니다. pool의 종류에는 Max pooling, average pooling 둘 다 사용하게 되었지만 average가 우세하여 대부분은 average pooling을 사용하게 되었습니다. 이러한 pooling으로 인해 global contextual information을 얻어냅니다. 또한 pool을 할때 Pyramid Pooling Module을 사용하였고 이는 (1×1, 2×2, 3×3, 6×6)×N 의 크기를 가진 sub-region으로 만들어냅니다.&lt;/p&gt;
+
+&lt;p&gt;global contextual information의 이해를 돕기위해 사진을 보시면
+&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/6.PNG&quot; alt=&quot;Figure6&quot; /&gt;
+Feature map을 4개의 sub-region으로 나누고 2×2로 average pooling 하면 각 각의 sub-region 특징을 알 수 있습니다. 예를들어 초록 원이 자동차라면 나머지 sub-region의 특징이 물인지 도로인지 구분하여서 상황을 고려할 수 있습니다. ( Segmentaion에 있어서 더 좋은 성능)&lt;/p&gt;
+
+&lt;p&gt;끝으로 (1×1, 2×2, 3×3, 6×6)×N 을 conv하여 1/N 로 줄입니다. 그 이유는 마지막 Feature map들을 Upsampling하고 기존 Feature map과 이어붙이기 때문에 비율을 같게 해주는 것 입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;experimental&quot;&gt;Experimental&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/7.PNG&quot; alt=&quot;Figure7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;실험은 resnet을 기본으로 사용하였고 여기서 B1은 Pyramid Pooling Module의 1x1만 사용했다 라는 뜻이고, B1236 은 1x1, 2x2, 3x3, 6x6 라는 뜻입니다. max보단 average사용했을때 성능이 더 좋았고 DR-dimension reduction (N -&amp;gt; 1/N) 을 사용했을때 성능이 제일 좋았습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/8.PNG&quot; alt=&quot;Figure8&quot; /&gt;
+표에도 나타나듯이 ResNet이 깊을수록 성능이 좋았고 MS(multi-scale)사용했을때 성능이 제일 좋았습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-pspnet/9.PNG&quot; alt=&quot;Figure9&quot; /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
+&lt;p&gt;최근들어 Segmentaion에 관심이 생겨 읽게 되었습니다. 조금 아쉬웠던 점이 이 논문이 나오기 전 논문을 먼저 읽고 읽었으면 와닿는 부분이나 이론적인 부분들이 더욱 많았을텐데 라는 생각이 들었습니다. 다음번에는 pspnet 이전에 나온 논문을 읽어보고 싶습니다..!&lt;/p&gt;</content><author><name>Hyeoncheol Noh</name></author><category term="paper-review" /><summary type="html">PSPNET 리뷰</summary></entry><entry><title type="html">Mixup: BEYOND EMPIRICAL RISK MINIMIZATION</title><link href="https://blog.airlab.re.kr/2019/11/mixup" rel="alternate" type="text/html" title="Mixup: BEYOND EMPIRICAL RISK MINIMIZATION" /><published>2019-11-23T11:00:00+09:00</published><updated>2019-11-23T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/mixup</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/mixup">&lt;h3 id=&quot;mixup-beyond-empirical-risk-minimization-review&quot;&gt;Mixup: BEYOND EMPIRICAL RISK MINIMIZATION Review&lt;/h3&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다.&lt;/p&gt;
+
+&lt;p&gt;이번에 읽은 논문은 &lt;strong&gt;Mixup&lt;/strong&gt; 입니다. (&lt;a href=&quot;https://arxiv.org/abs/1710.09412&quot;&gt;arXiv:1710.09412&lt;/a&gt;)입니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;이번에는 &lt;b&gt;Data Augmentation&lt;/b&gt; 에 관련된 논문입니다. 
+&lt;b&gt;저는 Augmentation 관련 논문에서 핵심적인 부분은 결국, 한정된 Data를 어떻게 다뤄야 효과적으로 학습할 수 있을까? 에 관한 대답이라고 생각합니다.&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;논문에서 저자는 일반적으로 Dataset에 의존하여 학습하는 것을 비판하고 있습니다. 여기서 비판이란 Dataset의 원론적인 비판이 아닌, Dataset을 그대로 학습하는 것에 대한 문제점을 지적하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;“Train Data와 조금만 다른 Data를 설명할 수 없다.” 이 부분에서 Train Data에 dependent 한 문제점을 지적하고 있습니다.&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;Deeplearning이 활성화된 시기부터 계속적으로 연구되고있는 부분이기도 합니다.&lt;/p&gt;
+
+&lt;p&gt;저자는 한정적인 Dataset에서 어떻게하면 더 General 하게 model 을 만들 수 있을까에 대한 고민을 많이 한 것으로 보입니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;BackGround&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;모델의 학습을 위해서 아래와 같은 expected risk를 최소화 하여야 합니다.&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-Mixup/img_02.png&quot; width=&quot;600&quot; height=&quot;130&quot; /&gt;[figure_01] (P(x,y) = 결합분포, L = loss-funtion)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;
+ 그러나 대부분의 경우 Joint distribution(결합 확률분포(두 개 이상의 확률변수에 대한 확률분포))을 모릅니다.&lt;/p&gt;
+
+&lt;p&gt;그렇기 때문에 일반적인 학습의 경우 아래와 같이 학습할 Dataset을 사용하여 &lt;b&gt;empirical distribution&lt;/b&gt;을 아래와 같이 나타냅니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Empirical distribution(ERM)&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-Mixup/img_03.png&quot; width=&quot;600&quot; height=&quot;170&quot; /&gt;[figure_02]&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;  따라서, &lt;b&gt;위에서 구한 Empirical distribution&lt;/b&gt; P를 통하여 &lt;b&gt;Expected risk R&lt;/b&gt;을 아래와 같이 나타낼 수 있습니다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-Mixup/img_04.png&quot; width=&quot;800&quot; height=&quot;100&quot; /&gt;[figure_03]&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;  간단하게 설명하자면, [figure_01] 을 통해 model을 학습하여야 하는데, dP(x,y) 즉, (joint distribution)을 모르는 경우가 대부분이니까, Train data를 사용하여 [figure_02]와 같이 joint distribution을 empirical distribution으로 대체하여 사용한다. 라는 것입니다.&lt;/p&gt;
+
+&lt;p&gt;결과적으로 [figure_03]과 같은 식이 됩니다.&lt;/p&gt;
+
+&lt;p&gt;그리고 이를 &lt;b&gt;ERM(Empirical Risk Minimization)&lt;/b&gt; 이라고 합니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Vicinity distribution(VRM)&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;위에 설명한 joint distribution 을 vicinity distribution을 통해 대체 할 수 도 있습니다. 다음과 같습니다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-Mixup/img_05.png&quot; width=&quot;600&quot; height=&quot;140&quot; /&gt;[figure_04] virtual feature-target pair(x ̃,y ̃),&lt;br /&gt; vicinity of the training feature-target pair (xi,yi).&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;  간단하게 trian data에 가상의 어떤 data를 섞었다고 생각하면 된다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-Mixup/img_06.png&quot; width=&quot;600&quot; height=&quot;50&quot; /&gt;[figure_05]&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;
+이때 논문에서는 위와 같이 구성한다면, 즉, x ̃와 xi의 차를 평균으로 갖고, 분산값을 Sigma^2으로 갖는 정규분포가 vicinity distribution이 된다고 설명하고 있고, 이 효과는 학습데이터에 Gaussian noise을 더한 것으로 이해하면 된다고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;이를 VRM (Vicinal Risk Minimization)이라고 한다.&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;&lt;u&gt;나는 지금까지 ERM/VRM을 이해하는 것이 논문에서 제안하는 바를 이해하는데 충분한 배경이 되었다.
+&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;이제 본격적으로 &lt;b&gt;MixUp의 idea&lt;/b&gt;를 살펴보면, 다음과 같이 정리할 수 있다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-Mixup/img_07.png&quot; width=&quot;100%&quot; height=&quot;100&quot; /&gt;[figure_06] Mixup&lt;br /&gt; &lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;위에서 본 VRM과 수식이 많이 유사하다. 
+당연한 것이 VRM에서 가상의 어떤 data를 섞는 다고 했던 부분을 Dataset에서 가져와서 쓰겠다는 것이다.&lt;/p&gt;
+
+&lt;p&gt;실제 학습에서 사용되는 코드는 다음과 같다.&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_08.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_07] Mixup_pytorch_code&lt;br /&gt; &lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;code를 보면 lambda 값은 beta분포에서 뽑게 되는데, 분포가 [0,1] 사이에서 뽑아지게 됨으로, interpolation의 비율(가상의 data를 train data에 섞는 비율) 을 랜덤하면서도 적절하게 가져갈 수 있게 된다. 여기서 alpha 값은 1로 고정한다.&lt;/p&gt;
+
+&lt;p&gt;그렇게 되면 학습하는 이미지는 다음과 같이 볼 수 있다.&lt;/p&gt;
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_01.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_08] Mixup_pytorch_image&lt;br /&gt; &lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Experiments (CIFAR10 &amp;amp; 100)&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_09.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_09] Mixup_pytorch_image&lt;br /&gt; &lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;위와 같이 CIFAR 10 &amp;amp; 100 에서 기존의 성능보다 1.1% ~ 4.5% 성능을 높이게 되었다.&lt;/p&gt;
+
+&lt;p&gt;즉, 같은 model 같은 Dataset으로 x% 만큼 general한 model을 뽑게 되었다는 것이다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Experiments (corrupted label)&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_11.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_10] corrupted label Acc examples&lt;br /&gt; &lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 표를 보면 손상된 label에 대한 정확도가 기존에 방법보다 굉장히 많은 Acc를 갖는 것을 확인 할 수 있다. 또, 이 실험을 통해서 dropout과 mixup이 긍정적인 결과를 도출해 낸다는 것 또한 확인 할 수 있다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Experiments (Adversarial example)&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_10.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_11] Robustness to adversarial examples&lt;br /&gt; &lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 부분도 요즘 핫한 부분인데, 간단하게 말해서 사람눈에는 똑같이 Panda, car로 구분되지만 computer입장에서는 그렇지 못하게 만드는 즉, 오류를 범하게 만드는 noise를 첨가하는 attack 이라고 할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;FGSM,I-FGSM 의 경우 Attack mechanism 이라고 보시면 될 것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;기존 학습법 보다 Mixup의 방법이 더 높은 방어능력을 갖고 있다. 즉, 기존보다 더 adversarial attack 에 robust 하다고 볼 수 있습니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Experiments (CIFAR10)&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_12.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_12]&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 실험 결과를 통하여 Mixup에서 weight decay값은 10^-4이 좋다는 것을 설명하고 있으며, 첨가하는 data를 어떻게 하면 좋을 지에 관한 내용이 포함되어 있습니다.&lt;/p&gt;
+
+&lt;p&gt;가장 높은 Acc를 보인것은 AC + RP 입니다. 또, SC는 효과가 없다고 말하고 있습니다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;AC : mix between all classes.
+SC : mix within the same class.
+RP : mix between random pairs.
+KNN : mix between k-nearest neighbors(k=200)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;후기-implementation&quot;&gt;후기 (implementation)&lt;/h3&gt;
+
+&lt;p&gt;우선, DataAugementation에 관한 논문을 처음 접했는데 굉장히 흥미로웠다. 2019_ICCV를 다녀와서 느낀점이 많은데, 그 중 하나는 Data를 어떻게 다룰것인가에 관한 관심이 생겼다는 것이다. 천천히 읽어가면서, CutMix까지 읽어볼 생각이다.&lt;/p&gt;
+
+&lt;p&gt;이번논문을 통해, pytorch를 이용하여. 직접. 구현을 하였는데.&lt;/p&gt;
+
+&lt;p&gt;preActresnet-18의 경우 오차가 0.5% 정도로 거의 paper-performance에 가깝게 구현되었다.&lt;/p&gt;
+
+&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-23-mixup/img_13.png&quot; width=&quot;100%&quot; height=&quot;100%&quot; /&gt;[figure_13] compare performance(even | paper | my)&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;[figure_13]을 보면 알 수 있듯이 기존 model을 좀더 general 하게 가져갈 수 있다는 장점이 좋은 것 같다.&lt;/p&gt;
+
+&lt;p&gt;그리고, 혹시나 구현중에 model의 train loss 가 잘 떨어지지 않고, train Acc가 낮다고 잘 못 한거 아닌가 라는 생각을 할 수 있는데, 직접구현한 결과 mixup은 일반적으로 학습하는 cifar100 data를  막 95% 99% 학습할 수가 없다.&lt;/p&gt;
+
+&lt;p&gt;왜냐면 train data 가 그만큼 어렵기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;그러나 test loss 는 더 낮고 test Acc는 더높기 때문에 general 한 결과를 얻어낼 수 있기 때문에 긍정적인것 같다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;references&quot;&gt;[References]&lt;/h1&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;  &lt;a href=&quot;https://arxiv.org/abs/1710.09412&quot;&gt;mixup: Beyond Empirical Risk Minimization
+&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;</content><author><name>Daehan Kim</name></author><category term="paper-review" /><summary type="html">Mixup: BEYOND EMPIRICAL RISK MINIMIZATION Review</summary></entry><entry><title type="html">Manifold Mixup: Better Representations by Interpolating Hidden States</title><link href="https://blog.airlab.re.kr/2019/11/manifold-mixup" rel="alternate" type="text/html" title="Manifold Mixup: Better Representations by Interpolating Hidden States" /><published>2019-11-22T11:00:00+09:00</published><updated>2019-11-22T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/manifold-mixup</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/manifold-mixup">&lt;h3 id=&quot;manifold-mixup-better-representations-by-interpolating-hidden-states-리뷰&quot;&gt;Manifold Mixup: Better Representations by Interpolating Hidden States 리뷰&lt;/h3&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Manifold Mixup: Better Representations by Interpolating Hidden States”&lt;/strong&gt; 입니다.&lt;/p&gt;
+
+&lt;p&gt;Manifold Mixup: Better Representations by Interpolating Hidden States은(이하 Manifold Mixup) 2019ICML에 통과된 논문으로 카테고리는 Classification, Data Augmentation 입니다. 또한 딥러닝의 대가 Yoshua Bengio가 저자로 참여된 논문입니다. Manifold Mixup은 Mixup 논문에서 영감을 얻었으며, 인풋으로 들어오는 이미지 뿐만아니라, hidden states사이에서도 mixup을 하자는게 주된 내용이고, CIFAR100에서는 mixup을 능가하는 성능을 보입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;Manifold Mixup을 이해하기 위해서는 우선 매니폴드 가 무엇인지 먼저 아셔야 합니다. 저는 이 논문을 이해할 정도로만 매니폴드를 설명할 것 이니, 혹시 더 궁금하시다면, &lt;a href=&quot;https://www.youtube.com/watch?v=o_peo6U7IRM&amp;amp;t=4692s&quot;&gt;https://www.youtube.com/watch?v=o_peo6U7IRM&amp;amp;t=4692s&lt;/a&gt; 이활석님의 매니폴드 설명을 참고하시면 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img2.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 그림이 매니폴드를 나타내는 그림 입니다. 매니폴드란 데이터가 사는 공간입니다. 위의 사진처럼 한 매니폴드가 있으면, 그 위에 모든 데이터를 표현할 수 있고, 그림처럼 똑같은 4 이더라도 다 다른 위치에 있습니다. 또한 사람눈으로는 매우 닮아있는 4 라고 할지라도 매니폴드상 거리가 멀수도, 가까울 수도 있습니다. 직관적으로 딥러닝은 이러한 매니폴드에서 공통된 특성을 가로지르는 하나의 선을 찾는 것 이라고 생각하셔도 될 것 같습니다.
+이제 매니폴드를 간략하게 알았으니 다음 설명으로 넘어가겠습니다.&lt;/p&gt;
+
+&lt;p&gt;논문 저자는 친절하게 Manifold Mixup을 한줄로 요약해 줍니다. “Manifold Mixup improves the hidden representations and decision boundaries of neural networks at multiple layers.” 즉 매니폴드 믹스업이란, “다중 레이어가 있을때 그냥 믹스업 처럼 인풋만 이미지를 섞어버리면 불공평하니, 다중 레이어 모든 핏쳐맵에서 섞자!” 입니다. 실제로 이 말이 이 논문의 전부이며 앞으로는 이 말을 증명하고 실험하는 과정입니다. 또한 이 논문은 라벨 스무딩의 효과가 있다. 라고 생각하시면 이해하기 편하실것 같습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img3.png&quot; alt=&quot;Figure1&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img4.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 그림들은 저자가 2D spiral dataset으로 시각화한 그림입니다. 상단의 그림의 왼쪽은 아무것도 사용하지 않은 base이며, 상단의 오른쪽은 Manifold Mixup 입니다. 그림에서 보이는것과 같이 두개의 정확도는 비슷하지만, base는 오버피팅이 생긴 것을 한 눈에 알수 있고, Manifold Mixup은 오버피팅이 일어나지 않은 것을 볼수 있습니다. 또한 아래의 그림은 기존 유명 regularizers 들과의 성능을 정성적으로 비교한 것이며, 정성적으로는 Manifold Mixup이 좋아 보이나, “Manifold Mixup이 다른 타 regularizers들을 능가하는 방법이다!” 라고 생각하지 마시고, 그냥 저런 유명 방법들과 견줄만한 방법이다. 정도로만 생각하시면 좋을것 같습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;manifold-mixup&quot;&gt;Manifold Mixup&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img5.png&quot; alt=&quot;Figure1&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img6.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위의 수식들은 Manifold Mixup을 이해하기 쉽게 저자가 수식으로 표현한 것이며, 상단의 수식은 매니폴드에 존재하는 hidden states를 섞고, label도 그 수치만큼 섞겠다는 이야기 입니다. 아래의 수식은 전체 학습 프로세스가 어떻게 작동되는지 설명한 수식이며, 학습이 진행되면 input을 포함한 hidden states에 Mixup이 동작한다는 수식입니다. 또한 Beta는 Beta분포를 따르는 것을 의미합니다. Beta분포를 사용한 이유는 랜덤하게 뽑으면 섞이는 두 대상이 일정하게 섞일 확률이 높기 때문에, 한쪽이 더 우세하게 섞기 위하여 Beta분포를 사용한 것 입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;empirical-investigation-of-flattening&quot;&gt;Empirical Investigation of Flattening&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img7.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;논문 저자는 Flattening 하는 것이 왜 좋은가를 실험하기 위하여 MNIST데이터 셋에서 Singular Value Decomposition (SVD)을 통하여 실험합니다.
+SVD를 직관적으로 설명하면 선형대수에서 배우는 특이값 분해로 같은 이미지에서 투영변환, 스케일변환, 회전변환을 하였을때 딥러닝 관점에서 augmentation이 된 데이터들 즉 매니폴드를 지나가는 직선의 거리 라고 생각하시면 될 것 같습니다. 이러한 SVD 값이 Maniflod Mixup이 가장 작았습니다. 위의 그림은 이것을 시각화 한 것이고, Manifold Mixup을 사용한 방법에서 MNIST 데이터들이 잘 분류된걸 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img8.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;또한 논문저자는 위의 그래프와 같이 다양한 어규멘테이션에서 실험을 합니다. 논문저자가 주장한대로 Maniflod Mixup을하면 매니폴드를 직관하는 선을 찾기 쉬워져 같은 데이터라면 결과가 좋아야 합니다. 위 그래프도 논문저자가 주장한대로 매니폴드 믹스업은 다양한 데이터에서 강인합니다. 하지만 아쉬운 점은 이 논문 저자는 극한의 튜닝을 했습니다. epoch를 2000까지 돌리는둥 ,,, 최소 1200epoch를 학습합니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;experiments&quot;&gt;Experiments&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img9.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;마지막으로 실험 입니다. 논문 저자는 CIFAR10, 100 TINY Imagenet에서 실험을 하였습니다. 위의 표는 그 결과 입니다. 보이시는것과 같이 CIFAR10,100에서는 베타분포를 만들때 사용하는 알파값이 2일때 성능이 가장 좋고 Manifold Mixup에서 성능이 가장 좋습니다. 하지만 TINY Imagenet에서는 mixup보다 성능이 낮은데, 아마 tiny라 그런것이고, full imagenet이면 manifold mixup이 더 좋습니다. 그 결과는 cutmix논문을 참고하시면 확인하실수 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
+
+&lt;p&gt;이 논문은 저의 직관과 비슷하여 재미있게 읽었던 논문 입니다. 하지만 epoch를 1500까지 맞춰줘야 논문 성능을 구현 할수 있는점(저는 1200에 구현했습니다 ㅎㅎ) 하이퍼파라메터를 공개하지 않은점. 수학적으로 너무 무거운점이 아쉬웠습니다.&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Manifold Mixup: Better Representations by Interpolating Hidden States 리뷰</summary></entry><entry><title type="html">Batch Normalization-Accelerating Deep Network Training by Reducing Internal Covariate Shift</title><link href="https://blog.airlab.re.kr/2019/11/Batch-Normalization(+group-normalization)" rel="alternate" type="text/html" title="Batch Normalization-Accelerating Deep Network Training by Reducing Internal Covariate Shift" /><published>2019-11-18T19:00:00+09:00</published><updated>2019-11-18T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/Batch%20Normalization(+group%20normalization)</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/Batch-Normalization(+group-normalization)">&lt;p&gt;Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift&lt;/p&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 강혜윤입니다.&lt;/p&gt;
+
+&lt;p&gt;제가 이번에 읽은 논문은 &lt;strong&gt;Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift&lt;/strong&gt;(Batch Norm) (&lt;a href=&quot;https://arxiv.org/pdf/1502.03167.pdf&quot;&gt;arXiv:1605.07146&lt;/a&gt;)이며 2015년 발표가 된 연구입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;abstract&quot;&gt;[Abstract]&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;DNN 학습 시키는 것이 어려운 이유 : 학습을 시키는 과정에서 이전 layer의 parameter 변화로 다음 layer의 input의 분포가 변화함 (weight 값의 변화)  &lt;br /&gt;
+=&amp;gt; “internal covariate shift”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Batch normalization에서 normalization을 모델 아키텍처의 일부로 만들고, 각 mini-batch에 대해 normalization을 수행&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Batch normalization의 장점 : &lt;br /&gt;
+① 높은 learning rate 사용 가능 &lt;br /&gt;&lt;/p&gt;
+
+    &lt;p&gt;② 초기화에 크게 신경 쓰지 않아도 됨&lt;br /&gt;&lt;/p&gt;
+
+    &lt;p&gt;③ regularizer의 역할로 몇몇 경우에 Dropout을 사용하지 않아도 됨&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;[Introduction]&lt;/h3&gt;
+&lt;p&gt;▶ SGD(Stochastic Gradient Descent)&lt;/p&gt;
+
+&lt;p&gt;① Gradient Descent : loss function을 계산할 때 전체 data에 대해 계산, 계산 량이 가장 많음&lt;br /&gt;
+ (배치는 전체 데이터 셋라고 가정)&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;② Mini-batch Gradient Descent : training data의 배치(batches)만 이용해서 그라디언트(gradient)를 구하는 것&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;③ Stochastic Gradient Descent : loss function을 계산할 때 일부 data에 대해 계산 (mini-batch), 계산 량을 줄임&lt;br /&gt;
+ (확률적(Stochastic) : 용어는 각 배치를 포함하는 하나의 예가 무작위로 선택된다는 것을 의미)&lt;br /&gt;
+ 미니배치(mini-batch)가 데이터 한 개로 이루어짐&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;DNN을 효율적으로 학습시킬 수 있도록 함&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;SGD의 변형인 momentum, Adagrad 등도 있음&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;loss값을 최소화하기 위해 parameterθ을 최적화시킴&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/1.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SGD 사용 시 특징&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;① Stochastic Gradient는 실제 Gradient의 추정 값이며 이것은 미니배치의 크기 N이 커질수록 더 정확한 추정 값을 가지게 된다.&lt;br /&gt;
+ ② 미니배치를 뽑아서 연산을 수행하기 때문에 최신 컴퓨팅 플랫폼에 의하여 병렬적인 연산 수행이 가능하여 더욱 효율적이다.&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;기존의 문제점&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;① neural network를 학습하기 위한 hyper parameter들의 초기 값 설정을 굉장히 신중하게 해줘야 함 (그렇지 않으면 covariate shift가 발생할 수 있음)&lt;/p&gt;
+
+&lt;p&gt;② Saturation problem&lt;br /&gt;
+  기울기가 0이 되어 weight 업데이트량이 0이 되는 현상&lt;br /&gt;
+  sigmoid 함수에서 큰 값을 가지면 기울기가 0이 되어 사라짐&lt;br /&gt;
+  -&amp;gt; ReLU 함수 사용과 신중하게 initialization하고 작은 learning rate를 사용하면서 해결 (완전한 해결책은 아님)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Batch Normalization의 등장&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;① internal covariate shift 문제를 줄일 수 있음&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;② DNN 학습을 가속화 시킬 수 있음&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;[batch normalization 공식]&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/2.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;mini batch 단위에서 정규화 수행&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;Mini batch 내의 한 example 내에서의 Activation 들은 각각 독립적&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;Γ: scale 조정, β: shift 조정&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;experiments_mnist&quot;&gt;[Experiments_MNIST]&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/3.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;⦁Batch Normalization makes the distribution more stable and reduces the internal covariate shift.&lt;/p&gt;
+
+&lt;p&gt;[Experiments_ImageNet classification]&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/6.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;group-normalization과-batch-normalization-비교&quot;&gt;[Group normalization과 Batch normalization 비교]&lt;/h3&gt;
+
+&lt;p&gt;Normalization formulation
+&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/9.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;① Batch normalization
+&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/10.png&quot; alt=&quot;Batch Normalization&quot; /&gt;
+ -&amp;gt; batch 단위로 정규화 수행 &lt;br /&gt;
+ -&amp;gt; batch norm의 문제점 : batch size 단위로 정규화 시키는 과정에서 batch size에 의존적이게 되고, batch size가 작을 경우 학습이 잘 이루어지지 않음 &lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;② Group normalization
+&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/11.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위와 같은 문제점을 해결하기 위해 정규화를 batch 단위로 하지 않고, channel을 그룹으로 나누어 그 그룹을 단위로 정규화 수행&lt;br /&gt;
+ (더 이상 batch size에 의존적이지 않음)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/12.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;-&amp;gt; 위에 실험을 보면 batch size에 의존적인 BN은 batch size 별로 학습에 차이를 보였고, batch size에 비의존적인 GN은 어떤 batch size에도 학습이 잘 이루어지는 것을 확인할 수 있다.&lt;/p&gt;</content><author><name>Hyeyun Kang</name></author><category term="paper-review" /><summary type="html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</summary></entry><entry><title type="html">Shake-Shake regularization</title><link href="https://blog.airlab.re.kr/2019/11/shake-shake-regularization" rel="alternate" type="text/html" title="Shake-Shake regularization" /><published>2019-11-16T11:00:00+09:00</published><updated>2019-11-16T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/shake-shake-regularization</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/shake-shake-regularization">&lt;h3 id=&quot;shake-shake-regularization-리뷰&quot;&gt;Shake-Shake regularization 리뷰&lt;/h3&gt;
+
+&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“Shake-Shake regularization”&lt;/strong&gt; 입니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문은 크게보면 Data augmentation에 속하는 논문 입니다. 지금까지는 Data augmentation을 이미지에 했다면, Shake-Shake regularization 논문은 Internal Representations에 augmentation을 합니다. (Internal Representations은 feature map과, weight를 의미합니다.) 이런 Internal Representations augmentation을 통하여 그 당시 CIFAR10, CIFAR100에서 state of the art를 달성합니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img1.png&quot; alt=&quot;Figure1&quot; /&gt;
+위 그림과 같이 컴퓨터는 사람과는 다르게 물체를 일정 규칙이 있는 스칼라 값으로 인식합니다. 그렇다면 컴퓨터 입장에서는 feature map 그리고 이미지 는 일정 규칙이 있는 데이터이기 때문에 현재처럼 이미지에서만 Data augmentation을 하지말고, Internal Representations에도 Data augmentation을 해주자고 주장합니다. 또한 Internal Representations에 Data augmentation을 해주면 stochastically “blending” 효과가 있다고 주장합니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;model-description-on-3-branch-resnets&quot;&gt;Model description on 3-branch ResNets&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img2.png&quot; alt=&quot;Figure2&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img3.png&quot; alt=&quot;Figure3&quot; /&gt;
+논문 저자는 Shake-Shake regularization을 적용하기 간편한 ResNet 구조에서 실험을 하고, 이해를 돕기 위하여 위와 같은 간단한 수식을 말합니다. 위에 보이는 수식 1은 일반적은 resnet입니다. W는 weight이고, x는 텐서, F는 residual function입니다. 논문 저자는 수식 2와 같이, F앞에 일정 α(0과 1 사이의 랜덤한 값)을 곱해줘 Internal Representations에 Data augmentation을 해주는 효과를 냅니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;training-procedure&quot;&gt;Training procedure&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/cover.png&quot; alt=&quot;Figure4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 shake-shake-regularization의 전체 학습 절차 입니다. 학습의 forward 부분에서도 α[0~1] 사이의 값을 곱해줘서 data augmentation 효과를 주고, backward 부분에도 β[0~1]의 값을 곱해줘서 기존의 연구 되었던 gradient noise를 주는 방식을 gradient augmentaion으로 대체해 줄 수 있다고 논문 저자는 주장합니다. 또한 테스트시에는 0.5로 값을 고정해 줍니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;cifar-10-cifar-100&quot;&gt;CIFAR-10, CIFAR-100&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img4.png&quot; alt=&quot;Figure5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림과 같이 본 논문의 저자는 다양한 실험을 진행하였습니다. Forward pass는 Even / Shake, Backward pass는 Even / Shake / Keep, Mini-batch update rule 은 Image / Batch로 진행하였습니다. Even은 α값을 0.5로 고정하는 방법이고, Shake는 α값은 0~1사이의 값을 랜덤하고 곱해줍니다. Backward의 Kepp은 Forward에 사용한 α값을 그대로 사용하는것 입니다. 또한 Image는 미니배치에서 모든 이미지에 α,β 를 적용하는것이고, Batch 는 미니 배치 단위로 다 같은 α,β를 적용하는것 입니다. 위 그림과 같이 shake shake image가 가장 성능이 좋았고, Even shake batch가 가장 성능이 안 좋았습니다. shake shake image 가 가장 많은 augmentation을 적용한 것이니 당연한 결과라고 생각하고 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img5.png&quot; alt=&quot;Figure6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 배치사이즈를 128에서 32로 줄인 다음 CIFAR100에서 실험한 테이블 입니다. 위에 보이는 결과와 같이 배치사이즈가 줄어 들때는 S S I 조합 보다는 S E I 조합이 조금 더 경쟁력 있다는 것을 알 수 있습니다. 논문저자도 이와 관련해서 해석을 하지 못했습니다. 저 또한 그 이유를 해석하는데 어려움이 있어 혹시 아시는분은 댓글 부탁 드립니다. ㅠㅡㅠ&lt;/p&gt;
+
+&lt;h2 id=&quot;comparisons-with-state-of-the-art-results&quot;&gt;Comparisons with state-of-the-art results&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img6.png&quot; alt=&quot;Figure7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 표는 기존의 state-of-the-art 결과와 비교한 표 입니다. 보이시는 것과 같이 저자가 주장한 방법이 state-of-the-art를 달성하였습니다. CIFAR10 에서는 S S I 가 CIFAR100에는 S E I 가 가장 좋았습니다. 이 결과를 분석해보면, gradient에 β를 곱해주는 방법은 좋은 성능을 보장하지 못합니다. 제 생각에는 저자가 주장하는 방법은 gradient noise방법을 완벽하게 대체하지는 못하는 것 같습니다. 또한 논문 저나는 imagenet실험을 하지 않아 많이 아쉽습니다.(제 생각에는 imagenet에서는 잘 안될것 같긴 합니다.)&lt;/p&gt;
+
+&lt;h2 id=&quot;correlation-between-residual-branches&quot;&gt;Correlation between residual branches&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img7.png&quot; alt=&quot;Figure8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;마지막으로 논문저자는 Shake-Shake regularization을 분석합니다. residual branches사이의 공분산을 구하여 서로의 관계성을 계산합니다. 위 그림은 feature map을 펼친후 나온 스칼라 값들로 관계성을 구한것 입니다. 거의 아무것도 안해준 조합인 Even Even Batch 와 거의 모든 augmentation을 해준 Shake Shake Image 조합을 비교 하였습니다. 그 결과, Shake Shake Image 조합에서 residual branches 값들 사이의 관계성이 작게 나왔으므로, Shake-Shake regularization을 해준다면 overfitting이 일어날 확률을 낮춰줄 수 있음을 보여줍니다.&lt;/p&gt;
+
+&lt;h2 id=&quot;후기&quot;&gt;후기&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img8.png&quot; alt=&quot;Figure9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림과 같이 사실 이 논문 저자는 실험을 상당히 많이 했습니다. BatchNorm을 사용하지 않거나, skip connection을 제거하는등 많은 실험을 하였습니다. 하지만 본 리뷰에서 그런 실험을 리뷰하지 않는 이유는 너무나도 당연하기 때문입니다. BatchNorm을 사용하면 성능저하가 있고, skip connection을 제거하면 성능의 약간의 향상은 있지만 유의미 하지는 않습니다. 또한 그 행동이 CIFAR10,100이여서 상승한 것이지 imagenet이었다면 어떻게 될지 모른다는 생각을 했습니다. 이 논문 자체로는 유의미하게 좋은 논문이라고 생각들진 않지만, shake drop, mixup, cutmix등 다른 augmentation 논문을 읽을때 큰 도움이 된다고 생각이 됩니다. (또한 이 논문이 쓸 내용이 없을떄 어떻게 논문을 꽉 꽉 채울수 있나 좋은 교본으로 느껴졌습니다 ㅋㅋㅋ)&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Shake-Shake regularization 리뷰</summary></entry><entry><title type="html">GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond</title><link href="https://blog.airlab.re.kr/2019/11/gcnet" rel="alternate" type="text/html" title="GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond" /><published>2019-11-16T11:00:00+09:00</published><updated>2019-11-16T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/gcnet</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/gcnet">&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!
 오늘 소개할 논문은 GCNet으로 (&lt;a href=&quot;https://arxiv.org/abs/1904.11492&quot;&gt;arXiv:1904.11492&lt;/a&gt;)으로 이번 ICCV 2019 워크숍에서 소개가 되었던 논문입니다.&lt;/p&gt;
 
 &lt;p&gt;이전에 소개시켜드렸던 &lt;a href=&quot;https://j911.me/2019/11/nonlocal.html&quot;&gt;Non-local&lt;/a&gt;을 시각화하고, 문제점을 지적하는 논문으로 의미가 크다고 생각합니다.&lt;/p&gt;
@@ -269,539 +811,4 @@ transfer시키는 레이어의 범위는 1번째 레이어 에서부터 마지�
 &lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
 
 &lt;p&gt;랩실에 들어오고 첫 세미나 발표를 한 논문이고, 또한 끝까지 읽어본 몇 안되는 논문이라 더욱 뜻깊고 기억에 남는 논문이였습니다.
-지금은 많이 부족하지만 세미나와 논문리뷰를 하면서 실력을 한층 한층 쌓아 나아가겠습니다. 감사합니다!!!!!&lt;/p&gt;</content><author><name>Hyeoncheol Noh</name></author><category term="paper-review" /><summary type="html">Transfer learning 리뷰</summary></entry><entry><title type="html">Non-local Neural Networks</title><link href="https://blog.airlab.re.kr/2019/11/nonlocal" rel="alternate" type="text/html" title="Non-local Neural Networks" /><published>2019-11-03T11:00:00+09:00</published><updated>2019-11-03T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/nonlocal</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/nonlocal">&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!
-오늘 소개할 논문은 Non-local Neural Networks (&lt;a href=&quot;https://arxiv.org/abs/1711.07971&quot;&gt;arXiv:1711.07971&lt;/a&gt;)이며, CVPR2018에서 소개된 논문입니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
-&lt;p&gt;기존의 Convolution Neural Networks들은 3x3, 5x5과 같은 작은 Filter를 거치며 국소적인 피쳐의 특성을 추출해 낼 수 있기 때문에, Pooling과 함께 사용하며 많은 SOTA Architecture들을 만들어냈습니다.&lt;/p&gt;
-
-&lt;p&gt;하지만, 이러한 CNN 구조는 피쳐의 특수한 특성을 추출 하는 것에 대하여는 훌륭한 퍼포먼스를 보이지만, 영상의 전체의 Context를 보는 것에는 한계를 보이고 있습니다. 이번에 소개시켜드리는 Non-local Neural Networks는 기존의 Non-local Mean Filter에서 착안을 하여 네트워크가 입력의 전체적인 Context역시 학습할 수 있도록 도와줍니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;non-local-mean-filter&quot;&gt;Non-local Mean Filter&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-03-nonlocal/non-local-filter.png&quot; width=&quot;300px&quot; alt=&quot;figure1&quot; /&gt;
-Non-local Mean Filter는 기존의 영상처리에서 사용되던 denoising 알고리즘으로, 위 사진과 같이 특정 구역에 대하여, 모든 영역에 대하여 유사한 픽셀들을 찾아 평균을 처리하는 방식으로 denoising합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;non-local-networks&quot;&gt;Non-local Networks&lt;/h3&gt;
-&lt;p&gt;Non-local Networks는 Non-local Block으로 모듈화 되어 CNN 구조 사이에 삽입되어 사용될 수 있습니다.
-&lt;img src=&quot;/assets/images/posts/2019-11-03-nonlocal/non-local.png&quot; width=&quot;60%&quot; alt=&quot;figure2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 다이어그램이 Non-local Block의 다이어그램입니다. 입력된 Input에 대하여 1x1 Conv를 통하여 theta, phi, g를 만들어 낸 뒤 phi의 aixs를 교차해주어 theta와 연산 후 Softmax를 거쳐 모든 맵에 대한 Score Map를 만들어줍니다. 이 맵은 어텐션맵과 유사한 느낌으로 이해가 됩니다. 이 맵과 g를 연산하여 입력에 대하여 어텐션이 적용된 맵을 만들어준뒤 1x1 Conv를 거쳐 기존의 입력과 더하여 출력을하는 구조입니다. 따라서 Non-local 블록은 local한 정보가 아닌 Non-local한 영역까지 학습이 가능한 것입니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;application&quot;&gt;Application&lt;/h3&gt;
-&lt;p&gt;Non-local은 General하게 여러 도메인에서 사용될 수 있습니다. 유명한 네트워크들은 Action Recognition에서 I3D + ResNext101 구조에 Non-local Block를 붙인 구조와 Segmentation에 Non-local Block를 붙인 구조들이 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;I3D + Non-local&lt;/strong&gt;
-&lt;img src=&quot;/assets/images/posts/2019-11-03-nonlocal/nonlocal-i3d.png&quot; width=&quot;80%&quot; alt=&quot;figure3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 결과를 보시면, Optical Flow를 fusion한 다른 Architecture보다 NL을 붙이고 RGB영상만 사용한 구조가 더 높은 성능을 보이고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;CCNet&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-03-nonlocal/ccnet.png&quot; width=&quot;50%&quot; alt=&quot;figure4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Segmentation Task에서도 NL은 좋은 성능을 보입니다. CCNet은 이번 ICCV2019에 소개된 네트워크인데, NL이 연산량이 많은 이슈를 Criss Cross 방식을 통해 연산량은 줄이면서 NL의 효과를 그대로 가져가는 구조를 소개하였습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-03-nonlocal/CCNet-result.png&quot; width=&quot;60%&quot; alt=&quot;figure5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;결과를 보면 NL 혹은 RCCA(Recurrent Criss-Cross Attention)를 붙인 네트워크가 CityScapes와 ADE20K 에서 SOTA를 달성한 것을 볼 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;CCNet은 다음번에 자세히 리뷰해 보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;simple-implementation-of-nl&quot;&gt;Simple implementation of NL&lt;/h3&gt;
-&lt;p&gt;간단한 NL(2D)를 구현해본 코드를 공유합니다.
-&lt;a href=&quot;https://github.com/J911/DeepLabV3-NonLocal/blob/master/models/NonLocalBlock.py&quot;&gt;https://github.com/J911/DeepLabV3-NonLocal/blob/master/models/NonLocalBlock.py&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;Wang, Xiaolong, et al. “Non-local neural networks.” Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2018.&lt;/li&gt;
-  &lt;li&gt;Huang, Zilong, et al. “Ccnet: Criss-cross attention for semantic segmentation.” arXiv preprint arXiv:1811.11721 (2018).&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 Non-local Neural Networks (arXiv:1711.07971)이며, CVPR2018에서 소개된 논문입니다.</summary></entry><entry><title type="html">Fast-R-CNN</title><link href="https://blog.airlab.re.kr/2019/10/Fast-R-CNN" rel="alternate" type="text/html" title="Fast-R-CNN" /><published>2019-10-04T00:00:00+09:00</published><updated>2019-10-04T00:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/10/Fast%20R-CNN</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/10/Fast-R-CNN">&lt;p&gt;Fast-R-CNN Review&lt;/p&gt;
-
-&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다. 지난번 R-CNN 에 이어서 Fast-R-CNN 을 Review 해보려고 합니다.. ^_^&lt;/p&gt;
-
-&lt;p&gt;이번에 읽은 논문은 &lt;strong&gt;Fast-R-CNN&lt;/strong&gt;(&lt;a href=&quot;https://https://arxiv.org/abs/1504.08083&quot;&gt;arXiv:1504.08083&lt;/a&gt;)입니다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;introduciton&quot;&gt;&lt;strong&gt;&lt;u&gt;Introduciton&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;p&gt;당시 deep ConvNet[14,16]이 발전하면서 image classification과 object detection의 Acc가 상당히 향상 되었다고 합니다. &lt;br /&gt;
-당연히 classification보다 object detection이 복잡합니다. 때문에, [9,11,19,25]는 느리고 비효율적인 multi-stage pipline model을 train합니다.&lt;br /&gt;
-[14,16]은 Alex_net과 Backpropagation입니다.&lt;br /&gt;
-[9,11,19,25]는 R-CNN,SPP,Overfeat,segDeepM입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;Multi-stage_pipline&lt;/u&gt;&lt;/strong&gt;&lt;br /&gt;
-R-CNN에서 3개의 module을 따로 학습 해야하는 것을 생각하면 될 것 같습니다.&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;논문에서는&lt;/strong&gt; detection task가 object의 정밀한 localization을 필요로 하기 때문에 &lt;u&gt;두가지 issue&lt;/u&gt;가 생긴다고 합니다.&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;[Issue1]&lt;/strong&gt; : 수많은 객체 위치 후보들을 처리해야한다.&lt;br /&gt;
-이는 Speed,accuracy,simplicification을 손상시킵니다.&lt;br /&gt;
-&lt;strong&gt;[Issue2]&lt;/strong&gt; : 정확한 localization을 위해 rough_localization을 다듬어야한다.&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;때문에 논문에서는&lt;/strong&gt; [9,11]Network를 base로 하여 train과정을 단순화 합니다. (Sigle-stage traing algorthm을 제안합니다.) 결과적으로, R-CNN,SPP_net보다 VGGnet을 각각 9배,3배 빠르게 학습합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;R-CNN의 단점&lt;/u&gt;&lt;/strong&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Multi-stage pipline(train)(Region proposal,SVM,bounding-box)&lt;/li&gt;
-  &lt;li&gt;SVM과 bounding-box regressor의 경우(train) 각 image의 proposal의 feature들이 disk에 기록됩니다. (VGG16의 경우 2.5일이 소요됩니다._VOC07)&lt;/li&gt;
-  &lt;li&gt;object detection이 느리다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;논문에서는&lt;/strong&gt; Fast-R-CNN을 설명하기전, R-CNN과 SPPnet을 비교합니다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;SPPnet은 sharing compute를 이용하여 R-CNN의 속도를 높이기 위해 제안되었다.
-    &lt;ul&gt;
-      &lt;li&gt;여기서 말하는 sharing compute는 R-CNN과 달리 SPPnet은 한번의 convnet을 통과한 feature를 이용해 detection을 함으로써, end-to-end 학습이 된다는 이야기를 하는 것 입니다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;결과적으로, test:10~100배, train:3배 빠릅니다. &lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;그러나&lt;/strong&gt;, SPPnet도 주목할만한 &lt;strong&gt;단점&lt;/strong&gt;이 있습니다. (drawback)&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;SPPnet도 R-CNN과 마찬가지로, train은 multi-stage pipline(feature extraction/fine-tune(log_loss)/SVM train, bounding-box regressors 를 가집니다.) 또, feature가 disk에 기록됩니다.&lt;/li&gt;
-  &lt;li&gt;SPPnet에서 제안된 algorithm은 convolutional layer를 update할수 없고 convolution layer 전에 SPP를 할 수 없다.(network perpomance를 제한한다.)&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;Contributions&lt;/u&gt;&lt;/strong&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-04-Fast-R-CNN/figure4.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(Fast-R-CNN)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;image의 region_proposal을 crop&amp;amp;warp한 R-CNN과 달리 Fast-R-CNN은 입력이미지와 RoI_projection(object proposal)을 입력으로 받는다.&lt;/li&gt;
-  &lt;li&gt;network를 통해 convfeature map을 생성하기위해 전체 이미지를 처리한다.&lt;/li&gt;
-  &lt;li&gt;각 object proposal에 대해 RoIPooling layer가 고정길이 vector를 추출한다. (각 feature vector는 fc_layer에 연속적으로 전달된다.)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;Multi-task loss&lt;/u&gt;&lt;/strong&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-04-Fast-R-CNN/figure10.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(Multi-task loss)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;RoI pooling layer&lt;/u&gt;&lt;/strong&gt;&lt;br /&gt;
-입력이미지에 한번만 CNN을 적용하고 RoI pooling을 이용하여 object 판별을 위한 feature를 추출하자는 것이 핵심이다.&lt;br /&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;RoI로 추출할 feature size = HxW(eg.7x7)&lt;/li&gt;
-  &lt;li&gt;Feature map 위에 RoI의 좌표 (r,c,h,w)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-04-Fast-R-CNN/figure7.gif&quot; width=&quot;678&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(RoI pooling layer)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;
-Feature map위에서 h/H x w/W 만큼 Grid를 만들어 pooling 하면 결과적으로 원하는 HxW (첫 fc-layer와 호환이 되도록 하는 사이즈)feature size가 됩니다.&lt;br /&gt;
-(서로 다른 size의 region proposal이 입력되더라도 같은 size의 stride로 7x7을 만들어준다.)&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;Initializing from pre-trained networks&lt;/u&gt;&lt;/strong&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;논문에서는 pre-train된 ImageNet networks를 각각 실험합니다. pre-train network가 Fast-R-CNN을 initialize할때 3가지의 transform을 거칩니다.&lt;br /&gt;&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;마지막 maxpooling layer를 RoI pooling layer로 대체 한다.&lt;/li&gt;
-  &lt;li&gt;network_last fully connected layer와 softmax layer는  two sibling layer로 대체됩니다.&lt;/li&gt;
-  &lt;li&gt;network는 two input 을 받도록 합니다. (image list와 해당 image의 RoI 목록)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;Mini-batch sampling&lt;/u&gt;&lt;/strong&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;fine-tuning에서, N=2(image),R=128 로 하여 R/N으로 image당 64RoI를 뽑습니다. CNN연산량을 줄이는 효과가 있습니다.       다음 그림과 같은 방식을 hierarchical sampling이라고 합니다.(계층적 샘플링)
-Ground-truth와 IoU &amp;gt; 0.5 (Positive), [0.1,0.5] 일 경우 Negative로 구분합니다. (즉, IoU가 너무 낮은것은 sample로 추가하지 않는다.) 
-//train 할때, image horizontally flipped(p=0.5)의 augmentation만 사용하고 다른 augmentation 은 사용하지 않았다고 합니다. //&lt;/p&gt;
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-04-Fast-R-CNN/figure6.png&quot; width=&quot;678&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(Mini-batch sampling)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;scale-invariance&quot;&gt;&lt;u&gt;Scale invariance&lt;/u&gt;&lt;br /&gt;&lt;/h4&gt;
-&lt;p&gt;논문에서 Scal invariance 를 해결하기 위해 2가지 방법을 사용하였습니다.&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;[brute force learning]&lt;/strong&gt;&lt;br /&gt;
-train/test 에서 미리 정해진 픽셀 크기로 처리된다. 때문에, network는 train_data 로 부터 정해진 scale의 detection을 해야합니다.&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;[using image pyramids]&lt;/strong&gt;&lt;br /&gt;
-image pyramid를 통해 network는 scale invariance를 제공한다. Test 에서는 image pyramid는 각region_proposal을 nomalize하는데 사용됩니다.&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;논문에서는 GPU memory issue로 인하여 소규모 네트워크에 대해서만 multi_scale train을 하였다고 합니다. 즉, multi_scale에 관한 실험은 별로 진행하지 않았다는 것이며 논문의 내용은 scale invariance에 더 초점을 맞추고 있습니다.
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;conclusion&quot;&gt;&lt;u&gt;Conclusion&lt;/u&gt;&lt;/h4&gt;
-&lt;p&gt;저자가 말한대로 Fast-R-CNN은 R-CNN과 SPPnet과 다르게 깔끔함을 강조하고 있다.
-Fast-R-CNN의 특징은 다음과 같다. &lt;br /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;이미지당 CNN을 한번만 수행한다.&lt;/li&gt;
-  &lt;li&gt;RoI pooling layer의 도입.(마지막 max-pooling 대신 사용되었다.)&lt;/li&gt;
-  &lt;li&gt;Classification 에서 SVM을 사용하던 것 과 달리 Softmax로 변경되었다. 즉, 하나의 network가 된것이다.&lt;/li&gt;
-  &lt;li&gt;Multitask loss 에서 보면 bounding Box regressor 또한 network의 부분이 되었다. &lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;이러한 특징을 바탕으로&lt;/strong&gt; , R-CNN/SPPnet과 달리 mAP가 높고, multi-task loss 를 이용하여 single-satge train이 가능하고, end-to-end학습이 가능하고 feature caching을 하지 않으므로 disk 공간을 필요로 하지 않는다는 장점이 있다.&lt;/p&gt;
-
-&lt;p&gt;Fast-R-CNN의 다음 버전인, Faster-R-CNN은 region proposal 생성 방식의 개선을 주 논점으로 다룹니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;R. Girshick. Fast R-CNN. arXiv:1504.08083, 2015.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Daehan Kim</name></author><category term="paper-review" /><summary type="html">Fast-R-CNN Review</summary></entry><entry><title type="html">R-CNN</title><link href="https://blog.airlab.re.kr/2019/10/R-CNN" rel="alternate" type="text/html" title="R-CNN" /><published>2019-10-01T00:00:00+09:00</published><updated>2019-10-01T00:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/10/R-CNN</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/10/R-CNN">&lt;p&gt;R-CNN Review&lt;/p&gt;
-
-&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다. R-CNN을 시작으로 paper review post 를 작성하려고 합니다. ^_^&lt;/p&gt;
-
-&lt;p&gt;이번에 읽은 논문은 &lt;strong&gt;R-CNN&lt;/strong&gt;(Rich feature hierarchies for accurate object detection and semantic segmentation) (&lt;a href=&quot;https://arxiv.org/abs/1311.2524&quot;&gt;arXiv:1311.2524&lt;/a&gt;)입니다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;introduciton&quot;&gt;&lt;strong&gt;&lt;u&gt;Introduciton&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;p&gt;논문 발표 이전&lt;strong&gt;SIFT&lt;/strong&gt;와 &lt;strong&gt;HOG&lt;/strong&gt; 에 상당한 기반을 두고 visual recognition task를 수행했다고 합니다. 그러나 낮은 perpomance 로인해 R-CNN을 고안 하였습니다. 
-여기서 SIFT와 HOG를 간단하게 설명하면, 다음과 같습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;SIFT&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure1.jpg&quot; alt=&quot;figure1&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt; SIFT feature vector는 feature 주변의 영상패치를 4x4 블럭으로 나누고, (1) 각 블럭에 속한 pixel들의 gradient방향과 크기에 대한 histogram을 구하고 bin값으로 연결한 128차원 벡터 입니다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;크기, 형태, 방향에 강인하면서도 구분력이 뛰어나다.&lt;/li&gt;
-  &lt;li&gt;기하학적 정보는 무시하고 feature 단위로 매칭을 수행한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;HOG&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure2.jpg&quot; alt=&quot;figure2&quot; /&gt;&lt;br /&gt;
- HOG 는 대상 영역을 일정 셀로 분할한뒤, 각 셀마다 edge pixel들의 방향에 대한 histogram을 구한 뒤 이를 bin값으로 연결한 벡터 이다. (edge의 방향 histogram으로 본다.)&lt;br /&gt;
-블록 단위로는 기하학적 정보를 유지하고, 그 내부는 histogram을 사용하여 local변화에 어느정도 강인하다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;template matching과 histogram maching에 중간 단계의 매칭방법이다.&lt;/li&gt;
-  &lt;li&gt;기하학적 정보와 local 한 정보를 모두(일정 양) 가진다.&lt;/li&gt;
-  &lt;li&gt;figure2를 보면 알겠지만 edge의 방향정보를 사용하기 때문에 특이한(독특한) edge를 갖는 object를 식별하는데 적합한 영상 feature이다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;SIFT/HOG&lt;/th&gt;
-      &lt;th style=&quot;text-align: left&quot;&gt;SIFT&lt;/th&gt;
-      &lt;th&gt;HOG&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;이용하는 정보&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;local information&lt;/td&gt;
-      &lt;td&gt;edge information&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;형태변화가 심한 경우 detection&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;esay&lt;/td&gt;
-      &lt;td&gt;difficult&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;example&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;액자속 그림(패턴)&lt;/td&gt;
-      &lt;td&gt;자동차, 배드민턴 라켓&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;**&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;복잡한 image&lt;/td&gt;
-      &lt;td&gt;단순하고 독특한 image&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;이 논문에서는 &lt;strong&gt;HOG 기반의 시스템 보다 CNN을 사용하여 높은 performance를 보여주기 위해 2가지 문제&lt;/strong&gt;에 초점을 맞춥니다.&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;u&gt;[One]&lt;/u&gt; sliding-window 의 문제점을 파악하고 region proposal Algorithm을 사용했다.&lt;/p&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure4.png&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(sliding-window method)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure5.png&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(region-proposal method)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;sliding window는 탐색해야하는 영역의 수가 이미지 전체이기 때문에 비효율적이고 입력 영상에 ‘물체가 있을거 같은’ 영역을 빠른 속도로 찾아내는 region proposal algorithm을 사용 하였다.&lt;br /&gt;
-&lt;strong&gt;결과적으로 search space가 훨씬 줄어들기 때문에 빠르고 효율적 이다.&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;u&gt;[Two]&lt;/u&gt; large CNN을 training하기 위한 충분한 dataset이 없었고, ILSVRC DATA로 pre-training 된 model을 가져와서 fine-tune 하여 PASCAL DATA에 적용하였다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;object-detection-with-r-cnn&quot;&gt;&lt;strong&gt;&lt;u&gt;object detection with R-CNN&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;p&gt;                   R-CNN은 3가지의 module 로 구성되어 있습니다.
-&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure3.png&quot; alt=&quot;figure3&quot; /&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;region proposal을 얻어내는 module&lt;/li&gt;
-  &lt;li&gt;CNN에 넣어 feture map을 얻어내는 module&lt;/li&gt;
-  &lt;li&gt;CNN을 통해 추출된 feture map을 이용하여 Linear SVM을 사용하여 분류하는 module&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;이때, CNN model은 Alexnet을 거의 그대로 가져와 사용하였다.&lt;br /&gt;
-당연히 CNN은 고정 크기의 input을 입력으로 받기 때문에. region proposal을 CNN에 넣기 위해 crop &amp;amp; warp 를 한다.
-논문에 나와있지만, 읽다보면 왜 R-CNN은 Classifier로 Softmax를 쓰지 않고 SVM을 사용했는지에 대한 의문이 들 수 있다. 근데 이는 수식적에 근간을 두고 사용한 것이 아닌 실험적인 결과로 Softmax를 사용했을때 mAP가 낮아졌기 때문에 SVM을 사용한 것 이다.(54.2% -&amp;gt; 50.9%)&lt;/p&gt;
-
-&lt;p&gt;SVM을 간단하게 설명하면 CNN으로 부터 추출된 featuer vector들을 class별로 점수를 주고 object인지 아닌지 object라면 어떤 object 인지 판별하는 classifier이다.&lt;/p&gt;
-
-&lt;p&gt;figure를 보면 Bbox reg 라는 부분이 있는데 bounding Box Regression인데 이는 필수로 사용해야 하는 부분은 아니라고 한다. 그러나 사용한 mAP가 더 좋기 때문에 사용하는 것을 권장한다.&lt;/p&gt;
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure6.png&quot; width=&quot;400&quot; height=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(Bounding-box method)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;
-ground-truth(G) 와 Predicted-Box(P) 가 있을때, P를 G로 mapping 해주는 것이다.&lt;/p&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure7.png&quot; width=&quot;600&quot; height=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(Result)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;
-결과적으로, 다음과 같은 output을 얻을 수 있다.&lt;/p&gt;
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;논문을-읽으면서-여러자료들을-참고하여-r-cnn의-단점을-이해해-보았다&quot;&gt;&lt;u&gt;논문을 읽으면서 여러자료들을 참고하여 R-CNN의 단점을 이해해 보았다.&lt;/u&gt;&lt;/h4&gt;
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-10-01-R-CNN/figure8.png&quot; width=&quot;900&quot; height=&quot;200&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(Table)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;
-위와 같이 VOC2010 test에서 좋은 성능을 보였지만 단점은 존재한다.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;region proposal된 약 2K의 image를 모두 crop하고 warp하는 과정에서 cpu를 통해 이뤄지기 때문에, 매우 비효율 적이라는 점을 이해하였다.&lt;br /&gt;
-&lt;strong&gt;직접 경험해본 일화&lt;/strong&gt;중 하나는, 1980x1080 를 224x224 image preprocessing 하는 과정이 오래걸려서 GPU가 놀고 있는 시간이 많았던 적이 있다. (224x224 image를 따로 저장하여 문제 해결.)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;3가지의 module을 따로 학습해야하기 때문에 비효율적이다.
-&lt;strong&gt;때문에 Fast_R-CNN에서 Multi-task loss&lt;/strong&gt;를 사용한다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;end-to-end 학습이 불가능 하다.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Daehan Kim</name></author><category term="paper-review" /><summary type="html">R-CNN Review</summary></entry><entry><title type="html">Mean teachers are better role models</title><link href="https://blog.airlab.re.kr/2019/09/mean-teacher" rel="alternate" type="text/html" title="Mean teachers are better role models" /><published>2019-09-19T11:00:00+09:00</published><updated>2019-09-19T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/09/mean-teacher</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/09/mean-teacher">&lt;p&gt;Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results&lt;/p&gt;
-
-&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!&lt;/p&gt;
-
-&lt;p&gt;오늘 소개할 논문은 Mean teachers are better role models (&lt;a href=&quot;https://arxiv.org/abs/1703.01780&quot;&gt;arXiv:1703.01780&lt;/a&gt;)이며, NIPS 2017에서 소개된 논문입니다.&lt;/p&gt;
-
-&lt;p&gt;이 논문은 Semi-Supervised Leaning에 관련된 논문이고, Π Model과 Temporal ensemble 이후에 소개되었습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-09-19-mean-teacher/figure1.png&quot; width=&quot;80%&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;π-model&quot;&gt;Π Model&lt;/h4&gt;
-&lt;p&gt;Π Model은 위 그림의 위 쪽과 같은 구조와 같이, 라벨이 주어진 경우 Closs Entropy를 사용하여 학습을 하고, 라벨이 주어지지 않은 경우는 augmented input의 결과와 이전과 다른 dropout 과 augmention을 사용한 결과의 squared difference를 이용해 학습을 합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;temporal-ensemble&quot;&gt;Temporal ensemble&lt;/h4&gt;
-&lt;p&gt;Temporal ensemble과 Π Model의 차이점은 라벨이 주어지지 않았을 때 Temporal ensemble은 이전의 결과에 대한 값들을 앙상블한 결과를 가지고 학습을 하는 것입니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;mean-teacher&quot;&gt;Mean Teacher&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-09-19-mean-teacher/cover.png&quot; width=&quot;80%&quot; alt=&quot;figure3&quot; /&gt;
-위에서 소개한 두개의 모델은 모델을 공유하여 학습이 되지만, Mean Teacher의 경우 Student와 Teacher 모델로 나뉘어 학습이 진행됩니다. Teacher 모델은 Student 모델의 Weight를 공유하고, 대신에 Student모델의 아래의 방식과 같이 EMS Weight를 사용합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-09-19-mean-teacher/figure2.png&quot; width=&quot;30%&quot; alt=&quot;figure2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그 후 라벨이 주어지지 않은 경우 기존 방식과 유사하게 Teacher 모델과 Student 모델의 consistency cost (J)를 계산하여 학습이 진행되게 됩니다.
-&lt;img src=&quot;/assets/images/posts/2019-09-19-mean-teacher/figure3.png&quot; width=&quot;40%&quot; alt=&quot;figure3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이러한 방법은 Temporal ensemble에 비하여 2가지 이점을 가지는데, 첫 번째는 Student와 Teacher 사이의 빠른 Feedback이 가능하여 더 높은 ACC를 가지게 되는 것이고, 두 번째는 large scale datasets을 online으로 학습할 수 있는 것 입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-09-19-mean-teacher/table1.png&quot; width=&quot;80%&quot; alt=&quot;table1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 결과와 같이 SVHM과 CIFAR10 에서의 Mean Teacher를 사용한 네트워크가 Π Model과 Temporal ensemble보다 더 높은 퍼포먼스를 보임을 확인할 수 있습니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Tarvainen, Antti, and Harri Valpola. “Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results.” Advances in neural information processing systems. 2017.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Rasmus, Antti, et al. “Semi-supervised learning with ladder networks.” Advances in neural information processing systems. 2015.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Laine, Samuli, and Timo Aila. “Temporal ensembling for semi-supervised learning.” arXiv preprint arXiv:1610.02242 (2016).&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">Mean teachers are better role models: Weight-averaged consistency targets improve semi-supervised deep learning results</summary></entry><entry><title type="html">R(2+1)D</title><link href="https://blog.airlab.re.kr/2019/09/R(2+1)D" rel="alternate" type="text/html" title="R(2+1)D" /><published>2019-09-18T19:00:00+09:00</published><updated>2019-09-18T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/09/R(2+1)D</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/09/R(2+1)D">&lt;h3 id=&quot;a-closer-look-at-spatiotemporal-convolutions-for-action-recognition-리뷰&quot;&gt;A Closer Look at Spatiotemporal Convolutions for Action Recognition 리뷰&lt;/h3&gt;
-
-&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 서민석입니다. 제가 이번에 리뷰할 논문은 제목에도 써 있는것과 같이 &lt;strong&gt;“A Closer Look at Spatiotemporal Convolutions for Action Recognition”&lt;/strong&gt; 입니다.&lt;/p&gt;
-
-&lt;p&gt;이 논문은 Facebook에서 “Du Tran”씨가 2018년도에 cvpr에서 발표한 논문입니다. 이 논문은 3D conv를 공간정보와 시간정보로 나눠 conv하는 구조를 처음 제안하였고, 다양한 spatiotemporal conv 방법들을 비교합니다. 또한 Sports-1m, kenetics, ucf101, hmdb51에서 state-of-the-art를 달성합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
-
-&lt;p&gt;AlexNet이 처음공개된 이후로 이미지 인식 분야는 multi-scale convolutions, residual learning, dense connections 과 같은 많은 진보가 있었습니다. 반면에 비디오 분야에서는 “새롭다” 하는 큰 발전이 없습니다. 현재의 state-of-the-art인 I3D또한 bset hand-crafted 방법인 iDT랑 비교하였을때 그렇게 놀랄만한 진보는 아닙니다.(저의 의견이 아닙니다. 논문저자의 의견입니다 ㅎㅎ.) 또한 image-based 2D CNN의 Sports-1M에서의 성능은 state-of-the-art랑 비슷합니다.(저자는 3D conv의 진보는 없고, image-based 방법이랑 별 차이가 없다고 강조하는것 같습니다.) 이러한 결과에 기초하여, 시퀀스의 정적 프레임에 이미 포함 된 강력한 행동 클래스 정보 때문에, 시간적 추론이 정확한 행동 인식에 필수적이지 않다고 생각 할 수도 있습니다. 논문저자는 시간적 정보가 행동인식에 필수적이지 않다는 생각을 제거하기 위하여, 다양한 실험을 진행합니다. 논문저자들의 실험에 의하면, 3D ResNets이 Sports-1M 및 Kinetics과 같은 action recognition benchmarks에서 훈련되고 평가 될 때 동일한 깊이에 대해 2D ResNets보다 월등히 뛰어남을 보여줍니다. 이러한 실험결과에 기초하여, 논문 저자들은 2D cnn과 3d cnn 사이의 R(2+1)D를 제안합니다. (2+1)D의 의미는 3D conv를 두개의 개별적인 2D 공간 conv와 1D 시간 conv로 분해하는것 입니다. 첫번째 장점은 파라메터가 증가하지 않고, relu를 두번 사용할 수 있기때문에 비선형성을 증가시킬수 있습니다. 두번째 장점은 optimization하는 것을 도와주는 것입니다. 아래의 그림은 똑같은 구조여도 R(2+1)D가 더 최적화가 잘된다는 그래프 입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-09-19-RD/img1.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;convolutional-residual-blocks-for-video&quot;&gt;Convolutional residual blocks for video&lt;/h2&gt;
-
-&lt;p&gt;이 논문에서 사용하는 residual blocks은 전부 “vanilla” residual blocks을 사용합니다. 아래의 표현에서 3 x L x H x W,라는 표현들이 나오는데, 3은 rgb 3채널, L을 프레임 길이, H는 높이, W 넓이 입니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;r2d-2d-convolutions-over-the-entire-clip&quot;&gt;R2D: 2D convolutions over the entire clip&lt;/h4&gt;
-
-&lt;p&gt;R2D는 2D CNN방법이고, 3L x H x W 입니다. 즉 프레임의 길이를 하나의 차원으로 보는것이 아니라, 채널로 보는것 입니다. 1프레임당 3채널씩 할당되는것 입니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;f-r2d-2d-convolutions-over-frames&quot;&gt;f-R2D: 2D convolutions over frames&lt;/h4&gt;
-
-&lt;p&gt;f-R2D는 2D CNN방법이고, 프레임을 채널로 쌓아서 사용하는 방법이 아니라, 전체의 프레임을 개별적으로 2D CNN 하는 방법 입니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;r3d-3d-convolutions&quot;&gt;R3D: 3D convolutions&lt;/h4&gt;
-
-&lt;p&gt;R3D는 가장 일반적은 3D conv 방법이고, 3 x L x H X W 입니다. 프레임을 시간축을 하나 추가하여 stack하고 3D conv를 하는것 입니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;mcxand-rmcx-mixed-3d-2d-convolutions&quot;&gt;MCxand rMCx: mixed 3D-2D convolutions&lt;/h4&gt;
-
-&lt;p&gt;한 가지 가설은 모션 모델링(즉, 3D convolution)이 초기 계층에서 특히 유용할 수 있는 반면, 후반 계층에서는 필수적이지 않는다는 가설 입니다. 학습초기에는 3D ResNets (R3D)를 초기에 사용하고, 후반에는 2D conv를 사용합니다. 또 그 반대는 학습초기에는 2D conv를 사용하다가 후반에는 3D conv 사용하는 방법입니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;r21d-21d-convolutions&quot;&gt;R(2+1)D: (2+1)D convolutions&lt;/h4&gt;
-
-&lt;p&gt;또 이 방법은 논문저자가 주장하는 방법인데, full 3D conv를 2D의 공간 conv와 1D 시간 conv로 분해합니다. 논문 저자는 3D convolutional filters(N×t×d×d)를  N x 1 x d x d 와 M x t x 1 x 1로 분해 합니다. 그렇게하면 기존의 3D conv와 동일하면서, 비선형성을 증가시키고 최적화에 도움을 줍니다. 아래의 그림은 앞에서 언급한 다양한 구조의 그림입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-09-19-RD/img2.png&quot; alt=&quot;Figure2&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;experiments&quot;&gt;Experiments&lt;/h3&gt;
-
-&lt;p&gt;이 논문의 저자는 Resnet을 사용하기 위하여, 오버피팅이 나타나지 않기 위하여 충분히 큰 데이터셋인 Sport 1M, Kinetics을 사용합니다. 또한 다른 작은 데이터셋에서 잘 작동하나 궁금하기 때문에, UCF101,HMDB51에 transfer learning을 적용합니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;experimental-setup&quot;&gt;Experimental setup&lt;/h4&gt;
-
-&lt;p&gt;모든 프레임의 사이즈는 112 x 112로 사용하였고,자세한 구조는 아래의 그림을 봐주시면 됩니다. 다양한 디테일이 논문에 언급되는데 더 자세하게 알고 싶으시면 논문을 읽어보시는걸 추천드립니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;comparison-of-spatiotemporal-convolutions&quot;&gt;Comparison of spatiotemporal convolutions&lt;/h4&gt;
-
-&lt;p&gt;R2D부터 R(2+1)D까지 모든 net을 clip단위와 video단위로 평가합니다. 아래의 첨부한 그림을 보면, 이 논문저자가 주장한 R(2+1)D 방법은 R3D방법과 파라메터 차이는 나지 않지만 정확도는 모든 부분에서 가장 높은걸 확인할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-09-19-RD/img3.png&quot; alt=&quot;Figure3&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;action-recognition-with-a-34-layer-r21d-net&quot;&gt;Action recognition with a 34-layer R(2+1)D net&lt;/h4&gt;
-
-&lt;p&gt;이 부분에서는 다양한 데이터셋과 기존의 방법들에서 실험한 결과들을 정리합니다. 아래의 표를 확인해 보시면 i3d-two-stream방법을 제외하고는 모두 1등을 달성하였습니다. i3d-two-stream방법에 비하여 정확도가 낮은 이유는 옵티컬 플로우를 뽑는 방법이 i3d는 tvl1 방법이지만, 이논문의 저자는 Farneback’s 방법을 사용하기 때문이라고 논문 저자는 추측하고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-09-19-RD/img4.png&quot; alt=&quot;Figure4&quot; /&gt;
-&lt;img src=&quot;/assets/images/posts/2019-09-19-RD/img5.png&quot; alt=&quot;Figure5&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
-
-&lt;p&gt;이 논문을 읽으면서 I3D의 논문과 매우 비슷하다고 생각했습니다. 하지만 이 논문은 hand-craft논문들도 잘 정리해 줘서 좋았고,Farneback 방법과 tvl1방법의 차이라던지, 다양한 기술들에 대하여 잘 기술한것 같습니다. 하지만 제가 개인적으로 생각할때 이 논문 또한 뭐 대단한 하게 새로운 아이디어라고 생각하지 않습니다.&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">A Closer Look at Spatiotemporal Convolutions for Action Recognition 리뷰</summary></entry><entry><title type="html">2019년 2학기 정기 상담 안내</title><link href="https://blog.airlab.re.kr/2019/09/190903" rel="alternate" type="text/html" title="2019년 2학기 정기 상담 안내" /><published>2019-09-03T19:00:00+09:00</published><updated>2019-09-03T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/09/190903</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/09/190903">&lt;p&gt;한밭대학교 정기상담 안내&lt;/p&gt;
-
-&lt;p&gt;최동걸 교수님 상담학생은 아래 한글파일을 참조하여 상담하시기 바랍니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/post-files/2019-09-03-notice/19년2학기1차상담_학번_이름.hwp&quot; target=&quot;_blank&quot;&gt;19년2학기1차상담_학번_이름.hwp&lt;/a&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;상담을 원하는 학생은 &lt;strong&gt;이번주 금요일 (9월 6일)까지&lt;/strong&gt; 교수님 방문 앞 종이에 상담 요청 시간을 적을 것.&lt;/li&gt;
-  &lt;li&gt;상담 받기 하루 전 위 파일을 내려받아 빨간색으로 표시되어 있는 부분을 본인에 맞게 작성하고 &lt;strong&gt;파일 제목을 19년2학기1차상담_학번_이름.hwp로 작성하여 dgchoi@hanbat.ac.kr로 보낼 것&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;상담 내용은 공백 제외 &lt;strong&gt;최소 500자 이상&lt;/strong&gt; 작성할 것&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;대면 상담을 추천하지만 상담일정상 바쁜 학생은 서면상담으로 대체 가능&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>AiRLab.</name></author><category term="notice" /><summary type="html">한밭대학교 정기상담 안내</summary></entry><entry><title type="html">Unified Perceptual Parsing for Scene Understanding</title><link href="https://blog.airlab.re.kr/2019/08/upernet" rel="alternate" type="text/html" title="Unified Perceptual Parsing for Scene Understanding" /><published>2019-08-21T19:03:00+09:00</published><updated>2019-08-21T19:03:00+09:00</updated><id>https://blog.airlab.re.kr/2019/08/upernet</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/08/upernet">&lt;h1 id=&quot;unified-perceptual-parsing-for-scene-understanding&quot;&gt;Unified Perceptual Parsing for Scene Understanding&lt;/h1&gt;
-&lt;p&gt;Understanding&lt;/p&gt;
-
-&lt;p&gt;안녕하세요! &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이소열입니다!&lt;/p&gt;
-
-&lt;p&gt;이번에 소개할 논문은 &lt;strong&gt;Unified Perceptual Parsing for Scene Understanding&lt;/strong&gt;입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;이 논문의 실제 구현은 https://github.com/CSAILVision/unifiedparsing 에 있습니다!&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h2&gt;
-
-&lt;p&gt;인간의 눈은 한번 장면을 본 것 뿐으로, 매우 다양한 정보를 추출해낼 수 있습니다. 어떤 장면을 보고있는것인지, 이 물체가 무엇인지, 이 물체가 무엇으로 이루어져 있는지(part), 어떤 재질, 재료로 이루어져 있는지 등 다양한 정보가 담겨있습니다. 
-딥러닝과 이미지처리의 발전으로 인간 수준의 recognition이 가능하게 되었지만, 다양한 visual recognition task들은 독립적으로 진행되었습니다. 독립적으로 진행됨에 따라, 이 다양한 작업들을 동시에 진행/학습할 수 있을까? 라는 의문이 생기게 되었고, 이는 논문의 motive가 되었습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-upernet/01.png&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&amp;lt; UperNet의 다양한 task &amp;gt;&lt;/p&gt;
-
-&lt;p&gt;UperNet에는 여러가지 challenge가 있습니다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;어떠한 데이터셋에도, 모든 task(level)의 annotation이 있는 데이터셋이 없다. 예를들어, ADE20K는 scene parsing, DTD에는 texture recognition 등 데이터셋에 하나의 task의 annotation만 존재한다.&lt;/li&gt;
-  &lt;li&gt;여러 데이터셋에서 나온 annotation들은 heterogeneous이다(서로 종류가 다름). 예를들어, ADE20k는 pixel-wise annotation들을 가지고 있는 반면, DTD는 image-level annotation들을 가지고 있다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;이러한 challenges를 다루기 위해, 이 논문에서는 다른 데이터셋을 다루고, 여러 level의 task를 학습하는 새로운 framework를 제안합니다.&lt;/p&gt;
-
-&lt;p&gt;이 framework는 단일 네트워크에서 feature의 계층적 특성을 이용합니다. 이게 어떤 장면인가를 판별할 때는, high-level feature를 사용하고, object segmentation, part segmentation등은 모든 level의 feature를 사용합니다.&lt;/p&gt;
-
-&lt;p&gt;이 논문에서 주장하는 contributions은 다음과 같습니다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;한번에 multiple visual concepts를 분석하는 framework 제안&lt;/li&gt;
-  &lt;li&gt;여러 종류의 dataset에서 학습되는 계층적 구조의 Network 제안&lt;/li&gt;
-  &lt;li&gt;이 모델이 하나의 이미지에서 다양한 정보를 찾아낼 수 있음을 발견&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;2-defining-unified-perceptual-parsing&quot;&gt;2. Defining Unified Perceptual Parsing&lt;/h2&gt;
-
-&lt;h3 id=&quot;21-datasets&quot;&gt;2.1 Datasets&lt;/h3&gt;
-
-&lt;p&gt;다양하고 넓은 visual concept의 segmentation을 수행하기 위해, 이 논문에서는 &lt;strong&gt;Broadly and Densely Labeled Dataset (Broden)&lt;/strong&gt; 을 사용합니다. Broden dataset이라고 표현이 계속되는데, 여러가지 데이터셋을 합치고, 이 네트워크에서 학습을 할 수 있게 간단한 조정을 한 데이터셋 입니다. 이 논문에서 Broden dataset을 위해 ADE20K, Pascal-context, Pascal-Part, OpenSurfaces, DTD데이터셋을 합쳤습니다. 결과적으로, Broden dataset에는 scenes, objects, objects parts, material and textures의 정보가 담겨있습니다.&lt;/p&gt;
-
-&lt;p&gt;하지만, 이 데이터셋에는 다른 클래스의 sample들로부터 unbalance함을 발견했습니다. 따라서, Broden dataset을 구성할 때, 다음과 같은 정책들을 기본으로 하였습니다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;다른 데이터셋에서부터 다온 서로다른 비슷한 concepts들을 합침. 예를 들어 ADE20K, Pascal-Context 및 Pascal-Part의 object 및 part 주석이 병합 및 통합됨.&lt;/li&gt;
-  &lt;li&gt;최소 50개 이상의 데이터가 있는 class만 포함시키며, 최소 20개 이상의 part image만 포함시킴.&lt;/li&gt;
-  &lt;li&gt;OpenSurface 데이터셋에서 under-sample된 label을 수동으로 합침. 예를 들어, stone과 concrete는 stone으로 합치고, 투명 plastic과 불투명 plastic은 plastic으로 합침. 또한, 50게 이하의 이미지를 갖는 label도 제거함.&lt;/li&gt;
-  &lt;li&gt;400 scene label이 넘는 AKE20K를 365개의 label을 가진 Places 데이터셋에 맞춤.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-upernet/02.png&quot; alt=&quot;table1&quot; /&gt;
-&amp;lt; Broden 데이터셋의 구성 &amp;gt;&lt;/p&gt;
-
-&lt;p&gt;위의 표가 Broden dataset의 구성입니다. 여러가지 task를 위한 데이터셋을 사용하였고, 또한 성능 측정 기준을 task마다 달리 하였으며, class의 수를 맞춰주었습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;22-metrics&quot;&gt;2.2 Metrics&lt;/h3&gt;
-
-&lt;p&gt;모델의 성능을 측정하기 위해, 각 데이터셋의 annotations마다 다른 metrics을 사용하였습니다. semantic segmentation을 측정하기 위해 Pixel Accuracyt(P.A.)와 mean IoU(mIoU)를 사용하였습니다. image에 unlabeld area가 존재하는데, 그 부분은 계산을 할 때 제외하였습니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;3-designing-networks-for-unified-perceptual-parsing&quot;&gt;3. Designing Networks for Unified Perceptual Parsing&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-upernet/03.png&quot; alt=&quot;figure2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&amp;lt; UperNet의 구조 &amp;gt;&lt;/p&gt;
-
-&lt;p&gt;UperNet은 위와 같은 구조로 구성되어있습니다. 기본적으로 Feature Pyramid Network(FPN)의 형태로 구성되어있습니다. FPN이란, 피라미드 구조로, 다중 레벨 feature를 추출합니다. 또한, 피라미드의 head부분에 PPM Head를 덧붙였습니다. feature map의 encoder부분은 ResNet으로 구성되어있습니다.&lt;/p&gt;
-
-&lt;p&gt;각 stage를 C2, C3, C4, C5라 하고, FPN에서의 feature map output을 P2, P3, P4, P5라고 해봅시다. scene의 정보를 분석하는 작업에서는 high level feature만을 사용합니다. 장면을 분석할 때는, 전체 이미지를 보고 어떤것인지 판단해야 하기 때문입니다. object의 정보를 판단할 때는, 모든 level의 feature를 사용합니다. part segmentation은 하나의 object 내에서 이루어지므로, object와 같은 Fused Feature Map을 사용합니다. marerial에 대한 정보를 판단할 때는, low level feature만을 사용합니다. 마지막으로, texture를 판단할 때는, low level feature만을 사용합니다. 하나의 object 내에서도 여러개의 texture정보가 담겨있을 수 있기 때문입니다.&lt;/p&gt;
-
-&lt;p&gt;또한, texture를 학습할 때는, 전체 네트워크를 학습시킨 이후 texture만을 따로 조금 더(논문에서는 few epoch라고 표현) 학습시킵니다. 그리고 texture는 encoder에 아무런 영향(grad에 관한)을 주지 않습니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;31-implementation-details&quot;&gt;3.1 Implementation details&lt;/h3&gt;
-
-&lt;p&gt;우선, 모든 classifier 앞에 convolutional head가 존재합니다. decoder부분에서, 모든 layer의 크기를 맞춰주기 위해, bilinear interpolation방법으로 P2의 scale로 맞춰주고 concat을 진행합니다. 모든 나머지 non-classifier인 convolutional layer(FPN을 포함)에서는 512channel의 output을 가지며 이후 batch normalization을 진행합니다. 그 이후, ReLU를 적용합니다. learning rate는 “poly”방식을 따라 변화시킵니다. weight decay = 0.0001, momentum = 0.9를 적용합니다. 공정한 비교를 위해, size는 450으로 resize합니다. backbone network는 ImageNet에서 pretrain된 모델을 사용합니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;32-design-discussion&quot;&gt;3.2 Design discussion&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-upernet/04.png&quot; alt=&quot;table2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&amp;lt; 다른 방식과의 비교 &amp;gt;&lt;/p&gt;
-
-&lt;p&gt;사실, 이 논문에서 주장하고있는 성능은 PSPNet보다 조금 낮습니다. 하지만, 큰 차이가 없고 계산 시간이 2배정도 빨라서 더 좋은 성능이다라는것을 주장하는 것 같습니다.&lt;/p&gt;
-
-&lt;p&gt;결과적으로, 실제 구현을 통해 pyramid 구조를 사용하여 high/low level의 feature를 모두 잘 찾아내며, decoder에서는 bilinear interporation을 사용했기 때문에, 비교적 적은 연산량을 볼 수 있습니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;4-main-result&quot;&gt;4. Main result&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-upernet/05.png&quot; alt=&quot;table3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&amp;lt; 여러 task에 대한 result &amp;gt;&lt;/p&gt;
-
-&lt;p&gt;표를 보시면, 각 task에 맞는 결과들을 볼 수 있습니다. O는 object, P는 part, S는 Scene, M은 Material, T는 Texture에 대한 task를 나타내고 있습니다. 표의 결과를 보았을 때, 하나의 task만을 하는것이 가장 높은 효율이 나왔고, 여러 task를 동시에 진행했을 때 성능이 높아지는것은 확인할 수 없었습니다. 결과적으로, 이 네트워크는 여러가지 작업을 한번에 수행할 수 있다 정도로 볼 수 있을 것 같습니다.&lt;/p&gt;
-
-&lt;p&gt;이 논문에서는 소개하는 main result를 다음과 같이 요약해보았습니다.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;고화질의 input image에서 더욱 성능이 향상되었다.&lt;/li&gt;
-  &lt;li&gt;PPM을 head에 추가함으로 더욱 성능을 높였다.&lt;/li&gt;
-  &lt;li&gt;deconvolution대신 interpolation을 사용했으며, 1x1 convolution을 사용해 연산량을 줄였다.&lt;/li&gt;
-  &lt;li&gt;서로다른 annotations에서 Multi-task learning을 진행하였다.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;번외&quot;&gt;번외.&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-08-21-upernet/06.png&quot; alt=&quot;figure3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;사실 논문에서 하나의 part로 발표된 부분인데, 제 생각에는 덜 중요한 부분이어서 번외로 넣었습니다. 논문의 저자가 object와 part간의 관계를 노드와 간선으로 표현한 표 입니다. 참고만 하시면 될 것 같습니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;Xiao, Tete, et al. “Unified perceptual parsing for scene understanding.” Proceedings of the European Conference on Computer Vision (ECCV). 2018.&lt;/li&gt;
-  &lt;li&gt;Github https://github.com/CSAILVision/unifiedparsing&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Soyeol Lee</name></author><category term="paper-review" /><summary type="html">Unified Perceptual Parsing for Scene Understanding Understanding</summary></entry></feed>
+지금은 많이 부족하지만 세미나와 논문리뷰를 하면서 실력을 한층 한층 쌓아 나아가겠습니다. 감사합니다!!!!!&lt;/p&gt;</content><author><name>Hyeoncheol Noh</name></author><category term="paper-review" /><summary type="html">Transfer learning 리뷰</summary></entry></feed>

@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Mixup: BEYOND EMPIRICAL RISK MINIMIZATION</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!--[if IE]>
+        <style>
+            p, ol, ul{
+                width: 100%;
+            }
+            blockquote{
+                width: 100%;
+            }
+        </style>
+    <![endif]-->
+    
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="Artificial intelligence and Robotics Laboratory" />
+    <link rel="shortcut icon" href="https://blog.airlab.re.kr/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://blog.airlab.re.kr/2019/11/mixup" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="AiRLab. Research Blog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mixup: BEYOND EMPIRICAL RISK MINIMIZATION" />
+    <meta property="og:description" content="Mixup: BEYOND EMPIRICAL RISK MINIMIZATION Review 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다. 이번에 읽은 논문은 Mixup 입니다. (arXiv:1710.09412)입니다. 이번에는 Data Augmentation 에 관련된 논문입니다. 저는 Augmentation 관련 논문에서 핵심적인 부분은 결국, 한정된 Data를 어떻게 다뤄야 효과적으로 학습할 수 있을까? 에 관한 대답이라고 생각합니다. 논문에서 저자는 일반적으로 Dataset에 의존하여" />
+    <meta property="og:url" content="https://blog.airlab.re.kr/2019/11/mixup" />
+    <meta property="og:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-11-23-mixup/img_00.png" />
+    <meta property="article:publisher" content="https://www.facebook.com/false" />
+    <meta property="article:author" content="https://www.facebook.com/false" />
+    <meta property="article:published_time" content="2019-11-23T11:00:00+09:00" />
+    <meta property="article:modified_time" content="2019-11-23T11:00:00+09:00" />
+    <meta property="article:tag" content="Paper-review" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mixup: BEYOND EMPIRICAL RISK MINIMIZATION" />
+    <meta name="twitter:description" content="Mixup: BEYOND EMPIRICAL RISK MINIMIZATION Review 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다. 이번에 읽은 논문은 Mixup 입니다. (arXiv:1710.09412)입니다. 이번에는 Data Augmentation 에 관련된 논문입니다. 저는 Augmentation 관련 논문에서 핵심적인 부분은 결국, 한정된 Data를 어떻게 다뤄야 효과적으로 학습할 수 있을까? 에 관한 대답이라고 생각합니다. 논문에서 저자는 일반적으로 Dataset에 의존하여" />
+    <meta name="twitter:url" content="https://blog.airlab.re.kr/" />
+    <meta name="twitter:image" content="https://blog.airlab.re.kr/assets/images/posts/2019-11-23-mixup/img_00.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="AiRLab. Research Blog" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Paper-review" />
+    <meta name="twitter:site" content="@false" />
+    <meta name="twitter:creator" content="@false" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="933" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "AiRLab. Research Blog",
+        "logo": "https://blog.airlab.re.kr/assets/images/airlab-logo.png"
+    },
+    "url": "https://blog.airlab.re.kr/2019/11/mixup",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://blog.airlab.re.kr/assets/images/posts/2019-11-23-mixup/img_00.png",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.airlab.re.kr/2019/11/mixup"
+    },
+    "description": "Mixup: BEYOND EMPIRICAL RISK MINIMIZATION Review 안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다. 이번에 읽은 논문은 Mixup 입니다. (arXiv:1710.09412)입니다. 이번에는 Data Augmentation 에 관련된 논문입니다. 저는 Augmentation 관련 논문에서 핵심적인 부분은 결국, 한정된 Data를 어떻게 다뤄야 효과적으로 학습할 수 있을까? 에 관한 대답이라고 생각합니다. 논문에서 저자는 일반적으로 Dataset에 의존하여"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Mixup: BEYOND EMPIRICAL RISK MINIMIZATION" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="https://blog.airlab.re.kr/"><img src="/assets/images/airlab-logo.png" alt="AiRLab. Research Blog" /></a>
+            
+        
+        
+            <ul class="nav" role="menu">
+    <li class="nav-home" role="menuitem"><a href="/">Home</a></li>
+    <li class="nav-professor" role="menuitem"><a href="/professor/">Professor</a></li>
+    <li class="nav-about" role="menuitem"><a href="/about/">About</a></li>
+    <li class="nav-notice" role="menuitem"><a href="/tag/notice/">Notice</a></li>
+    <li class="nav-paper-review" role="menuitem"><a href="/tag/paper-review/">Paper-review</a></li>
+    <li class="nav-lecture" role="menuitem"><a href="/lecture/20020135/2019/">Lecture</a></li>
+    <li class="nav-try-ghost" role="menuitem"><a href="https://github.com/airlab-hub">Github</a></li>
+
+</ul>
+
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+        </div>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full post ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="23 November 2019">23 November 2019</time>
+                    
+                        <span class="date-divider">/</span>
+                        
+                            
+                               <a href='/tag/paper-review/'>PAPER-REVIEW</a>
+                            
+                        
+                    
+                </section>
+                <h1 class="post-full-title">Mixup: BEYOND EMPIRICAL RISK MINIMIZATION</h1>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/assets/images/posts/2019-11-23-mixup/img_00.png)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <h3 id="mixup-beyond-empirical-risk-minimization-review">Mixup: BEYOND EMPIRICAL RISK MINIMIZATION Review</h3>
+
+<p>안녕하세요. <strong>AiRLab</strong>(한밭대학교 인공지능 및 로보틱스 연구실) 김대한 입니다.</p>
+
+<p>이번에 읽은 논문은 <strong>Mixup</strong> 입니다. (<a href="https://arxiv.org/abs/1710.09412">arXiv:1710.09412</a>)입니다.</p>
+
+<hr />
+
+<p>이번에는 <b>Data Augmentation</b> 에 관련된 논문입니다. 
+<b>저는 Augmentation 관련 논문에서 핵심적인 부분은 결국, 한정된 Data를 어떻게 다뤄야 효과적으로 학습할 수 있을까? 에 관한 대답이라고 생각합니다.</b></p>
+
+<p>논문에서 저자는 일반적으로 Dataset에 의존하여 학습하는 것을 비판하고 있습니다. 여기서 비판이란 Dataset의 원론적인 비판이 아닌, Dataset을 그대로 학습하는 것에 대한 문제점을 지적하고 있습니다.</p>
+
+<p><b>“Train Data와 조금만 다른 Data를 설명할 수 없다.” 이 부분에서 Train Data에 dependent 한 문제점을 지적하고 있습니다.</b></p>
+
+<p>Deeplearning이 활성화된 시기부터 계속적으로 연구되고있는 부분이기도 합니다.</p>
+
+<p>저자는 한정적인 Dataset에서 어떻게하면 더 General 하게 model 을 만들 수 있을까에 대한 고민을 많이 한 것으로 보입니다.</p>
+
+<p><strong><u>BackGround</u></strong></p>
+
+<p>모델의 학습을 위해서 아래와 같은 expected risk를 최소화 하여야 합니다.</p>
+<center><img src="/assets/images/posts/2019-11-23-Mixup/img_02.png" width="600" height="130" />[figure_01] (P(x,y) = 결합분포, L = loss-funtion)</center>
+<p><br />
+ 그러나 대부분의 경우 Joint distribution(결합 확률분포(두 개 이상의 확률변수에 대한 확률분포))을 모릅니다.</p>
+
+<p>그렇기 때문에 일반적인 학습의 경우 아래와 같이 학습할 Dataset을 사용하여 <b>empirical distribution</b>을 아래와 같이 나타냅니다.</p>
+
+<p><strong><u>Empirical distribution(ERM)</u></strong></p>
+
+<center><img src="/assets/images/posts/2019-11-23-Mixup/img_03.png" width="600" height="170" />[figure_02]</center>
+<p><br /></p>
+
+<p>  따라서, <b>위에서 구한 Empirical distribution</b> P를 통하여 <b>Expected risk R</b>을 아래와 같이 나타낼 수 있습니다.</p>
+
+<center><img src="/assets/images/posts/2019-11-23-Mixup/img_04.png" width="800" height="100" />[figure_03]</center>
+<p><br /></p>
+
+<p>  간단하게 설명하자면, [figure_01] 을 통해 model을 학습하여야 하는데, dP(x,y) 즉, (joint distribution)을 모르는 경우가 대부분이니까, Train data를 사용하여 [figure_02]와 같이 joint distribution을 empirical distribution으로 대체하여 사용한다. 라는 것입니다.</p>
+
+<p>결과적으로 [figure_03]과 같은 식이 됩니다.</p>
+
+<p>그리고 이를 <b>ERM(Empirical Risk Minimization)</b> 이라고 합니다.</p>
+
+<hr />
+
+<p><strong><u>Vicinity distribution(VRM)</u></strong></p>
+
+<p>위에 설명한 joint distribution 을 vicinity distribution을 통해 대체 할 수 도 있습니다. 다음과 같습니다.</p>
+
+<center><img src="/assets/images/posts/2019-11-23-Mixup/img_05.png" width="600" height="140" />[figure_04] virtual feature-target pair(x ̃,y ̃),<br /> vicinity of the training feature-target pair (xi,yi).</center>
+<p><br /></p>
+
+<p>  간단하게 trian data에 가상의 어떤 data를 섞었다고 생각하면 된다.</p>
+
+<center><img src="/assets/images/posts/2019-11-23-Mixup/img_06.png" width="600" height="50" />[figure_05]</center>
+<p><br />
+이때 논문에서는 위와 같이 구성한다면, 즉, x ̃와 xi의 차를 평균으로 갖고, 분산값을 Sigma^2으로 갖는 정규분포가 vicinity distribution이 된다고 설명하고 있고, 이 효과는 학습데이터에 Gaussian noise을 더한 것으로 이해하면 된다고 한다.</p>
+
+<p><b>이를 VRM (Vicinal Risk Minimization)이라고 한다.</b></p>
+
+<p><b><u>나는 지금까지 ERM/VRM을 이해하는 것이 논문에서 제안하는 바를 이해하는데 충분한 배경이 되었다.
+</u></b></p>
+
+<p>이제 본격적으로 <b>MixUp의 idea</b>를 살펴보면, 다음과 같이 정리할 수 있다.</p>
+
+<center><img src="/assets/images/posts/2019-11-23-Mixup/img_07.png" width="100%" height="100" />[figure_06] Mixup<br /> </center>
+<p><br /></p>
+
+<p>위에서 본 VRM과 수식이 많이 유사하다. 
+당연한 것이 VRM에서 가상의 어떤 data를 섞는 다고 했던 부분을 Dataset에서 가져와서 쓰겠다는 것이다.</p>
+
+<p>실제 학습에서 사용되는 코드는 다음과 같다.</p>
+<center><img src="/assets/images/posts/2019-11-23-mixup/img_08.png" width="100%" height="100%" />[figure_07] Mixup_pytorch_code<br /> </center>
+<p><br /></p>
+
+<p>code를 보면 lambda 값은 beta분포에서 뽑게 되는데, 분포가 [0,1] 사이에서 뽑아지게 됨으로, interpolation의 비율(가상의 data를 train data에 섞는 비율) 을 랜덤하면서도 적절하게 가져갈 수 있게 된다. 여기서 alpha 값은 1로 고정한다.</p>
+
+<p>그렇게 되면 학습하는 이미지는 다음과 같이 볼 수 있다.</p>
+<center><img src="/assets/images/posts/2019-11-23-mixup/img_01.png" width="100%" height="100%" />[figure_08] Mixup_pytorch_image<br /> </center>
+<p><br /></p>
+
+<hr />
+
+<p><strong><u>Experiments (CIFAR10 &amp; 100)</u></strong></p>
+
+<center><img src="/assets/images/posts/2019-11-23-mixup/img_09.png" width="100%" height="100%" />[figure_09] Mixup_pytorch_image<br /> </center>
+<p><br /></p>
+
+<p>위와 같이 CIFAR 10 &amp; 100 에서 기존의 성능보다 1.1% ~ 4.5% 성능을 높이게 되었다.</p>
+
+<p>즉, 같은 model 같은 Dataset으로 x% 만큼 general한 model을 뽑게 되었다는 것이다.</p>
+
+<hr />
+
+<p><strong><u>Experiments (corrupted label)</u></strong></p>
+
+<center><img src="/assets/images/posts/2019-11-23-mixup/img_11.png" width="100%" height="100%" />[figure_10] corrupted label Acc examples<br /> </center>
+<p><br /></p>
+
+<p>위의 표를 보면 손상된 label에 대한 정확도가 기존에 방법보다 굉장히 많은 Acc를 갖는 것을 확인 할 수 있다. 또, 이 실험을 통해서 dropout과 mixup이 긍정적인 결과를 도출해 낸다는 것 또한 확인 할 수 있다.</p>
+
+<hr />
+
+<p><strong><u>Experiments (Adversarial example)</u></strong></p>
+
+<center><img src="/assets/images/posts/2019-11-23-mixup/img_10.png" width="100%" height="100%" />[figure_11] Robustness to adversarial examples<br /> </center>
+<p><br /></p>
+
+<p>이 부분도 요즘 핫한 부분인데, 간단하게 말해서 사람눈에는 똑같이 Panda, car로 구분되지만 computer입장에서는 그렇지 못하게 만드는 즉, 오류를 범하게 만드는 noise를 첨가하는 attack 이라고 할 수 있습니다.</p>
+
+<p>FGSM,I-FGSM 의 경우 Attack mechanism 이라고 보시면 될 것 같습니다.</p>
+
+<p>기존 학습법 보다 Mixup의 방법이 더 높은 방어능력을 갖고 있다. 즉, 기존보다 더 adversarial attack 에 robust 하다고 볼 수 있습니다.</p>
+
+<hr />
+
+<p><strong><u>Experiments (CIFAR10)</u></strong></p>
+
+<center><img src="/assets/images/posts/2019-11-23-mixup/img_12.png" width="100%" height="100%" />[figure_12]</center>
+<p><br /></p>
+
+<p>이 실험 결과를 통하여 Mixup에서 weight decay값은 10^-4이 좋다는 것을 설명하고 있으며, 첨가하는 data를 어떻게 하면 좋을 지에 관한 내용이 포함되어 있습니다.</p>
+
+<p>가장 높은 Acc를 보인것은 AC + RP 입니다. 또, SC는 효과가 없다고 말하고 있습니다.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AC : mix between all classes.
+SC : mix within the same class.
+RP : mix between random pairs.
+KNN : mix between k-nearest neighbors(k=200)
+</code></pre></div></div>
+<hr />
+
+<h3 id="후기-implementation">후기 (implementation)</h3>
+
+<p>우선, DataAugementation에 관한 논문을 처음 접했는데 굉장히 흥미로웠다. 2019_ICCV를 다녀와서 느낀점이 많은데, 그 중 하나는 Data를 어떻게 다룰것인가에 관한 관심이 생겼다는 것이다. 천천히 읽어가면서, CutMix까지 읽어볼 생각이다.</p>
+
+<p>이번논문을 통해, pytorch를 이용하여. 직접. 구현을 하였는데.</p>
+
+<p>preActresnet-18의 경우 오차가 0.5% 정도로 거의 paper-performance에 가깝게 구현되었다.</p>
+
+<center><img src="/assets/images/posts/2019-11-23-mixup/img_13.png" width="100%" height="100%" />[figure_13] compare performance(even | paper | my)</center>
+<p><br /></p>
+
+<p>[figure_13]을 보면 알 수 있듯이 기존 model을 좀더 general 하게 가져갈 수 있다는 장점이 좋은 것 같다.</p>
+
+<p>그리고, 혹시나 구현중에 model의 train loss 가 잘 떨어지지 않고, train Acc가 낮다고 잘 못 한거 아닌가 라는 생각을 할 수 있는데, 직접구현한 결과 mixup은 일반적으로 학습하는 cifar100 data를  막 95% 99% 학습할 수가 없다.</p>
+
+<p>왜냐면 train data 가 그만큼 어렵기 때문이다.</p>
+
+<p>그러나 test loss 는 더 낮고 test Acc는 더높기 때문에 general 한 결과를 얻어낼 수 있기 때문에 긍정적인것 같다.</p>
+
+<hr />
+
+<h1 id="references">[References]</h1>
+<p><br /></p>
+<ul>
+<li>  <a href="https://arxiv.org/abs/1710.09412">mixup: Beyond Empirical Risk Minimization
+</a></li></ul>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        <section class="author-card">
+                            
+                                <img class="author-profile-image" src="/assets/images/authors/daehan.jpeg" alt="daehan" />
+                            
+                            <section class="author-card-content">
+                                <h4 class="author-card-name"><a href="/author/daehan">Daehan Kim</a></h4>
+                                
+                                    <p>미래는 지금이다.</p>
+                                
+                            </section>
+                        </section>
+                        <div class="post-full-footer-right">
+                            <a class="author-card-button" href="/author/daehan">Read More</a>
+                        </div>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+                <section class="post-full-comments">
+                    <div id="disqus_thread"></div>
+                    <script>
+                        var disqus_config = function () {
+                            this.page.url = 'https://blog.airlab.re.kr/';
+                            this.page.identifier = 'AiRLab. Research Blog';
+                        };
+                        (function() {
+                            var d = document, s = d.createElement('script');
+                            s.src = 'https://airlab.disqus.com/embed.js';
+                            s.setAttribute('data-timestamp', +new Date());
+                            (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                </section>
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+                
+                
+                
+                
+                    <article class="read-next-card"
+                        
+                            
+                                style="background-image: url(url(/assets/images/posts/2019-11-23-mixup/img_00.png)"
+                        
+                    >
+                        <header class="read-next-card-header">
+                            <small class="read-next-card-header-sitetitle">&mdash; AiRLab. Research Blog &mdash;</small>
+                            
+                                <h3 class="read-next-card-header-title"><a href="/tag/paper-review/">Paper-review</a></h3>
+                            
+                        </header>
+                        <div class="read-next-divider"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 14.5s2 3 5 3 5.5-2.463 5.5-5.5S21 6.5 18 6.5c-5 0-7 11-12 11C2.962 17.5.5 15.037.5 12S3 6.5 6 6.5s4.5 3.5 4.5 3.5"/></svg>
+</div>
+                        <div class="read-next-card-content">
+                            <ul>
+                                
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/2019/11/Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition">Exploring Randomly Wired Neural Networks for Image Recognition</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/2019/11/DeepLabV2">DeepLabV2</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                            <li><a href="/2019/11/pspnet">PSPNET</a></li>
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                                  
+                                    
+                                        
+                                        
+                                    
+                                  
+                                
+                            </ul>
+                        </div>
+                        <footer class="read-next-card-footer">
+                            <a href="/tag/paper-review/">
+                                
+                                    See all 23 posts  →
+                                
+                            </a>
+                        </footer>
+                    </article>
+                
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/2019/11/pspnet">
+                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-11-23-pspnet/cover.PNG)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/2019/11/pspnet">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Paper-review</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">PSPNET</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/authors/hyeoncheol.jpeg" alt="Hyeoncheol Noh" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/hyeoncheol/">Hyeoncheol Noh</a>
+                        </span>
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/2019/11/manifold-mixup">
+                <div class="post-card-image" style="background-image: url(/assets/images/posts/2019-11-22-manifold-mixup/img1.png)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/2019/11/manifold-mixup">
+                <header class="post-card-header">
+                    
+                        
+                            
+                                <span class="post-card-tags">Paper-review</span>
+                            
+                        
+                    
+
+                    <h2 class="post-card-title">Manifold Mixup: Better Representations by Interpolating Hidden States</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    
+                        <p></p>
+                    
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                        
+                        <img class="author-profile-image" src="/assets/images/authors/minseok.jpeg" alt="Minseok Seo" />
+                        
+                        <span class="post-card-author">
+                            <a href="/author/minseok/">Minseok Seo</a>
+                        </span>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                <span class="reading-time">
+                    
+                    
+                      1 min read
+                    
+                </span>
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="https://blog.airlab.re.kr/">
+            
+                <img src="/assets/images/favicon.png" alt="AiRLab. Research Blog icon" />
+            
+            <span>AiRLab. Research Blog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Mixup: BEYOND EMPIRICAL RISK MINIMIZATION</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Mixup%3A+BEYOND+EMPIRICAL+RISK+MINIMIZATION&amp;url=https://blog.airlab.re.kr/2019/11/mixup"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://blog.airlab.re.kr/2019/11/mixup"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://blog.airlab.re.kr/">AiRLab. Research Blog</a> &copy; 2019</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    
+                    <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-144039873-1', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>
