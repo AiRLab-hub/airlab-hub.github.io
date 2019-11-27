@@ -1,4 +1,136 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-11-27T18:21:42+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">Exploring Randomly Wired Neural Networks for Image Recognition</title><link href="https://blog.airlab.re.kr/2019/11/Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition" rel="alternate" type="text/html" title="Exploring Randomly Wired Neural Networks for Image Recognition" /><published>2019-11-26T19:00:00+09:00</published><updated>2019-11-26T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition">&lt;p&gt;안녕하세요 AiRLab 이상우입니다. 이번에 읽어본 논문은 Exploring Randomly Wired Neural Networks for Image Recognition 으로 Network Architecture 를 Random 하게 만들어보면 어떨까? 하는 생각을 가진 논문입니다.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-11-27T18:47:39+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">CAM: Learning Deep Features For Discriminative Localization</title><link href="https://blog.airlab.re.kr/2019/11/CAM" rel="alternate" type="text/html" title="CAM: Learning Deep Features For Discriminative Localization" /><published>2019-11-27T11:30:00+09:00</published><updated>2019-11-27T11:30:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/CAM</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/CAM">&lt;p&gt;안녕하세요 AiRLab 박주희입니다.
+오늘 소개할 논문은 Learning Deep Features For Discriminative Localization 으로 CAM이라고도 불리며,CVPR2016 에서 소개된 논문입니다.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;introduction&quot;&gt;&lt;strong&gt;&lt;u&gt;Introduction&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;CNN은 이미지 레벨의 라벨 교육만 받았음에도 object를 localization하는 능력이 뛰어납니다.
+이 논문에서는 단순히 object를 localization 하는것을 넘어 이미지의 어떤 영역이 차별화 되어 사용되고 있는지를 정확히 파악하는 능력을 Weakly-Supervised Object Localization과 Visualizing CNNs을 통해 generalize 할 수있다는 것을보여줍니다. 또한 GAP를 사용한 CAM (Class Activation Map)이라는 방법을 제시하여 이미지를 차별화 하였습니다. 방금 언급한 내용들을 밑에서 더 자세히 설명을 해 보도록 하겠습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;weakly-supervised-object-localization&quot;&gt;Weakly-Supervised Object Localization&lt;/h4&gt;
+&lt;p&gt;앞선 연구들에서는 실제로 Localization 능력을 평가하지 않았고, end-to-end로 train하지 않았으며 Object Localization을 위해 네트워크의 multiple forward pass가 필요 했습니다. 이 때문에 실제 데이터 셋으로 확장되기 어려웠고 이 논문에서는 &lt;b&gt;end-to-end로 train&lt;/b&gt;하고 &lt;b&gt;single forward pass&lt;/b&gt;로 Object Localization 할 수있음을 보였습니다. 이 접근 방식과 가장 유사한 방식은 Global Max Pooling 인데 object 한 지점을 localize 하는 방법입니다. 이 방법은 object의 전체범위를 결정하기보다 경계선에 놓여있는 한 점에 한정 됩니다. 이와 비슷한 방법인 Global Average Pooling이 이 논문에서 처음 제시한 방법은 아니지만 더욱 정확한 discriminative localization에 적용 할수있다는 것이 이 논문의 핵심입니다. 여기서 이 기술의 단순성으로 빠르고 정확한 Localization을 위해 다양한 Computer Vision에 적용 될 것이라고 믿고 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;visualizing-cnns&quot;&gt;Visualizing CNNs&lt;/h4&gt;
+&lt;p&gt;앞선 연구들에서는 fully-connected layer를 무시하고 전체적으로 불완전하며 Conv층만 분석을 했습니다. 이 논문에서는 fc층을 없애고 대부분의 성능을 유지하였는데 이로써 네트워크의 처음부터 끝까지 이해를 할 수있게 되었고 이 방식은 차별화되는 이미지의 영역을 정확히 강조 할 수 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;cam-class-activation-map&quot;&gt;CAM (Class Activation Map)&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/fig3.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+CNN에서 Global Average Pooling을 사용하여 CAM을 생성 합니다.&lt;br /&gt;
+특정 카테고리에 대한 CAM은 해당 카테고리를 식별하기위해 CNN이 사용하는 차별화된 이미지 영역을 나타냅니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/fig2.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+위 그림은 map 생성 절차입니다.
+Network In Network와 GoogleNet과 유사한 network의 아키텍쳐를 사용하여 주로 conv층으로 구성되며 최종 출력 직전의 conv feature map에 fc대신 GAP를 사용하였습니다.
+GAP는 마지막 conv layer에서 각 단위의 feature map의 spatial 평균을 출력합니다.
+이 값의 가중합은 최종 출력 생성에 사용되는데 이와 유사하게 이 논문에서는 CAM을 얻기 위해 conv layer의 feature map의 가중치 합을 계산하게 됩니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/function1.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/function2.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+F&lt;sub&gt;k&lt;/sub&gt;는 feature map을 의미하며, softmax의 식은 weight들과 F&lt;sub&gt;k&lt;/sub&gt;들과의 sum을 의미합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/fig4.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+이 그림은 MAP을 생성하기 위해 다른 클래스들을 사용할 때 단일 영상에 대한 CAM의 차이를 강조합니다. 
+다른 카테고리에 대한 차별적인 영역이 특정 이미지에 대해서도 다른 것을 관찰합니다.&lt;/p&gt;
+
+&lt;p&gt;이 논문에서는 GAP loss가 물체의 범위를 식별하도록 촉진한다고 믿는데 map의 평균을 구할 때 모든 낮은 activation이 특정 map의 출력을 감소시키기 때문에 물체의 모든 차별적인 부분을 찾아냄으로써 그 값을 최대화할 수 있기 때문입니다. (GMP는 차별적인 부분을 제외하고 모든 영상에 대한 점수는 최대값만 수행하기 때문에 score에 영향을 미치지 않습니다.)&lt;/p&gt;
+
+&lt;h4 id=&quot;weakly-supervised-object-localization-실험&quot;&gt;Weakly-Supervised Object Localization 실험&lt;/h4&gt;
+&lt;p&gt;논문에서는 classification과 localization에 대해 실험을 했습니다. 실험 설정은 다음과 같습니다.&lt;/p&gt;
+
+&lt;p&gt;기본적인 설정으로 fc layer를 GAP로 변경하였고 여러 conv layer를 제거함으로써 mapping resolution을 향상시켰습니다.
+또한 AlexNet, VGGnet, GoogleNet을 각각 수정하여 AlexNet-GAP, VGGnet-GAP, GoogleNet-GAP네트워크를 만들었습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;classification-results&quot;&gt;Classification Results&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/table1.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+전체적으로 conv layer를 제거하고 GAP를 사용한 네트워크들이 성능이 1-2%떨어진 모습을 볼 수있습니다.
+AlexNet*-GAP는 GAP전에 conv layer를 2개 더 추가한 네트워크입니다. 
+ localization에 대한 높은 성능을 얻기 위해서는 classification 성능이 중요한 것을 알 수있습니다.&lt;/p&gt;
+
+&lt;p&gt;### Localization Results
+ &lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/table1.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Simple thresholding technique를 사용하여 heat 된 map의 부분을 찾는 방식을 사용하였습니다. 
+(Simple thresholding technique 이란 Activation map에서 max 값을 찾아 그 20% 이상이 되는 영역을 찾고 labeling을 통해 가장 큰 덩어리를 찾고 그것을 둘러싼 bounding box를 찾는 방법입니다.)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/table2.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+이 테이블은 이전 연구인 backpropagation기법을 쓴 네트워크와 CAM을 적용한 네트워크를 비교한 것입니다.&lt;br /&gt;
+GoogleNet-GAP가 가장 성능이 좋은 것을 볼 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/table3.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+Weakly-Supervised방식과 fully-supervised방식을 쓴 네트워크를 비교한 테이블입니다. 
+GoogleNet-GAP(heuristics)가 37.1%로 CAM방법중 가장 성능이 좋지만 fully-supervised 방식을 쓴 AlexNet과 성능이 비슷하며 GoogleNet끼리 비교를 했을때는 약간의 성능 저하가 보입니다. 
+따라서 이 논문에서는 fully-supervised 네트워크와 비교를 하기에는 아직 무리가 있다고 판단을 하였습니다. 
+여기서 약간 다른 bounding box 선택 기법을 사용함으로써 GoogleNet-GAP방식에 비해  GoogleNet-GAP(heuristics) 가 5.8% 향상 되었는데 이 방식은 1등 예측 class와 2등 예측 class의 activation map으로부터 하나는 타이트하고 하나는 루즈한 bounding box를 총 두개 선택합니다. 
+그리고 3등 예측 class의 bounding box로부터 루즈한 박스를 고르는 방법으로 이는 classification의 accuracy와 localization의 accuracy사이에서 trade-off 관계입니다. 
+따라서 이 localization accuracy가 향상됨을 볼 수 있습니다.&lt;/p&gt;
+
+&lt;h4 id=&quot;결론&quot;&gt;결론&lt;/h4&gt;
+&lt;p&gt;결론적으로 Learning Deep Features For Discriminative Localization은 CNN에서 GAP를 이용하여 bounding box annotation없이 object localization을 하는 &lt;b&gt;CAM&lt;/b&gt; 이라는 기법을 제안한 논문입니다.&lt;/p&gt;</content><author><name>Juhui Park</name></author><category term="paper-review" /><summary type="html">안녕하세요 AiRLab 박주희입니다. 오늘 소개할 논문은 Learning Deep Features For Discriminative Localization 으로 CAM이라고도 불리며,CVPR2016 에서 소개된 논문입니다.</summary></entry><entry><title type="html">Delving Deep into Rectifiers Surpassing Human-Level Performance on Imagenet Classification</title><link href="https://blog.airlab.re.kr/2019/11/He-initialization" rel="alternate" type="text/html" title="Delving Deep into Rectifiers Surpassing Human-Level Performance on Imagenet Classification" /><published>2019-11-27T10:30:00+09:00</published><updated>2019-11-27T10:30:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/He-initialization</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/He-initialization">&lt;p&gt;안녕하세요 AiRLab 박주희입니다.
+오늘 소개할 논문은 Delving Deep into Rectifiers Surpassing Human-Level Performance on Imagenet Classification (https://arxiv.org/pdf/1502.01852.pdf)이며, ICCV2015에서 소개된 논문입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;이 논문에서는 두가지 측면에 대한 image classification을 위한 rectifier neural networks를 연구했습니다.
+먼저 ReLU에서 파생된 Parametric Rectified LinearUnit (PReLU)을 제안합니다. PReLU는 추가 계산 cost가 거의 들지 않고, overfitting의 위험도 적습니다.
+두번째로 rectifier의 비 선형성을 고려한 강력한 초기화 방법을 도출했습니다. 이 방법은 깊은 모델에서 직접적으로 사용 할 수있고, 더 깊고 넓은 network architecture를 살펴볼수있습니다.&lt;/p&gt;
+
+&lt;p&gt;이런 학습가능한 활성함수와 초기화 방법을 통해 ImageNet 2012 classification dataset에서 4.94% top-5 error를 달성하였습니다.
+이 결과는 보고된 인간 수준 성능(5.1%)를 능가하는 최초의 결과 입니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;parametric-rectifiers&quot;&gt;Parametric Rectifiers&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/ReLU_vs_PReLU.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+ReLU와 PReLU그래프 입니다. 여기서 PReLU 그래프의 경우, 음의 부분은 일정한 값을 가지지 않고 적응적으로 학습 합니다.
+&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/PReLU_Definition.PNG&quot; width=&quot;30%&quot; alt=&quot;error&quot; /&gt;
+a&lt;sub&gt;i&lt;/sub&gt;=0 일경우 ReLU가 되고, a&lt;sub&gt;i&lt;/sub&gt;가 학습 가능한 파라미터일 경우 PReLU가 되며 a&lt;sub&gt;i&lt;/sub&gt;=0.01 일 경우 Leaky ReLU가 됩니다.
+이때 PReLU는 매우 적은 수의 추가 매개변수를 도입하였습니다. (추가 파라미터의 수는 총 채널수와 동일하고, 이는 총 가중치 수를 고려할때 무시가 가능합니다.)
+그렇기 때문에 Overfitting에 대해 걱정을 하지 않아도 되는 이점이 있습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;initialization-of-filter-weights-for-rectifiers&quot;&gt;Initialization of Filter Weights for Rectifiers&lt;/h3&gt;
+&lt;p&gt;&lt;b&gt;“Xavier” initialization VS “He” initialization&lt;/b&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/Xavier_vs_He.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+“Xavier”초기화 방법은 무작위 초기화가 아닌 입력과 출력의 특성을 고려한 방법으로, 선형인 경우에서만 사용 가능하지만
+“He”초기화 방법은 비선형일 경우에도 사용이 가능한 “Xavier”방법의 변형입니다. 이 방법은 비 선형적인 ReLU와 PReLU함수에서도 사용이 가능합니다.
+위 그래프의 빨간색이 “He”초기화 방법을 파란색은 “Xavier”초기화 방법을 나타냅니다.
+He 초기화 방법은 가중치 분포를 2로 나누어 비 선형함수에서 쓰기 더욱 적합합니다. 
+두 초기화 방법 모두 수렴 가능하지만 “He”초기화 방법이 더 빨리 수렴하는 것을 볼 수있습니다.
+또한 오른쪽 그래프(30-layer모델)를 보면 “He”초기화 방법은 수렴을 하지만 “Xavier”초기화 방법은 학습을 완전히 지연시키고 gradient가 감소되는것을 관찰 할 수있습니다.&lt;/p&gt;
+
+&lt;p&gt;따라서 “He”초기화 방법이 더 깊은 모델에서 적용이 가능하다는 것을 알 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/table2.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+하지만 ImageNet에서는 아직 큰 이점을 찾지 못했습니다.
+30-layer 모델의 경우 38.56/16.59의 top-1/top-5 error를 가지는 반면에 위 표(14-layer)의 33.82/13.34 보다 훨씬 좋지 않음을 볼 수있는데
+이는 layer가 깊을 수록 training error가 증가하기 때문이며 이 문제는 여전히 open problem 입니다.&lt;/p&gt;
+
+&lt;p&gt;결론적으로 “He”초기화 방법은 깊은 모델에서의 정확성에 대한 이점은 보여주지 못했지만 깊이 증가에 대한 더 많은 연구를 위한 토대를 마련했습니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;experiments-on-imagenet&quot;&gt;Experiments on ImageNet&lt;/h3&gt;
+&lt;p&gt;&lt;b&gt;ReLU VS PReLU&lt;/b&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/Fig4.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+여기서 PReLU는 channel-wise 버전을 사용했고, ReLU와 PReLU 모두 같은 epoch으로 train하였습니다.
+위 그래프는 training 동안 train/val error를 나타냈습니다.&lt;/p&gt;
+
+&lt;p&gt;PReLU는 ReLU에 비해 더 빨리 수렴되는 것을 볼 수있으며 PReLU의 train error와 val error 모두 ReLU보다 낮습니다.
+따라서 PReLU가 ReLU에 비해 더 좋은 성능을 가지고 있음을 다시 한번 입증 하였습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Single-model Results and Multi-model Results&lt;/b&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/realsinglemodel.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt; 
+A+ReLU가 VGG-19에 보고된 7.1% single-model의 결과 보다 상당히 좋습니다.
+이는 얕은 모델을 미리 train 하지 않고 end-to-end train을 했기 때문이라고 보고 있습니다.
+&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/multimodel.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+또한 C+PReLU는 5.7%로 multi-model 보다 좋은 결과를 가졌고, model B와 modle C를 비교했을때 C가 더 나음을 볼수있습니다.
+(model B는 model A에 비해 deep하고, model C는 wide한 model입니다.)&lt;/p&gt;
+
+&lt;p&gt;따라서 모델이 충분히 깊을때 폭이 정확도에 필수적인 요소인것을 알 수있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Surpassing Human-Level Performance?&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;ImageNet 데이터셋에서 인간 성능이 약 5.1% top-5 error 인데 비해 이 연구는 4.94%의 error 결과를 도출 했습니다. 이는 인간 수준의 성과를 초과했음을 의미합니다.
+&lt;img src=&quot;/assets/images/posts/2019-11-13-He-initialization/Fig5.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이들의 방법으로 위 그림을 coucal”, “komondor”, “yellow lady’s slipper” 라고 성공적으로 인식을 하는 반면에 인간은 개,새,꽃 이라고 단순하게 인식을 합니다.
+이렇게 특정 데이터셋에서는 우수한 결과를 도출하지만  일반적인 객체 인식에서 문맥의 이해나 고도의 지식이 필요한 경우에는 실수를 저지르기때문에 machine vision이  human vision을 능가하는것은 아닙니다.
+그럼에도 이 결과는 시각적 인식에서 인간 수준의 성능과 일치하는 machine algorithm의 잠재적 가능성을 보여줍니다.&lt;/p&gt;</content><author><name>Juhui Park</name></author><category term="paper-review" /><summary type="html">안녕하세요 AiRLab 박주희입니다. 오늘 소개할 논문은 Delving Deep into Rectifiers Surpassing Human-Level Performance on Imagenet Classification (https://arxiv.org/pdf/1502.01852.pdf)이며, ICCV2015에서 소개된 논문입니다.</summary></entry><entry><title type="html">Exploring Randomly Wired Neural Networks for Image Recognition</title><link href="https://blog.airlab.re.kr/2019/11/Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition" rel="alternate" type="text/html" title="Exploring Randomly Wired Neural Networks for Image Recognition" /><published>2019-11-26T19:00:00+09:00</published><updated>2019-11-26T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/Exploring-Randomly-Wired-Neural-Networks-for-Image-Recognition">&lt;p&gt;안녕하세요 AiRLab 이상우입니다. 이번에 읽어본 논문은 Exploring Randomly Wired Neural Networks for Image Recognition 으로 Network Architecture 를 Random 하게 만들어보면 어떨까? 하는 생각을 가진 논문입니다.&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -627,188 +759,4 @@ SVD를 직관적으로 설명하면 선형대수에서 배우는 특이값 분�
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;https://j911.me/2019/11/nonlocal.html&quot;&gt;https://j911.me/2019/11/nonlocal.html&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 GCNet으로 (arXiv:1904.11492)으로 이번 ICCV 2019 워크숍에서 소개가 되었던 논문입니다.</summary></entry><entry><title type="html">SlowFast Network for Video Recognition</title><link href="https://blog.airlab.re.kr/2019/11/SlowFast" rel="alternate" type="text/html" title="SlowFast Network for Video Recognition" /><published>2019-11-13T06:00:00+09:00</published><updated>2019-11-13T06:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/SlowFast</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/SlowFast">&lt;p&gt;안녕하세요? 이번에 &lt;strong&gt;SlowFast&lt;/strong&gt; 논문 Review를 하게된 &lt;strong&gt;AirLab&lt;/strong&gt; 이상우입니다.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;introduction&quot;&gt;&lt;strong&gt;&lt;u&gt;Introduction&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;p&gt;SlowFast는 Video Recognition 을 위한 네트워크 구조입니다. 이 네트워크는 FAIR (FaceBook Artificial Intelligence Research) 에서 발표한 논문으로
-이전의 다른 네트워크들과의 다른점은 Opticalflow 를 사용하지 않은 영상 인식 네트워크 였다는 것입니다. 이로써 End-To-End 학습이 영상인식에서도 가능해졌다고 합니다.
-이 논문은 영장류의 물체의 행동을 인식하는 세포에서 영감을 받았다고 하는데 자세한 내용은 밑에서 알아보도록 하겠습니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;slowfast-networks&quot;&gt;&lt;strong&gt;&lt;u&gt;SlowFast Networks&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure1.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-
-&lt;center&gt;(figure1. SlowFast Networks)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;SlowFast는 2가지의 Pathway가 있습니다. 위에 보이는 Pathway는 Slow pathway라고 부르며, 이 Pathway는 낮은 프레임으로 주어질 수 있는 의미적 정보를 포착하도록
-설계가 되었다고 합니다. 간단한 예를 들면 박수라는 행동에서 손이라는 객체를 파악하는데 힘을 싣는 경로입니다. 반대로 Fast Pathway의 경우는 높은 프레임속도로 빠르게 변화하는
-움직임을 포착하는 역할을 합니다. 이 부분이 기존 영상인식에서 Opticalflow 로 수행되었던 부분입니다.
-Slow Pathway는 τ 값을 가지는데 대표적으로 16을 사용하였다고 합니다. 이 값은 30프레임의 영상의 경우 30프레임중에 약 2프레임 정도의 이미지만 뽑아준다고 합니다.
-Fast Pathway는 t/α 값을 가지고 α의 값을 1 이상의 값을 가진다고 합니다. 논문 저자는 대표적으로 8의 값을 사용하였다고 합니다. (t = 전체 프레임) 30프레임 인 경우
-약 4프레임 정도의 이미지를 뽑게 됩니다.
-이 논문에서 중요한 부분은 Fast Pathway인데 이 부분은 전체 연산량의 20% 밖에 수행하지 않는다고 합니다. 저는 처음에 보고 많은 프레임을 다루는데 더 많은 연산량이
-사용될거라 생각했는데 이 부분에서 중요한 아이디어가 있었습니다. Fast Pathway의 경우 위에서 Opticalflow 를 대체해서 사용된 부분이고, 움직임을 포착하는 것을 위해
-설계되었다고 하였습니다. 이 부분에서 느낌이 오신분이 있을수도 있는데요. 결론적으로 &lt;strong&gt;많은 채널의 정보를 사용하지 않습니다.&lt;/strong&gt; 단순히 예를 들어 말씀을 드리면, 박수라는 행동을
-인식하기 위해서 손을 인식해야되고 손이 무엇을 할수 있는지 파악을 해야합니다. 그래서 의미적 정보를 파악할 때 손이라는 객체의 색상이 살색이라면 조금 더 쉽게 손을 파악할 수 있습니다.
-하지만 손이라는 정보를 알고선 행동을 파악할 떄는 손이 회색,노란색이라도 손이라는 정보를 안다면 박수라는 행동을 쉽게 인식할 수 있습니다.
-논문에서는 공간과 차원에 대한 특별한 처리가 없기때문에 채널의 수가 적어도 된다고 설명이 되어있으며, 즉 이는 &lt;strong&gt;계산이 가벼워지고 처리속도가 빨라지게&lt;/strong&gt; 되었다고 합니다.&lt;/p&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure2.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(figure2. An example instantiation of the SlowFast network)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;위에 이미지를 참조하시면 조금 더 이해에 도움이 되실겁니다. 초록색의 경우 Fast Pathway에서 나오는 프레임입니다. Slow Pathway보다 높은 프레임률을 사용하고 있다는
-것이 확인이 됩니다. 노란색의 경우 Fast Pathway에서 사용하는 채널의 수를 보여줍니다. Slow Pathway에서 사용하는 값의 1/8 정도의 채널의 수를 사용하고 있는것도 확인이 됩니다.&lt;/p&gt;
-
-&lt;p&gt;그런데 이쯤에서 궁금한 점이 생기셨을 겁니다. 각각의 Pathway에서 나온 출력값은 다른 형태를 띄고 있는데 어떻게 두 개를 합쳐서 영상 인식을 하게 되는걸까요?
-이 부분에서는 Lateral Connections 라는 방식을 사용하여서 간단히 두개의 값의 형태를 맞춰줍니다.
-Slow pathway  = {T, S^2, C}
-Fast pathway  = {αT, S^2, βC}
-각각 pathway에서 나온 feature의 형태는 이러한 형태를 띄는데 3가지 방식을 중점으로 형태를 바꿔주게 됩니다.
-[1]. Time-to-channel : {αT, S^2, βC} 이러한 feature의 형태를 {T, S^2, αβC} 형태로 바꿔줍니다. 즉 α값을 하나 프레임의 채널로 변환을 시킵니다.
-[2]. Time-strided sampling : {αT, S^2, βC} α프레임 중 하나만 샘플링하여 {T, S^2, βC}의 형태로 바줍니다.
-[3]. Time-strided convolution : 2βC 의 출력 채널과 stride = α 를 가진 5×1^2 커널의 3D convolution을 사용한다고 합니다.
-즉, 전체적으로 컨볼루션과 샘플링 프레임을 채널단위로 바꿔주며 Slow pathway와 Fast pathway를 맞춰줍니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;main-results&quot;&gt;&lt;strong&gt;&lt;u&gt;Main Results&lt;/u&gt;&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure3.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(figure3. Comparison with the state-of-the-art on Kinetics-400.)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure4.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(figure3. Accuracy/complexity tradeof.)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;center&gt;&lt;img src=&quot;/assets/images/posts/2019-11-08-SlowFast/figure5.png&quot; width=&quot;1000&quot; hight=&quot;300&quot; /&gt;&lt;/center&gt;
-&lt;center&gt;(figure3. Per-category AP on AVA.)&lt;/center&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;제가 논문을 읽으면서 느낀점이 있는 몇가지 결과를 가지고 왔습니다. 
-figure3 의 경우 Kinetics 데이터에서 Resnet 101을 백본으로 사용한 SlowFast 네트워크가 Opticalflow 를 사용한 다른 네트워크보다 좋은 성능을 보이면서
-영상 인식에서 이제는 Opticalflow 보다는 RGB 채널을 통한 접근이 더 발전할 것으로 보입니다.
-figure4 의 경우 SlowFast Network 에서 Slow만 단일적으로 사용했을 때보다 Slow와 Fast를 같이 사용했을 때 더 효율적인 모습이 보여졌으며 네트워크가 깊어 질수록
-더 좋은 성능을 보여주었습니다.
-figure5 의 경우 Fast Pathway 의 문제점이라고 할 수 있는 점이 보였습니다. 위에서 말했듯이, Slow와 Fast를 같이 썼을 경우에 전체적으로 성능향상이 있었으나 몇가지 행동은
-그런게 많은 행동의 변화가 없는 경우가 있었습니다. Fast Pathway의 역할이 중요하지 않은 행동들 즉 잠을 자거나, 핸드폰으로 통화를 하는 등 움직임이 별로 없는 행동에서는 Slow Pathway 만 단독적으로 썼을 때가 더 성능이 좋았습니다. 이런 점을 보면 Fast Pathway가 정적인 행동에서는 긍정적인 영향을 미치지 않으며, 정적인 행동에서는 다른 접근법이 필요하다고 저는 느껴졌습니다.&lt;/p&gt;
-
-&lt;p&gt;이상 SlowFast 논문 리뷰를 마치며 읽어주신 분들께 감사드리며, 틀린 점이나 고쳐야 될 부분은 댓글이나 mwlee0860@gmail.com 으로 메일을 보내주시면 감사하겠습니다.&lt;/p&gt;</content><author><name>Sangwoo Lee</name></author><category term="paper-review" /><summary type="html">안녕하세요? 이번에 SlowFast 논문 Review를 하게된 AirLab 이상우입니다.</summary></entry><entry><title type="html">Transfer learning</title><link href="https://blog.airlab.re.kr/2019/11/Transfer-learning" rel="alternate" type="text/html" title="Transfer learning" /><published>2019-11-13T05:00:00+09:00</published><updated>2019-11-13T05:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/Transfer-learning</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/Transfer-learning">&lt;p&gt;Transfer learning 리뷰&lt;/p&gt;
-
-&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 노현철 입니다. 
-제가 이번에 리뷰할 논문은 &lt;strong&gt;“How transferable are features in deep neuralnetworks?”&lt;/strong&gt; 이른바 &lt;strong&gt;“transfer learning”&lt;/strong&gt; 에 관한 논문입니다.&lt;/p&gt;
-
-&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
-
-&lt;p&gt;transfer learning이란 
-적은 dataset에서 학습을 시키면 over-fitting이 일어날 가능성이 많아짐으로 많은 dataset에서 학습을 시킨 일부의 layer들을 가져와서 이 적은 dataset에 적용 시켜 적은 dataset에서도 강인함을 보여줄 수 있는 것이 transfer learning입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-Transfer-learning/01.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;모든 데이터셋으로 학습을 시키면 초반 레이어에서는 Generality한 파라미터들이 나오고 후반 레이어에서는 Specificity한 파라미터들이 나온다. transfer learning은 초반 레이어에 나오는 Generality한 파라미터를 이용하는 것이다. 그 이유는 각각의 데이터 셋을 학습시켜 얻고자하는  목적이나 원하는 것들이 다르기 때문에 Generality한 파라미터들을 사용하는 것이다. 이 논문에서는 어디까지가 Generality하고 어디서부터 Specificity한지 실험도 하였다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-Transfer-learning/02.png&quot; alt=&quot;Figure2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;그림에서 보듯이  Generality 레이어에서는 Gabor filters, color blobs 와 같은 것들이 학습된다.
-&lt;img src=&quot;/assets/images/posts/2019-11-13-Transfer-learning/03.png&quot; alt=&quot;Figure3&quot; /&gt;&lt;/p&gt;
-&lt;h5 id=&quot;gabor-filters&quot;&gt;Gabor filters&lt;/h5&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-Transfer-learning/04.png&quot; alt=&quot;Figure4&quot; /&gt;&lt;/p&gt;
-&lt;h5 id=&quot;color-blobs&quot;&gt;color blobs&lt;/h5&gt;
-
-&lt;h3 id=&quot;experimental&quot;&gt;Experimental&lt;/h3&gt;
-
-&lt;p&gt;● 1000개의 이미지넷에서 500(A), 500(B) 로 나누어 실험을 한다.&lt;/p&gt;
-
-&lt;p&gt;● A, B 모두 총 8개의 conv레이어를 사용할 것이다.&lt;/p&gt;
-
-&lt;p&gt;● transferred layers는 frozen시키거나 fine-tuned시키는 실험이다. fine-tuned을 사용한 것은 (+)가 쓰여져 있는 것이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-Transfer-learning/05.png&quot; alt=&quot;Figure5&quot; /&gt;
-그림에서 보듯이 baseA 와 baseB는 transfer없이 학습을 시킨 것이고 BnB, AnB는 각각 B에서 학습시킨 파라미터를 B에 적용, A에서 학습시킨 파라미터를 B에 적용한다는 의미이다. (+)가 붙은 경우들은 fine-tuned을 시킨경우들이다. (기본적으로 transferred layers들은 frozen 시킴) 
-transfer시키는 레이어의 범위는 1번째 레이어 에서부터 마지막 8번째 레이어 까지 각각 실험하여서 어디까지 General 한지보고, 또한 fine-tuning 하였을 때 성능의 변화가 있는지 보는 실험이다.&lt;/p&gt;
-&lt;h4 id=&quot;results&quot;&gt;results&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-13-Transfer-learning/06.png&quot; alt=&quot;Figure6&quot; /&gt;&lt;/p&gt;
-&lt;h4 id=&quot;bnb&quot;&gt;BnB&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;(n=1, 2) base B와 동일&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;(n=3,4,5) 성능저하
-    &lt;ul&gt;
-      &lt;li&gt;레이어간 co-adapted(동화기능)이 있어 상위 레이어만 이 기능을 배울 수 없다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;(n=6,7) 성능 다소상향
-    &lt;ul&gt;
-      &lt;li&gt;학습의 필요성이 점차 줄어듦.&lt;/li&gt;
-      &lt;li&gt;(6,7or7,8)사이 features가 co-adapted이 덜하다.&lt;/li&gt;
-      &lt;li&gt;중간보다 하단,상단이 optimization 하기 좋다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;bnb-1&quot;&gt;BnB+&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;전체적으로 base B와 비슷
-    &lt;ul&gt;
-      &lt;li&gt;co-adapted(동화기능)의 성능저하를 방지시켜줌.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;성능향상은 없었음.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;anb&quot;&gt;AnB&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;일부 layer는 Transfer Learning 하는것이 좋다.&lt;/li&gt;
-  &lt;li&gt;(n=1,2) layer는 general 하다.&lt;/li&gt;
-  &lt;li&gt;(n=3) 약간감소, (n=4,5,6,7) 성능대폭하락
-    &lt;ul&gt;
-      &lt;li&gt;이것으로 인해 두 가지 감소 이유를 알 수 있음.&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;p&gt;1) (n=3,4,5) co-adaptation으로 인한 감소&lt;/p&gt;
-
-    &lt;p&gt;2) (n=6,7) generality 보단 specificity 하기 때문&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;anb-1&quot;&gt;AnB+&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Fine-tuning은 좋은 성능을 보여줌.
-    &lt;ul&gt;
-      &lt;li&gt;Transfer Learning의 목적과 반대로 dataset이 많은 경우에도 사용하면 성능을 향상 시킬 수 있다!&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;(n=1~7) 성능을 유지, 성능 향상
-    &lt;ul&gt;
-      &lt;li&gt;이 효과는 첫번째 네트워크(A)의 양에 크게 의존하지 않음.&lt;/li&gt;
-      &lt;li&gt;이 효과는 너무 많은 retraining을 한다는 것은 놀라운 일.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;co-adapted 때문에 중간layers에서 분할하는 것은 어렵다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;상위layers의 specialization로 인해 Transfer Learning의 부정적인 영향을 끼친다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;random weights보단 Transfer Learning이 좋다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;new task에 Transfer Learning, fine-tuning을 더하면 성능을 향상 시키는데 유용할 수 있다.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;후기&quot;&gt;후기&lt;/h3&gt;
-
-&lt;p&gt;랩실에 들어오고 첫 세미나 발표를 한 논문이고, 또한 끝까지 읽어본 몇 안되는 논문이라 더욱 뜻깊고 기억에 남는 논문이였습니다.
-지금은 많이 부족하지만 세미나와 논문리뷰를 하면서 실력을 한층 한층 쌓아 나아가겠습니다. 감사합니다!!!!!&lt;/p&gt;</content><author><name>Hyeoncheol Noh</name></author><category term="paper-review" /><summary type="html">Transfer learning 리뷰</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 GCNet으로 (arXiv:1904.11492)으로 이번 ICCV 2019 워크숍에서 소개가 되었던 논문입니다.</summary></entry></feed>
