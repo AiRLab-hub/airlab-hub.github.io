@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-11-27T18:51:22+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">CAM: Learning Deep Features For Discriminative Localization</title><link href="https://blog.airlab.re.kr/2019/11/CAM" rel="alternate" type="text/html" title="CAM: Learning Deep Features For Discriminative Localization" /><published>2019-11-27T11:30:00+09:00</published><updated>2019-11-27T11:30:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/CAM</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/CAM">&lt;p&gt;안녕하세요 AiRLab 박주희입니다.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-11-27T18:56:34+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">CAM: Learning Deep Features For Discriminative Localization</title><link href="https://blog.airlab.re.kr/2019/11/CAM" rel="alternate" type="text/html" title="CAM: Learning Deep Features For Discriminative Localization" /><published>2019-11-27T11:30:00+09:00</published><updated>2019-11-27T11:30:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/CAM</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/CAM">&lt;p&gt;안녕하세요 AiRLab 박주희입니다.
 오늘 소개할 논문은 Learning Deep Features For Discriminative Localization 으로 CAM이라고도 불리며,CVPR2016 에서 소개된 논문입니다.&lt;/p&gt;
 
 &lt;hr /&gt;
@@ -15,21 +15,21 @@
 &lt;p&gt;앞선 연구들에서는 fully-connected layer를 무시하고 전체적으로 불완전하며 Conv층만 분석을 했습니다. 이 논문에서는 fc층을 없애고 대부분의 성능을 유지하였는데 이로써 네트워크의 처음부터 끝까지 이해를 할 수있게 되었고 이 방식은 차별화되는 이미지의 영역을 정확히 강조 할 수 있습니다.&lt;/p&gt;
 
 &lt;h4 id=&quot;cam-class-activation-map&quot;&gt;CAM (Class Activation Map)&lt;/h4&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/fig3.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/fig3.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
 CNN에서 Global Average Pooling을 사용하여 CAM을 생성 합니다.&lt;br /&gt;
 특정 카테고리에 대한 CAM은 해당 카테고리를 식별하기위해 CNN이 사용하는 차별화된 이미지 영역을 나타냅니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/fig2.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/fig2.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
 위 그림은 map 생성 절차입니다.
 Network In Network와 GoogleNet과 유사한 network의 아키텍쳐를 사용하여 주로 conv층으로 구성되며 최종 출력 직전의 conv feature map에 fc대신 GAP를 사용하였습니다.
 GAP는 마지막 conv layer에서 각 단위의 feature map의 spatial 평균을 출력합니다.
 이 값의 가중합은 최종 출력 생성에 사용되는데 이와 유사하게 이 논문에서는 CAM을 얻기 위해 conv layer의 feature map의 가중치 합을 계산하게 됩니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/function1.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
-&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/function2.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/function1.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/function2.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
 F&lt;sub&gt;k&lt;/sub&gt;는 feature map을 의미하며, softmax의 식은 weight들과 F&lt;sub&gt;k&lt;/sub&gt;들과의 sum을 의미합니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/fig4.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/fig4.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
 이 그림은 MAP을 생성하기 위해 다른 클래스들을 사용할 때 단일 영상에 대한 CAM의 차이를 강조합니다. 
 다른 카테고리에 대한 차별적인 영역이 특정 이미지에 대해서도 다른 것을 관찰합니다.&lt;/p&gt;
 
@@ -42,22 +42,22 @@ F&lt;sub&gt;k&lt;/sub&gt;는 feature map을 의미하며, softmax의 식은 weig
 또한 AlexNet, VGGnet, GoogleNet을 각각 수정하여 AlexNet-GAP, VGGnet-GAP, GoogleNet-GAP네트워크를 만들었습니다.&lt;/p&gt;
 
 &lt;h3 id=&quot;classification-results&quot;&gt;Classification Results&lt;/h3&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/table1.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/table1.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
 전체적으로 conv layer를 제거하고 GAP를 사용한 네트워크들이 성능이 1-2%떨어진 모습을 볼 수있습니다.
 AlexNet*-GAP는 GAP전에 conv layer를 2개 더 추가한 네트워크입니다. 
  localization에 대한 높은 성능을 얻기 위해서는 classification 성능이 중요한 것을 알 수있습니다.&lt;/p&gt;
 
 &lt;p&gt;### Localization Results
- &lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/table1.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;&lt;/p&gt;
+ &lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/table1.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Simple thresholding technique를 사용하여 heat 된 map의 부분을 찾는 방식을 사용하였습니다. 
 (Simple thresholding technique 이란 Activation map에서 max 값을 찾아 그 20% 이상이 되는 영역을 찾고 labeling을 통해 가장 큰 덩어리를 찾고 그것을 둘러싼 bounding box를 찾는 방법입니다.)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/table2.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/table2.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
 이 테이블은 이전 연구인 backpropagation기법을 쓴 네트워크와 CAM을 적용한 네트워크를 비교한 것입니다.&lt;br /&gt;
 GoogleNet-GAP가 가장 성능이 좋은 것을 볼 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/table3.png&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-26-CAM/table3.PNG&quot; width=&quot;50%&quot; alt=&quot;error&quot; /&gt;
 Weakly-Supervised방식과 fully-supervised방식을 쓴 네트워크를 비교한 테이블입니다. 
 GoogleNet-GAP(heuristics)가 37.1%로 CAM방법중 가장 성능이 좋지만 fully-supervised 방식을 쓴 AlexNet과 성능이 비슷하며 GoogleNet끼리 비교를 했을때는 약간의 성능 저하가 보입니다. 
 따라서 이 논문에서는 fully-supervised 네트워크와 비교를 하기에는 아직 무리가 있다고 판단을 하였습니다. 
@@ -475,39 +475,39 @@ KNN : mix between k-nearest neighbors(k=200)
 
 &lt;p&gt;Manifold Mixup을 이해하기 위해서는 우선 매니폴드 가 무엇인지 먼저 아셔야 합니다. 저는 이 논문을 이해할 정도로만 매니폴드를 설명할 것 이니, 혹시 더 궁금하시다면, &lt;a href=&quot;https://www.youtube.com/watch?v=o_peo6U7IRM&amp;amp;t=4692s&quot;&gt;https://www.youtube.com/watch?v=o_peo6U7IRM&amp;amp;t=4692s&lt;/a&gt; 이활석님의 매니폴드 설명을 참고하시면 됩니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img2.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img2.PNG&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;위의 그림이 매니폴드를 나타내는 그림 입니다. 매니폴드란 데이터가 사는 공간입니다. 위의 사진처럼 한 매니폴드가 있으면, 그 위에 모든 데이터를 표현할 수 있고, 그림처럼 똑같은 4 이더라도 다 다른 위치에 있습니다. 또한 사람눈으로는 매우 닮아있는 4 라고 할지라도 매니폴드상 거리가 멀수도, 가까울 수도 있습니다. 직관적으로 딥러닝은 이러한 매니폴드에서 공통된 특성을 가로지르는 하나의 선을 찾는 것 이라고 생각하셔도 될 것 같습니다.
 이제 매니폴드를 간략하게 알았으니 다음 설명으로 넘어가겠습니다.&lt;/p&gt;
 
 &lt;p&gt;논문 저자는 친절하게 Manifold Mixup을 한줄로 요약해 줍니다. “Manifold Mixup improves the hidden representations and decision boundaries of neural networks at multiple layers.” 즉 매니폴드 믹스업이란, “다중 레이어가 있을때 그냥 믹스업 처럼 인풋만 이미지를 섞어버리면 불공평하니, 다중 레이어 모든 핏쳐맵에서 섞자!” 입니다. 실제로 이 말이 이 논문의 전부이며 앞으로는 이 말을 증명하고 실험하는 과정입니다. 또한 이 논문은 라벨 스무딩의 효과가 있다. 라고 생각하시면 이해하기 편하실것 같습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img3.png&quot; alt=&quot;Figure1&quot; /&gt;
-&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img4.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img3.PNG&quot; alt=&quot;Figure1&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img4.PNG&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;위의 그림들은 저자가 2D spiral dataset으로 시각화한 그림입니다. 상단의 그림의 왼쪽은 아무것도 사용하지 않은 base이며, 상단의 오른쪽은 Manifold Mixup 입니다. 그림에서 보이는것과 같이 두개의 정확도는 비슷하지만, base는 오버피팅이 생긴 것을 한 눈에 알수 있고, Manifold Mixup은 오버피팅이 일어나지 않은 것을 볼수 있습니다. 또한 아래의 그림은 기존 유명 regularizers 들과의 성능을 정성적으로 비교한 것이며, 정성적으로는 Manifold Mixup이 좋아 보이나, “Manifold Mixup이 다른 타 regularizers들을 능가하는 방법이다!” 라고 생각하지 마시고, 그냥 저런 유명 방법들과 견줄만한 방법이다. 정도로만 생각하시면 좋을것 같습니다.&lt;/p&gt;
 
 &lt;h3 id=&quot;manifold-mixup&quot;&gt;Manifold Mixup&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img5.png&quot; alt=&quot;Figure1&quot; /&gt;
-&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img6.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img5.PNG&quot; alt=&quot;Figure1&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img6.PNG&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;위의 수식들은 Manifold Mixup을 이해하기 쉽게 저자가 수식으로 표현한 것이며, 상단의 수식은 매니폴드에 존재하는 hidden states를 섞고, label도 그 수치만큼 섞겠다는 이야기 입니다. 아래의 수식은 전체 학습 프로세스가 어떻게 작동되는지 설명한 수식이며, 학습이 진행되면 input을 포함한 hidden states에 Mixup이 동작한다는 수식입니다. 또한 Beta는 Beta분포를 따르는 것을 의미합니다. Beta분포를 사용한 이유는 랜덤하게 뽑으면 섞이는 두 대상이 일정하게 섞일 확률이 높기 때문에, 한쪽이 더 우세하게 섞기 위하여 Beta분포를 사용한 것 입니다.&lt;/p&gt;
 
 &lt;h3 id=&quot;empirical-investigation-of-flattening&quot;&gt;Empirical Investigation of Flattening&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img7.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img7.PNG&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;논문 저자는 Flattening 하는 것이 왜 좋은가를 실험하기 위하여 MNIST데이터 셋에서 Singular Value Decomposition (SVD)을 통하여 실험합니다.
 SVD를 직관적으로 설명하면 선형대수에서 배우는 특이값 분해로 같은 이미지에서 투영변환, 스케일변환, 회전변환을 하였을때 딥러닝 관점에서 augmentation이 된 데이터들 즉 매니폴드를 지나가는 직선의 거리 라고 생각하시면 될 것 같습니다. 이러한 SVD 값이 Maniflod Mixup이 가장 작았습니다. 위의 그림은 이것을 시각화 한 것이고, Manifold Mixup을 사용한 방법에서 MNIST 데이터들이 잘 분류된걸 확인할 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img8.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img8.PNG&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;또한 논문저자는 위의 그래프와 같이 다양한 어규멘테이션에서 실험을 합니다. 논문저자가 주장한대로 Maniflod Mixup을하면 매니폴드를 직관하는 선을 찾기 쉬워져 같은 데이터라면 결과가 좋아야 합니다. 위 그래프도 논문저자가 주장한대로 매니폴드 믹스업은 다양한 데이터에서 강인합니다. 하지만 아쉬운 점은 이 논문 저자는 극한의 튜닝을 했습니다. epoch를 2000까지 돌리는둥 ,,, 최소 1200epoch를 학습합니다.&lt;/p&gt;
 
 &lt;h3 id=&quot;experiments&quot;&gt;Experiments&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img9.png&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-22-manifold-mixup/img9.PNG&quot; alt=&quot;Figure1&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;마지막으로 실험 입니다. 논문 저자는 CIFAR10, 100 TINY Imagenet에서 실험을 하였습니다. 위의 표는 그 결과 입니다. 보이시는것과 같이 CIFAR10,100에서는 베타분포를 만들때 사용하는 알파값이 2일때 성능이 가장 좋고 Manifold Mixup에서 성능이 가장 좋습니다. 하지만 TINY Imagenet에서는 mixup보다 성능이 낮은데, 아마 tiny라 그런것이고, full imagenet이면 manifold mixup이 더 좋습니다. 그 결과는 cutmix논문을 참고하시면 확인하실수 있습니다.&lt;/p&gt;
 
@@ -557,7 +557,7 @@ SVD를 직관적으로 설명하면 선형대수에서 배우는 특이값 분�
   &lt;li&gt;loss값을 최소화하기 위해 parameterθ을 최적화시킴&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/1.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/1.PNG&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;SGD 사용 시 특징&lt;br /&gt;&lt;/li&gt;
@@ -587,7 +587,7 @@ SVD를 직관적으로 설명하면 선형대수에서 배우는 특이값 분�
 
 &lt;p&gt;[batch normalization 공식]&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/2.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/2.PNG&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;mini batch 단위에서 정규화 수행&lt;br /&gt;&lt;/li&gt;
@@ -597,31 +597,31 @@ SVD를 직관적으로 설명하면 선형대수에서 배우는 특이값 분�
 
 &lt;h3 id=&quot;experiments_mnist&quot;&gt;[Experiments_MNIST]&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/3.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/3.PNG&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;⦁Batch Normalization makes the distribution more stable and reduces the internal covariate shift.&lt;/p&gt;
 
 &lt;p&gt;[Experiments_ImageNet classification]&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/6.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/6.PNG&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;group-normalization과-batch-normalization-비교&quot;&gt;[Group normalization과 Batch normalization 비교]&lt;/h3&gt;
 
 &lt;p&gt;Normalization formulation
-&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/9.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/9.PNG&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;① Batch normalization
-&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/10.png&quot; alt=&quot;Batch Normalization&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/10.PNG&quot; alt=&quot;Batch Normalization&quot; /&gt;
  -&amp;gt; batch 단위로 정규화 수행 &lt;br /&gt;
  -&amp;gt; batch norm의 문제점 : batch size 단위로 정규화 시키는 과정에서 batch size에 의존적이게 되고, batch size가 작을 경우 학습이 잘 이루어지지 않음 &lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;② Group normalization
-&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/11.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/11.PNG&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;위와 같은 문제점을 해결하기 위해 정규화를 batch 단위로 하지 않고, channel을 그룹으로 나누어 그 그룹을 단위로 정규화 수행&lt;br /&gt;
  (더 이상 batch size에 의존적이지 않음)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/12.png&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-18-BN/12.PNG&quot; alt=&quot;Batch Normalization&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;-&amp;gt; 위에 실험을 보면 batch size에 의존적인 BN은 batch size 별로 학습에 차이를 보였고, batch size에 비의존적인 GN은 어떤 batch size에도 학습이 잘 이루어지는 것을 확인할 수 있다.&lt;/p&gt;</content><author><name>Hyeyun Kang</name></author><category term="paper-review" /><summary type="html">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</summary></entry><entry><title type="html">Shake-Shake regularization</title><link href="https://blog.airlab.re.kr/2019/11/shake-shake-regularization" rel="alternate" type="text/html" title="Shake-Shake regularization" /><published>2019-11-16T11:00:00+09:00</published><updated>2019-11-16T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/shake-shake-regularization</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/shake-shake-regularization">&lt;h3 id=&quot;shake-shake-regularization-리뷰&quot;&gt;Shake-Shake regularization 리뷰&lt;/h3&gt;
 
@@ -631,46 +631,46 @@ SVD를 직관적으로 설명하면 선형대수에서 배우는 특이값 분�
 
 &lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img1.png&quot; alt=&quot;Figure1&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img1.PNG&quot; alt=&quot;Figure1&quot; /&gt;
 위 그림과 같이 컴퓨터는 사람과는 다르게 물체를 일정 규칙이 있는 스칼라 값으로 인식합니다. 그렇다면 컴퓨터 입장에서는 feature map 그리고 이미지 는 일정 규칙이 있는 데이터이기 때문에 현재처럼 이미지에서만 Data augmentation을 하지말고, Internal Representations에도 Data augmentation을 해주자고 주장합니다. 또한 Internal Representations에 Data augmentation을 해주면 stochastically “blending” 효과가 있다고 주장합니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;model-description-on-3-branch-resnets&quot;&gt;Model description on 3-branch ResNets&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img2.png&quot; alt=&quot;Figure2&quot; /&gt;
-&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img3.png&quot; alt=&quot;Figure3&quot; /&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img2.PNG&quot; alt=&quot;Figure2&quot; /&gt;
+&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img3.PNG&quot; alt=&quot;Figure3&quot; /&gt;
 논문 저자는 Shake-Shake regularization을 적용하기 간편한 ResNet 구조에서 실험을 하고, 이해를 돕기 위하여 위와 같은 간단한 수식을 말합니다. 위에 보이는 수식 1은 일반적은 resnet입니다. W는 weight이고, x는 텐서, F는 residual function입니다. 논문 저자는 수식 2와 같이, F앞에 일정 α(0과 1 사이의 랜덤한 값)을 곱해줘 Internal Representations에 Data augmentation을 해주는 효과를 냅니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;training-procedure&quot;&gt;Training procedure&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/cover.png&quot; alt=&quot;Figure4&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/cover.PNG&quot; alt=&quot;Figure4&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;위 그림은 shake-shake-regularization의 전체 학습 절차 입니다. 학습의 forward 부분에서도 α[0~1] 사이의 값을 곱해줘서 data augmentation 효과를 주고, backward 부분에도 β[0~1]의 값을 곱해줘서 기존의 연구 되었던 gradient noise를 주는 방식을 gradient augmentaion으로 대체해 줄 수 있다고 논문 저자는 주장합니다. 또한 테스트시에는 0.5로 값을 고정해 줍니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;cifar-10-cifar-100&quot;&gt;CIFAR-10, CIFAR-100&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img4.png&quot; alt=&quot;Figure5&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img4.PNG&quot; alt=&quot;Figure5&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;위 그림과 같이 본 논문의 저자는 다양한 실험을 진행하였습니다. Forward pass는 Even / Shake, Backward pass는 Even / Shake / Keep, Mini-batch update rule 은 Image / Batch로 진행하였습니다. Even은 α값을 0.5로 고정하는 방법이고, Shake는 α값은 0~1사이의 값을 랜덤하고 곱해줍니다. Backward의 Kepp은 Forward에 사용한 α값을 그대로 사용하는것 입니다. 또한 Image는 미니배치에서 모든 이미지에 α,β 를 적용하는것이고, Batch 는 미니 배치 단위로 다 같은 α,β를 적용하는것 입니다. 위 그림과 같이 shake shake image가 가장 성능이 좋았고, Even shake batch가 가장 성능이 안 좋았습니다. shake shake image 가 가장 많은 augmentation을 적용한 것이니 당연한 결과라고 생각하고 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img5.png&quot; alt=&quot;Figure6&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img5.PNG&quot; alt=&quot;Figure6&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;위 그림은 배치사이즈를 128에서 32로 줄인 다음 CIFAR100에서 실험한 테이블 입니다. 위에 보이는 결과와 같이 배치사이즈가 줄어 들때는 S S I 조합 보다는 S E I 조합이 조금 더 경쟁력 있다는 것을 알 수 있습니다. 논문저자도 이와 관련해서 해석을 하지 못했습니다. 저 또한 그 이유를 해석하는데 어려움이 있어 혹시 아시는분은 댓글 부탁 드립니다. ㅠㅡㅠ&lt;/p&gt;
 
 &lt;h2 id=&quot;comparisons-with-state-of-the-art-results&quot;&gt;Comparisons with state-of-the-art results&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img6.png&quot; alt=&quot;Figure7&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img6.PNG&quot; alt=&quot;Figure7&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;위 표는 기존의 state-of-the-art 결과와 비교한 표 입니다. 보이시는 것과 같이 저자가 주장한 방법이 state-of-the-art를 달성하였습니다. CIFAR10 에서는 S S I 가 CIFAR100에는 S E I 가 가장 좋았습니다. 이 결과를 분석해보면, gradient에 β를 곱해주는 방법은 좋은 성능을 보장하지 못합니다. 제 생각에는 저자가 주장하는 방법은 gradient noise방법을 완벽하게 대체하지는 못하는 것 같습니다. 또한 논문 저나는 imagenet실험을 하지 않아 많이 아쉽습니다.(제 생각에는 imagenet에서는 잘 안될것 같긴 합니다.)&lt;/p&gt;
 
 &lt;h2 id=&quot;correlation-between-residual-branches&quot;&gt;Correlation between residual branches&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img7.png&quot; alt=&quot;Figure8&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img7.PNG&quot; alt=&quot;Figure8&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;마지막으로 논문저자는 Shake-Shake regularization을 분석합니다. residual branches사이의 공분산을 구하여 서로의 관계성을 계산합니다. 위 그림은 feature map을 펼친후 나온 스칼라 값들로 관계성을 구한것 입니다. 거의 아무것도 안해준 조합인 Even Even Batch 와 거의 모든 augmentation을 해준 Shake Shake Image 조합을 비교 하였습니다. 그 결과, Shake Shake Image 조합에서 residual branches 값들 사이의 관계성이 작게 나왔으므로, Shake-Shake regularization을 해준다면 overfitting이 일어날 확률을 낮춰줄 수 있음을 보여줍니다.&lt;/p&gt;
 
 &lt;h2 id=&quot;후기&quot;&gt;후기&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img8.png&quot; alt=&quot;Figure9&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img8.PNG&quot; alt=&quot;Figure9&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;위 그림과 같이 사실 이 논문 저자는 실험을 상당히 많이 했습니다. BatchNorm을 사용하지 않거나, skip connection을 제거하는등 많은 실험을 하였습니다. 하지만 본 리뷰에서 그런 실험을 리뷰하지 않는 이유는 너무나도 당연하기 때문입니다. BatchNorm을 사용하면 성능저하가 있고, skip connection을 제거하면 성능의 약간의 향상은 있지만 유의미 하지는 않습니다. 또한 그 행동이 CIFAR10,100이여서 상승한 것이지 imagenet이었다면 어떻게 될지 모른다는 생각을 했습니다. 이 논문 자체로는 유의미하게 좋은 논문이라고 생각들진 않지만, shake drop, mixup, cutmix등 다른 augmentation 논문을 읽을때 큰 도움이 된다고 생각이 됩니다. (또한 이 논문이 쓸 내용이 없을떄 어떻게 논문을 꽉 꽉 채울수 있나 좋은 교본으로 느껴졌습니다 ㅋㅋㅋ)&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Shake-Shake regularization 리뷰</summary></entry><entry><title type="html">GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond</title><link href="https://blog.airlab.re.kr/2019/11/gcnet" rel="alternate" type="text/html" title="GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond" /><published>2019-11-16T11:00:00+09:00</published><updated>2019-11-16T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/gcnet</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/gcnet">&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!
 오늘 소개할 논문은 GCNet으로 (&lt;a href=&quot;https://arxiv.org/abs/1904.11492&quot;&gt;arXiv:1904.11492&lt;/a&gt;)으로 이번 ICCV 2019 워크숍에서 소개가 되었던 논문입니다.&lt;/p&gt;
