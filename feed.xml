@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-11-27T18:56:34+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">CAM: Learning Deep Features For Discriminative Localization</title><link href="https://blog.airlab.re.kr/2019/11/CAM" rel="alternate" type="text/html" title="CAM: Learning Deep Features For Discriminative Localization" /><published>2019-11-27T11:30:00+09:00</published><updated>2019-11-27T11:30:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/CAM</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/CAM">&lt;p&gt;안녕하세요 AiRLab 박주희입니다.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://blog.airlab.re.kr/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.airlab.re.kr/" rel="alternate" type="text/html" /><updated>2019-12-11T13:28:36+09:00</updated><id>https://blog.airlab.re.kr/</id><title type="html">AiRLab. Research Blog</title><subtitle>Artificial intelligence and Robotics Laboratory</subtitle><entry><title type="html">2019년 2학기 정기 상담(2차) 안내</title><link href="https://blog.airlab.re.kr/2019/12/191211" rel="alternate" type="text/html" title="2019년 2학기 정기 상담(2차) 안내" /><published>2019-12-10T19:00:00+09:00</published><updated>2019-12-10T19:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/12/191211</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/12/191211">&lt;p&gt;한밭대학교 정기상담 안내&lt;/p&gt;
+
+&lt;p&gt;최동걸 교수님 상담학생은 아래 한글파일을 참조하여 상담하시기 바랍니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;/assets/post-files/2019-09-03-notice/19년2학기2차상담_학번_이름.hwp&quot; target=&quot;_blank&quot;&gt;19년2학기2차상담_학번_이름.hwp&lt;/a&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;상담을 원하는 아래 댓글로 상담 요청 시간을 적을 것. (학번과 이름을 반드시 명시할 것)&lt;/li&gt;
+  &lt;li&gt;상담 받기 하루 전 위 파일을 내려받아 빨간색으로 표시되어 있는 부분을 본인에 맞게 작성하고 &lt;strong&gt;파일 제목을 19년2학기2차상담_학번_이름.hwp로 작성하여 dgchoi@hanbat.ac.kr로 보낼 것&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;상담 내용은 공백 제외 &lt;strong&gt;최소 500자 이상&lt;/strong&gt; 작성할 것&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;대면 상담을 추천하지만 상담일정상 바쁜 학생은 서면상담으로 대체 가능&lt;/li&gt;
+  &lt;li&gt;대면 상담을 원하지만 일정이 맞지 않는 학생은 교수님께 문의 드릴 것.(dgchoi@hanbat.ac.kr)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/post-files/2019-09-03-notice/time.png&quot; alt=&quot;시간표&quot; /&gt;&lt;/p&gt;</content><author><name>AiRLab.</name></author><category term="notice" /><summary type="html">한밭대학교 정기상담 안내</summary></entry><entry><title type="html">CAM: Learning Deep Features For Discriminative Localization</title><link href="https://blog.airlab.re.kr/2019/11/CAM" rel="alternate" type="text/html" title="CAM: Learning Deep Features For Discriminative Localization" /><published>2019-11-27T11:30:00+09:00</published><updated>2019-11-27T11:30:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/CAM</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/CAM">&lt;p&gt;안녕하세요 AiRLab 박주희입니다.
 오늘 소개할 논문은 Learning Deep Features For Discriminative Localization 으로 CAM이라고도 불리며,CVPR2016 에서 소개된 논문입니다.&lt;/p&gt;
 
 &lt;hr /&gt;
@@ -672,91 +688,4 @@ SVD를 직관적으로 설명하면 선형대수에서 배우는 특이값 분�
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-shake-shake-regularization/img8.PNG&quot; alt=&quot;Figure9&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;위 그림과 같이 사실 이 논문 저자는 실험을 상당히 많이 했습니다. BatchNorm을 사용하지 않거나, skip connection을 제거하는등 많은 실험을 하였습니다. 하지만 본 리뷰에서 그런 실험을 리뷰하지 않는 이유는 너무나도 당연하기 때문입니다. BatchNorm을 사용하면 성능저하가 있고, skip connection을 제거하면 성능의 약간의 향상은 있지만 유의미 하지는 않습니다. 또한 그 행동이 CIFAR10,100이여서 상승한 것이지 imagenet이었다면 어떻게 될지 모른다는 생각을 했습니다. 이 논문 자체로는 유의미하게 좋은 논문이라고 생각들진 않지만, shake drop, mixup, cutmix등 다른 augmentation 논문을 읽을때 큰 도움이 된다고 생각이 됩니다. (또한 이 논문이 쓸 내용이 없을떄 어떻게 논문을 꽉 꽉 채울수 있나 좋은 교본으로 느껴졌습니다 ㅋㅋㅋ)&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Shake-Shake regularization 리뷰</summary></entry><entry><title type="html">GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond</title><link href="https://blog.airlab.re.kr/2019/11/gcnet" rel="alternate" type="text/html" title="GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond" /><published>2019-11-16T11:00:00+09:00</published><updated>2019-11-16T11:00:00+09:00</updated><id>https://blog.airlab.re.kr/2019/11/gcnet</id><content type="html" xml:base="https://blog.airlab.re.kr/2019/11/gcnet">&lt;p&gt;안녕하세요. &lt;strong&gt;AiRLab&lt;/strong&gt;(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다!
-오늘 소개할 논문은 GCNet으로 (&lt;a href=&quot;https://arxiv.org/abs/1904.11492&quot;&gt;arXiv:1904.11492&lt;/a&gt;)으로 이번 ICCV 2019 워크숍에서 소개가 되었던 논문입니다.&lt;/p&gt;
-
-&lt;p&gt;이전에 소개시켜드렸던 &lt;a href=&quot;https://j911.me/2019/11/nonlocal.html&quot;&gt;Non-local&lt;/a&gt;을 시각화하고, 문제점을 지적하는 논문으로 의미가 크다고 생각합니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;non-local&quot;&gt;Non-local&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/non-local.png&quot; width=&quot;60%&quot; alt=&quot;non-local&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Non-local Block은 Global Conext를 query-specific하게 접근하는 방식으로 많이 알려져 왔습니다.&lt;/p&gt;
-
-&lt;p&gt;위 그림의 NL 블록을 보더라도 Shape이  HW x HW 로 각 포인트에 대하여 전체 포인트에 대한 Score Map을 만드는 것을 볼 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;이번 GCNet에서는 이러한 필터를 시각화해보았는데요.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure2.png&quot; width=&quot;60%&quot; alt=&quot;figure1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 결과를 보면 각 Point(query)에 대한 NL의 시각화 맵을 볼 수 있는데, 여기서 재밌는 것은 서로 다른 Point에 대하여 모든 결과들이 거의 유사한 heatmap을 보인다는 것입니다. 이는 정량적으로도 확인을 할 수 있는데요.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure3.png&quot; width=&quot;60%&quot; alt=&quot;figure2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 Method는 여러 Non-local의 종류이고, E-Gaussian(Embedding Gaussian)이 Original NL 입니다.&lt;/p&gt;
-
-&lt;p&gt;여기서의 Cosine distance를 보더라고, 서로 다른 InPut에 대하여 큰 차이가 없는 Output이 나오는 것을 정량적으로도 확인을 할 수 있습니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;simplifying-the-non-local-block-snl&quot;&gt;Simplifying the Non-local Block (SNL)&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure7.png&quot; width=&quot;50%&quot; alt=&quot;figure6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 결과처럼 모든 point에서 유사한 heatmap이 나온다고 하면, 충분히 NL의 크기를 줄일 수 있을 것이라고 생각이 드실 겁니다. 논문에서도 이러한 부분을 지적하며 경량화된 Simplifying Non-local Block을 제시하는데요.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure4.png&quot; width=&quot;50%&quot; alt=&quot;figure3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 수식은 기존의 NL로 각 point i에 대하여, 모든 point j가 연산되는 i, j가 서로 연관적인 것으로 표현이 되고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;하지만 위의 결과처럼 모든 포인트에 대하여, 비슷한 결과가 나오고 있으니 i와 j는 독립적(query independent)으로 아래와 같이 변경해 볼 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure5.png&quot; width=&quot;50%&quot; alt=&quot;figure4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;여기서 조금 더 연산량을 줄이기 위해 W(v)를 밖으로 뺌으로서 아래의 SNL이 완셩이 됩니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure6.png&quot; width=&quot;50%&quot; alt=&quot;figure5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;아래 Mask RCNN에서의 결과를 보게 되면 NL과 SNL의 성능이 크게 차이가 나지 않음을(아니 조금더 좋음을?)볼 수 있습니다. 또한 연산량과, Prams를 보더라도 SNL이 훨씬 효율적이여 보입니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure8.png&quot; width=&quot;50%&quot; alt=&quot;figure7&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;global-context-block&quot;&gt;Global Context Block&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure9.png&quot; width=&quot;80%&quot; alt=&quot;figure8&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 사진처럼 Global Context 모듈들은 Context modeling과 Transform 모델로 분리되어 표현이 될 수 있습니다. 여기서 GCNet은 SNL의 context modeling block 과 SE block의 Transform block이 합쳐진 형태로 구성이 되었습니다. 때문에 SE의 Transform에서 Conv를 2번 나누어 계산 하는 효과인 연산량을 더 낮추는 효과도 가지게 되었습니다.(SNL Transform 연산량: C&lt;em&gt;C, GCNet 연산량: C&lt;/em&gt;C/r + C/r*C)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure10.png&quot; width=&quot;50%&quot; alt=&quot;figure9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이를 위해 하이퍼 파라미터(r) 하나가 추가 되었는데요, 논문에서는 r을 4로 설정한 것이 가장 높은 성능을 보인다고 보여주고 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure11.png&quot; width=&quot;50%&quot; alt=&quot;figure10&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;추가적으로 Layer Norm을 추가하여, Normalize 및 Regularize의 효과를 보았다고 합니다.&lt;/p&gt;
-
-&lt;p&gt;따라서, 최종적으로 GCNet은 아래 수식 하나로 표현이 되게 됩니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure12.png&quot; width=&quot;50%&quot; alt=&quot;figure11&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;experiment&quot;&gt;Experiment&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/posts/2019-11-16-gcnet/figure12.png&quot; width=&quot;50%&quot; alt=&quot;figure12&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;논문의 실험은 Mask RCNN과 Classification, Action Recognition에서 실험되었고, 모든 보틀넥에서 GCBlock을 사용한 것이 가장 좋은 성능을 보였습니다.&lt;/p&gt;
-
-&lt;h2 id=&quot;마치며&quot;&gt;마치며..&lt;/h2&gt;
-
-&lt;p&gt;이번 논문은 NL의 문제점을 지적하고, NL을 시각화 하는 것만으로도 충분하게 의미기 큰 논문이었던 것 같습니다. 또한 NL의 파라미터와 연산량을 줄여 기존에 한개 혹은 두개만 사용가능 했던 것을 모든 보틀넥에 삽입하여 성능을 크게 키운 것도 인상적입니다.&lt;/p&gt;
-
-&lt;p&gt;하지만, all GCNet처럼, all SNL도 실험 결과가 있었으면 하는 아쉬움도 남습니다.&lt;/p&gt;
-
-&lt;p&gt;이번에 ICCV2019를 다녀와서 다음번에 ICCV에 소개되었던 재밌는 논문들을 더 소개시켜드리도록 하겠습니다. 감사합니다 :)&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Cao, Yue, et al. “GCNet: Non-local Networks Meet Squeeze-Excitation Networks and Beyond.” arXiv preprint arXiv:1904.11492 (2019).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://j911.me/2019/11/nonlocal.html&quot;&gt;https://j911.me/2019/11/nonlocal.html&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Jaemin Lee</name></author><category term="paper-review" /><summary type="html">안녕하세요. AiRLab(한밭대학교 인공지능 및 로보틱스 연구실) 이재민입니다! 오늘 소개할 논문은 GCNet으로 (arXiv:1904.11492)으로 이번 ICCV 2019 워크숍에서 소개가 되었던 논문입니다.</summary></entry></feed>
+&lt;p&gt;위 그림과 같이 사실 이 논문 저자는 실험을 상당히 많이 했습니다. BatchNorm을 사용하지 않거나, skip connection을 제거하는등 많은 실험을 하였습니다. 하지만 본 리뷰에서 그런 실험을 리뷰하지 않는 이유는 너무나도 당연하기 때문입니다. BatchNorm을 사용하면 성능저하가 있고, skip connection을 제거하면 성능의 약간의 향상은 있지만 유의미 하지는 않습니다. 또한 그 행동이 CIFAR10,100이여서 상승한 것이지 imagenet이었다면 어떻게 될지 모른다는 생각을 했습니다. 이 논문 자체로는 유의미하게 좋은 논문이라고 생각들진 않지만, shake drop, mixup, cutmix등 다른 augmentation 논문을 읽을때 큰 도움이 된다고 생각이 됩니다. (또한 이 논문이 쓸 내용이 없을떄 어떻게 논문을 꽉 꽉 채울수 있나 좋은 교본으로 느껴졌습니다 ㅋㅋㅋ)&lt;/p&gt;</content><author><name>Minseok Seo</name></author><category term="paper-review" /><summary type="html">Shake-Shake regularization 리뷰</summary></entry></feed>
